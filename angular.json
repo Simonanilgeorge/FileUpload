@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "NTC"
+    }
+  },
+  "defaultProject": "NTC",
+  "cli": {
+    "analytics": "bae2d873-6bb2-477e-8026-35c7087032a5"
+  }
 }
