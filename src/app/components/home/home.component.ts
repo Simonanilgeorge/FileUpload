@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import {UploadService} from '../../providers/upload.service'
+import * as _ from 'lodash';
 
-import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -10,34 +13,58 @@ import * as XLSX from 'xlsx';
 })
 export class HomeComponent implements OnInit {
 
-  data:[][]
-  constructor() { }
+  @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
+  fileUploadForm: FormGroup;
+  fileInputLabel: string;
+
+  constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
   ngOnInit(): void {
-
+    this.fileUploadForm = this.formBuilder.group({
+      myfile: ['']
+    });
   }
-  onFileChange(evt:any){
-    const target:DataTransfer=<DataTransfer>(evt.target);
-    if(target.files.length!=1){
-      throw new Error('cannot use multiple files');
-      
+
+  onFileSelect(event) {
+    let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      // console.log(file);
+
+      if (!_.includes(af, file.type)) {
+        alert('Only EXCEL Docs Allowed!');
+      } else {
+        this.fileInputLabel = file.name;
+        this.fileUploadForm.get('myfile').setValue(file);
+      }
     }
-    const reader:FileReader=new FileReader();
-    reader.onload=(e:any)=>{
-      const bstr:string=e.target.result;
-      const wb:XLSX.WorkBook=XLSX.read(bstr,{type:'binary'});
-      const wsname:string=wb.SheetNames[0]
-      const ws:XLSX.WorkSheet=wb.Sheets[wsname]
-      console.log(ws);
-      // To display the data as an array
-      this.data=(XLSX.utils.sheet_to_json(ws,{header:1}))
-
-      console.log(this.data);
-      
-      
-    };
-    reader.readAsBinaryString(target.files[0]);
   }
 
+  onFormSubmit() {
+
+    if (!this.fileUploadForm.get('myfile').value) {
+      alert('Please fill valid details!');
+      return false;
+    }
+
+    const formData = new FormData();
+    formData.append('formFile', this.fileUploadForm.get('myfile').value);
+    formData.append('agentId', '007');
+
+    this.uploadService.uploadFile(formData).subscribe((res)=>{
+      console.log(res);
+      if (res.statusCode === 200) {
+        // Reset the file input
+        this.uploadFileInput.nativeElement.value = "";
+        this.fileInputLabel = undefined;
+      }
+      
+    },(err)=>{
+      console.log("error");
+      
+
+    })
+  
+  }
 
 }

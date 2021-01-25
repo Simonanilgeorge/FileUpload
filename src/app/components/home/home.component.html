@@ -1,2 +1,21 @@
 
-<input type="file" multiple="false" (change)="onFileChange($event)">
+<h3>Upload file</h3>
+
+<form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+
+    <div class="form">
+        <label for="customFile" >{{fileInputLabel || 'Choose File'}}</label>
+        <input type="file"  id="customFile" name="myfile" 
+            (change)="onFileSelect($event)" #UploadFileInput>
+<div>
+    <button type="submit" class="button">Upload</button>
+</div>
+
+    </div>
+    
+
+
+
+
+
+</form>
