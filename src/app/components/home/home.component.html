@@ -5,8 +5,13 @@
 
     <div class="form">
         <label for="customFile" >{{fileInputLabel || 'Choose File'}}</label>
-        <input type="file"  id="customFile" name="myfile" 
+        <input type="file"  id="customFile" name="rvsi" 
             (change)="onFileSelect($event)" #UploadFileInput>
+
+        
+            <input type="file"  id="customFile" name="sp2" 
+            (change)="onFileSelect($event)" #UploadFileInput>
+            
 <div>
     <button type="submit" class="button">Upload</button>
 </div>

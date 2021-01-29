@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileUploadForm = this.formBuilder.group({
-      myfile: ['']
+      rvsi: [''],
+      sp2: ['']
     });
   }
 
@@ -34,21 +35,23 @@ export class HomeComponent implements OnInit {
         alert('Only EXCEL Docs Allowed!');
       } else {
         this.fileInputLabel = file.name;
-        this.fileUploadForm.get('myfile').setValue(file);
+        this.fileUploadForm.get('rvsi').setValue(file);
+        this.fileUploadForm.get('sp2').setValue(file);
       }
     }
   }
 
   onFormSubmit() {
 
-    if (!this.fileUploadForm.get('myfile').value) {
+    if (!this.fileUploadForm.get('rvsi').value&&!this.fileUploadForm.get('sp2').value) {
       alert('Please fill valid details!');
       return false;
     }
 
     const formData = new FormData();
-    formData.append('formFile', this.fileUploadForm.get('myfile').value);
-    formData.append('agentId', '007');
+    formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
+    formData.append('sp2',this.fileUploadForm.get('sp2').value)
+
 
     this.uploadService.uploadFile(formData).subscribe((res)=>{
       console.log(res);
