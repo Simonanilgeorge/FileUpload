@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder,FormControl,Validators} from '@angular/forms';
 import {UploadService} from '../../providers/upload.service'
 import * as _ from 'lodash';
 
@@ -12,61 +12,48 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
-  fileUploadForm: FormGroup;
-  fileInputLabel: string;
+  myFiles:string [] = [];
 
+  myForm = new FormGroup({
+   name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+   file: new FormControl('', [Validators.required])
+ });
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
   ngOnInit(): void {
-    this.fileUploadForm = this.formBuilder.group({
-      rvsi: [''],
-      sp2: ['']
-    });
+
+  }
+  get f(){
+    return this.myForm.controls;
   }
 
-  onFileSelect(event) {
-    let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      // console.log(file);
+  onFileChange(event) {
 
-      if (!_.includes(af, file.type)) {
-        alert('Only EXCEL Docs Allowed!');
-      } else {
-        this.fileInputLabel = file.name;
-        this.fileUploadForm.get('rvsi').setValue(file);
-        this.fileUploadForm.get('sp2').setValue(file);
-      }
-    }
+        for (var i = 0; i < event.target.files.length; i++) { 
+            this.myFiles.push(event.target.files[i]);
+        }
   }
 
-  onFormSubmit() {
-
-    if (!this.fileUploadForm.get('rvsi').value&&!this.fileUploadForm.get('sp2').value) {
-      alert('Please fill valid details!');
-      return false;
-    }
-
+  submit(){
     const formData = new FormData();
-    formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
-    formData.append('sp2',this.fileUploadForm.get('sp2').value)
 
+    for (var i = 0; i < this.myFiles.length; i++) { 
+      formData.append("file[]", this.myFiles[i]);
+    }
 
     this.uploadService.uploadFile(formData).subscribe((res)=>{
       console.log(res);
-      if (res.statusCode === 200) {
-        // Reset the file input
-        this.uploadFileInput.nativeElement.value = "";
-        this.fileInputLabel = undefined;
-      }
       
     },(err)=>{
-      console.log("error");
+      console.log(err.message);
       
-
     })
-  
+
+    // this.http.post('http://localhost:8001/upload.php', formData)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert('Uploaded Successfully.');
+    //   })
   }
 
 }
