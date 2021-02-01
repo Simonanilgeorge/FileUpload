@@ -10,10 +10,11 @@ export class UploadService {
   constructor(private http: HttpClient) { }
   private url="http://127.0.0.1:5000/getfile";
   
-  async uploadFile(formData:any):Promise<any> {
-    return this.http.post<any>(this.url,formData).toPromise();
+  uploadFile(formData:any):Observable<any> {
+    return this.http.post<any>(this.url,formData)
 
   }
+
 
 
 }

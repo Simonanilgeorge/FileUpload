@@ -1,25 +1,15 @@
-
 <h3>Upload file</h3>
 
 <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
 
     <div class="form">
-        <label for="customFile" >{{'Choose File'}}</label>
-        <input type="file"  id="customFile" name="file" multiple
-            (change)="onFileSelect($event)" #UploadFileInput>
-
-        
-
-            
-<div>
-    <button type="submit" class="button">Upload</button>
-</div>
+        <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
+        <input type="file"  id="customFile" name="file"  multiple
+            (change)="onFileSelect($event)" #UploadFileInput> 
+        <div>
+            <button type="submit" class="button">Upload</button>
+        </div>
 
     </div>
     
-
-
-
-
-
 </form>
