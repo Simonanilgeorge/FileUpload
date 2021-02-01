@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   myFiles:string [] = [];
 
   myForm = new FormGroup({
-   name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+   name: new FormControl(''),
    file: new FormControl('', [Validators.required])
  });
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
@@ -35,12 +35,18 @@ export class HomeComponent implements OnInit {
   }
 
   submit(){
+
+    console.log("inside submit function");
+    
     const formData = new FormData();
+    console.log("form data");
+
+    
 
     for (var i = 0; i < this.myFiles.length; i++) { 
       formData.append("file[]", this.myFiles[i]);
     }
-
+    console.log(this.myFiles);
     this.uploadService.uploadFile(formData).subscribe((res)=>{
       console.log(res);
       
