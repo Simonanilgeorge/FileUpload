@@ -20,37 +20,43 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileUploadForm = this.formBuilder.group({
-      rvsi: [''],
-      sp2: ['']
+      file: ['']
+
     });
   }
 
   onFileSelect(event) {
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+      const  rvsi= event.target.files[0];
+      const sp2=event.target.files[1];
       // console.log(file);
 
-      if (!_.includes(af, file.type)) {
+      if (!_.includes(af, rvsi.type && sp2.type)) {
         alert('Only EXCEL Docs Allowed!');
       } else {
-        this.fileInputLabel = file.name;
-        this.fileUploadForm.get('rvsi').setValue(file);
-        this.fileUploadForm.get('sp2').setValue(file);
+
+        console.log("you have selected an excel document");
+        
+      
+        this.fileUploadForm.get('rvsi').setValue(rvsi);
+        this.fileUploadForm.get('sp2').setValue(sp2);
       }
     }
   }
 
   onFormSubmit() {
 
-    if (!this.fileUploadForm.get('rvsi').value&&!this.fileUploadForm.get('sp2').value) {
-      alert('Please fill valid details!');
-      return false;
-    }
+    // if (!this.fileUploadForm.get('rvsi').value&&!this.fileUploadForm.get('sp2').value) {
+    //   alert('Please fill valid details!');
+    //   return false;
+    // }
 
     const formData = new FormData();
+    
     formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
     formData.append('sp2',this.fileUploadForm.get('sp2').value)
+    console.log(formData);
 
 
     this.uploadService.uploadFile(formData).subscribe((res)=>{
