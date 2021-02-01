@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileUploadForm = this.formBuilder.group({
-      file: ['']
+      rvsi: [''],
+      sp2:['']
 
     });
   }
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit {
       const  rvsi= event.target.files[0];
       const sp2=event.target.files[1];
       // console.log(file);
+      console.log("event.target.files")
+      // console.log(event.target.files[1])
 
       if (!_.includes(af, rvsi.type && sp2.type)) {
         alert('Only EXCEL Docs Allowed!');
@@ -41,6 +44,9 @@ export class HomeComponent implements OnInit {
       
         this.fileUploadForm.get('rvsi').setValue(rvsi);
         this.fileUploadForm.get('sp2').setValue(sp2);
+
+        console.log(  this.fileUploadForm.get('rvsi').value)
+        console.log(  this.fileUploadForm.get('sp2').value)
       }
     }
   }
@@ -54,18 +60,22 @@ export class HomeComponent implements OnInit {
 
     const formData = new FormData();
     
+
     formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
     formData.append('sp2',this.fileUploadForm.get('sp2').value)
-    console.log(formData);
 
 
-    this.uploadService.uploadFile(formData).subscribe((res)=>{
+    console.log("FormData")
+    console.log(formData)
+    // console.log(formData.get('rvsi'));
+    // console.log(formData.get('sp2'));
+    
+    // console.log(this.fileUploadForm.value);
+    
+
+    this.uploadService.uploadFile(formData).then((res)=>{
       console.log(res);
-      if (res.statusCode === 200) {
-        // Reset the file input
-        this.uploadFileInput.nativeElement.value = "";
-        this.fileInputLabel = undefined;
-      }
+      console.log("successful upload")
       
     },(err)=>{
       console.log("error");
