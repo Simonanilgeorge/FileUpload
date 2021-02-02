@@ -38,9 +38,9 @@ transition: 0.3s ease-in-out;
 table{
    
     text-align: center;
-    width:800px;
+    /* width:800px; */
 border-collapse: collapse;
-margin: auto;
+/* margin: auto; */
 border-top-left-radius:20px ;
 }
 tr{
@@ -48,6 +48,7 @@ tr{
    
 }
 th{
+    border:1px solid black;
   font-size:20px;
     width:150px;
     height:100px;
@@ -55,11 +56,11 @@ th{
     
 }
 td{
-  
+  border:1px solid black;
     width:150px;
     height:100px;
 }
 
 /* .container{
-    width:200vw;
+    width:300vw;
 } */

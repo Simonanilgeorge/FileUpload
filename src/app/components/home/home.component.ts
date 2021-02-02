@@ -67,10 +67,10 @@ export class HomeComponent implements OnInit {
 
       this.datas=JSON.parse(res);
 
-      
+
       this.datas.forEach((data)=>{
         for(let d in data){
-          if(this.titles.includes(d)){
+          if(this.titles.includes(d) || d=="Task_Name"){
             continue;
 
           }
@@ -79,6 +79,8 @@ export class HomeComponent implements OnInit {
           }
         }
       })
+
+      this.titles=this.titles.sort();
 
       if (res.statusCode === 200) {
         // Reset the file input
