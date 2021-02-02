@@ -1,3 +1,5 @@
+
+<div class="container">
 <h3>Upload file</h3>
 
 <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
@@ -15,13 +17,46 @@
 </form>
 
 
+<table>
+  
+    <tr >
+        <div *ngFor="let title of titles">
+            <th>{{title}}</th>
+        </div>
+        
 
+      
+    </tr>
 
-<h1>Response data</h1>
-<div *ngIf="datas; else elseBlock">
-<div *ngFor="let data of datas">
-<p>{{data.Task_Name}}</p>
+    <tr *ngFor="let data of datas">
+        <td >{{data.Task_Name}}</td>
+        <td>data.FL</td>
+        <td>2</td>
+        <td>3</td>
+        <!-- <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td> -->
+
+    </tr>
+</table>
+
 </div>
-</div>
-
-<ng-template #elseBlock>Content to render when condition is false.</ng-template>

@@ -32,3 +32,34 @@ transition: 0.3s ease-in-out;
 .button:hover{
     background:darkgreen
 }
+
+
+
+table{
+   
+    text-align: center;
+    width:800px;
+border-collapse: collapse;
+margin: auto;
+border-top-left-radius:20px ;
+}
+tr{
+    border:1px solid black;
+   
+}
+th{
+  font-size:20px;
+    width:150px;
+    height:100px;
+    color:black;
+    
+}
+td{
+  
+    width:150px;
+    height:100px;
+}
+
+/* .container{
+    width:200vw;
+} */

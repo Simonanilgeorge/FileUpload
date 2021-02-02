@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
+  titles:String[]=[];
   datas:any=null;
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
@@ -65,9 +66,20 @@ export class HomeComponent implements OnInit {
       console.log(res);
 
       this.datas=JSON.parse(res);
+
+      
       this.datas.forEach((data)=>{
-        console.log(data.Task_Name)
+        for(let d in data){
+          if(this.titles.includes(d)){
+            continue;
+
+          }
+          else{
+            this.titles.push(d)
+          }
+        }
       })
+
       if (res.statusCode === 200) {
         // Reset the file input
         this.uploadFileInput.nativeElement.value = "";
