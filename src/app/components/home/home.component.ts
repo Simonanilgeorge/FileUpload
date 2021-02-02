@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
+  datas:any=null;
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
       sp2:['']
 
     });
+    
   }
 
   onFileSelect(event) {
@@ -61,6 +63,11 @@ export class HomeComponent implements OnInit {
 
     this.uploadService.uploadFile(formData).subscribe((res)=>{
       console.log(res);
+
+      this.datas=JSON.parse(res);
+      this.datas.forEach((data)=>{
+        console.log(data.Task_Name)
+      })
       if (res.statusCode === 200) {
         // Reset the file input
         this.uploadFileInput.nativeElement.value = "";

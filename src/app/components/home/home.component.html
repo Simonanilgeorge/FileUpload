@@ -13,3 +13,15 @@
     </div>
     
 </form>
+
+
+
+
+<h1>Response data</h1>
+<div *ngIf="datas; else elseBlock">
+<div *ngFor="let data of datas">
+<p>{{data.Task_Name}}</p>
+</div>
+</div>
+
+<ng-template #elseBlock>Content to render when condition is false.</ng-template>
