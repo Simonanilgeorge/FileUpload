@@ -1,38 +1,31 @@
-
-<div class="container">
-<h3>Upload file</h3>
-
-<form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
-
-    <div class="form">
-        <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
-        <input type="file"  id="customFile" name="file"  multiple
-            (change)="onFileSelect($event)" #UploadFileInput> 
-        <div>
-            <button type="submit" class="button">Upload</button>
+<div class="container" *ngIf="div1">
+    <h3>Upload file</h3>
+    <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+        <div class="form">
+            <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
+            <input type="file"  id="customFile" name="file"  multiple
+                (change)="onFileSelect($event)" #UploadFileInput> 
+            <div>
+                <button type="submit" class="button">Upload</button>
+            </div>
         </div>
-
-    </div>
+    </form>
+</div>
+<div class="container" *ngIf="div2">
+    <button class="button" (click)="divFunction()" style="margin:10px;">go back</button>
     
-</form>
-
-
-<table>
-  
-    <tr >
-        <th>Task Name</th>
-        <th *ngFor="let title of titles">{{title}}</th>
+    <table>
         
+        <tr >
+            <th>Task Name</th>
+            <th *ngFor="let title of titles">{{title}}</th> 
+            <th>Grand total</th>
+        </tr>
 
-      
-    </tr>
-
-    <tr *ngFor="let data of datas">
-        <td style="font-weight:bolder;  font-size:20px;">{{data.Task_Name}}</td>
-        <td *ngFor="let title of titles">{{data[title]}}</td>
-
-
-    </tr>
-</table>
-
+        <tr *ngFor="let data of datas">
+            <td style="font-weight:bolder;  font-size:20px;">{{data.Task_Name}}</td>
+            <td *ngFor="let title of titles">{{data[title]}}</td>
+            <td>{{data.Grand_total}}</td>
+        </tr>
+    </table>
 </div>

@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
 
   titles:String[]=[];
   datas:any=null;
+  div1:boolean=true;
+  div2:boolean=false;
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
@@ -29,6 +31,16 @@ export class HomeComponent implements OnInit {
     });
     
   }
+
+
+  reload(){
+    window.location.reload();
+  }
+  divFunction(){
+    this.div1=!this.div1;
+    this.div2=!this.div2;
+    
+}
 
   onFileSelect(event) {
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
@@ -70,7 +82,7 @@ export class HomeComponent implements OnInit {
 
       this.datas.forEach((data)=>{
         for(let d in data){
-          if(this.titles.includes(d) || d=="Task_Name"){
+          if(this.titles.includes(d) || d=="Task_Name" || d=="null" || d=="Grand_total"){
             continue;
 
           }
@@ -81,7 +93,7 @@ export class HomeComponent implements OnInit {
       })
 
       this.titles=this.titles.sort();
-
+      this.divFunction();
       if (res.statusCode === 200) {
         // Reset the file input
         this.uploadFileInput.nativeElement.value = "";

@@ -7,7 +7,7 @@
     padding:20px;
 
 
-    border:1px solid black;
+
     display:flex;
     flex-direction: column;    
     justify-content: space-around;
@@ -38,10 +38,10 @@ transition: 0.3s ease-in-out;
 table{
    
     text-align: center;
-    /* width:800px; */
-border-collapse: collapse;
-/* margin: auto; */
-border-top-left-radius:20px ;
+     width:800px; 
+    border-collapse: collapse;
+ margin: auto; 
+    border-top-left-radius:20px ;
 }
 tr{
     border:1px solid black;
@@ -49,16 +49,16 @@ tr{
 }
 th{
     border:1px solid black;
-  font-size:20px;
+    font-size:20px;
     width:150px;
-    height:100px;
+    height:50px;
     color:black;
     
 }
 td{
-  border:1px solid black;
+    border:1px solid black;
     width:150px;
-    height:100px;
+    height:50px;
 }
 
 /* .container{
