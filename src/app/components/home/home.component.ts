@@ -32,33 +32,33 @@ export class HomeComponent implements OnInit {
     
   }
 
-
-  reload(){
-    window.location.reload();
-  }
   divFunction(){
     this.div1=!this.div1;
     this.div2=!this.div2;
+    this.ngOnInit();
     
 }
 
   onFileSelect(event) {
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
-    if (event.target.files.length > 0) {
+    if (event.target.files.length == 2) {
       const file1 = event.target.files[0];
       const file2 = event.target.files[1];
       // console.log(file);
 
-      if (!_.includes(af, file1.type && file2.type)) {
-        alert('Only EXCEL Docs Allowed!');
-        
-      } else {
+      if (!_.includes(af, file1.type || file2.type)) {
+        alert('Only EXCEL Docs Allowed!');  
+      } 
+      else{
         this.fileUploadForm.get('rvsi').setValue(file1);
         this.fileUploadForm.get('sp2').setValue(file2);
         //console.log(this.fileUploadForm.value);
       }
+      }
+    else{
+      alert('Please choose proper number of files');
     }
-  }
+    }
 
   
 
