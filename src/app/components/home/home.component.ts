@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   datas:any=null;
   div1:boolean=true;
   div2:boolean=false;
+  flag:Number=0;
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
@@ -52,11 +53,14 @@ export class HomeComponent implements OnInit {
       else{
         this.fileUploadForm.get('rvsi').setValue(file1);
         this.fileUploadForm.get('sp2').setValue(file2);
+        this.flag=0;
         //console.log(this.fileUploadForm.value);
       }
       }
     else{
-      alert('Please choose proper number of files');
+  
+      this.flag=1;
+      
     }
     }
 
@@ -64,6 +68,13 @@ export class HomeComponent implements OnInit {
 
   onFormSubmit() {
 
+
+    if(this.flag==1){
+      alert("you can only choose two files")
+      return;
+
+    }
+    else{
     if (!this.fileUploadForm.get('rvsi').value && !this.fileUploadForm.get('sp2').value) {
       alert('Please fill valid details!');
       return false;
@@ -79,33 +90,34 @@ export class HomeComponent implements OnInit {
 
       this.datas=JSON.parse(res);
 
-
-      this.datas.forEach((data)=>{
-        for(let d in data){
-          if(this.titles.includes(d) || d=="Task_Name" || d=="null" || d=="Grand_total"){
-            continue;
-
-          }
-          else{
-            this.titles.push(d)
-          }
-        }
-      })
-
-      this.titles=this.titles.sort();
-      this.divFunction();
-      if (res.statusCode === 200) {
-        // Reset the file input
-        this.uploadFileInput.nativeElement.value = "";
-        this.fileInputLabel = undefined;
+      if((Object.keys(this.datas)).includes("error_in_file")){
+        alert("Please choose a proper file with vaild details");
       }
-      
-    },(err)=>{
-      console.log("error");
-      
-
-    })
+      else{
+        
+        this.datas.forEach((data)=>{
+          for(let d in data){
+            if(this.titles.includes(d) || d=="Task_Name" || d=="null" || d=="Grand_total"){
+              continue;
   
+            }
+            else{
+              this.titles.push(d)
+            }
+          }
+        })
+  
+        this.titles=this.titles.sort();
+        this.divFunction();
+        if (res.statusCode === 200) {
+          // Reset the file input
+          this.uploadFileInput.nativeElement.value = "";
+          this.fileInputLabel = undefined;
+        }
+      }
+    },(err)=>{
+      console.log(err.message);
+    })
   }
-
+}
 }
