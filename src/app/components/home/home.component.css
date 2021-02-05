@@ -5,9 +5,10 @@
 .form{
     height:200px;
     padding:20px;
+    width:400px;
+    border-radius:5%;
 
-
-
+    border:1px solid black;
     display:flex;
     flex-direction: column;    
     justify-content: space-around;
@@ -61,6 +62,10 @@ td{
     height:50px;
 }
 
-/* .container{
-    width:300vw;
-} */
+.container{
+    /* border:2px solid red; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:90vh;
+}

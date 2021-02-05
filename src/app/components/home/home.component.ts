@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   div1:boolean=true;
   div2:boolean=false;
   flag:Number=0;
+  columnTotal=0;
+  columnSum={};
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
 }
 
   onFileSelect(event) {
+    this.titles = [];
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
     if (event.target.files.length == 2) {
       const file1 = event.target.files[0];
@@ -64,10 +67,7 @@ export class HomeComponent implements OnInit {
     }
     }
 
-  
-
   onFormSubmit() {
-
 
     if(this.flag==1){
       alert("you can only choose two files")
@@ -84,9 +84,7 @@ export class HomeComponent implements OnInit {
     formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
     formData.append('sp2',this.fileUploadForm.get('sp2').value)
 
-
-    this.uploadService.uploadFile(formData).subscribe((res)=>{
-      console.log(res);
+    this.uploadService.uploadFile(formData).subscribe((res)=>{  
 
       this.datas=JSON.parse(res);
 
@@ -102,11 +100,21 @@ export class HomeComponent implements OnInit {
   
             }
             else{
-              this.titles.push(d)
+              this.columnSum[d] = 0;
+              this.titles.push(d);
             }
           }
         })
-  
+        this.columnSum["Grand_total"] = 0;
+        this.datas.forEach((data)=>{
+          for(let row in data){
+              if(row != "Task_Name" && row != "null"){
+                this.columnSum[row]=this.columnSum[row]+data[row];
+              }
+              
+          }
+        })
+        
         this.titles=this.titles.sort();
         this.divFunction();
         if (res.statusCode === 200) {

@@ -1,17 +1,19 @@
 <div class="container" *ngIf="div1">
-    <h3>Upload file</h3>
+    
     <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+      
         <div class="form">
+            <h3>Upload file</h3>
             <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
             <input type="file"  id="customFile" name="file"  multiple
                 (change)="onFileSelect($event)" #UploadFileInput> 
             <div>
-                <button type="submit" class="button">Upload</button>
+                <button type="submit" class="button">Generate report</button>
             </div>
         </div>
     </form>
 </div>
-<div class="container" *ngIf="div2">
+<div *ngIf="div2">
     <button class="button" (click)="divFunction()" style="margin:10px;">go back</button>
     
     <table>
@@ -26,6 +28,11 @@
             <td style="font-weight:bolder;  font-size:20px;">{{data.Task_Name}}</td>
             <td *ngFor="let title of titles">{{data[title]}}</td>
             <td>{{data.Grand_total}}</td>
+        </tr>
+        <tr>
+            <td style="font-weight:bolder;  font-size:20px;">Grand total</td>
+            <td *ngFor="let title of titles">{{columnSum[title]}}</td>
+            <td>{{columnSum["Grand_total"]}}</td>
         </tr>
     </table>
 </div>
