@@ -7,7 +7,6 @@
     padding:20px;
     width:400px;
     border-radius:5%;
-
     border:1px solid black;
     display:flex;
     flex-direction: column;    
@@ -25,7 +24,6 @@ font-weight:bold;
 align-items:center;
 background: green;
 color:white;
-
 border:1px solid green;
 transition: 0.3s ease-in-out;
 }
@@ -42,9 +40,8 @@ transition: 0.3s ease-in-out;
 table{
    
     text-align: center;
-     width:800px; 
+    width:500px; 
     border-collapse: collapse;
- margin: auto; 
     border-top-left-radius:20px ;
 
     
@@ -58,11 +55,9 @@ th{
     font-size:20px;
     width:150px;
     height:50px;
-    /* background:rgb(35, 148, 94); */
     background:white;
     color:black;
-    /* color:white; */
-    padding:25px;
+    padding:9px;
  ;
     
 }
@@ -73,7 +68,6 @@ td{
 }
 
 .container{
-    /* border:2px solid red; */
     display:flex;
     justify-content:center;
     align-items:center;
@@ -86,11 +80,9 @@ td{
     font-size:20px;
     position:sticky;
     left:0;
-    /* background:rgb(35, 148, 94);
-    color:white; */
     background:white;
     color:black;
-    z-index:1000;
+    z-index:100;
 }
 
 .titles{
@@ -111,7 +103,7 @@ td{
     cursor: pointer;
     color:white;
     font-weight:bolder;
-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
   }
 
   .custom-file-input::-webkit-file-upload-button {
@@ -121,4 +113,3 @@ transition: 0.3s ease-in-out;
   .custom-file-input:focus{
       outline:none;
   }
-

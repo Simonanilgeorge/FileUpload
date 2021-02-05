@@ -14,14 +14,14 @@
     </form>
 </div>
 <div *ngIf="div2">
-    <button class="button" (click)="divFunction()" style="margin:10px;">go back</button>
+    <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
     
     <table>
         
         <tr >
-            <th>Task Name</th>
+            <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name</th>
             <th *ngFor="let title of titles" class="titles">{{title}}</th> 
-            <th>Grand total</th>
+            <th class="titles">Grand total</th>
         </tr>
 
         <tr *ngFor="let data of datas">
@@ -30,7 +30,7 @@
             <td>{{data.Grand_total}}</td>
         </tr>
         <tr>
-            <td style="font-weight:bolder;  font-size:20px;">Grand total</td>
+            <td class="taskname" style="font-weight:bolder;  font-size:20px;">Grand total</td>
             <td *ngFor="let title of titles">{{columnSum[title]}}</td>
             <td>{{columnSum["Grand_total"]}}</td>
         </tr>
