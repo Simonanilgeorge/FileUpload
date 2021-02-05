@@ -5,7 +5,7 @@
         <div class="form">
             <h3>Upload file</h3>
             <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
-            <input type="file"  id="customFile" name="file"  multiple
+            <input type="file"  id="customFile" name="file"  multiple class="custom-file-input"
                 (change)="onFileSelect($event)" #UploadFileInput> 
             <div>
                 <button type="submit" class="button">Generate report</button>
@@ -20,12 +20,12 @@
         
         <tr >
             <th>Task Name</th>
-            <th *ngFor="let title of titles">{{title}}</th> 
+            <th *ngFor="let title of titles" class="titles">{{title}}</th> 
             <th>Grand total</th>
         </tr>
 
         <tr *ngFor="let data of datas">
-            <td style="font-weight:bolder;  font-size:20px;">{{data.Task_Name}}</td>
+            <td class="taskname">{{data.Task_Name}}</td>
             <td *ngFor="let title of titles">{{data[title]}}</td>
             <td>{{data.Grand_total}}</td>
         </tr>
