@@ -95,7 +95,7 @@ td{
 }
 
 .custom-file-input::before {
-    content: 'Select some files';
+    content: 'Choose files';
     display: inline-block;
     background:rgb(39, 131, 196);
     border:none;
