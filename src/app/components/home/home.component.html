@@ -1,12 +1,12 @@
 <div class="container" *ngIf="div1">
-    
+
     <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
-      
+
         <div class="form">
             <h3>Upload file</h3>
-            <label for="customFile" >{{'Choose RVSI & SP2 files'}}</label>
-            <input type="file"  id="customFile" name="file"  multiple class="custom-file-input"
-                (change)="onFileSelect($event)" #UploadFileInput> 
+            <label for="customFile">{{'Choose RVSI & SP2 files'}}</label>
+            <input type="file" id="customFile" name="file" multiple class="custom-file-input"
+                (change)="onFileSelect($event)" #UploadFileInput>
             <div>
                 <button type="submit" class="button">Generate report</button>
             </div>
@@ -15,12 +15,32 @@
 </div>
 <div *ngIf="div2">
     <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
-    
+
+
+    <!-- <form> -->
+        <div class="selectcontainer">
+        <div class="multiselect">
+            <div class="selectBox" (click)="showCheckboxes()">
+                <select>
+                    <option>Select an option</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div #checkboxes  *ngIf="expanded" class="checkboxes">
+                <label for="date" *ngFor="let date of dates">
+                    <input type="checkbox" id="date" />
+                    {{date}}
+                </label>
+
+            </div>
+        </div>
+    </div>
+    <!-- </form> -->
     <table>
-        
-        <tr >
+
+        <tr>
             <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name</th>
-            <th *ngFor="let title of titles" class="titles">{{title}}</th> 
+            <th *ngFor="let title of titles" class="titles">{{title}}</th>
             <th class="titles">Grand total</th>
         </tr>
 

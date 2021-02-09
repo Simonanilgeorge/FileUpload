@@ -12,17 +12,20 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild('checkboxes') private myCheckbox: any;
   @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
   titles:String[]=[];
+  dates:String[]=[];
   datas:any=null;
   div1:boolean=true;
   div2:boolean=false;
   flag:Number=0;
   columnTotal=0;
   columnSum={};
+  expanded:Boolean = false;
 
   constructor(private formBuilder: FormBuilder,private uploadService:UploadService) { }
 
@@ -42,6 +45,18 @@ export class HomeComponent implements OnInit {
     
 }
 
+ showCheckboxes() {
+  // var checkboxes = document.getElementById("checkboxes");
+
+  console.log(this.myCheckbox)
+  if (!this.expanded) {
+
+    this.expanded = true;
+  } else {
+
+    this.expanded = false;
+  }
+}
   onFileSelect(event) {
     this.titles = [];
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
@@ -87,7 +102,7 @@ export class HomeComponent implements OnInit {
     this.uploadService.uploadFile(formData).subscribe((res)=>{  
 
       this.datas=JSON.parse(res);
-
+      
       if((Object.keys(this.datas)).includes("error_in_file")){
         alert("Please choose a proper file with vaild details");
       }
@@ -95,9 +110,11 @@ export class HomeComponent implements OnInit {
         
         this.datas.forEach((data)=>{
           for(let d in data){
-            if(this.titles.includes(d) || d=="Task_Name" || d=="null" || d=="Grand_total"){
+            if(d == "SLAExpiration"){ 
+              this.dates = data[d]
+            }
+            if(this.titles.includes(d) || d=="Task_Name" || d=="null" || d=="Grand_total" || d=="SLAExpiration"){
               continue;
-  
             }
             else{
               this.columnSum[d] = 0;
@@ -105,6 +122,10 @@ export class HomeComponent implements OnInit {
             }
           }
         })
+        this.datas.pop()
+
+  
+        console.log(this.datas)
         this.columnSum["Grand_total"] = 0;
         this.datas.forEach((data)=>{
           for(let row in data){
@@ -129,3 +150,19 @@ export class HomeComponent implements OnInit {
   }
 }
 }
+
+
+
+
+// 
+
+// function showCheckboxes() {
+//   var checkboxes = document.getElementById("checkboxes");
+//   if (!expanded) {
+//     checkboxes.style.display = "block";
+//     expanded = true;
+//   } else {
+//     checkboxes.style.display = "none";
+//     expanded = false;
+//   }
+// }
