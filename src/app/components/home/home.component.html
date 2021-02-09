@@ -14,28 +14,34 @@
     </form>
 </div>
 <div *ngIf="div2">
-    <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
+
+    <div class="box">
+    <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button></div>
 
 
-
+<div class="box">
         <div class="selectcontainer">
         <div class="multiselect">
             <div class="selectBox" (click)="showCheckboxes()">
-                <select>
-                    <option>Select an option</option>
-                </select>
-                <div class="overSelect"></div>
+                <div class="select">
+                    <p>Select Filter</p>
+                    <!-- <option class="option">Select an option</option> -->
+                </div>
+                
             </div>
             <div *ngIf="expanded" class="checkboxes">
-                <label for="date" *ngFor="let date of dates">
-                    <input type="checkbox" id="date" (change)="filter(date)"/>
+                <label for="date" *ngFor="let date of dates" class="option">
+                    <input  type="checkbox" id="date" (change)="filter(date)"/>
                     {{date}}
                 </label>
 
             </div>
         </div>
+        <div><button class="button" class="apply">Apply filter</button></div>
     </div>
-<button class="button">Apply filter</button>
+</div>
+
+
     <table>
 
         <tr>

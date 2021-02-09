@@ -35,6 +35,27 @@ transition: 0.3s ease-in-out;
     outline:none;
 }
 
+ .apply{
+     margin-left:15px;
+    cursor:pointer;
+    border-radius:5px;
+    height:30px;
+    padding:10px 16px;
+    display:flex;
+    justify-content:center;
+    font-weight:bold;
+    align-items:center;
+    background: green;
+    color:white;
+    border:1px solid rgb(39, 131, 196);
+    background:rgb(39, 131, 196);
+    transition:0.2s ease-in-out;
+}
+
+.apply:hover{
+    background:rgb(24, 86, 130)
+
+}
 
 
 table{
@@ -151,14 +172,45 @@ td{
   .checkboxes{
       z-index:10000;
       position:absolute;
-      background:rgb(196, 189, 189);
+      background:white;
       display:flex;
       flex-direction:column;
       justify-content:space-around;
-      padding:20px;
-      
+      width:200px;
+      border:1px solid black;
+
   }
 
   .multiselect{
       position:relative;
+  }
+
+  .box{
+  
+      padding:35px;
+
+  }
+
+  .select{
+
+     width:200px;
+      border:1px solid black;
+      text-align: center;
+    
+      cursor:pointer;
+
+  }
+
+  .option{
+   
+      margin:10px;
+
+
+  }
+
+
+  .selectcontainer{
+      display:flex;
+      justify-content: flex-start;
+      align-items:center;
   }
