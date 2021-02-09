@@ -17,7 +17,7 @@
     <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
 
 
-    <!-- <form> -->
+
         <div class="selectcontainer">
         <div class="multiselect">
             <div class="selectBox" (click)="showCheckboxes()">
@@ -26,16 +26,16 @@
                 </select>
                 <div class="overSelect"></div>
             </div>
-            <div #checkboxes  *ngIf="expanded" class="checkboxes">
+            <div *ngIf="expanded" class="checkboxes">
                 <label for="date" *ngFor="let date of dates">
-                    <input type="checkbox" id="date" />
+                    <input type="checkbox" id="date" (change)="filter(date)"/>
                     {{date}}
                 </label>
 
             </div>
         </div>
     </div>
-    <!-- </form> -->
+<button class="button">Apply filter</button>
     <table>
 
         <tr>
