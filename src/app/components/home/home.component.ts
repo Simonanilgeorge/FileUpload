@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   columnTotal = 0;
   columnSum = {};
   expanded: Boolean = false;
+  filterDate:any={};
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
@@ -59,7 +60,6 @@ export class HomeComponent implements OnInit {
   }
 
 //Add the dates to the array 
-
   filter(date) {
 
     console.log(date);
@@ -81,6 +81,20 @@ export class HomeComponent implements OnInit {
     }
     console.log(this.SLAExpirationFilter)
 
+  }
+
+
+  applyFilter(){
+    
+    this.filterDate['filterDate']=this.SLAExpirationFilter;
+
+
+    console.log(JSON.stringify(this.filterDate))
+    this.uploadService.getFilteredData(this.filterDate).subscribe((res)=>{
+      console.log(res)
+    },(err)=>{
+      console.log(err.message)
+    })
   }
   onFileSelect(event) {
     this.titles = [];
