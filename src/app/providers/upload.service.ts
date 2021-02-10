@@ -9,7 +9,7 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
   private url="http://127.0.0.1:5000/getfile";
-  private filterUrl="http://127.0.0.1:5000/getfiltered"
+  private filterUrl="http://127.0.0.1:5000/filter"
   
   uploadFile(formData:any):Observable<any> {
     return this.http.post<any>(this.url,formData)
