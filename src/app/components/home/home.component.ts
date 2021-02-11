@@ -96,61 +96,7 @@ export class HomeComponent implements OnInit {
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
       this.datas = null;
-
-
-      this.datas = JSON.parse(res);
-
-      if ((Object.keys(this.datas)).includes("error_in_file")) {
-        alert("Please choose a proper file with vaild details");
-      }
-      else {
-
-
-
-        this.datas.forEach((data) => {
-          // add all the dates to the array dates
-          for (let d in data) {
-            // block to skip keys
-            if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration") {
-              continue;
-            }
-            // block to find the grand total for each state
-            else {
-              this.columnSum[d] = 0;
-              this.titles.push(d);
-            }
-          }
-        })
-
-        // remove the SLAExiration dates object from datas array
-        this.datas.pop()
-
-
-        // To find the grand total for each task
-        console.log(this.datas)
-        this.columnSum["Grand_total"] = 0;
-        this.datas.forEach((data) => {
-          for (let row in data) {
-            if (row != "Task_Name" && row != "null") {
-              this.columnSum[row] = this.columnSum[row] + data[row];
-            }
-
-          }
-        })
-
-        // sort the titles in alphabetical order
-        this.titles = this.titles.sort();
-
-        // call this function to hide/show form and table
-        // this.divFunction();
-
-
-        if (res.statusCode === 200) {
-          // Reset the file input
-          this.uploadFileInput.nativeElement.value = "";
-          this.fileInputLabel = undefined;
-        }
-      }
+      this.onResponse(res)
 
     }, (err) => {
       console.log(err.message)
@@ -199,67 +145,82 @@ export class HomeComponent implements OnInit {
       formData.append('sp2', this.fileUploadForm.get('sp2').value)
 
       this.uploadService.uploadFile(formData).subscribe((res) => {
+
+
         console.log(res)
-        this.datas = JSON.parse(res);
+        // ###
+
+
         this.divFunction();
-        if ((Object.keys(this.datas)).includes("error_in_file")) {
-          alert("Please choose a proper file with vaild details");
-        }
-        else {
+        this.onResponse(res)
 
-          this.datas.forEach((data) => {
-            // add all the dates to the array dates
-            for (let d in data) {
-              if (d == "SLAExpiration") {
-                this.dates = data[d]
-              }
-              // block to skip keys
-              if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration") {
-                continue;
-              }
-              // block to find the grand total for each state
-              else {
-                this.columnSum[d] = 0;
-                this.titles.push(d);
-              }
-            }
-          })
-
-          // remove the SLAExiration dates object from datas array
-          this.datas.pop()
-
-
-          // To find the grand total for each task
-          console.log(this.datas)
-          this.columnSum["Grand_total"] = 0;
-          this.datas.forEach((data) => {
-            for (let row in data) {
-              if (row != "Task_Name" && row != "null") {
-                this.columnSum[row] = this.columnSum[row] + data[row];
-              }
-
-            }
-          })
-
-          // sort the titles in alphabetical order
-          this.titles = this.titles.sort();
-
-          // call this function to hide/show form and table
-  
-
-
-          if (res.statusCode === 200) {
-            // Reset the file input
-            this.uploadFileInput.nativeElement.value = "";
-            this.fileInputLabel = undefined;
-          }
-        }
       }, (err) => {
         console.log(err.message);
       })
     }
+
+
   }
 
-
   
+  onResponse(res) {
+
+
+    this.datas = JSON.parse(res);
+    if ((Object.keys(this.datas)).includes("error_in_file")) {
+      alert("Please choose a proper file with vaild details");
+    }
+    else {
+
+      this.datas.forEach((data) => {
+        // add all the dates to the array dates
+        for (let d in data) {
+          if (d == "SLAExpiration") {
+            this.dates = data[d]
+          }
+          // block to skip keys
+          if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration") {
+            continue;
+          }
+          // block to find the grand total for each state
+          else {
+            this.columnSum[d] = 0;
+            this.titles.push(d);
+          }
+        }
+      })
+
+      // remove the SLAExiration dates object from datas array
+      this.datas.pop()
+
+
+      // To find the grand total for each task
+      console.log(this.datas)
+      this.columnSum["Grand_total"] = 0;
+      this.datas.forEach((data) => {
+        for (let row in data) {
+          if (row != "Task_Name" && row != "null") {
+            this.columnSum[row] = this.columnSum[row] + data[row];
+          }
+
+        }
+      })
+
+      // sort the titles in alphabetical order
+      this.titles = this.titles.sort();
+
+      // call this function to hide/show form and table
+
+
+
+      if (res.statusCode === 200) {
+        // Reset the file input
+        this.uploadFileInput.nativeElement.value = "";
+        this.fileInputLabel = undefined;
+      }
+    }
+
+
+  }
+
 }
