@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
   flag: Number = 0;
   columnTotal = 0;
   columnSum = {};
-  expanded: Boolean = false;
-  filterDate:any={};
+  expanded: Boolean = true;
+  filterDate: any = {};
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   divFunction() {
     this.div1 = !this.div1;
     this.div2 = !this.div2;
+    this.SLAExpirationFilter = []
     this.ngOnInit();
 
   }
@@ -54,12 +55,11 @@ export class HomeComponent implements OnInit {
 
       this.expanded = true;
     } else {
-
       this.expanded = false;
     }
   }
 
-//Add the dates to the array 
+  //Add the dates to the array 
   filter(date) {
 
     console.log(date);
@@ -86,15 +86,16 @@ export class HomeComponent implements OnInit {
 
 
   // function called when a filter is applied
-  applyFilter(){
-    
-    this.filterDate['date']=this.SLAExpirationFilter;
+  applyFilter() {
+
+    this.expanded = true;
+    this.filterDate['date'] = this.SLAExpirationFilter;
 
 
     console.log(JSON.stringify(this.filterDate))
-    this.uploadService.getFilteredData(this.filterDate).subscribe((res)=>{
-      this.titles=[];
-      this.datas=null;
+    this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
+      this.titles = [];
+      this.datas = null;
 
 
       this.datas = JSON.parse(res);
@@ -109,9 +110,6 @@ export class HomeComponent implements OnInit {
         this.datas.forEach((data) => {
           // add all the dates to the array dates
           for (let d in data) {
-            if (d == "SLAExpiration") {
-              this.dates = data[d]
-            }
             // block to skip keys
             if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration") {
               continue;
@@ -146,7 +144,7 @@ export class HomeComponent implements OnInit {
         // call this function to hide/show form and table
         // this.divFunction();
 
-        
+
         if (res.statusCode === 200) {
           // Reset the file input
           this.uploadFileInput.nativeElement.value = "";
@@ -154,7 +152,7 @@ export class HomeComponent implements OnInit {
         }
       }
 
-    },(err)=>{
+    }, (err) => {
       console.log(err.message)
     })
   }
@@ -201,15 +199,13 @@ export class HomeComponent implements OnInit {
       formData.append('sp2', this.fileUploadForm.get('sp2').value)
 
       this.uploadService.uploadFile(formData).subscribe((res) => {
-
+        console.log(res)
         this.datas = JSON.parse(res);
-
+        this.divFunction();
         if ((Object.keys(this.datas)).includes("error_in_file")) {
           alert("Please choose a proper file with vaild details");
         }
         else {
-
-
 
           this.datas.forEach((data) => {
             // add all the dates to the array dates
@@ -249,9 +245,9 @@ export class HomeComponent implements OnInit {
           this.titles = this.titles.sort();
 
           // call this function to hide/show form and table
-          this.divFunction();
+  
 
-          
+
           if (res.statusCode === 200) {
             // Reset the file input
             this.uploadFileInput.nativeElement.value = "";
@@ -263,196 +259,7 @@ export class HomeComponent implements OnInit {
       })
     }
   }
+
+
+  
 }
-
-
-
-
-
-
-
-// {"date":["2021/02/03"]}
-//  [
-//     {
-//         "Task_Name": "AbstractIndexingModule",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "BillingInformation",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "BillingReminder",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "CJNJTaxSearchAwaitingResponse",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "CJUpperCourtContinUpload",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "CondoLienException",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "DeliverE",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "Examination",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "HOADatabase",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "LocatePropertyReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OrderEntry",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSAttorneyDeliverE",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSBillingReminder",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSJudgmentLien",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSPreSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSSearchFix",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSSearchReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSUpdateSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSVMQualityControl",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSVMQualityControlFix",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSVMQualityControlReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSWSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "OSWUpdateSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "PacerSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "PatriotAct",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "PortalUpload",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "PreSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "PriorPolicy",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "QualityControl",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "Search",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "SearchFix",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "SearchReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "SpecialInstructions",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "TaxCert",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "TidelandDecision",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "TypingModule",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "TypingModuleReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "TypingReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "UpdateSearch",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "UpdateSearchReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "VendorCertification",
-//         "Grand_total": 0
-//     },
-//     {
-//         "Task_Name": "VMQualityControl",
-//         "PA": 1,
-//         "Grand_total": 1
-//     },
-//     {
-//         "Task_Name": "VMQualityControlReview",
-//         "Grand_total": 0
-//     },
-//     {
-//         "SLAExpiration": [
-//             "2021/02/03"
-//         ]
-//     }
-// ]

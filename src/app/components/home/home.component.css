@@ -120,7 +120,7 @@ td{
     padding:8px 16px; 
     outline: none;
     white-space: nowrap;
-    -webkit-user-select: none;
+    /* -webkit-user-select: none; */
     cursor: pointer;
     color:white;
     font-weight:bolder;
@@ -175,9 +175,12 @@ td{
       background:white;
       display:flex;
       flex-direction:column;
-      justify-content:space-around;
+
       width:200px;
       border:1px solid black;
+      overflow: scroll;
+      height: 200px;
+
 
   }
 
@@ -213,4 +216,11 @@ td{
       display:flex;
       justify-content: flex-start;
       align-items:center;
+  }
+
+  .display{
+      opacity:0;
+      pointer-events:none;
+      transition:0.3s ease-in-out;
+
   }
