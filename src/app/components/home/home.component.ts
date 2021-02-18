@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UploadService } from '../../providers/upload.service'
+import { LoginService } from '../../providers/login.service'
+import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
 
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit {
   expanded: Boolean = true;
   filterDate: any = {};
 
-  constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
+  constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.fileUploadForm = this.formBuilder.group({
@@ -36,7 +38,16 @@ export class HomeComponent implements OnInit {
       sp2: ['']
 
     });
-
+    let user = this.loginService.getUsername();
+    console.log(user)
+    if (user) {
+      console.log("user logged in")
+    }
+    else {
+      // this.router.navigate(['']);
+      console.log("Inside the else block")
+      console.log(user)
+    }
   }
 
   divFunction() {
@@ -162,7 +173,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  
+
   onResponse(res) {
 
 
