@@ -18,6 +18,11 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+
+    if(window.sessionStorage){
+      console.log("session storage supported")
+      console.log(window.sessionStorage)
+    }
   }
   get username() {
     return this.userForm.get('username');
@@ -40,6 +45,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home'])
         this.notValid=false
         this.loginService.saveUsername(this.userForm.controls.username.value)
+        console.log((sessionStorage))
+       
       }
 
       else{

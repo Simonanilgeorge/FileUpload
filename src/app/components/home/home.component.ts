@@ -38,13 +38,13 @@ export class HomeComponent implements OnInit {
       sp2: ['']
 
     });
-    let user = this.loginService.getUsername();
+    let user = sessionStorage.getItem('user')
     console.log(user)
     if (user) {
       console.log("user logged in")
     }
     else {
-      // this.router.navigate(['']);
+      this.router.navigate(['']);
       console.log("Inside the else block")
       console.log(user)
     }
@@ -234,4 +234,9 @@ export class HomeComponent implements OnInit {
 
   }
 
+
+  Logout(){
+    this.loginService.onLogOut();
+    this.router.navigate(['']);
+  }
 }

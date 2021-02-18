@@ -260,3 +260,12 @@ td{
     font-weight:bolder;
     transition: 0.3s ease-in-out;
   }
+
+  nav{
+
+    padding:20px;
+    display:flex;
+    justify-content:flex-end;
+    
+  }
+

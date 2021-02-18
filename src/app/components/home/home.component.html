@@ -1,4 +1,11 @@
+<nav>
+    <div>
+        <button (click)="Logout()" class="button logout">logout</button>
+    </div>
+</nav>
+
 <div class="container" *ngIf="div1">
+
 
     <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
 
@@ -10,6 +17,7 @@
             <div>
                 <button type="submit" class="button">Generate report</button>
             </div>
+
         </div>
     </form>
 </div>

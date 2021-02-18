@@ -9,22 +9,21 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
   private url="http://127.0.0.1:5000/login";
-  private user=null;
+
 
   login(data:any):Observable<any> {
     return this.http.post<any>(this.url,data)
   }
 
 saveUsername(user){
-this.user=user;
+
+sessionStorage.setItem('user',user)
 }
 
 onLogOut(){
-  this.user=null;
+
+  sessionStorage.clear();
 }
 
-getUsername(){
-  return this.user;
-}
 
 }
