@@ -1,6 +1,10 @@
 <nav>
+
     <div>
-        <button (click)="Logout()" class="button logout">logout</button>
+        <button *ngIf="div2" class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
+    </div>
+    <div>
+        <button (click)="Logout()" class="button">logout</button>
     </div>
 </nav>
 
@@ -23,9 +27,7 @@
 </div>
 <div *ngIf="div2">
 
-    <div class="box">
-        <button class="button" (click)="divFunction()" style="margin:10px;">Go Back</button>
-    </div>
+
 
 
     <div class="box">
@@ -39,7 +41,7 @@
 
                 </div>
                 <div [class.display]="expanded" class="checkboxes">
-                    <label for="date" *ngFor="let date of dates" class="option" >
+                    <label for="date" *ngFor="let date of dates" class="option">
                         <input type="checkbox" class="checkbox" id="date" (click)="filter(date)" />
                         {{date}}
                     </label>
@@ -50,24 +52,25 @@
         </div>
     </div>
 
+    <div class="tablecontainer">
+        <table>
 
-    <table>
+            <tr>
+                <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name</th>
+                <th *ngFor="let title of titles" class="titles">{{title}}</th>
+                <th class="titles">Grand total</th>
+            </tr>
 
-        <tr>
-            <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name</th>
-            <th *ngFor="let title of titles" class="titles">{{title}}</th>
-            <th class="titles">Grand total</th>
-        </tr>
-
-        <tr *ngFor="let data of datas">
-            <td class="taskname">{{data.Task_Name}}</td>
-            <td *ngFor="let title of titles">{{data[title]}}</td>
-            <td>{{data.Grand_total}}</td>
-        </tr>
-        <tr>
-            <td class="taskname" style="font-weight:bolder; font-size:20px;">Grand total</td>
-            <td *ngFor="let title of titles">{{columnSum[title]}}</td>
-            <td>{{columnSum["Grand_total"]}}</td>
-        </tr>
-    </table>
+            <tr *ngFor="let data of datas">
+                <td class="taskname">{{data.Task_Name}}</td>
+                <td *ngFor="let title of titles">{{data[title]}}</td>
+                <td>{{data.Grand_total}}</td>
+            </tr>
+            <tr>
+                <td class="taskname" style="font-weight:bolder; font-size:20px;">Grand total</td>
+                <td *ngFor="let title of titles">{{columnSum[title]}}</td>
+                <td>{{columnSum["Grand_total"]}}</td>
+            </tr>
+        </table>
+    </div>
 </div>
