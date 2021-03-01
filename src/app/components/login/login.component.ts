@@ -37,10 +37,11 @@ export class LoginComponent implements OnInit {
 
 
     console.log(this.userForm.controls.username.value)
+    console.log("before calling login service")
     this.loginService.login(this.userForm.value).subscribe((res) => {
-      console.log(res)
+      
 
-      console.log(res.login)
+      console.log(`res.login :${res.login}`)
       if (res.login =="success") {
         this.router.navigate(['home'])
         this.notValid=false
