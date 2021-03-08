@@ -12,19 +12,8 @@ export class LandingPageComponent implements OnInit {
   constructor(private router:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
-    let user;
-    user=sessionStorage.getItem('user');
-    
-    if (user) {
-      console.log(`The user currently logged in is ${user}`)
-      this.user=user;
-    }
-    else {
-      this.router.navigate(['']);
-      console.log("Inside the else block")
-      console.log(user)
-    }
 
+this.loginService.checkSessionStorage();
   }
 
   

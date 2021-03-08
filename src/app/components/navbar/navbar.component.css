@@ -7,7 +7,7 @@
 
         .nav {
             /* padding:20px; */
-            height:120px;
+            height:70px;
             width:100%;
             background: rgba(24, 134, 66, 0.733);
             /* color: white; */
@@ -71,7 +71,14 @@ h1{
 
         @media only screen and (max-width: 700px) {
 
-
+            ul {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: space-between;
+    
+    
+            }
 
             .nav {
                 /* padding:20px; */
@@ -81,7 +88,7 @@ h1{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: center;
               
             }
 
@@ -91,6 +98,9 @@ h1{
                 margin: 0 10px;
                 width: 100%;
                 border-radius: 0px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
 
 
             }

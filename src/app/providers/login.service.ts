@@ -1,29 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
-  private url="http://localhost:5000/login"
+  constructor(private http: HttpClient, private router: Router) { }
+  private url = "http://localhost:5000/login"
 
 
-  login(data:any):Observable<any> {
-    return this.http.post<any>(this.url,data)
+  login(data: any): Observable<any> {
+    return this.http.post<any>(this.url, data)
   }
 
-saveUsername(user){
+  saveUsername(user) {
 
-sessionStorage.setItem('user',user)
-}
+    sessionStorage.setItem('user', user)
+  }
 
-onLogOut(){
+  onLogOut() {
 
-  sessionStorage.clear();
-}
+    sessionStorage.clear();
+  }
 
+
+
+  checkSessionStorage() {
+    let user;
+    user = sessionStorage.getItem('user');
+
+    if (user) {
+      console.log(`The user currently logged in is ${user}`)
+
+    }
+    else {
+      this.router.navigate(['']);
+
+    }
+  }
 
 }

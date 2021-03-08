@@ -9,7 +9,7 @@
             display: grid;
             grid-template-columns: repeat(1, 1fr 1fr);
             /* grid-auto-rows:minmax(100px,auto); */
-            grid-template-rows: 120px auto;
+            grid-template-rows: 70px auto;
             grid-template-areas:
                 "nav nav"
                 "one two";

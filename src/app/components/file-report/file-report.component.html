@@ -1,1 +1,46 @@
 
+<app-navbar></app-navbar>
+
+    <div class="box">
+        <div class="selectcontainer">
+            <div class="multiselect">
+                <div class="selectBox" (click)="showCheckboxes()">
+                    <div class="select">
+                        <p>SLAExpiration Filter</p>
+                        <!-- <option class="option">Select an option</option> -->
+                    </div>
+
+                </div>
+                <div [class.display]="expanded" class="checkboxes">
+                    <label for="date" *ngFor="let date of dates" class="option">
+                        <input type="checkbox" class="checkbox" id="date" (click)="filter(date)" />
+                        {{date}}
+                    </label>
+
+                </div>
+            </div>
+            <div><button class="button" class="apply" (click)="applyFilter()">Apply filter</button></div>
+        </div>
+    </div>
+
+    <div class="tablecontainer">
+        <table>
+
+            <tr>
+                <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name</th>
+                <th *ngFor="let title of titles" class="titles">{{title}}</th>
+                <th class="titles">Grand total</th>
+            </tr>
+
+            <tr *ngFor="let data of datas">
+                <td class="taskname">{{data.Task_Name}}</td>
+                <td *ngFor="let title of titles">{{data[title]}}</td>
+                <td>{{data.Grand_total}}</td>
+            </tr>
+            <tr>
+                <td class="taskname" style="font-weight:bolder; font-size:20px;">Grand total</td>
+                <td *ngFor="let title of titles">{{columnSum[title]}}</td>
+                <td>{{columnSum["Grand_total"]}}</td>
+            </tr>
+        </table>
+    </div>
