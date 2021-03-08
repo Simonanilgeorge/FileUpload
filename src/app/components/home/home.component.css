@@ -6,9 +6,9 @@
 
 .form{
     height:300px;
+
+    padding:10px;
     width:100%;
-    padding:10%;
-    /* width:fit-content; */
 
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
 

@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FileReportComponent } from './components/file-report/file-report.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HomeComponent,
     LoginComponent,
     LandingPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    FileReportComponent
   ],
   imports: [
     BrowserModule,

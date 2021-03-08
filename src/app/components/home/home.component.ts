@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
   }
 
   divFunction() {
-    this.div1 = !this.div1;
-    this.div2 = !this.div2;
+    // this.div1 = !this.div1;
+    // this.div2 = !this.div2;
     this.SLAExpirationFilter = []
     this.ngOnInit();
 
@@ -142,13 +142,13 @@ export class HomeComponent implements OnInit {
   onFormSubmit() {
 
     if (this.flag == 1) {
-      alert("you can only choose two files")
+      alert("you must choose 2 files")
       return;
 
     }
     else {
       if (!this.fileUploadForm.get('rvsi').value && !this.fileUploadForm.get('sp2').value) {
-        alert('Please fill valid details!');
+        alert('No files selected');
         return false;
       }
 
@@ -163,13 +163,13 @@ export class HomeComponent implements OnInit {
         // ###
 
 
-        this.divFunction();
-        this.onResponse(res)
+        // this.divFunction();
+        // this.onResponse(res)
 
       }, (err) => {
         console.log(err.message);
       })
-    }
+      }
 
 
   }
@@ -235,12 +235,13 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getReportData(){
+  getReportData() {
 
     console.log("Get method")
-    this.uploadService.getData().subscribe((res)=>{
+    this.uploadService.getData().subscribe((res) => {
       console.log(res)
-    },(err)=>{
+      this.onResponse(res)
+    }, (err) => {
       console.log(err.message)
     })
   }
