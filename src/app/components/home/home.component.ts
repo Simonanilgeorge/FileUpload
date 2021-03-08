@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
       console.log("Inside the else block")
       console.log(user)
     }
+
   }
 
   divFunction() {
@@ -232,11 +233,5 @@ export class HomeComponent implements OnInit {
     }
 
 
-  }
-
-
-  Logout(){
-    this.loginService.onLogOut();
-    this.router.navigate(['']);
   }
 }

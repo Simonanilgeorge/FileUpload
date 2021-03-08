@@ -6,8 +6,9 @@
 
 .form{
     height:300px;
-    padding:50px;
-    width:fit-content;
+    width:100%;
+    padding:10%;
+    /* width:fit-content; */
 
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
 
@@ -99,8 +100,12 @@ td{
     justify-content:center;
     align-items:center;
     height:80vh;
+    width:100%;
+
 
 }
+
+
 
 
 .taskname{
@@ -281,7 +286,7 @@ width:100%;
 .tablecontainer{
 
   width:100%;
-border:3px solid black;
+
  overflow:auto;
  height:60vh;
 
