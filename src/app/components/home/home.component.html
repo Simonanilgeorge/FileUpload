@@ -7,6 +7,8 @@
 
         <div class="form">
             <h3>Upload file</h3>
+            <div class="button">Fetch report</div>
+            <div (click)="getReportData()" class="button">Test get method</div>
             <label for="customFile">{{'Choose RVSI & SP2 files'}}</label>
             <input type="file" id="customFile" name="file" multiple class="custom-file-input"
                 (change)="onFileSelect($event)" #UploadFileInput>

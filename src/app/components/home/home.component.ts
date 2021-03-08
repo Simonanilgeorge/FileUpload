@@ -234,4 +234,14 @@ export class HomeComponent implements OnInit {
 
 
   }
+
+  getReportData(){
+
+    console.log("Get method")
+    this.uploadService.getData().subscribe((res)=>{
+      console.log(res)
+    },(err)=>{
+      console.log(err.message)
+    })
+  }
 }

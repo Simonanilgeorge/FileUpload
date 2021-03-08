@@ -23,4 +23,8 @@ export class UploadService {
 
   }
 
+
+  getData():Observable<any>{
+    return this.http.get<any>(this.url);
+  }
 }
