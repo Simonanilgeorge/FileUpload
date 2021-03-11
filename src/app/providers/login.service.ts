@@ -34,6 +34,7 @@ export class LoginService {
 
     if (user) {
       console.log(`The user currently logged in is ${user}`)
+      return user;
 
     }
     else {

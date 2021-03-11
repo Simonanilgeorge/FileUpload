@@ -13,7 +13,8 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-this.loginService.checkSessionStorage();
+ this.user=this.loginService.checkSessionStorage();
+
   }
 
   
