@@ -1,108 +1,25 @@
 
-        .box {
-            padding: 20px;
-        }
-
-
-
-        .nav {
-            /* padding:20px; */
-            height:70px;
-            width:100%;
-            background: rgba(24, 134, 66, 0.733);
-            /* color: white; */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-
-
-
-        }
-h1{
-    border-bottom:1px solid rgba(26, 109, 177, 0.664);
-    padding:10px;
-    width:fit-content;
-    color:rgba(18, 91, 150, 0.63);
-
-
-}
-        a {
-            text-decoration: none;
-            color: white;
-            border-bottom: transparent;
-            transition: 0.2s ease-in;
-            cursor:pointer;
-     
-        }
-        a:hover{
-    border-bottom: 2px solid rgba(255, 255, 255, 0.562);
-
-    /* font-weight:bold; */
-}
-        li {
-            list-style: none;
-        }
-
-        .menu {
-            border-right: 1px solid white;
-            /* border-radius: 9000px; */
-            padding: 16px;
-            margin: 0 10px;
-            flex: 1;
-
-
-        }
-
-        .logout {
-            justify-content: flex-end;
-        }
-
         ul {
-            display: flex;
-            justify-content: space-between;
+            list-style-type: none;
+            margin: 0;
 
-
+            overflow: hidden;
+            background: rgba(24, 134, 66, 0.733);
         }
 
+        li {
+            float: left;
+        }
 
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 30px 16px;
+            text-decoration: none;
+            transition: 0.5s ease-in-out;
+        }
 
-
-
-        @media only screen and (max-width: 700px) {
-
-            ul {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: space-between;
-    
-    
-            }
-
-            .nav {
-                /* padding:20px; */
-                grid-area: nav;
-                background: rgba(24, 134, 66, 0.733);
-                /* color: white; */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-              
-            }
-
-            .menu {
-                border: 1px solid white;
-                padding: 16px;
-                margin: 0 10px;
-                width: 100%;
-                border-radius: 0px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-
-
-            }
-            
+        li a:hover {
+            background: rgba(17, 99, 48, 0.733);
         }

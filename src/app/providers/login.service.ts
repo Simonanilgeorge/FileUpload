@@ -16,9 +16,10 @@ export class LoginService {
     return this.http.post<any>(this.url, data)
   }
 
-  saveUsername(user) {
+  saveUsername(user,description) {
 
     sessionStorage.setItem('user', user)
+    sessionStorage.setItem('role',description)
   }
 
   onLogOut() {

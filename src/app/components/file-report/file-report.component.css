@@ -121,6 +121,7 @@
   .titles{
       top:0;
       position:sticky;
+      /* border:2px solid red; */
   }
   
   /* .custom-file-input::before {
@@ -286,9 +287,10 @@
   .tablecontainer{
   
     width:100%;
-  
+  resize: both;
    overflow:auto;
    height:60vh;
+   border:1px solid black;
   
    
   

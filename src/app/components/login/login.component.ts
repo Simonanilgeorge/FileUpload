@@ -19,10 +19,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(window.sessionStorage){
-      console.log("session storage supported")
-      console.log(window.sessionStorage)
-    }
   }
   get username() {
     return this.userForm.get('username');
@@ -33,25 +29,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(`submit button pressed`)
 
-
-    console.log(this.userForm.controls.username.value)
-    console.log("before calling login service")
     this.loginService.login(this.userForm.value).subscribe((res) => {
-      
 
-      console.log(`res.login :${res.login}`)
-      if (res.login =="success") {
+      if (res.login == "success") {
         this.router.navigate(['home'])
-        this.notValid=false
-        this.loginService.saveUsername(this.userForm.controls.username.value)
-        console.log((sessionStorage))
-       
+        this.notValid = false
+        this.loginService.saveUsername(res.name, res.description)
+        console.log(sessionStorage)
+
       }
 
-      else{
-        this.notValid=true
+      else {
+        this.notValid = true
       }
 
 
