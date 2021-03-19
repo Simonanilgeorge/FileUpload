@@ -296,5 +296,17 @@
   
   }
   
-  
+  .elseblock{
+ 
+    padding:25px;
+    height:200px;
+    margin:200px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width:fit-content;
+
+
+  }
   

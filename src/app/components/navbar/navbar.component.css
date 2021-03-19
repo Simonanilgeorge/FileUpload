@@ -1,25 +1,24 @@
+ul {
+    list-style-type: none;
+    margin: 0;
 
-        ul {
-            list-style-type: none;
-            margin: 0;
+    overflow: hidden;
+    background: rgba(18, 19, 18, 0.733);
+}
 
-            overflow: hidden;
-            background: rgba(24, 134, 66, 0.733);
-        }
+li {
+    float: left;
+}
 
-        li {
-            float: left;
-        }
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 30px 16px;
+    text-decoration: none;
+    transition: 0.5s ease-in-out;
+}
 
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 30px 16px;
-            text-decoration: none;
-            transition: 0.5s ease-in-out;
-        }
-
-        li a:hover {
-            background: rgba(17, 99, 48, 0.733);
-        }
+li a:hover {
+    background: rgba(17, 99, 48, 0.733);
+}

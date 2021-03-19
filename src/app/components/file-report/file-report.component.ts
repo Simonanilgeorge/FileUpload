@@ -12,7 +12,7 @@ export class FileReportComponent implements OnInit {
 
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
-
+  // flag:boolean=true;
   filterDate: any = {};
   titles: String[] = [];
   dates: String[] = [];
@@ -32,7 +32,9 @@ export class FileReportComponent implements OnInit {
 
     console.log("Get method")
     this.uploadService.getData().subscribe((res) => {
+      console.log("this is the response from the server")
       console.log(res)
+      // if(res==null)
       this.onResponse(res)
     }, (err) => {
       console.log(err.message)
@@ -126,7 +128,13 @@ showCheckboxes() {
 
 
       // To find the grand total for each task
+      console.log("this.datas:")
       console.log(this.datas)
+      // if(this.datas==[]){
+      //   this.flag=true;
+      //   return;
+      // }
+
       this.columnSum["Grand_total"] = 0;
       this.datas.forEach((data) => {
         for (let row in data) {
