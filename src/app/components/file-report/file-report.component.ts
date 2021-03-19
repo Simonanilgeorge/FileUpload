@@ -12,7 +12,7 @@ export class FileReportComponent implements OnInit {
 
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
-  // flag:boolean=true;
+  flag: boolean = null;
   filterDate: any = {};
   titles: String[] = [];
   dates: String[] = [];
@@ -30,11 +30,11 @@ export class FileReportComponent implements OnInit {
 
   getReportData() {
 
-    console.log("Get method")
+  
+
     this.uploadService.getData().subscribe((res) => {
-      console.log("this is the response from the server")
-      console.log(res)
-      // if(res==null)
+
+
       this.onResponse(res)
     }, (err) => {
       console.log(err.message)
@@ -42,22 +42,22 @@ export class FileReportComponent implements OnInit {
   }
 
 
-// function to hide/show checkboxes
-showCheckboxes() {
+  // function to hide/show checkboxes
+  showCheckboxes() {
 
-  if (!this.expanded) {
+    if (!this.expanded) {
 
-     this.expanded = true;
-   } else {
-     this.expanded = false;
-   }
- }
+      this.expanded = true;
+    } else {
+      this.expanded = false;
+    }
+  }
 
 
   //Add the dates to the array 
   filter(date) {
 
-    console.log(date);
+
     // check if date already exists in the array
     if (!this.SLAExpirationFilter.includes(date)) {
 
@@ -71,12 +71,12 @@ showCheckboxes() {
         return sla == date;
       })
 
-      console.log(index)
+
       this.SLAExpirationFilter.splice(index, 1)
     }
-    console.log(this.SLAExpirationFilter)
+   
 
- }
+  }
 
   // function called when a filter is applied
   applyFilter() {
@@ -85,7 +85,6 @@ showCheckboxes() {
     this.filterDate['date'] = this.SLAExpirationFilter;
 
 
-    console.log(JSON.stringify(this.filterDate))
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
       this.datas = null;
@@ -128,12 +127,16 @@ showCheckboxes() {
 
 
       // To find the grand total for each task
-      console.log("this.datas:")
-      console.log(this.datas)
-      // if(this.datas==[]){
-      //   this.flag=true;
-      //   return;
-      // }
+      
+
+      if (this.datas.length==0) {
+        this.flag = false;
+        
+        return;
+      }
+      else {
+        this.flag = true;
+      }
 
       this.columnSum["Grand_total"] = 0;
       this.datas.forEach((data) => {
@@ -154,12 +157,12 @@ showCheckboxes() {
 
       if (res.statusCode === 200) {
         // Reset the file input
-console.log("success")
+        console.log("success")
       }
     }
 
 
   }
 
-  
+
 }
