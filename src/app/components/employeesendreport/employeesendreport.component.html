@@ -1,0 +1,26 @@
+
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="statustitle">
+        <h1>Enter your daily status updates</h1>
+    </div>
+    <div class="statusbox">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="inputarea">
+
+
+                    <textarea name="status" id="status" cols="30" rows="10" formControlName="status" class="textarea"></textarea>
+                <div *ngIf="status.invalid && (status.dirty || status.touched)">
+                    <small class="warning-message">status required</small>
+                </div>
+            </div>
+
+
+            <div class="inputarea">
+                <button type="submit" [disabled]="!userForm.valid" class="button">Send status</button>
+            </div>
+        </form>
+    </div>
+
+</div>

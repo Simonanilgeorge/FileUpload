@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FileReportComponent } from './components/file-report/file-report.component';
+import { EmployeesendreportComponent } from './components/employeesendreport/employeesendreport.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FileReportComponent } from './components/file-report/file-report.compon
     LoginComponent,
     LandingPageComponent,
     NavbarComponent,
-    FileReportComponent
+    FileReportComponent,
+    EmployeesendreportComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,54 @@
+.container{
+    padding:25px;
+    height:200px;
+    margin:200px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width:fit-content;
+}
+
+.statustitle{
+    padding:20px;
+}
+
+.statusbox{
+    padding:30px;
+}
+
+.button {
+    cursor:pointer;
+    border: none;
+    background: rgb(10, 155, 10);
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 125px;
+    transition: 0.3s ease-in-out;
+    font-size:15px;
+
+}
+
+.textarea{
+    padding:20px;
+    font-size: 1.2rem;
+    width:100%;
+
+    border:2px solid black;
+}
+.inputarea{
+padding:20px;
+
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+}
+
+.warning-message{
+    color:red;
+font-size:14px;
+text-transform: capitalize;
+
+}
