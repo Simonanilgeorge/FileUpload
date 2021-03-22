@@ -52,3 +52,16 @@ font-size:14px;
 text-transform: capitalize;
 
 }
+
+.button[disabled]{
+    border: none;
+     background: rgb(10, 155, 10);
+     opacity: 0.5;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+  
+
+
+    
+}

@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       if (res.login == "success") {
         this.router.navigate(['home'])
         this.notValid = false
-        this.loginService.saveUsername(res.name, res.description)
+        this.loginService.saveUsername(res.name, res.description,res.account_name)
         console.log(sessionStorage)
 
       }
