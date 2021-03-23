@@ -9,6 +9,9 @@ import { EmpreportService } from '../../providers/empreport.service';
 export class EmployeeReportComponent implements OnInit {
 
   datas: any;
+  allData: any;
+  flag:boolean=true;
+
   constructor(private empreportService: EmpreportService) { }
 
   ngOnInit(): void {
@@ -18,18 +21,41 @@ export class EmployeeReportComponent implements OnInit {
   getReport() {
 
     this.empreportService.getReport().subscribe((res) => {
-      const regex = /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g;
-      res=JSON.parse(res)
-   
-      res.forEach((res)=>{
-        res.status.replace(regex, 'simon ');
-     
-      })
-      console.log(res);
+      res = res.replace(/\\n/g, "<br>");
+      res = JSON.parse(res);
       this.datas = res;
+      if(this.datas.length==0){
+        this.flag=false;
+        return;
+      }
+      else{
+        this.flag=true;
+      }
+      this.allData = res;
+
+
     }, (err) => {
       console.log(err.message)
     })
+  }
+
+  filter(event) {
+    console.log(event.target.value);
+
+    // console.log(this.filters);
+    let name = event.target.value;
+    this.datas = this.datas.filter((n) => {
+      return n.username.toLowerCase().includes(name.toLowerCase());
+    })
+
+    if (name.trim().length === 0) {
+      console.log("All data");
+
+      this.datas = this.allData;
+    }
+
+
+
   }
 
 }

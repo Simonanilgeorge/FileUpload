@@ -8,10 +8,17 @@ import { LoginService } from '../../providers/login.service'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+role:string;
+flag:boolean=false;
+access:string[]=["team lead","process associate"];
   constructor(private router:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
+this.role=sessionStorage.getItem('role');
+console.log(`users role is ${this.role}`);
+if(this.access.includes(this.role)){
+  this.flag=true;
+}
   }
 
     
