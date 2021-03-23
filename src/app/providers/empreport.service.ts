@@ -14,4 +14,9 @@ export class EmpreportService {
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
   }
+
+  getReport():Observable<any>{
+    return this.http.get<any>(this.url);
+  }
+
 }

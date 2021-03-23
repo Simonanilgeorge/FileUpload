@@ -5,6 +5,7 @@ import {LoginComponent} from './components/login/login.component'
 import {LandingPageComponent} from './components/landing-page/landing-page.component'
 import {FileReportComponent} from './components/file-report/file-report.component'
 import {EmployeesendreportComponent} from './components/employeesendreport/employeesendreport.component';
+import {EmployeeReportComponent} from './components/employee-report/employee-report.component';
 const routes: Routes = [
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
 {path:'home',component:LandingPageComponent},
 {path:'upload',component:HomeComponent},
 {path:'report',component:FileReportComponent},
-{path:'sendreport',component:EmployeesendreportComponent}];
+{path:'sendreport',component:EmployeesendreportComponent},
+{path:'viewreport',component:EmployeeReportComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

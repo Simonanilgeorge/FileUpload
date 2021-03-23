@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log("test");
     this.loginService.checkSessionStorage()
     this.fileUploadForm = this.formBuilder.group({
       rvsi: [''],

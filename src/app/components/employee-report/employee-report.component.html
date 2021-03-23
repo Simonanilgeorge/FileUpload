@@ -1,0 +1,13 @@
+
+<app-navbar></app-navbar>
+<div class="report" *ngFor="let data of datas">
+<h2>{{data.username}}/{{data.account_name}} ({{data.time}})</h2>
+
+<div class="content">
+    <p>
+        {{data.status}}
+    </p>
+</div>
+
+</div>
+
