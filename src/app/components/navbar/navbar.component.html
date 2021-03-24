@@ -1,11 +1,9 @@
-
-
 <ul>
     <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/upload">Generate Report</a></li>
-    <li><a routerLink="/report">View Report</a></li>
-    <li ><a  routerLink="/viewreport">Employee Report</a></li>
-    <li><a routerLink="/sendreport">Send Report</a></li>
+    <li *ngIf="manager"><a routerLink="/upload">Generate Report</a></li>
+    <li *ngIf="manager"><a routerLink="/report">View Report</a></li>
+    <li *ngIf="manager"><a routerLink="/viewreport">Employee Report</a></li>
+    <li *ngIf="employee"><a routerLink="/sendreport">Send Report</a></li>
     <li style="float:right" (click)="logOut()"><a>Logout</a></li>
 </ul>
 

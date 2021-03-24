@@ -16,11 +16,12 @@ export class LoginService {
     return this.http.post<any>(this.url, data)
   }
 
-  saveUsername(user,description,account_name) {
+  saveUsername(user,description,account_name,cn) {
 
     sessionStorage.setItem('user', user)
     sessionStorage.setItem('role',description)
     sessionStorage.setItem('account_name',account_name)
+    sessionStorage.setItem('cn',cn)
   }
 
   onLogOut() {
@@ -45,4 +46,24 @@ export class LoginService {
     }
   }
 
+  checkRole(){
+    let manager:boolean=false
+    let employee:boolean=false;
+    let role:string=sessionStorage.getItem('role');
+
+    if(role==""){
+      employee=true;
+      manager=false;
+    }
+    else{
+      employee=false;
+      manager=true;
+    }
+return [employee,manager];
+
+  }
+
+
 }
+
+

@@ -11,12 +11,12 @@ export class EmployeeReportComponent implements OnInit {
 
   datas: any;
   allData: any;
-  flag:boolean=true;
+  flag: boolean = true;
 
   filterForm = this.fb.group({
     dateFilter: ['']
   });
-  constructor(private empreportService: EmpreportService,private fb:FormBuilder) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getReport();
@@ -25,18 +25,7 @@ export class EmployeeReportComponent implements OnInit {
   getReport() {
 
     this.empreportService.getReport().subscribe((res) => {
-      res = res.replace(/\\n/g, "<br>");
-      res = JSON.parse(res);
-      this.datas = res;
-      if(this.datas.length==0){
-        this.flag=false;
-        return;
-      }
-      else{
-        this.flag=true;
-      }
-      this.allData = res;
-
+      this.onResponse(res);
 
     }, (err) => {
       console.log(err.message)
@@ -44,33 +33,45 @@ export class EmployeeReportComponent implements OnInit {
   }
 
   filter(event) {
-    console.log(event.target.value);
 
-    // console.log(this.filters);
+
+  
     let name = event.target.value;
     this.datas = this.datas.filter((n) => {
       return n.username.toLowerCase().includes(name.toLowerCase());
     })
 
     if (name.trim().length === 0) {
-      console.log("All data");
 
       this.datas = this.allData;
     }
 
-
-
   }
 
 
-  onSubmit(){
-    console.log(`date is ${this.filterForm.value}`)
-    console.log(this.filterForm.value);
-    this.empreportService.getReportByFilter(this.filterForm.value.dateFilter).subscribe((res)=>{
-      console.log(res);
-    },(err)=>{
+  onSubmit() {
+
+    this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
+
+      this.onResponse(res);
+    }, (err) => {
       console.log(err.message);
     })
+
+  }
+
+  onResponse(res) {
+    res = res.replace(/\\n/g, "<br>");
+    res = JSON.parse(res);
+    this.datas = res;
+    if (this.datas.length == 0) {
+      this.flag = false;
+      return;
+    }
+    else {
+      this.flag = true;
+    }
+    this.allData = res;
 
   }
 

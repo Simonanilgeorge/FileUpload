@@ -8,23 +8,24 @@ import { LoginService } from '../../providers/login.service'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-role:string;
-flag:boolean=false;
-access:string[]=["team lead","process associate"];
-  constructor(private router:Router,private loginService:LoginService) { }
+  role: string;
+  flag: boolean = false;
+  employee:boolean
+  manager:boolean
+ 
+  constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
-this.role=sessionStorage.getItem('role');
-console.log(`users role is ${this.role}`);
-if(this.access.includes(this.role)){
-  this.flag=true;
-}
+
+    [this.employee,this.manager]=this.loginService.checkRole();
+
   }
 
-    
-logOut(){
-  this.loginService.onLogOut();
-  this.router.navigate(['']);
-}
+
+  logOut() {
+    this.loginService.onLogOut();
+    this.router.navigate(['']);
+  }
 
 }
+

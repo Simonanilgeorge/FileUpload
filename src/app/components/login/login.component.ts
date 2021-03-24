@@ -10,6 +10,7 @@ import { LoginService } from '../../providers/login.service'
 export class LoginComponent implements OnInit {
 
   public notValid: boolean = false;
+  noAccess: boolean = false;
 
   userForm = this.fb.group({
     username: ['', Validators.required],
@@ -32,11 +33,19 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.userForm.value).subscribe((res) => {
 
-      if (res.login == "success") {
+
+      if (res.login == "success" && res.cn == "User") {
+
         this.router.navigate(['home'])
         this.notValid = false
-        this.loginService.saveUsername(res.name, res.description,res.account_name)
+        this.noAccess = false
+        this.loginService.saveUsername(res.name, res.description, res.account_name, res.cn)
         console.log(sessionStorage)
+
+
+      }
+      else if (res.cn !== "User") {
+        this.noAccess = true;
 
       }
 
