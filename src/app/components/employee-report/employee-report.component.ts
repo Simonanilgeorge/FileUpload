@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
+import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
@@ -12,7 +13,10 @@ export class EmployeeReportComponent implements OnInit {
   allData: any;
   flag:boolean=true;
 
-  constructor(private empreportService: EmpreportService) { }
+  filterForm = this.fb.group({
+    dateFilter: ['']
+  });
+  constructor(private empreportService: EmpreportService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
     this.getReport();
@@ -58,4 +62,18 @@ export class EmployeeReportComponent implements OnInit {
 
   }
 
+
+  onSubmit(){
+    console.log(`date is ${this.filterForm.value}`)
+    console.log(this.filterForm.value);
+    this.empreportService.getReportByFilter(this.filterForm.value.dateFilter).subscribe((res)=>{
+      console.log(res);
+    },(err)=>{
+      console.log(err.message);
+    })
+
+  }
+
 }
+
+

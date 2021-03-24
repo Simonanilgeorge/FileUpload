@@ -1,10 +1,28 @@
-
 <app-navbar></app-navbar>
 
 <div class="filter">
-
+<div class="inputgroup">
     <label for="name">Search by name</label>
     <input type="text" name="name" (input)="filter($event)" class="input">
+</div>
+
+
+
+<div class="inputgroup">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+        <label for="date">Search by date</label>
+        <input type="date" name="date" class="input" formControlName="dateFilter">
+
+        <div class="inputarea">
+            <button type="submit" class="button" >filter</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
 </div>
 <div class="container" *ngIf="flag">
     <div class="report" *ngFor="let data of datas">
@@ -23,3 +41,5 @@
     <h2>Status yet to be updated by employee..</h2>
 
 </div>
+
+
