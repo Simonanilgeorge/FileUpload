@@ -12,21 +12,17 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) { }
   private url:string = "http://localhost:5000/login"
 
-  private managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
-  private employeeAccess:string[] = ["EmployeesendreportComponent"];
-  private managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
-  private employeeRoles:string[] = [""];
-  private role: string = sessionStorage.getItem('role');
+
   login(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
   }
 
-  saveUsername(user, description, account_name, cn) {
+  saveUsername(user, description, account_name) {
 
     sessionStorage.setItem('user', user)
     sessionStorage.setItem('role', description)
     sessionStorage.setItem('account_name', account_name)
-    sessionStorage.setItem('cn', cn)
+    
   }
 
   onLogOut() {
@@ -52,11 +48,12 @@ export class LoginService {
   }
 
   checkRole() {
+    let role: string = sessionStorage.getItem('role');
     let manager: boolean = false
     let employee: boolean = false;
     
 
-    if (this.role == "") {
+    if (role == "") {
       employee = true;
       manager = false;
     }
@@ -70,12 +67,18 @@ export class LoginService {
 
   navigateByRole(componentName) {
 
+    let managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
+    let employeeAccess:string[] = ["EmployeesendreportComponent"];
+    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
+    let employeeRoles:string = "";
+    let role: string = sessionStorage.getItem('role');
 
-    if (this.employeeRoles.includes(this.role) && this.managerAccess.includes(componentName)) {
+
+    if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
       this.router.navigate(['home']);
 
     }
-    if (this.managerRoles.includes(this.role) && this.employeeAccess.includes(componentName)) {
+    if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
       this.router.navigate(['home'])
     }
 
@@ -83,4 +86,3 @@ export class LoginService {
 
 
 }
-

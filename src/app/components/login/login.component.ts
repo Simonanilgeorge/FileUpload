@@ -34,20 +34,17 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.userForm.value).subscribe((res) => {
 
 
-      if (res.login == "success" && res.cn == "User") {
+      if (res.login == "success") {
 
         this.router.navigate(['home'])
         this.notValid = false
         this.noAccess = false
-        this.loginService.saveUsername(res.name, res.description, res.account_name, res.cn)
+        this.loginService.saveUsername(res.name, res.description, res.account_name)
       
 
 
       }
-      else if (res.cn !== "User") {
-        this.noAccess = true;
 
-      }
 
       else {
         this.notValid = true
