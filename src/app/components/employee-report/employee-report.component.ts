@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../../providers/login.service'
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
@@ -10,16 +11,20 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class EmployeeReportComponent implements OnInit {
 
   datas: any;
-  allData: any;
+
   flag: boolean = true;
+  searchedKeyword: string;
 
   filterForm = this.fb.group({
     dateFilter: ['']
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder,private loginService:LoginService) { }
 
   ngOnInit(): void {
+    this.loginService.checkSessionStorage();
+    this.loginService.navigateByRole(this.constructor.name)
     this.getReport();
+
   }
 
   getReport() {
@@ -31,23 +36,6 @@ export class EmployeeReportComponent implements OnInit {
       console.log(err.message)
     })
   }
-
-  filter(event) {
-
-
-  
-    let name = event.target.value;
-    this.datas = this.datas.filter((n) => {
-      return n.username.toLowerCase().includes(name.toLowerCase());
-    })
-
-    if (name.trim().length === 0) {
-
-      this.datas = this.allData;
-    }
-
-  }
-
 
   onSubmit() {
 
@@ -71,10 +59,8 @@ export class EmployeeReportComponent implements OnInit {
     else {
       this.flag = true;
     }
-    this.allData = res;
+
 
   }
 
 }
-
-

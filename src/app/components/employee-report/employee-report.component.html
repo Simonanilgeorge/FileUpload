@@ -2,8 +2,9 @@
 
 <div class="filter">
 <div class="inputgroup">
-    <label for="name">Search by name</label>
-    <input type="text" name="name" (input)="filter($event)" class="input">
+     <label for="name">Search by keyword</label>
+    <!-- <input type="text" name="name" (input)="filter($event)" class="input">  -->
+    <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
 </div>
 
 
@@ -14,7 +15,7 @@
         <input type="date" name="date" class="input" formControlName="dateFilter">
 
         <div class="inputarea">
-            <button type="submit" class="button" >filter</button>
+            <button type="submit"  class="button" >filter</button>
         </div>
     </form>
 </div>
@@ -25,8 +26,8 @@
 
 </div>
 <div class="container" *ngIf="flag">
-    <div class="report" *ngFor="let data of datas">
-        <h2>{{data.username}}/{{data.account_name}} ({{data.time}})</h2>
+    <div class="report" *ngFor="let data of datas | filter:searchedKeyword">
+        <h2>{{data.username}}/{{data.account_name}}</h2>
 
         <div class="content">
 
@@ -34,12 +35,10 @@
 
 
         </div>
-
+        <h4>{{data.time}}</h4>
     </div>
 </div>
 <div class="statusmsg" *ngIf="!flag">
     <h2>Status yet to be updated by employee..</h2>
 
 </div>
-
-

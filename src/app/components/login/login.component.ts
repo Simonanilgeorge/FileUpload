@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         this.notValid = false
         this.noAccess = false
         this.loginService.saveUsername(res.name, res.description, res.account_name, res.cn)
-        console.log(sessionStorage)
+      
 
 
       }

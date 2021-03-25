@@ -26,8 +26,9 @@ export class HomeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log("test");
+    
     this.loginService.checkSessionStorage()
+    this.loginService.navigateByRole(this.constructor.name)
     this.fileUploadForm = this.formBuilder.group({
       rvsi: [''],
       sp2: ['']
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
     if (event.target.files.length == 2) {
       const file1 = event.target.files[0];
       const file2 = event.target.files[1];
-      // console.log(file);
+  
       if (!_.includes(af, file1.type || file2.type)) {
         alert('Only EXCEL Docs Allowed!');
       }
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
         this.fileUploadForm.get('rvsi').setValue(file1);
         this.fileUploadForm.get('sp2').setValue(file2);
         this.flag = 0;
-        //console.log(this.fileUploadForm.value);
+     
       }
     }
     else {

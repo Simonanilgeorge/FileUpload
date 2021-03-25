@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
   role: string;
   flag: boolean = false;
   employee:boolean
+  
   manager:boolean
  
   constructor(private router: Router, private loginService: LoginService) { }

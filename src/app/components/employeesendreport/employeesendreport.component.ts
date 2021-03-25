@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators,FormBuilder,FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {EmpreportService} from '../../providers/empreport.service';
-
-
+import { LoginService } from '../../providers/login.service'
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
@@ -22,9 +21,17 @@ export class EmployeesendreportComponent implements OnInit {
     status:['', Validators.required]
 
   });
-  constructor(private fb: FormBuilder,private empReportService: EmpreportService,private router:Router) { }
+  constructor(private fb: FormBuilder,private empReportService: EmpreportService,private router:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
+
+    
+    
+
+    this.loginService.checkSessionStorage();
+
+    this.loginService.navigateByRole(this.constructor.name)
+ 
   }
 
 get status() {
@@ -34,14 +41,14 @@ get status() {
 
 
 onSubmit() {
-console.log("testing")
-console.log(this.userForm.value);
+
+
 
 this.empReportService.sendReport(this.userForm.value).subscribe((res)=>{
 
   this.flag=false;
-  console.log(this.flag);
-  console.log(res);
+
+
   setTimeout(()=>{
 this.router.navigate(['/home']);
   },1000);

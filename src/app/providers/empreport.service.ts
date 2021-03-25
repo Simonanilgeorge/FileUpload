@@ -22,9 +22,8 @@ export class EmpreportService {
 
   getReportByFilter(date):Observable<any>
   {
-    // console.log(`${this.url}/${date}`);
-    console.log(typeof(date));
-    console.log(this.url+'/'+"date");
+
+ 
     return this.http.post<any>(`${this.url}/date`,date)
   }
 }

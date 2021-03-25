@@ -13,7 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FileReportComponent } from './components/file-report/file-report.component';
 import { EmployeesendreportComponent } from './components/employeesendreport/employeesendreport.component';
 import { EmployeeReportComponent } from './components/employee-report/employee-report.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { EmployeeReportComponent } from './components/employee-report/employee-r
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    Ng2SearchPipeModule
     // RouterModule
   ],
   providers: [],

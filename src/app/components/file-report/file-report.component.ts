@@ -24,6 +24,7 @@ export class FileReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.loginService.navigateByRole(this.constructor.name)
     this.getReportData();
 
   }
