@@ -10,12 +10,12 @@ import { EmployeeReportComponent } from '../components/employee-report/employee-
 export class LoginService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url = "http://localhost:5000/login"
+  private url:string = "http://localhost:5000/login"
 
-  private managerAccess = ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
-  private employeeAccess = ["EmployeesendreportComponent"];
-  private managerRoles = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","team lead"]
-  private employeeRoles = [""];
+  private managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
+  private employeeAccess:string[] = ["EmployeesendreportComponent"];
+  private managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
+  private employeeRoles:string[] = [""];
   private role: string = sessionStorage.getItem('role');
   login(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
