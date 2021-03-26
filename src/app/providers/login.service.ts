@@ -49,17 +49,19 @@ export class LoginService {
 
   checkRole() {
     let role: string = sessionStorage.getItem('role');
+    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
+    let employeeRoles:string = "";
     let manager: boolean = false
     let employee: boolean = false;
     
 
-    if (role == "") {
-      employee = true;
-      manager = false;
-    }
-    else {
+    if (managerRoles.includes(role)) {
       employee = false;
       manager = true;
+    }
+    else {
+      employee = true;
+      manager = false;
     }
     return [employee, manager];
 
@@ -74,11 +76,17 @@ export class LoginService {
     let role: string = sessionStorage.getItem('role');
 
 
-    if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
+    
+    if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
+      this.router.navigate(['home'])
+    }
+
+    else if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
       this.router.navigate(['home']);
 
     }
-    if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
+
+    else if (!employeeRoles.includes(role) && !managerRoles.includes(role) && managerAccess.includes(componentName)){
       this.router.navigate(['home'])
     }
 
