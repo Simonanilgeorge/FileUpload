@@ -5,34 +5,39 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.form {
-  height: 100%;
+.formcontainer {
+  flex:1;
+  padding: 20px;
+  /* border: 2px solid black; */
+  align-self: center;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  padding: 40px;
 
-align-self: center;
+}
+
+
+.form{
+  padding: 20px;
+  width:60%;
+  /* border: 2px solid green; */
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
-.forminputs{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+.inputgroup{
+  padding: 20px;
+  /* border: 2px solid black; */
 
-  height:100%;
-
-  /* align-items: center; */
 }
+
 
 .button {
   cursor: pointer;
   border-radius: 5px;
   height: 30px;
-  padding: 10px 16px;
+  padding: 16px 16px;
   display: flex;
   justify-content: center;
   font-weight: bold;

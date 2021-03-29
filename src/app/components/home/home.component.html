@@ -1,6 +1,4 @@
-
-
-<!-- <div class="container" *ngIf="div1"> -->
+<!-- 
 
 <div class="container">
     <app-navbar></app-navbar>
@@ -20,10 +18,38 @@
   
     </form>
 </div>
+</div> -->
+
+
+<div class="container">
+    <app-navbar></app-navbar>
+    <div class="formcontainer">
+
+        <div class="form">
+            <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+
+                <div class="inputgroup">
+                    <h3>Upload file</h3>
+                </div>
+
+
+                <div class="inputgroup">
+                    <div class="button">Fetch excel files</div>
+                </div>
+                <div class="inputgroup"> <label for="customFile">{{'Choose RVSI & SP2 files'}}</label>
+                    <input type="file" id="customFile" name="file" multiple class="custom-file-input"
+                        (change)="onFileSelect($event)" #UploadFileInput>
+                </div>
+
+                <div class="inputgroup">
+                    <div>
+                        <button type="submit" class="button">Generate report</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
 </div>
-<!-- </div> -->
-<!-- <div *ngIf="div2"> -->
-
-
-
-<!-- </div> -->
