@@ -1,4 +1,4 @@
-ul {
+/* ul {
     list-style-type: none;
     margin: 0;
 
@@ -21,4 +21,62 @@ li a {
 
 li a:hover {
     background: rgba(17, 99, 48, 0.733);
+} */
+
+/* new styles */
+
+.logout {
+  background: steelblue;
+  color: white;
+  transform: scale(0.86);
+  transition: 0.3s ease-in-out;
+}
+.logout:hover {
+  background: white;
+  color: steelblue;
+}
+li:hover {
+  background: rgb(255, 255, 255);
+  color: rgb(8, 66, 104);
+  transform: scale(0.86);
+}
+
+nav {
+  padding: 5px;
+  /* height:20vh; */
+  /* border: 5px solid black; */
+  background: rgba(23, 145, 135, 0.76);
+
+}
+
+ul {
+  /* border:5px solid steelblue; */
+  display: flex;
+
+  /* justify-content: center; */
+  padding: 10px;
+
+  flex-wrap: wrap;
+}
+
+li {
+  color: rgb(236, 236, 236);
+  flex: 1 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  /* border: 2px solid darkcyan; */
+  font-size: 1em;
+  list-style: none;
+  padding: 20px;
+  cursor: pointer;
+  border-radius: 1000px;
+  transition: 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+
+li:focus{
+    outline:none;
 }

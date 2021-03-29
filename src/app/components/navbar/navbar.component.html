@@ -1,10 +1,21 @@
-<ul>
+<!-- <ul>
     <li><a routerLink="/home">Home</a></li>
     <li *ngIf="manager"><a routerLink="/upload">Generate Report</a></li>
     <li *ngIf="manager"><a routerLink="/report">View Report</a></li>
     <li *ngIf="manager"><a routerLink="/viewreport">Employee Report</a></li>
     <li *ngIf="employee"><a routerLink="/sendreport">Send Report</a></li>
     <li style="float:right" (click)="logOut()"><a>Logout</a></li>
-</ul>
+</ul> -->
 
-<!-- <li *ngIf="flag"><a  routerLink="/viewreport">Employee Report</a></li> -->
+
+
+<nav>
+    <ul>
+        <li routerLink="/home">Home</li>
+        <li *ngIf="manager" routerLink="/upload">Generate Report</li>
+        <li *ngIf="manager" routerLink="/report">View Report</li>
+        <li *ngIf="manager" routerLink="/viewreport">Employee Report</li>
+        <li *ngIf="employee" routerLink="/sendreport">Send Report</li>
+        <li class="logout" (click)="logOut()">logout</li>
+    </ul>
+</nav>
