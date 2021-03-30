@@ -1,44 +1,39 @@
-<app-navbar></app-navbar>
+  <div class="container">
+    <app-navbar></app-navbar>
 
-<div class="filter">
-<div class="inputgroup">
-     <label for="name">Search by keyword</label>
-    <!-- <input type="text" name="name" (input)="filter($event)" class="input">  -->
-    <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-</div>
+    <div class="filter">
 
 
+        <div class="inputgroup">
+            <label for="name">Search by keyword</label>
 
-<div class="inputgroup">
-    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-        <label for="date">Search by date</label>
-        <input type="date" name="date" class="input" formControlName="dateFilter">
-
-        <div class="inputarea">
-            <button type="submit"  class="button" >filter</button>
+            <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
         </div>
-    </form>
-</div>
+        <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
 
+            <div class="inputgroup">
+                <label for="date">Search by date</label>
+                <input type="date" name="date" class="input" formControlName="dateFilter">
+            </div>
+            <div class="inputgroup">
+                <button type="submit" class="button">filter</button>
+            </div>
+        </form>
 
-
-
-
-</div>
-<div class="container" *ngIf="flag">
-    <div class="report" *ngFor="let data of datas | filter:searchedKeyword">
-        <h2>{{data.username}}/{{data.account_name}}</h2>
-
-        <div class="content">
-
-            <p [innerHTML]="data.status"></p>
-
-
-        </div>
-        <h4>{{data.time}}</h4>
     </div>
-</div>
-<div class="statusmsg" *ngIf="!flag">
-    <h2>Status yet to be updated by employee..</h2>
+    <div *ngIf="flag" class="report-container">
+        <div class="report" *ngFor="let data of datas | filter:searchedKeyword">
+            <h2>{{data.username}}/{{data.account_name}}</h2>
+            <div class="content">
+                <p [innerHTML]="data.status"></p>
+            </div>
+            <h4>{{data.time}}</h4>
+        </div>
+    </div>
+    <div class="statusmsg" *ngIf="!flag">
+        <h2>Status yet to be updated by employee..</h2>
+
+    </div>
+
 
 </div>
