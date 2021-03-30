@@ -1,4 +1,4 @@
-.container{
+.minicontainer{
     padding:25px;
     height:200px;
     margin:200px auto;
@@ -9,10 +9,14 @@
     width:fit-content;
 }
 
+
+
 .statustitle{
     padding:20px;
 }
-
+h2{
+color:steelblue;
+}
 .statusbox{
     padding:30px;
 }
@@ -20,7 +24,7 @@
 .button {
     cursor:pointer;
     border: none;
-    background: rgb(10, 155, 10);
+    background: steelblue;
     color: white;
     border-radius: 5px;
     padding: 10px 20px;
@@ -34,8 +38,8 @@
     padding:20px;
     font-size: 1.2rem;
     width:100%;
-
-    border:2px solid black;
+border-radius: 10px;
+   
 }
 .inputarea{
 padding:20px;
@@ -55,7 +59,7 @@ text-transform: capitalize;
 
 .button[disabled]{
     border: none;
-     background: rgb(10, 155, 10);
+     background: steelblue;
      opacity: 0.5;
     color: white;
     border-radius: 5px;
