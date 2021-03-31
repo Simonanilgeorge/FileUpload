@@ -50,18 +50,19 @@
   justify-content: center;
   font-weight: bold;
   align-items: center;
-  background: green;
+  background: teal;
   color: white;
-  border: 1px solid green;
+  border: 1px solid teal;
   transition: 0.3s ease-in-out;
 }
 
 .button:hover {
-  background: darkgreen;
+  background: rgb(1, 82, 82);
 }
 .button:focus {
   outline: none;
 }
+
 
 input[type="file"]::file-selector-button {
   background: steelblue;

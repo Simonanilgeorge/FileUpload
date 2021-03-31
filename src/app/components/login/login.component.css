@@ -56,7 +56,7 @@ position: relative;
 
 .button {
     border: none;
-    background: rgb(10, 155, 10);
+    background: steelblue;
     color: white;
     border-radius: 5px;
     padding: 10px 20px;
@@ -66,7 +66,7 @@ position: relative;
 }
 .button[disabled]{
     border: none;
-     background: rgb(10, 155, 10);
+     background: steelblue;
      opacity: 0.5;
     color: white;
     border-radius: 5px;
@@ -78,12 +78,12 @@ position: relative;
 }
 
 .button:hover[disabled]{
-    background: rgb(10, 155, 10);
+    background: steelblue;
     cursor: default;
     opacity: 0.5;
 }
 .button:hover {
-    background: rgb(7, 117, 5);
+    background: rgb(42, 83, 116);
     cursor:pointer;
     
 
