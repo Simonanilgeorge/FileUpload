@@ -13,28 +13,56 @@ export class FileReportComponent implements OnInit {
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
   flag: boolean = null;
+  flg:number = 0;
   filterDate: any = {};
+  dt: any = {};
+  checklist: any = [];
   titles: String[] = [];
   dates: String[] = [];
   datas: any = null;
   columnTotal = 0;
   columnSum = {};
+  checkedList:any;
+  masterSelected:boolean;
 
   constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getReportData();
+    this.masterSelected = false;
+    this.getCheckedItemList();
 
+  }
+
+
+  checkUncheckAll() {
+    for (var i = 0; i < this.checklist.length; i++) {
+      this.checklist[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+  isAllSelected() {
+    this.masterSelected = this.checklist.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList(){
+    this.checkedList = [];
+    for (var i = 0; i < this.checklist.length; i++) {
+      if(this.checklist[i].isSelected)
+      this.checkedList.push(this.checklist[i]);
+    }
+    
   }
 
   getReportData() {
 
-  
-
     this.uploadService.getData().subscribe((res) => {
-
 
       this.onResponse(res)
     }, (err) => {
@@ -54,37 +82,15 @@ export class FileReportComponent implements OnInit {
     }
   }
 
-
-  //Add the dates to the array 
-  filter(date) {
-
-
-    // check if date already exists in the array
-    if (!this.SLAExpirationFilter.includes(date)) {
-
-      this.SLAExpirationFilter.push(date);
-    }
-    else {
-
-      // this block removes the date from the array
-      let index;
-      index = this.SLAExpirationFilter.findIndex((sla) => {
-        return sla == date;
-      })
-
-
-      this.SLAExpirationFilter.splice(index, 1)
-    }
-   
-
-  }
-
   // function called when a filter is applied
   applyFilter() {
 
     this.expanded = true;
-    this.filterDate['date'] = this.SLAExpirationFilter;
-
+    
+  
+    this.filterDate['date'] = this.checkedList.map((list)=> {
+      return list.date;
+    })
 
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
@@ -163,7 +169,22 @@ export class FileReportComponent implements OnInit {
     }
 
 
+    if(this.flg == 0){
+    
+      for (var i = 0 ; i < this.dates.length; i++){
+
+        this.dt["id"] = i
+        this.dt["date"] = this.dates[i];
+        this.dt["isSelected"] = false;
+        this.checklist.push(this.dt)
+        this.dt = []
+
+      }
+      this.flg = 1;
+    }
+
   }
+
 
 
 }

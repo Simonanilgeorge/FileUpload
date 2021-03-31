@@ -1,4 +1,3 @@
-<div class="container">
 <app-navbar></app-navbar>
 <div *ngIf="flag; else elseBlock">
     <div class="box">
@@ -12,10 +11,15 @@
 
                 </div>
                 <div [class.display]="expanded" class="checkboxes">
-                    <label for="date" *ngFor="let date of dates" class="option">
-                        <input type="checkbox" class="checkbox" id="date" (click)="filter(date)" />
-                        {{date}}
+                    <label class="option">
+                    <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
+                    Select All
                     </label>
+                    <label for="date" *ngFor="let item of checklist" class="option">
+                        <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
+                        {{item.date}}
+                    </label>
+
 
                 </div>
             </div>
@@ -54,4 +58,3 @@
     <button style="width:250px;" class="button" routerLink="/upload">Generate Report</button>
 </div>
 </ng-template>
-</div>
