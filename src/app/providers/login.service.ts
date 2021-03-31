@@ -69,6 +69,7 @@ export class LoginService {
 
   navigateByRole(componentName) {
 
+
     let managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
     let employeeAccess:string[] = ["EmployeesendreportComponent"];
     let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]

@@ -14,7 +14,7 @@
 .statustitle{
     padding:20px;
 }
-h2{
+h2,h1{
 color:steelblue;
 }
 .statusbox{
@@ -51,7 +51,7 @@ align-items: center;
 }
 
 .warning-message{
-    color:red;
+    color:teal;
 font-size:14px;
 text-transform: capitalize;
 
