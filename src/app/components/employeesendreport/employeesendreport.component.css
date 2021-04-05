@@ -31,9 +31,35 @@ color:steelblue;
     width: 125px;
     transition: 0.3s ease-in-out;
     font-size:15px;
+    display: block;
+    margin:0px 10px;
 
 }
 
+.button[disabled]{
+    border: none;
+     background: steelblue;
+     opacity: 0.5;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+  
+
+
+    
+}
+
+.button:hover[disabled]{
+    background: steelblue;
+    cursor: default;
+    opacity: 0.5;
+}
+.button:hover {
+    background: rgb(42, 83, 116);
+    cursor:pointer;
+    
+
+}
 .textarea{
     padding:20px;
     font-size: 1.2rem;
@@ -69,3 +95,71 @@ text-transform: capitalize;
 
     
 }
+
+td{
+    /* border:1px solid black; */
+padding:20px;
+
+font-weight:bolder;
+border:1px solid black;
+
+}
+
+
+table{
+    color:black;
+    border-collapse: collapse;
+    border:1px solid black;
+    width: 100%;
+    text-align: center;
+    overflow:auto;
+    
+}
+
+
+input{
+    padding: 10px;
+    border-radius: 5px;
+    border:1px solid grey;
+    width:100%;
+     
+}
+
+select{
+    padding: 10px;
+    cursor:pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    width:100%;
+}
+option{
+    padding: 10px;
+
+    cursor:pointer;
+    border-radius: 5px;
+}
+
+th{
+    padding:20px;
+
+font-weight:bolder;
+border:1px solid black;
+}
+
+form{
+    /* border:1px solid black; */
+    padding:20px;
+    flex:1;
+
+}
+
+.buttoncontainer{
+    /* border:1px solid black; */
+    padding:20px 0px;
+    width:50%;
+    display: flex;
+    /* justify-content: space-around; */
+
+
+}
+

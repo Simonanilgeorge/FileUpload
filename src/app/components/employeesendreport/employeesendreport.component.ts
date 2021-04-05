@@ -39,12 +39,12 @@ export class EmployeesendreportComponent implements OnInit {
   }
 
 // add new input fields
-addInput({ name, age, height }: any = {}) {
+addInput() {
   this.inputs.push(
     this.fb.group({
-      name: [name, []],
-      age: [age, []],
-      height: [height, []]
+      orderNumber: ["",Validators.required],
+      status:["Completed"],
+      comments: [""]
     })
   );
 }
@@ -60,7 +60,7 @@ get inputs() {
 }
 
 onSubmit(){
-
+console.log(this.inputs)
   console.log(JSON.stringify(this.myForm.value));
 }
 
