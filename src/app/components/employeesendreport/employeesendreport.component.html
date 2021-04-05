@@ -2,7 +2,7 @@
 
 <div class="container">
     <app-navbar></app-navbar>
-    <div class="minicontainer" *ngIf="flag">
+    <!-- <div class="minicontainer" *ngIf="flag">
         <div class="statustitle">
             <h1>Enter your daily status updates</h1>
         </div>
@@ -23,6 +23,26 @@
     </div>
     <div *ngIf="!flag" class="minicontainer">
         <h2>Status was sent successfully...</h2>
-    </div>
+    </div> -->
 
+
+    <form [formGroup]='myForm' (ngSubmit)="onSubmit()">
+        <button (click)='addInput()' type="button">Add</button>
+        <table formArrayName='inputs'>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Height</th>
+          </tr>
+          <tr *ngFor="let input of inputs.controls; let i = index" [formGroupName]='i'>
+            <td>{{ i + 1}}</td>
+            <td><input formControlName='name'></td>
+            <td><input formControlName='age'></td>
+            <td><input formControlName='height'></td>
+            <td><button (click)='removeInput(i)'>Delete</button></td>
+          </tr>
+       </table>
+       <button class="button" type="submit">submit</button>
+      </form>
 </div>

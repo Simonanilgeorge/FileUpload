@@ -14,47 +14,81 @@ export class EmployeesendreportComponent implements OnInit {
 
   public notValid: boolean = false;
   flag=true;
-  userForm = this.fb.group({
+  // userForm = this.fb.group({
 
+  //   username:sessionStorage.getItem('user'),
+  //   account_name:sessionStorage.getItem('account_name'),
+  //   status:['', Validators.required]
+
+  // });
+  myForm = this.fb.group({
+    inputs: this.fb.array([]),
     username:sessionStorage.getItem('user'),
-    account_name:sessionStorage.getItem('account_name'),
-    status:['', Validators.required]
+    account_name:sessionStorage.getItem('account_name')
 
   });
+
   constructor(private fb: FormBuilder,private empReportService: EmpreportService,private router:Router,private loginService:LoginService) { }
 
   ngOnInit(): void {
-
     
-    
-
     this.loginService.checkSessionStorage();
-
-    this.loginService.navigateByRole(this.constructor.name)
- 
+    this.loginService.navigateByRole(this.constructor.name) 
+    this.addInput();
+  
   }
 
-get status() {
-  return this.userForm.get('status');
+// add new input fields
+addInput({ name, age, height }: any = {}) {
+  this.inputs.push(
+    this.fb.group({
+      name: [name, []],
+      age: [age, []],
+      height: [height, []]
+    })
+  );
+}
+// remove input fields
+removeInput(i: number) {
+  this.inputs.removeAt(i);
+  this.inputs.updateValueAndValidity();
+  this.myForm.updateValueAndValidity();
+}
+
+get inputs() {
+  return this.myForm.get("inputs") as FormArray;
+}
+
+onSubmit(){
+
+  console.log(JSON.stringify(this.myForm.value));
 }
 
 
-
-onSubmit() {
-
-
-
-this.empReportService.sendReport(this.userForm.value).subscribe((res)=>{
-
-  this.flag=false;
+// get status() {
+//   return this.userForm.get('status');
+// }
 
 
-  setTimeout(()=>{
-this.router.navigate(['/home']);
-  },1000);
-},(err)=>{
-  console.log(err.message)
-})
 
-}
+// onSubmit() {
+
+
+
+// this.empReportService.sendReport(this.userForm.value).subscribe((res)=>{
+
+//   this.flag=false;
+
+
+//   setTimeout(()=>{
+// this.router.navigate(['/home']);
+//   },1000);
+// },(err)=>{
+//   console.log(err.message)
+// })
+
+// }
+
+
+
 }
