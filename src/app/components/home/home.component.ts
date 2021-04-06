@@ -19,9 +19,10 @@ export class HomeComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
   flag: Number = 0;
+  fl1: any;
+  fl2: any;
 
-
-
+ 
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
@@ -34,17 +35,40 @@ export class HomeComponent implements OnInit {
       sp2: ['']
 
     });
-
+    this.fl1 = null;
+    this.fl2 = null;
 
   }
-
 
 
   // function when file is selected
   onFileSelect(event) {
 
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
-    if (event.target.files.length == 2) {
+    //console.log(event.target.files.length)
+    if (event.target.files.length == 1) {
+
+      if (this.fl1 == null){
+        const file1 = event.target.files[0];
+        this.fl1 = 1;
+        this.fileUploadForm.get('rvsi').setValue(file1);
+        
+      }
+      else if(this.fl1 != null && this.fl2 == null){
+        const file2 = event.target.files[0];
+        this.fl2 = 1;
+        this.fileUploadForm.get('sp2').setValue(file2);
+      }
+      else{
+        alert("Two files has been choosen already. Please click ok to continue.")
+        this.onFormSubmit();
+
+      }
+    
+    }
+    else if (event.target.files.length == 2) {
+      this.fl1 = 1;
+      this.fl2 = 1;
       const file1 = event.target.files[0];
       const file2 = event.target.files[1];
   
@@ -59,33 +83,28 @@ export class HomeComponent implements OnInit {
       }
     }
     else {
-      this.flag = 1;
+      
+      alert("More than 2 files has been choosen")
+      return false;
     }
   }
 
   onFormSubmit() {
 
-    if (this.flag == 1) {
-      alert("you must choose 2 files")
-      return;
-
+    if (!this.fileUploadForm.get('rvsi').value && !this.fileUploadForm.get('sp2').value) {
+      alert('No files selected');
+      return false;
     }
-    else {
-      if (!this.fileUploadForm.get('rvsi').value && !this.fileUploadForm.get('sp2').value) {
-        alert('No files selected');
-        return false;
-      }
 
-      const formData = new FormData();
-      formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
-      formData.append('sp2', this.fileUploadForm.get('sp2').value)
+    const formData = new FormData();
+    formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
+    formData.append('sp2', this.fileUploadForm.get('sp2').value)
 
-      this.uploadService.uploadFile(formData).subscribe((res) => {
-        console.log(res)
-        this.router.navigate(['/report'])
-      }, (err) => {
-        console.log(err.message);
-      })
-    }
+    this.uploadService.uploadFile(formData).subscribe((res) => {
+      console.log(res)
+      this.router.navigate(['/report'])
+    }, (err) => {
+      console.log(err.message);
+    })
   }
 }
