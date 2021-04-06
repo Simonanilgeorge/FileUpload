@@ -15,7 +15,7 @@
     padding:20px;
 }
 h2,h1{
-color:steelblue;
+    color: rgb(57, 163, 154);
 }
 .statusbox{
     padding:30px;
@@ -43,10 +43,7 @@ color:steelblue;
     color: white;
     border-radius: 5px;
     padding: 10px 20px;
-  
-
-
-    
+    display: block;    
 }
 
 .button:hover[disabled]{
@@ -109,7 +106,7 @@ border:1px solid black;
 table{
     color:black;
     border-collapse: collapse;
-    border:1px solid black;
+    /* border:1px solid black; */
     width: 100%;
     text-align: center;
     overflow:auto;
@@ -163,3 +160,12 @@ form{
 
 }
 
+
+td:last-child{
+    border:0;
+
+}
+
+th:last-child{
+    border:0;
+}

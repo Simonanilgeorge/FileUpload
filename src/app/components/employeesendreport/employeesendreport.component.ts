@@ -14,13 +14,6 @@ export class EmployeesendreportComponent implements OnInit {
 
   public notValid: boolean = false;
   flag=true;
-  // userForm = this.fb.group({
-
-  //   username:sessionStorage.getItem('user'),
-  //   account_name:sessionStorage.getItem('account_name'),
-  //   status:['', Validators.required]
-
-  // });
   myForm = this.fb.group({
     inputs: this.fb.array([]),
     username:sessionStorage.getItem('user'),
@@ -59,35 +52,21 @@ get inputs() {
   return this.myForm.get("inputs") as FormArray;
 }
 
-onSubmit(){
-console.log(this.inputs)
-  console.log(JSON.stringify(this.myForm.value));
+
+
+
+
+
+onSubmit() {
+this.empReportService.sendReport(this.myForm.value).subscribe((res)=>{
+  this.flag=false;
+  setTimeout(()=>{
+this.router.navigate(['/home']);
+  },1000);
+},(err)=>{
+  console.log(err.message)
+})
 }
-
-
-// get status() {
-//   return this.userForm.get('status');
-// }
-
-
-
-// onSubmit() {
-
-
-
-// this.empReportService.sendReport(this.userForm.value).subscribe((res)=>{
-
-//   this.flag=false;
-
-
-//   setTimeout(()=>{
-// this.router.navigate(['/home']);
-//   },1000);
-// },(err)=>{
-//   console.log(err.message)
-// })
-
-// }
 
 
 

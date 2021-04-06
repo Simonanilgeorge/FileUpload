@@ -2,8 +2,11 @@
 
 <div class="container">
     <app-navbar></app-navbar>
-
-
+    <div *ngIf="flag">
+      
+      <div class="statustitle">
+        <h1>Enter your daily status updates</h1>
+    </div>
 
     <form [formGroup]='myForm' (ngSubmit)="onSubmit()">
         <div class="buttoncontainer">
@@ -37,6 +40,9 @@
             <td><button (click)='removeInput(i)' class="button">Delete</button></td>
           </tr>
        </table>
-     
       </form>
+      <div *ngIf="!flag">
+        <h2>Status was sent successfully...</h2>
+    </div>
+    </div>
 </div>
