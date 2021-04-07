@@ -3,7 +3,7 @@
 <div class="container">
     <app-navbar></app-navbar>
     <div *ngIf="flag">
-      
+
       <div class="statustitle">
         <h1>Enter your daily status updates</h1>
     </div>
@@ -41,8 +41,8 @@
           </tr>
        </table>
       </form>
-      <div *ngIf="!flag">
-        <h2>Status was sent successfully...</h2>
     </div>
-    </div>
+    <div *ngIf="!flag" class="minicontainer">
+      <h2>Status was sent successfully...</h2>
+  </div>
 </div>
