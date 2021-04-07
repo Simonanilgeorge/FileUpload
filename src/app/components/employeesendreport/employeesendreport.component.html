@@ -13,7 +13,7 @@
             <button (click)='addInput()' type="button" class="button">Add</button>
             <button class="button" type="submit" [disabled]="!myForm.valid">submit</button>
         </div>
-
+        <div class="tablecontainer">
         <table formArrayName='inputs'>
           <tr>
             <th>#</th>
@@ -31,15 +31,16 @@
                 <select name="status" id="status" formControlName="status">
                     <option value="Completed">Completed</option>
                     <option value="In Progress">In progress</option>
-                    <option value="Incomplete">Incomplete</option>
-                
+                    <option value="Incomplete">Incomplete</option>  
                   </select>
             </td>
-     
-            <td><input formControlName='comments'></td>
+            <td>     <textarea name="" id="" cols="30" rows="2" formControlName='comments'></textarea></td>
+
+            <!-- <td><input formControlName='comments'></td> -->
             <td><button (click)='removeInput(i)' class="button">Delete</button></td>
           </tr>
        </table>
+        </div>
       </form>
     </div>
     <div *ngIf="!flag" class="minicontainer">

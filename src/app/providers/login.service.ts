@@ -78,18 +78,18 @@ export class LoginService {
 
 
     
-    if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
-      this.router.navigate(['home'])
-    }
+    // if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
+    //   this.router.navigate(['home'])
+    // }
 
-    else if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
-      this.router.navigate(['home']);
+    // else if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
+    //   this.router.navigate(['home']);
 
-    }
+    // }
 
-    else if (!employeeRoles.includes(role) && !managerRoles.includes(role) && managerAccess.includes(componentName)){
-      this.router.navigate(['home'])
-    }
+    // else if (!employeeRoles.includes(role) && !managerRoles.includes(role) && managerAccess.includes(componentName)){
+    //   this.router.navigate(['home'])
+    // }
 
   }
 

@@ -57,9 +57,9 @@ h2,h1{
     
 
 }
-.textarea{
-    padding:20px;
-    font-size: 1.2rem;
+textarea{
+    padding:10px;
+
     width:100%;
 border-radius: 10px;
    
@@ -159,7 +159,6 @@ form{
 
 
 }
-
 
 td:last-child{
     border:0;

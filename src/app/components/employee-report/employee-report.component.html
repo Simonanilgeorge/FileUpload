@@ -27,6 +27,8 @@
             <!-- <div class="content">
                 <p [innerHTML]="data.status"></p>
             </div> -->
+
+      
             <table>
 
                 <tr>
@@ -38,14 +40,11 @@
                 <tr *ngFor="let status of data.user_status">
                     <td >{{status.order_number}}</td>
                     <td >{{status.status}}</td>
-                    <td>{{status.comments}}</td>
+                    <td><p [innerHTML]="status.comments"></p></td>
                 </tr>
   
             </table>
-
-
-
-       
+     
             <h4>{{data.time}}</h4>
         </div>
     </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Validators,FormBuilder,FormArray } from '@angular/forms';
+import { Validators,FormBuilder,FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {EmpreportService} from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
@@ -14,12 +14,7 @@ export class EmployeesendreportComponent implements OnInit {
 
   public notValid: boolean = false;
   flag=true;
-  myForm = this.fb.group({
-    inputs: this.fb.array([]),
-    username:sessionStorage.getItem('user'),
-    account_name:sessionStorage.getItem('account_name')
-
-  });
+  myForm:FormGroup;
 
   constructor(private fb: FormBuilder,private empReportService: EmpreportService,private router:Router,private loginService:LoginService) { }
 
@@ -27,6 +22,12 @@ export class EmployeesendreportComponent implements OnInit {
     
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name) 
+    this.myForm= this.fb.group({
+      inputs: this.fb.array([]),
+      username:sessionStorage.getItem('user'),
+      account_name:sessionStorage.getItem('account_name')
+  
+    });
     this.addInput();
   
   }
@@ -61,13 +62,13 @@ onSubmit() {
 this.empReportService.sendReport(this.myForm.value).subscribe((res)=>{
   this.flag=false;
   setTimeout(()=>{
-this.router.navigate(['/home']);
+// this.router.navigate(['/home']);
+this.flag=true;
+
   },1000);
+  this.ngOnInit();
 },(err)=>{
   console.log(err.message)
 })
 }
-
-
-
 }
