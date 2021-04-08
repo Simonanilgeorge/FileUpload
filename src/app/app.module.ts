@@ -14,6 +14,7 @@ import { FileReportComponent } from './components/file-report/file-report.compon
 import { EmployeesendreportComponent } from './components/employeesendreport/employeesendreport.component';
 import { EmployeeReportComponent } from './components/employee-report/employee-report.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { OrderListComponent } from './components/order-list/order-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     NavbarComponent,
     FileReportComponent,
     EmployeesendreportComponent,
-    EmployeeReportComponent
+    EmployeeReportComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,

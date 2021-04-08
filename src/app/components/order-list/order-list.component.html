@@ -1,0 +1,29 @@
+<div class="container">
+    <app-navbar></app-navbar>
+
+    <form [formGroup]="user" (ngSubmit)="getStatus()">
+
+        <div class="inputgroup">
+            <label for="date">Search by date</label>
+            <input type="date" name="date" class="input" formControlName="dateFilter">
+        </div>
+        <div class="inputgroup">
+            <button type="submit" class="button">filter</button>
+        </div>
+    </form>
+
+
+    <div class="statuscontainer">
+        <table>
+            <tr>
+            <th>Order Number</th>
+            <th>Status</th>
+            <th>Comments</th>
+        </tr>
+
+        <tr>
+
+        </tr>
+        </table>
+    </div>
+</div>

@@ -10,20 +10,22 @@ export class EmpreportService {
 
   constructor(private http: HttpClient, private router: Router) { }
   private url = "http://localhost:5000/empreport";
-
+  private statusUrl = "http://localhost:5000/mystatus"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
   }
 
-  getReport():Observable<any>{
+  getReport(): Observable<any> {
     return this.http.get<any>(this.url);
   }
 
-  getReportByFilter(date):Observable<any>
-  {
+  getReportByFilter(date): Observable<any> {
+    return this.http.post<any>(`${this.url}/date`, date);
+  }
 
- 
-    return this.http.post<any>(`${this.url}/date`,date)
+  getMyStatus(user): Observable<any> {
+    return this.http.post<any>(this.statusUrl, user);
+
   }
 }

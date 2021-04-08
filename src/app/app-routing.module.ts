@@ -6,6 +6,7 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {FileReportComponent} from './components/file-report/file-report.component'
 import {EmployeesendreportComponent} from './components/employeesendreport/employeesendreport.component';
 import {EmployeeReportComponent} from './components/employee-report/employee-report.component';
+import {OrderListComponent} from './components/order-list/order-list.component';
 const routes: Routes = [
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
 {path:'upload',component:HomeComponent},
 {path:'report',component:FileReportComponent},
 {path:'sendreport',component:EmployeesendreportComponent},
+{path:'viewmystatus',component:OrderListComponent},
 {path:'viewreport',component:EmployeeReportComponent}];
 
 @NgModule({

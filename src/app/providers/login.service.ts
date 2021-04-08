@@ -71,7 +71,7 @@ export class LoginService {
 
 
     let managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent"];
-    let employeeAccess:string[] = ["EmployeesendreportComponent"];
+    let employeeAccess:string[] = ["EmployeesendreportComponent","OrderListComponent"];
     let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
     let employeeRoles:string = "";
     let role: string = sessionStorage.getItem('role');
