@@ -168,3 +168,7 @@ td:last-child{
 th:last-child{
     border:0;
 }
+.tablecontainer{
+    overflow: auto;
+
+}

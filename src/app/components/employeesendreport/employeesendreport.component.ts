@@ -62,7 +62,7 @@ onSubmit() {
 this.empReportService.sendReport(this.myForm.value).subscribe((res)=>{
   this.flag=false;
   setTimeout(()=>{
-// this.router.navigate(['/home']);
+this.router.navigate(['/viewmystatus']);
 this.flag=true;
 
   },1000);
