@@ -11,7 +11,7 @@
     <form [formGroup]='myForm' (ngSubmit)="onSubmit()">
         <div class="buttoncontainer">
             <button (click)='addInput()' type="button" class="button">Add</button>
-            <button class="button" type="submit" [disabled]="!myForm.valid">submit</button>
+            <button class="button" type="submit" [disabled]="!myForm.valid">send</button>
         </div>
         <div class="tablecontainer">
         <table formArrayName='inputs'>

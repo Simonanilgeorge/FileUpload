@@ -24,7 +24,13 @@ export class UploadService {
   }
 
 
-  getData():Observable<any>{
-    return this.http.get<any>(this.url);
+  getData(date):Observable<any>{
+    
+    console.log("date");
+    if(date.length==0){
+      date="none";
+    } 
+    return this.http.get<any>(`${this.url}/${date}`);
+
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
 import { Router, ActivatedRoute } from '@angular/router';
+import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-file-report',
@@ -13,7 +14,7 @@ export class FileReportComponent implements OnInit {
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
   flag: boolean = null;
-  flg:number = 0;
+  flg: number = 0;
   filterDate: any = {};
   dt: any = {};
   checklist: any = [];
@@ -22,20 +23,35 @@ export class FileReportComponent implements OnInit {
   datas: any = null;
   columnTotal = 0;
   columnSum = {};
-  checkedList:any;
-  masterSelected:boolean;
+  checkedList: any;
+  masterSelected: boolean;
+  pivotTable: FormGroup
 
-  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
+
+  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    
+
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
+    this.pivotTable = this.fb.group({
+      pivotDate: ['']
+    });
     this.getReportData();
     this.masterSelected = false;
     this.getCheckedItemList();
 
   }
+
+
+
+  get pivotDate() {
+    return this.pivotTable.get('pivotTable');
+  }
+
+  // pivotFilter() {
+  //   console.log(this.pivotTable.value);
+  // }
 
 
   checkUncheckAll() {
@@ -45,31 +61,30 @@ export class FileReportComponent implements OnInit {
     this.getCheckedItemList();
   }
   isAllSelected() {
-    this.masterSelected = this.checklist.every(function(item:any) {
-        return item.isSelected == true;
-      })
+    this.masterSelected = this.checklist.every(function (item: any) {
+      return item.isSelected == true;
+    })
     this.getCheckedItemList();
   }
 
-  getCheckedItemList(){
+  getCheckedItemList() {
     this.checkedList = [];
     for (var i = 0; i < this.checklist.length; i++) {
-      if(this.checklist[i].isSelected)
-      this.checkedList.push(this.checklist[i]);
+      if (this.checklist[i].isSelected)
+        this.checkedList.push(this.checklist[i]);
     }
-    
+
   }
 
   getReportData() {
 
-    this.uploadService.getData().subscribe((res) => {
+    this.uploadService.getData(this.pivotTable.value.pivotDate).subscribe((res) => {
 
       this.onResponse(res)
     }, (err) => {
       console.log(err.message)
     })
   }
-
 
   // function to hide/show checkboxes
   showCheckboxes() {
@@ -86,9 +101,9 @@ export class FileReportComponent implements OnInit {
   applyFilter() {
 
     this.expanded = true;
-    
-  
-    this.filterDate['date'] = this.checkedList.map((list)=> {
+
+
+    this.filterDate['date'] = this.checkedList.map((list) => {
       return list.date;
     })
 
@@ -134,11 +149,11 @@ export class FileReportComponent implements OnInit {
 
 
       // To find the grand total for each task
-      
 
-      if (this.datas.length==0) {
+
+      if (this.datas.length == 0) {
         this.flag = false;
-        
+
         return;
       }
       else {
@@ -169,9 +184,9 @@ export class FileReportComponent implements OnInit {
     }
 
 
-    if(this.flg == 0){
-    
-      for (var i = 0 ; i < this.dates.length; i++){
+    if (this.flg == 0) {
+
+      for (var i = 0; i < this.dates.length; i++) {
 
         this.dt["id"] = i
         this.dt["date"] = this.dates[i];
