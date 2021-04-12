@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Validators,FormBuilder,FormArray, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {EmpreportService} from '../../providers/empreport.service';
+import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 @Component({
   selector: 'app-employeesendreport',
@@ -13,62 +13,89 @@ export class EmployeesendreportComponent implements OnInit {
 
 
   public notValid: boolean = false;
-  flag=true;
-  myForm:FormGroup;
+  flag = true;
+  myForm: FormGroup;
+  dropDownList;
+  Client: string[];
+  Task: string[];
 
-  constructor(private fb: FormBuilder,private empReportService: EmpreportService,private router:Router,private loginService:LoginService) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
-    
+
     this.loginService.checkSessionStorage();
-    this.loginService.navigateByRole(this.constructor.name) 
-    this.myForm= this.fb.group({
+    this.loginService.navigateByRole(this.constructor.name)
+    this.myForm = this.fb.group({
       inputs: this.fb.array([]),
-      username:sessionStorage.getItem('user'),
-      account_name:sessionStorage.getItem('account_name')
-  
+      username: sessionStorage.getItem('user'),
+      account_name: sessionStorage.getItem('account_name')
+
     });
     this.addInput();
-  
+    this.getDropDown();
+
   }
 
-// add new input fields
-addInput() {
-  this.inputs.push(
-    this.fb.group({
-      orderNumber: ["",Validators.required],
-      status:["Completed"],
-      comments: [""]
+  // add new input fields
+  addInput() {
+    this.inputs.push(
+      this.fb.group({
+        orderNumber: ["", Validators.required],
+        Client: [""],
+        Task: [""],
+        comments: [""]
+      })
+    );
+  }
+  // remove input fields
+  removeInput(i: number) {
+    this.inputs.removeAt(i);
+    this.inputs.updateValueAndValidity();
+    this.myForm.updateValueAndValidity();
+  }
+
+  get inputs() {
+    return this.myForm.get("inputs") as FormArray;
+  }
+
+  onSubmit() {
+
+    console.log(this.myForm.value)
+    this.empReportService.sendReport(this.myForm.value).subscribe((res) => {
+      this.flag = false;
+      setTimeout(() => {
+        this.router.navigate(['/viewmystatus']);
+        this.flag = true;
+
+      }, 1000);
+      this.ngOnInit();
+    }, (err) => {
+      console.log(err.message)
     })
-  );
-}
-// remove input fields
-removeInput(i: number) {
-  this.inputs.removeAt(i);
-  this.inputs.updateValueAndValidity();
-  this.myForm.updateValueAndValidity();
-}
+  }
 
-get inputs() {
-  return this.myForm.get("inputs") as FormArray;
-}
+  getDropDown() {
 
+    console.log("get drop down function")
 
+    this.empReportService.getDropDownList().subscribe((res) => {
+      console.log(res);
+      // console.log(JSON.stringify(res));
+      this.dropDownList = res;
+      this.Client = this.dropDownList.Client;
 
+      console.log(this.Client)
+    }, (err) => {
+      console.log(err.message)
+    })
 
+  }
 
+  changeSelectOptions(event) {
 
-onSubmit() {
-this.empReportService.sendReport(this.myForm.value).subscribe((res)=>{
-  this.flag=false;
-  setTimeout(()=>{
-this.router.navigate(['/viewmystatus']);
-this.flag=true;
+    this.Task = this.dropDownList[event.target.value];
+    console.log(this.myForm.value);
 
-  },1000);
-  this.ngOnInit();
-},(err)=>{
-  console.log(err.message)
-})
-}
+  }
+
 }

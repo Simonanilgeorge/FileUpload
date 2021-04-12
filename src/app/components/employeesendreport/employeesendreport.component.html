@@ -1,49 +1,58 @@
-
-
 <div class="container">
-    <app-navbar></app-navbar>
-    <div *ngIf="flag">
+  <app-navbar></app-navbar>
+  <div *ngIf="flag">
 
-      <div class="statustitle">
-        <h1>Enter your daily status updates</h1>
+    <div class="statustitle">
+      <h1>Enter your daily status updates</h1>
     </div>
 
+
+
+
     <form [formGroup]='myForm' (ngSubmit)="onSubmit()">
-        <div class="buttoncontainer">
-            <button (click)='addInput()' type="button" class="button">Add</button>
-            <button class="button" type="submit" [disabled]="!myForm.valid">submit</button>
-        </div>
-        <div class="tablecontainer">
+      <div class="buttoncontainer">
+        <button (click)='addInput()' type="button" class="button">Add</button>
+        <button class="button" type="submit" [disabled]="!myForm.valid">submit</button>
+      </div>
+      <div class="tablecontainer">
         <table formArrayName='inputs'>
           <tr>
             <th>#</th>
             <th>Order Number</th>
-            <th>Status</th>
+            <th>Client</th>
+            <th>Task</th>
             <th>Comments</th>
             <th></th>
           </tr>
-          
+
           <tr *ngFor="let input of inputs.controls; let i = index" [formGroupName]='i'>
             <td>{{ i + 1}}</td>
             <td><input formControlName='orderNumber'></td>
             <td>
-
-                <select name="status" id="status" formControlName="status">
-                    <option value="Completed">Completed</option>
-                    <option value="In Progress">In progress</option>
-                    <option value="Incomplete">Incomplete</option>  
-                  </select>
+              <select formControlName="Client" (change)="changeSelectOptions($event)">              
+                <option *ngFor="let client of Client">
+                  {{client}}
+                </option>
+              </select>
             </td>
-            <td>     <textarea name="" id="" cols="30" rows="2" formControlName='comments'></textarea></td>
+
+            <td>
+              <select formControlName="Task">
+                <option *ngFor="let task of Task">
+                  {{task}}
+                </option>
+              </select>
+            </td>
+            <td> <textarea name="" id="" cols="30" rows="2" formControlName='comments'></textarea></td>
 
             <!-- <td><input formControlName='comments'></td> -->
             <td><button (click)='removeInput(i)' class="button">Delete</button></td>
           </tr>
-       </table>
-        </div>
-      </form>
-    </div>
-    <div *ngIf="!flag" class="minicontainer">
-      <h2>Status was sent successfully...</h2>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!flag" class="minicontainer">
+    <h2>Status was sent successfully...</h2>
   </div>
 </div>
