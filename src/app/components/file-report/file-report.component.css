@@ -274,17 +274,3 @@ border:5px solid steelblue;
     background: rgb(103, 206, 180);
   }
 
-
-
-  .inputarea{
-    /* border:1px solid black; */
-    padding:20px;
-  }
-
-  .filter {
-    /* border: 1px solid green; */
-    padding: 20px 10px;
-    flex-direction: column;
-    width: 280px;
-    display: flex;
-  }
