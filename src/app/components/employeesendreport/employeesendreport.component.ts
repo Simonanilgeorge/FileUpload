@@ -14,10 +14,18 @@ export class EmployeesendreportComponent implements OnInit {
 
   public notValid: boolean = false;
   flag = true;
-  myForm: FormGroup;
-  dropDownList;
+  userForm: FormGroup;
+  output: FormGroup = this.fb.group({
+    inputs: this.fb.array([])
+  });
+  dropDownList: any;
   Client: string[];
-  Task: string[];
+  Tasklist: string[];
+  Processlist: string[];
+  temp: any;
+  final: any;
+  stateList: string[];
+  statusList: string[];
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService) { }
 
@@ -25,76 +33,80 @@ export class EmployeesendreportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.myForm = this.fb.group({
-      inputs: this.fb.array([]),
-      username: sessionStorage.getItem('user'),
-      account_name: sessionStorage.getItem('account_name')
+    this.userForm = this.fb.group({
+      date: [""],
+      orderNumber: ["", Validators.required],
+      Client: [""],
+      Task: [""],
+      Process: [""],
+      state: [""],
+      startTime: ["", Validators.required],
+      endTime: ["", Validators.required],
+      totalTime: [""],
+      username: [sessionStorage.getItem('user')],
+      status: [""],
+      account_name: sessionStorage.getItem('account_name'),
 
     });
-    this.addInput();
+    this.stateList = ["AN", "FL", "AZ", "BL", "AB", "CZ"];
     this.getDropDown();
+  }
+  changeClientOptions(event) {
+
+    this.userForm.controls['Task'].setValue("");
+    this.userForm.controls['Process'].setValue("");
+    this.temp = null
+    this.Tasklist = this.dropDownList[event.target.value];
+    this.temp = event.target.value
+    this.Processlist = null
+
 
   }
 
-  // add new input fields
-  addInput() {
-    this.inputs.push(
-      this.fb.group({
-        orderNumber: ["", Validators.required],
-        Client: [""],
-        Task: [""],
-        comments: [""]
-      })
-    );
+  changeTaskOptions(event) {
+
+    this.final = null
+    this.userForm.controls['Process'].setValue("");
+    this.final = this.temp + event.target.value
+    this.Processlist = this.dropDownList[this.final]
   }
-  // remove input fields
-  removeInput(i: number) {
-    this.inputs.removeAt(i);
-    this.inputs.updateValueAndValidity();
-    this.myForm.updateValueAndValidity();
-  }
+
 
   get inputs() {
-    return this.myForm.get("inputs") as FormArray;
+    return this.output.get("inputs") as FormArray;
   }
 
   onSubmit() {
 
-    console.log(this.myForm.value)
-    this.empReportService.sendReport(this.myForm.value).subscribe((res) => {
-      this.flag = false;
-      setTimeout(() => {
-        this.router.navigate(['/viewmystatus']);
-        this.flag = true;
 
-      }, 1000);
-      this.ngOnInit();
-    }, (err) => {
-      console.log(err.message)
-    })
+
+
+    let time1=this.userForm.value.startTime;
+    let time2=this.userForm.value.endTime;
+    time1 = time1.split(":").map(Number)
+    time2 = time2.split(":").map(Number)
+    let hour=time2[0]-time1[0];
+    let minute=time2[1]-time1[1];
+    let result=hour*60+minute 
+
+    this.userForm.controls["totalTime"].setValue(result);
+
+    console.log(this.userForm.value)
+
   }
 
   getDropDown() {
 
-    console.log("get drop down function")
-
     this.empReportService.getDropDownList().subscribe((res) => {
-      console.log(res);
-      // console.log(JSON.stringify(res));
+
+     
       this.dropDownList = res;
       this.Client = this.dropDownList.Client;
+      this.statusList = this.dropDownList.Status;
 
-      console.log(this.Client)
     }, (err) => {
       console.log(err.message)
     })
-
-  }
-
-  changeSelectOptions(event) {
-
-    this.Task = this.dropDownList[event.target.value];
-    console.log(this.myForm.value);
 
   }
 

@@ -32,7 +32,7 @@ h2,h1{
     transition: 0.3s ease-in-out;
     font-size:15px;
     display: block;
-    margin:0px 10px;
+    margin:20px 0px;
 
 }
 
@@ -94,7 +94,7 @@ text-transform: capitalize;
 }
 
 td{
-    /* border:1px solid black; */
+    /* / border:1px solid black; / */
 padding:20px;
 
 font-weight:bolder;
@@ -106,7 +106,7 @@ border:1px solid black;
 table{
     color:black;
     border-collapse: collapse;
-    /* border:1px solid black; */
+    /* / border:1px solid black; / */
     width: 100%;
     text-align: center;
     overflow:auto;
@@ -131,7 +131,7 @@ select{
 }
 option{
     padding: 10px;
-
+    font-size: 1.2rem;
     cursor:pointer;
     border-radius: 5px;
 }
@@ -144,20 +144,18 @@ border:1px solid black;
 }
 
 form{
-    /* border:1px solid black; */
+    /* / border:1px solid black; / */
     padding:20px;
     flex:1;
 
 }
 
 .buttoncontainer{
-    /* border:1px solid black; */
+    /* / border:1px solid black; / */
     padding:20px 0px;
     width:50%;
     display: flex;
-    /* justify-content: space-around; */
-
-
+    /* / justify-content: space-around; / */
 }
 
 td:last-child{
@@ -170,5 +168,31 @@ th:last-child{
 }
 .tablecontainer{
     overflow: auto;
-
+    /* border: solid green 1px; */
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    /* grid-template-columns: repeat(auto-fill, minmax(186px, 1fr)); */
+    grid-gap:20px;
+    padding:30px;
+    /* grid-auto-flow: dense; */
 }
+.inputgroup {
+
+     /* border:1px solid black;  */
+    color: rgba(29, 51, 110, 0.76);
+    padding: 20px;
+display: grid;
+align-items: end;
+  }
+  
+.input {
+    margin:10px 0px;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    /* border: none; */
+  }
+label{
+    margin:10px 0px;
+}
+

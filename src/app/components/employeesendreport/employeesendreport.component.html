@@ -2,53 +2,91 @@
   <app-navbar></app-navbar>
   <div *ngIf="flag">
 
-    <div class="statustitle">
-      <h1>Enter your daily status updates</h1>
+    <div class="">
+ 
     </div>
 
 
-
-
-    <form [formGroup]='myForm' (ngSubmit)="onSubmit()">
-      <div class="buttoncontainer">
-        <button (click)='addInput()' type="button" class="button">Add</button>
-        <button class="button" type="submit" [disabled]="!myForm.valid">submit</button>
+    <!-- <select name="" id="" (change)="greet(event)">
+      <option value="a">a</option>
+      <option value="b">b</option>
+      <option value="c">c</option>
+    </select> -->
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="tablecontainer">
+        <h1>Enter your daily status updates</h1>
       </div>
       <div class="tablecontainer">
-        <table formArrayName='inputs'>
-          <tr>
-            <th>#</th>
-            <th>Order Number</th>
-            <th>Client</th>
-            <th>Task</th>
-            <th>Comments</th>
-            <th></th>
-          </tr>
 
-          <tr *ngFor="let input of inputs.controls; let i = index" [formGroupName]='i'>
-            <td>{{ i + 1}}</td>
-            <td><input formControlName='orderNumber'></td>
-            <td>
-              <select formControlName="Client" (change)="changeSelectOptions($event)">              
-                <option *ngFor="let client of Client">
-                  {{client}}
-                </option>
-              </select>
-            </td>
+        <div class="inputgroup">
+          <label for="date">DATE</label>
+          <input type="date" name="date" class="input" formControlName="date">
+        </div>
+        <div class="inputgroup">
+          <label for="orderNumber">ORDER NUMBER</label>
+          <input name="orderNumber" class="input" formControlName="orderNumber">
+        </div>
+        <div class="inputgroup">
+          <label for="client">CLIENT</label>
+          <select name="client" class="input" formControlName="Client" (change)="changeClientOptions($event)">
+            <option value="" [disabled]="true">--Select--</option>
+            <option *ngFor="let client of Client">
+              {{client}}
+            </option>
+          </select>
+        </div>
+        <div class="inputgroup">
+          <label for="task">TASK</label>
+          <select name="task" class="input" formControlName="Task" (change)="changeTaskOptions($event)">
+            <option value="" [disabled]="true">--Select--</option>
+            <option *ngFor="let task of Tasklist">
+              {{task}}
+            </option>
+          </select>
+        </div>
+        <div class="inputgroup">
+          <label for="process">PROCESS</label>
+          <select name="process" class="input" formControlName="Process">
+            <option value="" [disabled]="true">--Select--</option>
+            <option *ngFor="let process of Processlist">
+              {{process}}
+            </option>
+          </select>
+        </div>
+        <div class="inputgroup">
+          <label for="state">STATE</label>
+          <select name="state" class="input" formControlName="state">
+            <option value="" [disabled]="true">--Select--</option>
+            <option *ngFor="let state of stateList">
+              {{state}}
+            </option>
+          </select>
+        </div>
+        <div class="inputgroup">
+          <label for="start_time">START TIME</label>
+          <input type="time" name="start_time" class="input" formControlName="startTime">
+        </div>
+        <div class="inputgroup">
+          <label for="end_time">END TIME</label>
+          <input type="time" name="end_time" class="input" formControlName="endTime">
+        </div>
+        <div class="inputgroup">
+          <label for="status">STATUS</label>
 
-            <td>
-              <select formControlName="Task">
-                <option *ngFor="let task of Task">
-                  {{task}}
-                </option>
-              </select>
-            </td>
-            <td> <textarea name="" id="" cols="30" rows="2" formControlName='comments'></textarea></td>
+          <select name="status" class="input" formControlName="status">
 
-            <!-- <td><input formControlName='comments'></td> -->
-            <td><button (click)='removeInput(i)' class="button">Delete</button></td>
-          </tr>
-        </table>
+            <option value="" [disabled]="true">--Select--</option>
+            <option *ngFor="let status of statusList">
+              {{status}}
+            </option>
+          </select>
+        </div>
+
+      </div>
+      <div class="tablecontainer">
+        <div class="inputgroup">
+          <button class="button" type="submit">submit</button>
+        </div>
       </div>
     </form>
   </div>
