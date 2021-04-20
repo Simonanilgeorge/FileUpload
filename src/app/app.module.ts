@@ -15,6 +15,7 @@ import { EmployeesendreportComponent } from './components/employeesendreport/emp
 import { EmployeeReportComponent } from './components/employee-report/employee-report.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { TableComponent } from './components/table/table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { OrderListComponent } from './components/order-list/order-list.component
     FileReportComponent,
     EmployeesendreportComponent,
     EmployeeReportComponent,
-    OrderListComponent
+    OrderListComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

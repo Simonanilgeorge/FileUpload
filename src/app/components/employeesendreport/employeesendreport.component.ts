@@ -78,20 +78,28 @@ export class EmployeesendreportComponent implements OnInit {
 
   onSubmit() {
 
-
-
-
-    let time1=this.userForm.value.startTime;
-    let time2=this.userForm.value.endTime;
+    let time1 = this.userForm.value.startTime;
+    let time2 = this.userForm.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
-    let hour=time2[0]-time1[0];
-    let minute=time2[1]-time1[1];
-    let result=hour*60+minute 
+    let hour = time2[0] - time1[0];
+    let minute = time2[1] - time1[1];
+    let result = hour * 60 + minute
 
     this.userForm.controls["totalTime"].setValue(result);
 
     console.log(this.userForm.value)
+
+
+    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
+      this.flag = false;
+      setTimeout(() => {
+         this.flag = true;
+      }, 1000);
+      this.ngOnInit();
+    }, (err) => {
+      console.log(err.message)
+    })
 
   }
 
@@ -99,7 +107,7 @@ export class EmployeesendreportComponent implements OnInit {
 
     this.empReportService.getDropDownList().subscribe((res) => {
 
-     
+
       this.dropDownList = res;
       this.Client = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
