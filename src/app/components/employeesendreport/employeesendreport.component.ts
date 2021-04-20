@@ -15,9 +15,7 @@ export class EmployeesendreportComponent implements OnInit {
   public notValid: boolean = false;
   flag = true;
   userForm: FormGroup;
-  output: FormGroup = this.fb.group({
-    inputs: this.fb.array([])
-  });
+
   dropDownList: any;
   Client: string[];
   Tasklist: string[];
@@ -34,27 +32,48 @@ export class EmployeesendreportComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.userForm = this.fb.group({
-      date: [""],
-      orderNumber: ["", Validators.required],
-      Client: [""],
-      Task: [""],
-      Process: [""],
-      state: [""],
-      startTime: ["", Validators.required],
-      endTime: ["", Validators.required],
-      totalTime: [""],
-      username: [sessionStorage.getItem('user')],
-      status: [""],
-      account_name: sessionStorage.getItem('account_name'),
+      inputs:this.fb.group({
+        date: [""],
+        orderNumber: ["", Validators.required],
+        Client: ["",Validators.required],
+        Task: ["",Validators.required],
+        Process: ["",Validators.required],
+        state: ["",Validators.required],
+        startTime: ["", Validators.required],
+        endTime: ["", Validators.required],
+        totalTime: ["",Validators.required],
+        username: [sessionStorage.getItem('user')],
+        status: [""],
+        account_name: sessionStorage.getItem('account_name'),
+      })
+
 
     });
     this.stateList = ["AN", "FL", "AZ", "BL", "AB", "CZ"];
     this.getDropDown();
   }
+
+
+
+  get totalTime(){
+    return this.inputs.get("totalTime")
+  }
+  get inputs(){
+    return this.userForm.get("inputs");
+  }
+
+  get Task(){
+    return this.inputs.get("Task")
+  }
+  get Process(){
+    return this.inputs.get("Process")
+  }
   changeClientOptions(event) {
 
-    this.userForm.controls['Task'].setValue("");
-    this.userForm.controls['Process'].setValue("");
+    this.Task.setValue("");
+    this.Process.setValue("");
+  
+
     this.temp = null
     this.Tasklist = this.dropDownList[event.target.value];
     this.temp = event.target.value
@@ -66,40 +85,35 @@ export class EmployeesendreportComponent implements OnInit {
   changeTaskOptions(event) {
 
     this.final = null
-    this.userForm.controls['Process'].setValue("");
+    this.Process.setValue("");
     this.final = this.temp + event.target.value
     this.Processlist = this.dropDownList[this.final]
   }
 
 
-  get inputs() {
-    return this.output.get("inputs") as FormArray;
-  }
 
   onSubmit() {
 
-    let time1 = this.userForm.value.startTime;
-    let time2 = this.userForm.value.endTime;
+    let time1 = this.inputs.value.startTime;
+    let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
     let hour = time2[0] - time1[0];
     let minute = time2[1] - time1[1];
     let result = hour * 60 + minute
+    this.totalTime.setValue(result);
 
-    this.userForm.controls["totalTime"].setValue(result);
-
+console.log("this.userForm.value")
     console.log(this.userForm.value)
-
-
-    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
-      this.flag = false;
-      setTimeout(() => {
-         this.flag = true;
-      }, 1000);
-      this.ngOnInit();
-    }, (err) => {
-      console.log(err.message)
-    })
+    // this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
+    //   this.flag = false;
+    //   setTimeout(() => {
+    //      this.flag = true;
+    //   }, 1000);
+    //   this.ngOnInit();
+    // }, (err) => {
+    //   console.log(err.message)
+    // })
 
   }
 
