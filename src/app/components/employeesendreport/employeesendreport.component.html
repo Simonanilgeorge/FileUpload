@@ -2,11 +2,7 @@
   <app-navbar></app-navbar>
   <div *ngIf="flag">
 
-    <div class="">
- 
-    </div>
-
-
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
     <!-- <select name="" id="" (change)="greet(event)">
       <option value="a">a</option>
       <option value="b">b</option>

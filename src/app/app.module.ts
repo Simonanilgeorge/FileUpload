@@ -16,6 +16,7 @@ import { EmployeeReportComponent } from './components/employee-report/employee-r
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { TableComponent } from './components/table/table.component';
+import { ToastComponent } from './components/toast/toast.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { TableComponent } from './components/table/table.component';
     EmployeesendreportComponent,
     EmployeeReportComponent,
     OrderListComponent,
-    TableComponent
+    TableComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

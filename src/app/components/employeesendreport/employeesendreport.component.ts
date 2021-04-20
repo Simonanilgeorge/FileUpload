@@ -12,6 +12,8 @@ import { LoginService } from '../../providers/login.service'
 export class EmployeesendreportComponent implements OnInit {
 
 
+  message = "Success";
+  toast: Boolean = false;
   public notValid: boolean = false;
   flag = true;
   userForm: FormGroup;
@@ -32,16 +34,16 @@ export class EmployeesendreportComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.userForm = this.fb.group({
-      inputs:this.fb.group({
+      inputs: this.fb.group({
         date: [""],
         orderNumber: ["", Validators.required],
-        Client: ["",Validators.required],
-        Task: ["",Validators.required],
-        Process: ["",Validators.required],
-        state: ["",Validators.required],
+        Client: ["", Validators.required],
+        Task: ["", Validators.required],
+        Process: ["", Validators.required],
+        state: ["", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
-        totalTime: ["",Validators.required],
+        totalTime: ["", Validators.required],
         username: [sessionStorage.getItem('user')],
         status: [""],
         account_name: sessionStorage.getItem('account_name'),
@@ -55,24 +57,24 @@ export class EmployeesendreportComponent implements OnInit {
 
 
 
-  get totalTime(){
+  get totalTime() {
     return this.inputs.get("totalTime")
   }
-  get inputs(){
+  get inputs() {
     return this.userForm.get("inputs");
   }
 
-  get Task(){
+  get Task() {
     return this.inputs.get("Task")
   }
-  get Process(){
+  get Process() {
     return this.inputs.get("Process")
   }
   changeClientOptions(event) {
 
     this.Task.setValue("");
     this.Process.setValue("");
-  
+
 
     this.temp = null
     this.Tasklist = this.dropDownList[event.target.value];
@@ -103,8 +105,12 @@ export class EmployeesendreportComponent implements OnInit {
     let result = hour * 60 + minute
     this.totalTime.setValue(result);
 
-console.log("this.userForm.value")
-    console.log(this.userForm.value)
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+      console.log(`this.toast ${this.toast}`);
+    }, 2000)
+   
     // this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
     //   this.flag = false;
     //   setTimeout(() => {
