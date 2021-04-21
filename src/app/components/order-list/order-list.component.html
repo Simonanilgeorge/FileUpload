@@ -13,10 +13,9 @@
         </form>
     </div>
     <div *ngIf="flag" class="report-container">
-       <div *ngIf="datas">
+       <div *ngIf="datas" class="report">
             <app-table [data]="datas"></app-table>
         </div>
-        
     </div>
     <div class="statusmsg" *ngIf="!flag">
         <h2>Status yet to be updated by employee..</h2>
