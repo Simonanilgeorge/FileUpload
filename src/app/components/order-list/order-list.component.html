@@ -1,39 +1,20 @@
 <div class="container">
     <app-navbar></app-navbar>
-<div class="filter">
-    <form [formGroup]="user" (ngSubmit)="getStatus()">
+    <div class="filter">
+        <form [formGroup]="user" (ngSubmit)="getStatus()">
 
-        <div class="inputgroup">
-            <label for="date">Search by date</label>
-            <input type="date" name="date" class="input" formControlName="dateFilter">
-        </div>
-        <div class="inputgroup">
-            <button type="submit" class="button">filter</button>
-        </div>
-    </form>
-</div>
-
-
+            <div class="inputgroup">
+                <label for="date">Search by date</label>
+                <input type="date" name="date" class="input" formControlName="dateFilter">
+            </div>
+            <div class="inputgroup">
+                <button type="submit" class="button">filter</button>
+            </div>
+        </form>
+    </div>
     <div *ngIf="flag" class="report-container">
-        <div class="report">
-            <h2>{{data.username}}/{{data.account_name}}</h2>     
-            <table>
-
-                <tr>
-                    <th >Order Number</th>
-                    <th >Status</th>
-                    <th >Comments</th>
-                </tr>
-    
-                <tr *ngFor="let status of data.user_status">
-                    <td >{{status.order_number}}</td>
-                    <td >{{status.status}}</td>
-                    <td><p [innerHTML]="status.comments"></p></td>
-                </tr>
-  
-            </table>
-     
-            <h4>{{data.time}}</h4>
+        <div *ngIf="datas">
+            <app-table [data]="datas"></app-table>
         </div>
     </div>
     <div class="statusmsg" *ngIf="!flag">

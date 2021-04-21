@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -6,22 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
+@Input() data
 
-  titles;
-  data = [{
-    name: "John",
-    age: 25,
-    contact:74839
-  }, {
-    name: "Doe",
-    age: 45,
-    contact:462367
-  },
-  {
-    name: "Pam",
-    age: 30,
-    contact:74842
-  }];
+
+localData;
+  
+titles;
+  // data = [{
+  //   name: "John",
+  //   age: 25,
+  //   contact:74839
+  // }, {
+  //   name: "Doe",
+  //   age: 45,
+  //   contact:462367
+  // },
+  // {
+  //   name: "Pam",
+  //   age: 30,
+  //   contact:74842
+  // }];
   constructor() { }
 
   ngOnInit(): void {
@@ -31,9 +35,13 @@ export class TableComponent implements OnInit {
   }
 
   getTitles() {
+    this.localData=this.data
+    console.log("inside table component")
+    console.log(this.data);
     this.titles = this.data.map((data) => {
       return Object.keys(data);
     })[0];
+
 
   }
 

@@ -95,7 +95,6 @@ export class EmployeesendreportComponent implements OnInit {
 
 
   onSubmit() {
-
     let time1 = this.inputs.value.startTime;
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
@@ -104,22 +103,18 @@ export class EmployeesendreportComponent implements OnInit {
     let minute = time2[1] - time1[1];
     let result = hour * 60 + minute
     this.totalTime.setValue(result);
-
-    this.toast = true;
-    setTimeout(() => {
-      this.toast = false;
-      console.log(`this.toast ${this.toast}`);
-    }, 2000)
-   
-    // this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
-    //   this.flag = false;
-    //   setTimeout(() => {
-    //      this.flag = true;
-    //   }, 1000);
-    //   this.ngOnInit();
-    // }, (err) => {
-    //   console.log(err.message)
-    // })
+    console.log(this.userForm.value);
+    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
+      this.toast = true;
+      setTimeout(() => {
+        this.toast = false;
+        console.log(`this.toast ${this.toast}`);
+      }, 2000)
+     
+      this.ngOnInit();
+    }, (err) => {
+      console.log(err.message)
+    })
 
   }
 

@@ -12,13 +12,18 @@ import { EmpreportService } from '../../providers/empreport.service'
 export class OrderListComponent implements OnInit {
   flag: boolean = true;
   user: FormGroup
-  data={};
+  datas;
+
+
   constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder) {
 
   }
 
 
   ngOnInit(): void {
+
+
+    console.log("my status")
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.user = this.fb.group({
@@ -29,10 +34,11 @@ export class OrderListComponent implements OnInit {
 
   }
 
-  getStatus() {
+   getStatus() {
+
 
     console.log(this.user.value);
-    this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
+     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
 
       this.onResponse(res);
     }, (err) => {
@@ -43,10 +49,10 @@ export class OrderListComponent implements OnInit {
   
   onResponse(res) {
     console.log(res);
-    res = res.replace(/\\n/g, "<br>");
+  
     res = JSON.parse(res);
-    this.data = res;
-    if (Object.keys(this.data).length == 0) {
+    this.datas = res;
+    if (this.datas.length == 0) {
       this.flag = false;
       return;
     }
