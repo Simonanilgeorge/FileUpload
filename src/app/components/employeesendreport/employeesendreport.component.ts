@@ -19,7 +19,7 @@ export class EmployeesendreportComponent implements OnInit {
   userForm: FormGroup;
 
   dropDownList: any;
-  Client: string[];
+  ClientList: string[];
   Tasklist: string[];
   Processlist: string[];
   temp: any;
@@ -39,7 +39,7 @@ export class EmployeesendreportComponent implements OnInit {
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
-        Process: ["", Validators.required],
+        Process: [""],
         state: ["", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
@@ -55,7 +55,9 @@ export class EmployeesendreportComponent implements OnInit {
     this.getDropDown();
   }
 
-
+get Client(){
+  return this.inputs.get("Client");
+}
 
   get totalTime() {
     return this.inputs.get("totalTime")
@@ -96,7 +98,9 @@ export class EmployeesendreportComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.userForm.status)
+    console.log(this.userForm.value)
+
+    console.log(this.Client);
 
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
@@ -104,6 +108,11 @@ export class EmployeesendreportComponent implements OnInit {
       this.showToastMessage("Please fill all the fields");
       return;
     }
+    if(this.Client.value!="NonProd" && this.Process.value==""){
+      this.showToastMessage("Please enter a value for Process")
+      return;
+    }
+    
     // get the total time
     let result = this.getTotalTime();
     console.log(result);
@@ -145,7 +154,7 @@ export class EmployeesendreportComponent implements OnInit {
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      this.Client = this.dropDownList.Client;
+      this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
 
     }, (err) => {

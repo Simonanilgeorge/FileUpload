@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { title } from 'process';
 
 @Component({
   selector: 'app-table',
@@ -9,8 +10,6 @@ export class TableComponent implements OnInit {
 @Input() data
 
 titles;
-
-
   constructor() { }
 
   ngOnInit(): void {
@@ -18,8 +17,6 @@ titles;
     this.getTitles();
 
   }
-
-
   getTitles() {
 
     if(!this.data){
@@ -27,7 +24,6 @@ titles;
     }
     console.log("inside table component")
     console.log(this.data);
-
     this.titles = this.data.map((data) => {
       return Object.keys(data);
     })[0];

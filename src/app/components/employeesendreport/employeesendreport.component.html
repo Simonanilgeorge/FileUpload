@@ -26,7 +26,7 @@
           <label for="client">CLIENT</label>
           <select name="client" class="input" formControlName="Client" (change)="changeClientOptions($event)">
             <option value="" [disabled]="true">--Select--</option>
-            <option *ngFor="let client of Client">
+            <option *ngFor="let client of ClientList">
               {{client}}
             </option>
           </select>
