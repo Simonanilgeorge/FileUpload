@@ -35,7 +35,7 @@ export class EmployeesendreportComponent implements OnInit {
     this.loginService.navigateByRole(this.constructor.name)
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        date: [""],
+        date: ["",Validators.required],
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
@@ -43,9 +43,9 @@ export class EmployeesendreportComponent implements OnInit {
         state: ["", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
-        totalTime: ["", Validators.required],
+        totalTime: [""],
         username: [sessionStorage.getItem('user')],
-        status: [""],
+        status: ["",Validators.required],
         account_name: sessionStorage.getItem('account_name'),
       })
 
@@ -95,22 +95,33 @@ export class EmployeesendreportComponent implements OnInit {
 
 
   onSubmit() {
-    let time1 = this.inputs.value.startTime;
-    let time2 = this.inputs.value.endTime;
-    time1 = time1.split(":").map(Number)
-    time2 = time2.split(":").map(Number)
-    let hour = time2[0] - time1[0];
-    let minute = time2[1] - time1[1];
-    let result = hour * 60 + minute
-    this.totalTime.setValue(result);
-    console.log(this.userForm.value);
-    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
-      this.toast = true;
-      setTimeout(() => {
-        this.toast = false;
-        console.log(`this.toast ${this.toast}`);
-      }, 2000)
+
+    console.log(this.userForm.status)
+
+    // check if all compulsory fields are filled
+    if (this.userForm.status === "INVALID") {
      
+      this.showToastMessage("Please fill all the fields");
+      return;
+    }
+    // get the total time
+    let result = this.getTotalTime();
+    console.log(result);
+
+    // check if start time and end time are same
+    if (result === 0 || result < 0) {
+      
+      this.showToastMessage("Please select the correct time");
+      return;
+    }
+    else {
+      this.totalTime.setValue(result);
+    }
+
+// send the form
+    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
+
+      this.showToastMessage("Success")
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
@@ -118,11 +129,21 @@ export class EmployeesendreportComponent implements OnInit {
 
   }
 
+
+  getTotalTime() {
+    let time1 = this.inputs.value.startTime;
+    let time2 = this.inputs.value.endTime;
+    time1 = time1.split(":").map(Number)
+    time2 = time2.split(":").map(Number)
+    let hour = time2[0] - time1[0];
+    let minute = time2[1] - time1[1];
+    let result = hour * 60 + minute
+    return result
+  }
+
   getDropDown() {
 
     this.empReportService.getDropDownList().subscribe((res) => {
-
-
       this.dropDownList = res;
       this.Client = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
@@ -131,6 +152,14 @@ export class EmployeesendreportComponent implements OnInit {
       console.log(err.message)
     })
 
+  }
+
+  showToastMessage(message){
+   this.message=message;
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 2000)
   }
 
 }
