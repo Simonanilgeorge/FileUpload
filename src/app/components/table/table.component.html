@@ -1,9 +1,13 @@
+
+
+<div class="tablecontainer">
 <table>
     <tr>
         <th *ngFor="let title of titles">{{title}}</th>
     </tr>
 
-    <tr *ngFor="let d of localData">
-        <td *ngFor="let title of titles">{{d[title]}}</td>
+    <tr *ngFor="let data of data">
+        <td *ngFor="let title of titles">{{data[title]}}</td>
     </tr>
 </table>
+</div>

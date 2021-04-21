@@ -34,11 +34,9 @@ export class OrderListComponent implements OnInit {
 
   }
 
-   getStatus() {
-
-
+ getStatus() {
     console.log(this.user.value);
-     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
+    this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
 
       this.onResponse(res);
     }, (err) => {
@@ -59,5 +57,6 @@ export class OrderListComponent implements OnInit {
     else {
       this.flag = true;
     }
+    return;
   }
 }
