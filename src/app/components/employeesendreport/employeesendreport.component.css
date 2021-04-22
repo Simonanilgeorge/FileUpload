@@ -155,9 +155,9 @@ th:last-child {
   display: grid;
   /* grid-template-columns: repeat(2,1fr); */
   grid-template-columns: repeat(auto-fill, minmax(320px, auto));
-  
   grid-gap: 20px;
-  padding: 30px;
+
+  overflow:hidden;
   /* grid-auto-flow: dense; */
 }
 .inputgroup {
