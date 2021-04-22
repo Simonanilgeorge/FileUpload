@@ -154,7 +154,8 @@ th:last-child {
   /* border: solid green 1px; */
   display: grid;
   /* grid-template-columns: repeat(2,1fr); */
-  grid-template-columns: repeat(auto-fill, minmax(280px, auto));
+  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
+  
   grid-gap: 20px;
   padding: 30px;
   /* grid-auto-flow: dense; */
@@ -165,6 +166,7 @@ th:last-child {
   padding: 20px;
   display: grid;
   align-items: end;
+
   /* width:70%; */
 }
 
@@ -173,6 +175,7 @@ th:last-child {
   padding: 10px;
   border-radius: 5px;
   background: white;
+  width:70%;
   /* border: none; */
 }
 label {
