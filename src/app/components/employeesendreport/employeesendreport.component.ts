@@ -118,15 +118,17 @@ get Client(){
     console.log(result);
 
     // check if start time and end time are same
-    if (result === 0 || result < 0) {
+    if (result === 0) {
       
       this.showToastMessage("Please select the correct time");
       return;
     }
     else {
-      this.totalTime.setValue(result);
+      this.totalTime.setValue(Math.abs(result));
     }
 
+
+    console.log(this.userForm.value);
 // send the form
     this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
 
