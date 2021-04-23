@@ -1,4 +1,4 @@
-  <div class="container">
+<div class="container">
     <app-navbar></app-navbar>
 
     <div class="filter">
@@ -22,31 +22,39 @@
 
     </div>
     <div *ngIf="flag" class="report-container">
-        <div class="report" *ngFor="let data of datas | filter:searchedKeyword">
-            <h2>{{data.username}}/{{data.account_name}}</h2>
-            <!-- <div class="content">
-                <p [innerHTML]="data.status"></p>
-            </div> -->
 
-      
+            <div class="tablecontainer">
             <table>
-
                 <tr>
-                    <th >Order Number</th>
-                    <th >Status</th>
-                    <th >Comments</th>
+                    <th >EMP CODE</th>
+                    <th >NAME</th>
+                    <th >DOJ</th>
+                    <th >SERACH/NON-SERACH</th>
+                    <th >CLIENT</th>
+                    <th >TASK</th>
+                    <th >ORDER COUNT</th>
+                    <th >PRODUCTIVITY</th>
+                    <th >UTILIZATION</th>
+                    <th >REVENUE</th>
+
                 </tr>
     
-                <tr *ngFor="let status of data.user_status">
-                    <td >{{status.order_number}}</td>
-                    <td >{{status.status}}</td>
-                    <td><p [innerHTML]="status.comments"></p></td>
+                <tr *ngFor="let status of datas | filter:searchedKeyword">
+                    <td >{{status.emp_code}}</td>
+                    <td >{{status.name}}</td>
+                    <td >{{status.doj}}</td>
+                    <td >{{status.search}}</td>
+                    <td >{{status.client}}</td>
+                    <td >{{status.task}}</td>
+                    <td >{{status.order_count}}</td>
+                    <td >{{status.productivity}}<span *ngIf="status['productivity']">%</span></td>
+                    <td >{{status.utilization}}<span *ngIf="status['utilization']">%</span></td>
+                    <td ><span *ngIf="status['revenue']">$ </span>{{status.revenue}}</td>
                 </tr>
   
             </table>
-     
-            <h4>{{data.time}}</h4>
         </div>
+    
     </div>
     <div class="statusmsg" *ngIf="!flag">
         <h2>Status yet to be updated by employee..</h2>

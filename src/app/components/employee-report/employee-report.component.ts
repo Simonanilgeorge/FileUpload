@@ -52,7 +52,6 @@ export class EmployeeReportComponent implements OnInit {
 
   onResponse(res) {
     console.log(res);
-    res = res.replace(/\\n/g, "<br>");
     res = JSON.parse(res);
     this.datas = res;
     if (this.datas.length == 0) {

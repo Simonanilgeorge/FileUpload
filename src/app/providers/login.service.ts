@@ -75,9 +75,6 @@ export class LoginService {
     let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
     let employeeRoles:string = "";
     let role: string = sessionStorage.getItem('role');
-
-
-    
     // if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
     //   this.router.navigate(['home'])
     // }

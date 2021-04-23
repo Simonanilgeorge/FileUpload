@@ -98,3 +98,44 @@ padding:30px;
   /* align-items: center; */
 
 } 
+
+
+table {
+  /* border: 1px solid black; */
+  border-collapse: collapse;
+text-align: center;
+  width:100%;
+
+
+}
+
+td {
+  border: 1px solid black;
+  padding:20px;
+  white-space: nowrap;
+}
+
+
+th{
+  border: 1px solid black;
+  padding:20px;
+  text-transform: uppercase;
+  position:sticky;
+  top:0;
+  background: rgb(243, 241, 241);
+  z-index:10;
+}
+tr {
+  padding:20px;
+  border: 1px solid black;
+
+}
+
+.tablecontainer{
+  border: 3px solid black;
+  overflow: auto;
+  height: 80vh;
+
+
+}
+

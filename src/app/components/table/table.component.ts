@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,Output} from '@angular/core';
+import * as EventEmitter from 'events';
 import { title } from 'process';
 
 @Component({
@@ -8,6 +9,7 @@ import { title } from 'process';
 })
 export class TableComponent implements OnInit {
 @Input() data
+@Output() text=new EventEmitter();
 
 titles;
   constructor() { }
@@ -18,8 +20,7 @@ titles;
 
   }
   getTitles() {
-
-    if(!this.data){
+   if(!this.data){
       return;
     }
     console.log("inside table component")
@@ -27,8 +28,6 @@ titles;
     this.titles = this.data.map((data) => {
       return Object.keys(data);
     })[0];
-
-
   }
 
 }
