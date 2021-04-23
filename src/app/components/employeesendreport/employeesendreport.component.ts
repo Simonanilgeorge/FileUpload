@@ -35,7 +35,7 @@ export class EmployeesendreportComponent implements OnInit {
     this.loginService.navigateByRole(this.constructor.name)
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        date: ["",Validators.required],
+        date: ["", Validators.required],
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
@@ -45,7 +45,7 @@ export class EmployeesendreportComponent implements OnInit {
         endTime: ["", Validators.required],
         totalTime: [""],
         username: [sessionStorage.getItem('user')],
-        status: ["",Validators.required],
+        status: ["", Validators.required],
         account_name: sessionStorage.getItem('account_name'),
       })
 
@@ -55,9 +55,9 @@ export class EmployeesendreportComponent implements OnInit {
     this.getDropDown();
   }
 
-get Client(){
-  return this.inputs.get("Client");
-}
+  get Client() {
+    return this.inputs.get("Client");
+  }
 
   get totalTime() {
     return this.inputs.get("totalTime")
@@ -104,22 +104,22 @@ get Client(){
 
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
-     
+
       this.showToastMessage("Please fill all the fields");
       return;
     }
-    if(this.Client.value!="NonProd" && this.Process.value==""){
+    if (this.Client.value != "NonProd" && this.Process.value == "") {
       this.showToastMessage("Please enter a value for Process")
       return;
     }
-    
+
     // get the total time
     let result = this.getTotalTime();
     console.log(result);
 
     // check if start time and end time are same
     if (result === 0) {
-      
+
       this.showToastMessage("Please select the correct time");
       return;
     }
@@ -129,7 +129,7 @@ get Client(){
 
 
     console.log(this.userForm.value);
-// send the form
+    // send the form
     this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
 
       this.showToastMessage("Success")
@@ -142,14 +142,23 @@ get Client(){
 
 
   getTotalTime() {
+
     let time1 = this.inputs.value.startTime;
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
-    let hour = time2[0] - time1[0];
+    if (time1[0] > time2[0]) {
+      time2[0] = time2[0] + 24;
+
+    }
+    let hour = Math.abs(time2[0]) - time1[0];
     let minute = time2[1] - time1[1];
+
     let result = hour * 60 + minute
-    return result
+
+    console.log(time1);
+    console.log(time2);
+    return result;
   }
 
   getDropDown() {
@@ -165,8 +174,8 @@ get Client(){
 
   }
 
-  showToastMessage(message){
-   this.message=message;
+  showToastMessage(message) {
+    this.message = message;
     this.toast = true;
     setTimeout(() => {
       this.toast = false;
