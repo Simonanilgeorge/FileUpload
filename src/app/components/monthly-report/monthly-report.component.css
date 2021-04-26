@@ -1,6 +1,6 @@
 .inputgroup{
     padding:20px;
-    border:1px solid black;
+    /* border:1px solid black; */
     flex: 1 200px;
 }
 
@@ -75,6 +75,9 @@ text-align: center;
     border: 1px solid black;
     padding:20px;
     text-transform: uppercase;
+    position:sticky;
+    top:0;
+    background: rgb(243, 241, 241);
   }
   tr {
     padding:20px;
@@ -82,23 +85,26 @@ text-align: center;
 
   }
   
+
   .tablecontainer{
     border: 3px solid black;
     overflow: auto;
+    height:80vh;
   }
 
 
   .report-container{
-    display:flex;
+    /* display:flex; */
   padding:30px;
-    flex-direction: column;
-    justify-content: space-evenly;
+    /* flex-direction: column;
+    justify-content: space-evenly; */
     /* align-items: center; */
+    /* border:2px solid steelblue; */
   
   } 
 
   .filter {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 20px 10px;
   /* flex-direction: column; */
 
@@ -107,15 +113,15 @@ text-align: center;
 
   .formcontainer{
     display: flex;
-    border:2px solid black;
+    /* border:2px solid black; */
     justify-content: space-between;
     flex-wrap: wrap;
     margin:50px 0px;
   }
 
-  
+
   form{
-    border: 3px solid red;
+    /* border: 3px solid red; */
     display:flex;
     flex-wrap: wrap;
     /* flex-direction: column; */

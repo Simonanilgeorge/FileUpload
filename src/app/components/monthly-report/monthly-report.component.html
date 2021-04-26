@@ -39,17 +39,16 @@
             <table>
                 <tr>
                     <th>EMP CODE</th>
-                    <th>NAME</th>
+                    <th style="position: sticky;left:0;z-index:10;">NAME</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th>CLIENT</th>
                     <th>TASK</th>
-
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword">
                     <td>{{data.emp_code}}</td>
-                    <td>{{data.name}}</td>
+                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.name}}</td>
                     <td>{{data.doj}}</td>
                     <td>{{data.search}}</td>
                     <td>{{data.client}}</td>
