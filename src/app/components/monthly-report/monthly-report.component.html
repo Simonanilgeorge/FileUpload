@@ -1,18 +1,63 @@
-
 <div class="container">
     <app-navbar></app-navbar>
-    <form [formGroup]="Date">
 
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+    <div class="filter">
+
+        <form [formGroup]="Date">
+            <div class="inputgroup">
+                <label for="">
+                    SELECT MONTH
+                </label>
+                <input type="month" formControlName="date">
+
+            </div>
+            <div class="inputgroup">
+                <label for="name">SELECT SHEET</label>
+                <select  class="input" formControlName="sheetName" >
+                <option value="" [disabled]="true">--Select--</option>
+                <option *ngFor="let sheet of SheetList">
+                  {{sheet}}
+                </option>
+              </select>
+            </div>
+            <div class="inputgroup">
+                <button class="button" (click)="filter()">filter</button>
+            </div>
+        </form>
         <div class="inputgroup">
-            <label for="">
-                SELECT FILTER
-            </label>
-            <input type="month" formControlName="date">
-            <button class="button" (click)="filter()">filter</button>
+            <label for="name">SEARCH BY KEYWORD</label>
+
+            <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
+        </div>
+    </div>
+
+    <div class="report-container" *ngIf="flag">
+
+        <div class="tablecontainer" >
+            <table>
+                <tr>
+                    <th>EMP CODE</th>
+                    <th>NAME</th>
+                    <th>DOJ</th>
+                    <th>SERACH/NON-SERACH</th>
+                    <th>CLIENT</th>
+                    <th>TASK</th>
+
+                    <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
+                </tr>
+                <tr *ngFor="let data of data | filter:searchedKeyword">
+                    <td>{{data.emp_code}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.doj}}</td>
+                    <td>{{data.search}}</td>
+                    <td>{{data.client}}</td>
+                    <td>{{data.task}}</td>
+                    <td *ngFor="let date of dates">{{data[date]}}</td>
+                </tr>
+
+            </table>
         </div>
 
-
-    </form>
-
-
+    </div>
 </div>

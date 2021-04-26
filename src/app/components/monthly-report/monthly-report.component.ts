@@ -9,9 +9,16 @@ import { EmpreportService } from '../../providers/empreport.service'
   styleUrls: ['./monthly-report.component.css']
 })
 export class MonthlyReportComponent implements OnInit {
-
+  flag:Boolean=false;
+  message;
+  toast: Boolean = false
+  searchedKeyword: string;
+  data = [];
+  dates = [];
+  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   Date = this.fb.group({
-    date: ['']
+    date: ['', Validators.required],
+    sheetName: ['', Validators.required]
   })
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService) { }
 
@@ -20,13 +27,38 @@ export class MonthlyReportComponent implements OnInit {
     this.loginService.navigateByRole(this.constructor.name)
   }
 
+  get date() {
+    return this.Date.get("date");
+  }
 
   filter() {
-    console.log(this.Date.value);
+    console.log(this.Date);
+    console.log(typeof (this.date.value));
+
+    if (this.Date.status === "INVALID") {
+      
+      this.showToastMessage("Select month and sheet");
+      return;
+    }
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
-      console.log(res)
+
+      res = JSON.parse(res);
+      this.data = res.data;
+      this.dates = res.dates;
+this.flag=true
     }, (err) => {
       console.log(err.message)
     })
   }
+
+
+
+  showToastMessage(message) {
+    this.message = message;
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 2000)
+  }
+
 }
