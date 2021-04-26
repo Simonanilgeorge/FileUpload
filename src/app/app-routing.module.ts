@@ -7,10 +7,13 @@ import {FileReportComponent} from './components/file-report/file-report.componen
 import {EmployeesendreportComponent} from './components/employeesendreport/employeesendreport.component';
 import {EmployeeReportComponent} from './components/employee-report/employee-report.component';
 import {OrderListComponent} from './components/order-list/order-list.component';
-import {TableComponent} from './components/table/table.component'
+// import {TableComponent} from './components/table/table.component'
+import {MonthlyReportComponent} from './components/monthly-report/monthly-report.component';
+import { from } from 'rxjs';
 const routes: Routes = [
 {path:'',pathMatch:'full',component: LoginComponent},
 // {path:'',pathMatch:'full',component: TableComponent},
+{path:'monthlyreport',component:MonthlyReportComponent},
 {path:'home',component:LandingPageComponent},
 {path:'upload',component:HomeComponent},
 {path:'report',component:FileReportComponent},

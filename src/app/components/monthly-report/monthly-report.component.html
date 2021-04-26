@@ -1,0 +1,18 @@
+
+<div class="container">
+    <app-navbar></app-navbar>
+    <form [formGroup]="Date">
+
+        <div class="inputgroup">
+            <label for="">
+                SELECT FILTER
+            </label>
+            <input type="month" formControlName="date">
+            <button class="button" (click)="filter()">filter</button>
+        </div>
+
+
+    </form>
+
+
+</div>

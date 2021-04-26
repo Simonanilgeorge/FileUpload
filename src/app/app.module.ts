@@ -17,6 +17,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { TableComponent } from './components/table/table.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { ToastComponent } from './components/toast/toast.component';
     EmployeeReportComponent,
     OrderListComponent,
     TableComponent,
-    ToastComponent
+    ToastComponent,
+    MonthlyReportComponent
   ],
   imports: [
     BrowserModule,

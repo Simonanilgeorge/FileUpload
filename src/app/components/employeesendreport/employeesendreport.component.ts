@@ -136,6 +136,7 @@ export class EmployeesendreportComponent implements OnInit {
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
+      this.showToastMessage("Failed")
     })
 
   }
