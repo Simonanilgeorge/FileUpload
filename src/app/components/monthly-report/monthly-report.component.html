@@ -2,8 +2,8 @@
     <app-navbar></app-navbar>
 
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
-    <div class="filter">
 
+    <div class="formcontainer">
         <form [formGroup]="Date">
             <div class="inputgroup">
                 <label for="">
@@ -14,27 +14,28 @@
             </div>
             <div class="inputgroup">
                 <label for="name">SELECT SHEET</label>
-                <select  class="input" formControlName="sheetName" >
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let sheet of SheetList">
-                  {{sheet}}
-                </option>
-              </select>
+                <select class="input" formControlName="sheetName">
+                    <option value="" [disabled]="true">--Select--</option>
+                    <option *ngFor="let sheet of SheetList">
+                        {{sheet}}
+                    </option>
+                </select>
             </div>
             <div class="inputgroup">
                 <button class="button" (click)="filter()">filter</button>
             </div>
         </form>
-        <div class="inputgroup">
-            <label for="name">SEARCH BY KEYWORD</label>
-
-            <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-        </div>
+        <form>
+            <div class="inputgroup">
+                <label for="name">SEARCH BY KEYWORD</label>
+                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
+            </div>
+        </form>
     </div>
 
     <div class="report-container" *ngIf="flag">
 
-        <div class="tablecontainer" >
+        <div class="tablecontainer">
             <table>
                 <tr>
                     <th>EMP CODE</th>
