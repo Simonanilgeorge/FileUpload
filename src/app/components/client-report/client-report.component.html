@@ -1,7 +1,5 @@
 <div class="container">
     <app-navbar></app-navbar>
-<!-- 
-    <app-toast [message]="message" [classBoolean]="toast"></app-toast> -->
 
     <div class="formcontainer">
         <form [formGroup]="Date" (ngSubmit)="onSubmit()">
@@ -9,7 +7,7 @@
                 <label for="">
                     SELECT MONTH
                 </label>
-                <input type="month" formControlName="date">
+                <input style="width: 60%;" type="month" formControlName="date">
 
             </div>
 
@@ -25,40 +23,28 @@
         </form>
     </div>
 
-    <div class="report-container" *ngIf="flag">
+    <div class="report-container" *ngIf="data.length != 0">
 
         <div class="tablecontainer">
-            <!-- <table>
+            <table>
                 <tr>
-                    <th>EMP CODE</th>
-                    <th style="position: sticky;left:0;z-index:10;">NAME</th>
-                    <th>DOJ</th>
-                    <th>SERACH/NON-SERACH</th>
-                    <th>CLIENT</th>
-                    <th>TASK</th>
+                    <th style="position: sticky;left:0;z-index:10;">CLIENT</th>
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
-                    <th *ngIf="sheetNameRes=='Revenue'">Total</th>
+                    <th>Total</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword">
-                    <td>{{data.emp_code}}</td>
-                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.name}}</td>
-                    <td>{{data.doj}}</td>
-                    <td>{{data.search}}</td>
-                    <td>{{data.client}}</td>
-                    <td>{{data.task}}</td>
+                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.client}}</td>
                     <td *ngFor="let date of dates">
-                        <span *ngIf="data[date]">
-                            <span *ngIf="sheetNameRes=='Revenue'">$</span>
-                        {{data[date]}}
-                            <span *ngIf="sheetNameRes=='Productivity'||sheetNameRes=='Utilization'">%</span>
-                        </span> 
+                        <span *ngIf="data[date]">${{data[date]}}</span> 
                     </td>
-                    
-                    <td *ngIf="sheetNameRes=='Revenue'"><span *ngIf="data.total">${{data.total}}</span></td>
+                    <td><span *ngIf="data.total">${{data.total}}</span></td>
                 </tr>
 
-            </table> -->
+            </table>
         </div>
 
+    </div>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
+            <h2>Choose a valid month</h2>
     </div>
 </div>

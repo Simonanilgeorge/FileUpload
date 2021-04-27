@@ -11,7 +11,10 @@ import { EmpreportService } from '../../providers/empreport.service'
 export class ClientReportComponent implements OnInit {
 
 data=[];
+flag:boolean = false;
 dates=[];
+searchedKeyword: string;
+
   Date=this.fb.group({
     date:['',Validators.required]
   })
@@ -30,7 +33,8 @@ dates=[];
       res=JSON.parse(res);
       this.dates=res.dates;
       this.data=res.data;
-      console.log(res);
+      this.flag = true;
+
     },(err)=>{
       console.log(err.message);
     })
