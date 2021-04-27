@@ -22,7 +22,7 @@ dates=[];
     this.loginService.navigateByRole(this.constructor.name)
   }
 
-  
+
   onSubmit(){
     console.log(this.Date.value);
     this.empReportService.getClientReport(this.Date.value).subscribe((res)=>{
