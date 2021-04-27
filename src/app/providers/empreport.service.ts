@@ -13,6 +13,7 @@ export class EmpreportService {
   private statusUrl = "http://localhost:5000/mystatus"
   private dropDownUrl="http://localhost:5000/dropdown"
   private monthlyReportUrl="http://localhost:5000/revenue"
+  private clientReportUrl="http://localhost:5000/clientrprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
@@ -38,5 +39,9 @@ export class EmpreportService {
 getMonthlyReport(date):Observable<any>{
   return this.http.post<any>(this.monthlyReportUrl,date);
 
+}
+
+getClientReport(date):Observable<any>{
+  return this.http.post<any>(this.clientReportUrl,date);
 }
 }

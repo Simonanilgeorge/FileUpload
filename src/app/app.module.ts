@@ -18,6 +18,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { TableComponent } from './components/table/table.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
+import { ClientReportComponent } from './components/client-report/client-report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { MonthlyReportComponent } from './components/monthly-report/monthly-repo
     OrderListComponent,
     TableComponent,
     ToastComponent,
-    MonthlyReportComponent
+    MonthlyReportComponent,
+    ClientReportComponent
   ],
   imports: [
     BrowserModule,
