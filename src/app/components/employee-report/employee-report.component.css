@@ -134,7 +134,7 @@ tr {
 .tablecontainer{
   border: 3px solid black;
   overflow: auto;
-  height: 80vh;
+  max-height: 80vh;
 
 
 }
