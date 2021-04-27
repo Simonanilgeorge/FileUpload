@@ -75,18 +75,18 @@ export class LoginService {
     let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
     let employeeRoles:string = "";
     let role: string = sessionStorage.getItem('role');
-    // if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
-    //   this.router.navigate(['home'])
-    // }
+    if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
+      this.router.navigate(['home'])
+    }
 
-    // else if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
-    //   this.router.navigate(['home']);
+    else if (employeeRoles.includes(role) && managerAccess.includes(componentName)) {
+      this.router.navigate(['home']);
 
-    // }
+    }
 
-    // else if (!employeeRoles.includes(role) && !managerRoles.includes(role) && managerAccess.includes(componentName)){
-    //   this.router.navigate(['home'])
-    // }
+    else if (!employeeRoles.includes(role) && !managerRoles.includes(role) && managerAccess.includes(componentName)){
+      this.router.navigate(['home'])
+    }
 
   }
 

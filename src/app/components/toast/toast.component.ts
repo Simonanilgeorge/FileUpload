@@ -12,19 +12,7 @@ export class ToastComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.toast();
+
   }
 
-
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   let testMessage="test message"
-  //   // console.log(changes);
-  //   this.test.emit(testMessage);
-  // }
-  
-  toast() {
-    console.log("inside toast class")
-  
-  }
 }

@@ -9,12 +9,13 @@ import { EmpreportService } from '../../providers/empreport.service'
   styleUrls: ['./monthly-report.component.css']
 })
 export class MonthlyReportComponent implements OnInit {
-  flag:Boolean=false;
+  flag: Boolean = false;
   message;
   toast: Boolean = false
   searchedKeyword: string;
   data = [];
   dates = [];
+  sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   Date = this.fb.group({
     date: ['', Validators.required],
@@ -36,7 +37,7 @@ export class MonthlyReportComponent implements OnInit {
     console.log(typeof (this.date.value));
 
     if (this.Date.status === "INVALID") {
-      
+
       this.showToastMessage("Select month and sheet");
       return;
     }
@@ -45,7 +46,8 @@ export class MonthlyReportComponent implements OnInit {
       res = JSON.parse(res);
       this.data = res.data;
       this.dates = res.dates;
-this.flag=true
+      this.sheetNameRes=res.sheet;
+      this.flag = true
     }, (err) => {
       console.log(err.message)
     })

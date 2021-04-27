@@ -3,12 +3,13 @@
 <nav>
     <ul>
         <li routerLink="/home">Home</li>
-        <li *ngIf="manager" routerLink="/upload">Generate Report</li>
-        <li *ngIf="manager" routerLink="/report">View Report</li>
-        <li *ngIf="manager" routerLink="/viewreport">Employee Report</li>
+        <li *ngIf="manager" routerLink="/upload">Generate Pivot Table</li>
+        <li *ngIf="manager" routerLink="/report">Pivot Table</li>
+        <li *ngIf="manager" routerLink="/viewreport">Daily Production Report</li>
         <li *ngIf="manager" routerLink="/monthlyreport">Monthly Report</li>
         <li *ngIf="employee" routerLink="/sendreport">Send Report</li>
-        <li *ngIf="employee" routerLink="/viewmystatus">My Status</li>
-        <li class="logout" (click)="logOut()">logout</li>
+        <li *ngIf="employee" routerLink="/viewmystatus">My Report</li>
+
+        <li class="logout" (click)="logOut()">Logout</li>
     </ul>
 </nav>
