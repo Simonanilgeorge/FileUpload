@@ -3,11 +3,7 @@
   <div *ngIf="flag">
 
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
-    <!-- <select name="" id="" (change)="greet(event)">
-      <option value="a">a</option>
-      <option value="b">b</option>
-      <option value="c">c</option>
-    </select> -->
+
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="inputgroup">
         <h1>Enter your daily status updates</h1>

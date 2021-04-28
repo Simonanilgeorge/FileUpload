@@ -1,18 +1,19 @@
-import { Component, Input, OnInit,Output} from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import * as EventEmitter from 'events';
 import { title } from 'process';
-
+import { EmpreportService } from '../../providers/empreport.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-@Input() data
-@Output() text=new EventEmitter();
+  @Input() data
+  @Output() text = new EventEmitter();
 
-titles;
-  constructor() { }
+  titles;
+  constructor(private empreportService: EmpreportService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -20,7 +21,7 @@ titles;
 
   }
   getTitles() {
-   if(!this.data){
+    if (!this.data) {
       return;
     }
     console.log("inside table component")
@@ -28,6 +29,15 @@ titles;
     this.titles = this.data.map((data) => {
       return Object.keys(data);
     })[0];
-  }
 
+
+    this.titles.pop();
+  }
+  edit(data) {
+
+    console.log(data);
+    sessionStorage.setItem("updateID", data.id);
+    this.router.navigate(['/sendreport'])
+
+  }
 }

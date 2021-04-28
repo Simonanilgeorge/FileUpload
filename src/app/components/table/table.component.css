@@ -30,3 +30,20 @@ text-align: center;
     overflow: auto;
   }
 
+  .button {
+    border: none;
+    cursor: pointer;
+    display: block;
+    background: steelblue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 105px;
+    margin: 10px 0;
+    transition: 0.3s ease-in-out;
+  }
+
+  
+  .button:hover{
+    background: rgb(47, 88, 119);
+  }

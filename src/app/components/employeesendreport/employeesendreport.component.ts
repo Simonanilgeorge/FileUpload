@@ -11,7 +11,7 @@ import { LoginService } from '../../providers/login.service'
 })
 export class EmployeesendreportComponent implements OnInit {
 
-
+update:Boolean;
   message = "Success";
   toast: Boolean = false;
   public notValid: boolean = false;
@@ -27,7 +27,7 @@ export class EmployeesendreportComponent implements OnInit {
   stateList: string[];
   statusList: string[];
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -47,13 +47,27 @@ export class EmployeesendreportComponent implements OnInit {
         username: [sessionStorage.getItem('user')],
         status: ["", Validators.required],
         account_name: sessionStorage.getItem('account_name'),
+        id:[""]
       })
-
-
     });
     this.stateList = ["AN", "FL", "AZ", "BL", "AB", "CZ"];
     this.getDropDown();
+    
+    // get single status for update
+    const id = sessionStorage.getItem('updateID');
+    
+    if(id){
+      this.update=true; 
+      console.log(id)
+      this.getSingleStatus();
+    
+    }
+    else{
+      this.update=false;
+    }
   }
+
+
 
   get Client() {
     return this.inputs.get("Client");
@@ -182,5 +196,20 @@ export class EmployeesendreportComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
+
+
+  // call singleReport for update
+getSingleStatus(){
+  this.empReportService.getSingleReport().subscribe((res)=>{
+
+    res=JSON.parse(res);
+    console.log(res);
+    this.inputs.setValue(res);
+
+    
+  },(err)=>{
+    console.log(err.message);
+  })
+}
 
 }

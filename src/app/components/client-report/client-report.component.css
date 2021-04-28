@@ -17,9 +17,7 @@
     margin: 10px 0;
     transition: 0.3s ease-in-out;
   }
-  /* label{
-     padding:10px 0;
-  } */
+
   
   .button:hover{
     background: rgb(47, 88, 119);
