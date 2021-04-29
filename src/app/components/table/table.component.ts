@@ -24,8 +24,7 @@ export class TableComponent implements OnInit {
     if (!this.data) {
       return;
     }
-    console.log("inside table component")
-    console.log(this.data);
+
     this.titles = this.data.map((data) => {
       return Object.keys(data);
     })[0];
@@ -35,7 +34,7 @@ export class TableComponent implements OnInit {
   }
   edit(data) {
 
-    console.log(data);
+  
     sessionStorage.setItem("updateID", data.id);
     this.router.navigate(['/sendreport'])
 

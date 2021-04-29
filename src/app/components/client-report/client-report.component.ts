@@ -27,7 +27,7 @@ searchedKeyword: string;
 
 
   onSubmit(){
-    console.log(this.Date.value);
+
     this.empReportService.getClientReport(this.Date.value).subscribe((res)=>{
 
       res=JSON.parse(res);

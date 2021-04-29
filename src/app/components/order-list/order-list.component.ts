@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit {
   ngOnInit(): void {
 
 
-    console.log("my status")
+
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.user = this.fb.group({
@@ -35,7 +35,7 @@ export class OrderListComponent implements OnInit {
   }
 
  getStatus() {
-    console.log(this.user.value);
+   
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
 
       this.onResponse(res);
@@ -46,7 +46,7 @@ export class OrderListComponent implements OnInit {
 
   
   onResponse(res) {
-    console.log(res);
+
   
     res = JSON.parse(res);
     this.datas = res;

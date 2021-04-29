@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   onFileSelect(event) {
 
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
-    //console.log(event.target.files.length)
+
     if (event.target.files.length == 1) {
 
       if (this.fl1 == null){
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     formData.append('sp2', this.fileUploadForm.get('sp2').value)
 
     this.uploadService.uploadFile(formData).subscribe((res) => {
-      console.log(res)
+
       this.router.navigate(['/report'])
     }, (err) => {
       console.log(err.message);

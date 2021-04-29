@@ -33,8 +33,8 @@ export class MonthlyReportComponent implements OnInit {
   }
 
   filter() {
-    console.log(this.Date);
-    console.log(typeof (this.date.value));
+
+
 
     if (this.Date.status === "INVALID") {
 

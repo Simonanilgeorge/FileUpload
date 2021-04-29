@@ -22,7 +22,7 @@
           <label for="client">CLIENT</label>
           <select name="client" class="input" formControlName="Client" (change)="changeClientOptions($event)">
             <option value="" [disabled]="true">--Select--</option>
-            <option *ngFor="let client of ClientList">
+            <option *ngFor="let client of ClientList" value="{{client}}">
               {{client}}
             </option>
           </select>
@@ -31,7 +31,7 @@
           <label for="task">TASK</label>
           <select name="task" class="input" formControlName="Task" (change)="changeTaskOptions($event)">
             <option value="" [disabled]="true">--Select--</option>
-            <option *ngFor="let task of Tasklist">
+            <option *ngFor="let task of Tasklist" value="{{task}}">
               {{task}}
             </option>
           </select>
@@ -40,7 +40,7 @@
           <label for="process">PROCESS</label>
           <select name="process" class="input" formControlName="Process">
             <option value="" [disabled]="true">--Select--</option>
-            <option *ngFor="let process of Processlist">
+            <option *ngFor="let process of Processlist" value="{{process}}">
               {{process}}
             </option>
           </select>

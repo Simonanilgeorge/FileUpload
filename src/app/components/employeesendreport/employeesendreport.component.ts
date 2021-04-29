@@ -11,13 +11,14 @@ import { LoginService } from '../../providers/login.service'
 })
 export class EmployeesendreportComponent implements OnInit {
 
-update:Boolean;
+
+  update: Boolean;
   message = "Success";
   toast: Boolean = false;
   public notValid: boolean = false;
   flag = true;
   userForm: FormGroup;
-
+  update_id = { id: sessionStorage.getItem("updateID") }
   dropDownList: any;
   ClientList: string[];
   Tasklist: string[];
@@ -27,12 +28,13 @@ update:Boolean;
   stateList: string[];
   statusList: string[];
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService,private route:ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
+    this.getDropDown();
     this.userForm = this.fb.group({
       inputs: this.fb.group({
         date: ["", Validators.required],
@@ -47,28 +49,32 @@ update:Boolean;
         username: [sessionStorage.getItem('user')],
         status: ["", Validators.required],
         account_name: sessionStorage.getItem('account_name'),
-        id:[""]
+        id: [""]
       })
     });
     this.stateList = ["AN", "FL", "AZ", "BL", "AB", "CZ"];
-    this.getDropDown();
-    
-    // get single status for update
-    const id = sessionStorage.getItem('updateID');
-    
-    if(id){
-      this.update=true; 
-      console.log(id)
-      this.getSingleStatus();
-    
-    }
-    else{
-      this.update=false;
-    }
+
   }
 
 
+get state(){
+  return this.inputs.get("state");
+}
 
+get status(){
+  return this.inputs.get("status");
+}
+
+  get orderNumber() {
+    return this.inputs.get("orderNumber")
+  }
+
+  get startTime() {
+    return this.inputs.get("startTime");
+  }
+  get endTime() {
+    return this.inputs.get("endTime");
+  }
   get Client() {
     return this.inputs.get("Client");
   }
@@ -92,9 +98,7 @@ update:Boolean;
     this.Process.setValue("");
 
 
-    this.temp = null
-    this.Tasklist = this.dropDownList[event.target.value];
-    this.temp = event.target.value
+    this.Tasklist = this.dropDownList[this.inputs.value.Client];
     this.Processlist = null
 
 
@@ -104,7 +108,7 @@ update:Boolean;
 
     this.final = null
     this.Process.setValue("");
-    this.final = this.temp + event.target.value
+    this.final = this.inputs.value.Client + this.inputs.value.Task
     this.Processlist = this.dropDownList[this.final]
   }
 
@@ -112,9 +116,14 @@ update:Boolean;
 
   onSubmit() {
 
-    console.log(this.userForm.value)
+    if (this.Client.value == "NonProd") {
+      this.orderNumber.setValue("nil");
+      this.state.setValue("nil");
+      this.status.setValue("nil");
 
-    console.log(this.Client);
+
+    }
+
 
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
@@ -127,9 +136,11 @@ update:Boolean;
       return;
     }
 
+
+
     // get the total time
     let result = this.getTotalTime();
-    console.log(result);
+
 
     // check if start time and end time are same
     if (result === 0) {
@@ -141,8 +152,6 @@ update:Boolean;
       this.totalTime.setValue(Math.abs(result));
     }
 
-
-    console.log(this.userForm.value);
     // send the form
     this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
 
@@ -171,8 +180,7 @@ update:Boolean;
 
     let result = hour * 60 + minute
 
-    console.log(time1);
-    console.log(time2);
+
     return result;
   }
 
@@ -182,10 +190,25 @@ update:Boolean;
       this.dropDownList = res;
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
+      // get single status for update
+      const id = sessionStorage.getItem('updateID');
+
+      if (id) {
+        this.update = true;
+
+
+        this.getSingleStatus();
+
+      }
+      else {
+        this.update = false;
+      }
+
 
     }, (err) => {
       console.log(err.message)
     })
+
 
   }
 
@@ -199,17 +222,28 @@ update:Boolean;
 
 
   // call singleReport for update
-getSingleStatus(){
-  this.empReportService.getSingleReport().subscribe((res)=>{
+  getSingleStatus() {
 
-    res=JSON.parse(res);
-    console.log(res);
-    this.inputs.setValue(res);
+    this.empReportService.getSingleReport(this.update_id).subscribe((res) => {
 
-    
-  },(err)=>{
-    console.log(err.message);
-  })
-}
+      sessionStorage.removeItem("updateID");
+      res = JSON.parse(res);
+
+
+      this.Tasklist = this.dropDownList[res[0].Client];
+
+      let temp = res[0].Client + res[0].Task
+
+      this.Processlist = this.dropDownList[temp]
+
+      this.inputs.patchValue(res[0]);
+
+
+
+
+    }, (err) => {
+      console.log(err.message);
+    })
+  }
 
 }

@@ -48,8 +48,8 @@ export class EmpreportService {
   }
 
 
-  getSingleReport():Observable<any>{
-    let id=sessionStorage.getItem("updateID");
+  getSingleReport(id):Observable<any>{
+
     return this.http.post<any>(this.singleReportUrl,id);
   }
 }
