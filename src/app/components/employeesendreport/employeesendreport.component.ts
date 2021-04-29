@@ -12,7 +12,7 @@ import { LoginService } from '../../providers/login.service'
 export class EmployeesendreportComponent implements OnInit {
 
 
-  update: Boolean;
+  update: Boolean=false;
   message = "Success";
   toast: Boolean = false;
   public notValid: boolean = false;

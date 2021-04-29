@@ -6,7 +6,8 @@
 
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="inputgroup">
-        <h1>Enter your daily status updates</h1>
+        <h1 *ngIf="!update">Enter your daily status updates</h1>
+        <h1 *ngIf="update">Edit status</h1>
       </div>
       <div class="tablecontainer" formGroupName="inputs">
 
