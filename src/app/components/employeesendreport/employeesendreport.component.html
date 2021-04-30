@@ -48,7 +48,8 @@
         </div>
         <div class="inputgroup">
           <label for="state">STATE</label>
-          <select name="state" class="input" formControlName="state">
+          <select name="state" class="input" formControlName="state" onfocus='this.size=4;' onblur='this.size=0;' 
+          onchange='this.size=0; this.blur();'>
             <option value="" [disabled]="true">--Select--</option>
             <option *ngFor="let state of stateList" value="{{state}}">
               {{state}}

@@ -114,9 +114,10 @@ select {
   font-size: 1rem;
   width: 100%;
 }
+
 option {
   padding: 10px;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   cursor: pointer;
   border-radius: 5px;
 }
@@ -157,16 +158,17 @@ th:last-child {
   grid-template-columns: repeat(auto-fill, minmax(320px, auto));
   grid-gap: 20px;
 
-  overflow:hidden;
+  overflow: hidden;
   /* grid-auto-flow: dense; */
 }
+
 .inputgroup {
-  /* border:1px solid black;  */
+  /* border: 1px solid black; */
   color: rgba(29, 51, 110, 0.76);
   padding: 20px;
   display: grid;
   align-items: end;
-
+  max-height: 130px;
   /* width:70%; */
 }
 
@@ -175,7 +177,7 @@ th:last-child {
   padding: 10px;
   border-radius: 5px;
   background: white;
-  width:70%;
+  width: 70%;
   /* border: none; */
 }
 label {
