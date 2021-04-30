@@ -52,7 +52,6 @@ export class EmployeesendreportComponent implements OnInit {
         id: [""]
       })
     });
-    this.stateList = ["AN", "FL", "AZ", "BL", "AB", "CZ"];
 
   }
 
@@ -190,6 +189,7 @@ get status(){
       this.dropDownList = res;
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
+      this.stateList=this.dropDownList.States;
       // get single status for update
       const id = sessionStorage.getItem('updateID');
 

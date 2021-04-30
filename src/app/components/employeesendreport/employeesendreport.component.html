@@ -50,7 +50,7 @@
           <label for="state">STATE</label>
           <select name="state" class="input" formControlName="state">
             <option value="" [disabled]="true">--Select--</option>
-            <option *ngFor="let state of stateList">
+            <option *ngFor="let state of stateList" value="{{state}}">
               {{state}}
             </option>
           </select>
