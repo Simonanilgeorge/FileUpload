@@ -57,16 +57,19 @@
                     <td *ngFor="let date of dates">
                         <span *ngIf="data[date]">
                             <span *ngIf="sheetNameRes=='Revenue'">$</span>
-                        {{data[date]}}
+                            {{data[date]}}
                             <span *ngIf="sheetNameRes=='Productivity'||sheetNameRes=='Utilization'">%</span>
-                        </span> 
+                        </span>
                     </td>
-                    
+
                     <td *ngIf="sheetNameRes=='Revenue'"><span *ngIf="data.total">${{data.total}}</span></td>
                 </tr>
 
             </table>
         </div>
 
+    </div>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
+        <h2>Please choose the month and sheet required</h2>
     </div>
 </div>

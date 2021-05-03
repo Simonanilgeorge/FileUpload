@@ -161,7 +161,6 @@ th:last-child {
   overflow: hidden;
   /* grid-auto-flow: dense; */
 }
-
 .inputgroup {
   /* border: 1px solid black; */
   color: rgba(29, 51, 110, 0.76);
