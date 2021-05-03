@@ -67,20 +67,20 @@
   }
 
   th{
-      /* border:1px solid black; */
+      border:1px solid black;
       font-size:20px;
       width:150px;
       height:50px;
-      background:steelblue;
-      color:white;
+    
+
     padding: 20px;;
    
       
   }
   td{
-      /* border:1px solid black; */
+      border:1px solid black;
 padding:20px;
-color:white;
+
 font-weight:bolder;
 
   }
@@ -94,14 +94,15 @@ font-weight:bolder;
       font-size:20px;
       position:sticky;
       left:0;
-  background: steelblue;
-      color:white;
+background:rgb(243, 241, 241);;
+    
       z-index:900;
   }
 
   .titles{
       top:0;
       position:sticky;
+      background:rgb(243, 241, 241);
       /* border:2px solid red; */
   }
   
@@ -244,7 +245,7 @@ margin:0 auto;
   resize: both;
    overflow:auto;
    height:70vh;
-border:5px solid steelblue;
+border:5px solid black;
 
    border-radius: 1em;
   
@@ -265,12 +266,4 @@ border:5px solid steelblue;
 
   }
 
-
-  tr:nth-of-type(odd){
-    background:steelblue;
-  }
-
-  tr:nth-of-type(even){
-    background: rgb(103, 206, 180);
-  }
 
