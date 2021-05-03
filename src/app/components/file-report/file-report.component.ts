@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-file-report',
@@ -13,7 +14,7 @@ export class FileReportComponent implements OnInit {
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
   flag: boolean = null;
-  flg:number = 0;
+  flg: number = 0;
   filterDate: any = {};
   dt: any = {};
   checklist: any = [];
@@ -22,13 +23,17 @@ export class FileReportComponent implements OnInit {
   datas: any = null;
   columnTotal = 0;
   columnSum = {};
-  checkedList:any;
-  masterSelected:boolean;
+  checkedList: any;
+  masterSelected: boolean;
 
-  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
+  pivotTableForm = this.fb.group({
+    date: [""],
+    time: [""]
+  })
+  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    
+
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getReportData();
@@ -45,19 +50,19 @@ export class FileReportComponent implements OnInit {
     this.getCheckedItemList();
   }
   isAllSelected() {
-    this.masterSelected = this.checklist.every(function(item:any) {
-        return item.isSelected == true;
-      })
+    this.masterSelected = this.checklist.every(function (item: any) {
+      return item.isSelected == true;
+    })
     this.getCheckedItemList();
   }
 
-  getCheckedItemList(){
+  getCheckedItemList() {
     this.checkedList = [];
     for (var i = 0; i < this.checklist.length; i++) {
-      if(this.checklist[i].isSelected)
-      this.checkedList.push(this.checklist[i]);
+      if (this.checklist[i].isSelected)
+        this.checkedList.push(this.checklist[i]);
     }
-    
+
   }
 
   getReportData() {
@@ -86,9 +91,9 @@ export class FileReportComponent implements OnInit {
   applyFilter() {
 
     this.expanded = true;
-    
-  
-    this.filterDate['date'] = this.checkedList.map((list)=> {
+
+
+    this.filterDate['date'] = this.checkedList.map((list) => {
       return list.date;
     })
 
@@ -134,11 +139,11 @@ export class FileReportComponent implements OnInit {
 
 
       // To find the grand total for each task
-      
 
-      if (this.datas.length==0) {
+
+      if (this.datas.length == 0) {
         this.flag = false;
-        
+
         return;
       }
       else {
@@ -169,9 +174,9 @@ export class FileReportComponent implements OnInit {
     }
 
 
-    if(this.flg == 0){
-    
-      for (var i = 0 ; i < this.dates.length; i++){
+    if (this.flg == 0) {
+
+      for (var i = 0; i < this.dates.length; i++) {
 
         this.dt["id"] = i
         this.dt["date"] = this.dates[i];
@@ -185,6 +190,8 @@ export class FileReportComponent implements OnInit {
 
   }
 
-
+  fetchTable(){
+    console.log(this.pivotTableForm.value);
+  }
 
 }

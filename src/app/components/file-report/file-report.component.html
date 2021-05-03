@@ -1,7 +1,25 @@
 <div class="container">
 <app-navbar></app-navbar>
+<div class="filter">
+
+    <form [formGroup]="pivotTableForm" (ngSubmit)="fetchTable()">
+        <div class="inputgroup">
+            <label for="date">SEARCH BY DATE</label>
+            <input type="date" name="date" class="input" formControlName="date">
+        </div>
+        <div class="inputgroup">
+            <label for="time">SEARCH BY TIME</label>
+            <input type="time" name="time" class="input" formControlName="time">
+        </div>
+        <div class="inputgroup">
+            <button type="submit" class="button">Fetch pivot table</button>
+        </div>
+    </form>
+</div>
+
 <div *ngIf="flag; else elseBlock">
     <div class="box">
+
         <div class="selectcontainer">
             <div class="multiselect">
                 <div class="selectBox" (click)="showCheckboxes()">
