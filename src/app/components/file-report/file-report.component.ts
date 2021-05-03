@@ -25,9 +25,10 @@ export class FileReportComponent implements OnInit {
   columnSum = {};
   checkedList: any;
   masterSelected: boolean;
+  time = [];
 
   pivotTableForm = this.fb.group({
-    date: [""],
+    pivotDate: [""],
     time: [""]
   })
   constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
@@ -87,9 +88,13 @@ export class FileReportComponent implements OnInit {
     }
   }
 
+
   // function called when a filter is applied
   applyFilter() {
 
+    console.log(this.pivotTableForm.value);
+
+    console.log(this.filterDate)
     this.expanded = true;
 
 
@@ -122,8 +127,13 @@ export class FileReportComponent implements OnInit {
           if (d == "SLAExpiration") {
             this.dates = data[d]
           }
+
+          if (d == "timeArray") {
+            this.time = data[d];
+
+          }
           // block to skip keys
-          if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration") {
+          if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration" || d=="timeArray") {
             continue;
           }
           // block to find the grand total for each state
@@ -135,6 +145,7 @@ export class FileReportComponent implements OnInit {
       })
 
       // remove the SLAExiration dates object from datas array
+      this.datas.pop()
       this.datas.pop()
 
 
@@ -190,8 +201,15 @@ export class FileReportComponent implements OnInit {
 
   }
 
-  fetchTable(){
+
+  fetchTable() {
+
     console.log(this.pivotTableForm.value);
+    this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
+      this.onResponse(res)
+    }, (err) => {
+      console.log(err.message);
+    })
   }
 
 }

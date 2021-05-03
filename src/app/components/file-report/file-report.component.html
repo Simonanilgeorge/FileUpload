@@ -1,81 +1,89 @@
 <div class="container">
-<app-navbar></app-navbar>
-<div class="filter">
+    <app-navbar></app-navbar>
+    <div class="filter">
 
-    <form [formGroup]="pivotTableForm" (ngSubmit)="fetchTable()">
-        <div class="inputgroup">
-            <label for="date">SEARCH BY DATE</label>
-            <input type="date" name="date" class="input" formControlName="date">
-        </div>
-        <div class="inputgroup">
-            <label for="time">SEARCH BY TIME</label>
-            <input type="time" name="time" class="input" formControlName="time">
-        </div>
-        <div class="inputgroup">
-            <button type="submit" class="button">Fetch pivot table</button>
-        </div>
-    </form>
-</div>
-
-<div *ngIf="flag; else elseBlock">
-    <div class="box">
-
-        <div class="selectcontainer">
-            <div class="multiselect">
-                <div class="selectBox" (click)="showCheckboxes()">
-                    <div class="select">
-                        <p>SLAExpiration Filter</p>
-                        <!-- <option class="option">Select an option</option> -->
-                    </div>
-
-                </div>
-                <div [class.display]="expanded" class="checkboxes">
-                    <label class="option">
-                    <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
-                    Select All
-                    </label>
-                    <label for="date" *ngFor="let item of checklist" class="option">
-                        <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
-                        {{item.date}}
-                    </label>
-
-
-                </div>
+        <form [formGroup]="pivotTableForm" (ngSubmit)="fetchTable()">
+            <div class="inputgroup">
+                <label for="date">SEARCH BY DATE</label>
+                <input type="date" name="date" class="input" formControlName="pivotDate">
             </div>
-            <div><button class="button" class="apply" (click)="applyFilter()">Apply filter</button></div>
+            <!-- <div class="inputgroup" *ngIf="flag">
+            <label for="date">SEARCH BY DATE</label>
+            <select name="" id="" class="input">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div> -->
+
+            <div class="inputgroup">
+                <button type="submit" class="button">Fetch pivot table</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="flag; else elseBlock">
+        <div class="box">
+
+            <div class="selectcontainer">
+                <div class="multiselect">
+                    <div class="selectBox" (click)="showCheckboxes()">
+                        <div class="select">
+                            <p>SLAExpiration Filter</p>
+                            <!-- <option class="option">Select an option</option> -->
+                        </div>
+
+                    </div>
+                    <div [class.display]="expanded" class="checkboxes">
+                        <label class="option">
+                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                                (change)="checkUncheckAll()" />
+                            Select All
+                        </label>
+                        <label for="date" *ngFor="let item of checklist" class="option">
+                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
+                                (change)="isAllSelected()" />
+                            {{item.date}}
+                        </label>
+
+
+                    </div>
+                </div>
+                <div><button class="button" class="apply" (click)="applyFilter()">Apply filter</button></div>
+            </div>
+        </div>
+
+        <div class="tablecontainer">
+            <table>
+
+                <tr>
+                    <th style="position: sticky;left:0;top:0;z-index:1000;background: rgb(243, 241, 241);">Task Name
+                    </th>
+                    <th *ngFor="let title of titles" class="titles">{{title}}</th>
+                    <th class="titles">Grand total</th>
+                </tr>
+
+                <tr *ngFor="let data of datas">
+                    <td class="taskname">{{data.Task_Name}}</td>
+                    <td *ngFor="let title of titles">{{data[title]}}</td>
+                    <td>{{data.Grand_total}}</td>
+                </tr>
+                <tr>
+                    <td class="taskname" style="font-weight:bolder; font-size:20px;">Grand total</td>
+                    <td *ngFor="let title of titles">{{columnSum[title]}}</td>
+                    <td>{{columnSum["Grand_total"]}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 
-    <div class="tablecontainer">
-        <table>
+    <ng-template #elseBlock>
+        <div class="elseblock">
 
-            <tr>
-                <th style="position: sticky;left:0;top:0;z-index:1000;background: rgb(243, 241, 241);">Task Name</th>
-                <th *ngFor="let title of titles" class="titles">{{title}}</th>
-                <th class="titles">Grand total</th>
-            </tr>
+            <h2>Report yet to be generated..</h2>
 
-            <tr *ngFor="let data of datas">
-                <td class="taskname">{{data.Task_Name}}</td>
-                <td *ngFor="let title of titles">{{data[title]}}</td>
-                <td>{{data.Grand_total}}</td>
-            </tr>
-            <tr>
-                <td class="taskname" style="font-weight:bolder; font-size:20px;">Grand total</td>
-                <td *ngFor="let title of titles">{{columnSum[title]}}</td>
-                <td>{{columnSum["Grand_total"]}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<ng-template #elseBlock>
-<div class="elseblock">
-
-    <h2>Report yet to be generated..</h2>
-
-    <button style="width:250px;" class="button" routerLink="/upload">Generate Report</button>
-</div>
-</ng-template>
+            <button style="width:250px;" class="button" routerLink="/upload">Generate Report</button>
+        </div>
+    </ng-template>
 
 </div>
