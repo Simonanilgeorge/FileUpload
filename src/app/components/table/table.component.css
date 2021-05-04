@@ -28,6 +28,7 @@ text-align: center;
   .tablecontainer{
     border: 3px solid black;
     overflow: auto;
+
   }
 
   .button {
