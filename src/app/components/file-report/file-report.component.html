@@ -7,15 +7,6 @@
                 <label for="date">SEARCH BY DATE</label>
                 <input type="date" name="date" class="input" formControlName="pivotDate">
             </div>
-            <!-- <div class="inputgroup" *ngIf="flag">
-            <label for="date">SEARCH BY DATE</label>
-            <select name="" id="" class="input">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-        </div> -->
-
             <div class="inputgroup">
                 <button type="submit" class="button">Fetch pivot table</button>
             </div>
@@ -30,9 +21,7 @@
                     <div class="selectBox" (click)="showCheckboxes()">
                         <div class="select">
                             <p>SLAExpiration Filter</p>
-                            <!-- <option class="option">Select an option</option> -->
                         </div>
-
                     </div>
                     <div [class.display]="expanded" class="checkboxes">
                         <label class="option">
@@ -40,13 +29,11 @@
                                 (change)="checkUncheckAll()" />
                             Select All
                         </label>
-                        <label for="date" *ngFor="let item of checklist" class="option">
+                        <label for="date" *ngFor="let item of checklist; let i=index;" class="option">
                             <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
                                 (change)="isAllSelected()" />
                             {{item.date}}
                         </label>
-
-
                     </div>
                 </div>
                 <div><button class="button" class="apply" (click)="applyFilter()">Apply filter</button></div>

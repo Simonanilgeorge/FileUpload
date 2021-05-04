@@ -265,7 +265,7 @@ border:3px solid black;
 
 
   .filter {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 20px 10px;
     flex-direction: column;
     width: 280px;

@@ -150,7 +150,7 @@ export class FileReportComponent implements OnInit {
 
       // remove the SLAExiration dates object from datas array
       this.datas.pop()
-      this.datas.pop()
+      // this.datas.pop()
 
 
       // To find the grand total for each task
