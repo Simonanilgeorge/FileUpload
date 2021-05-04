@@ -22,6 +22,7 @@
                         <div class="select">
                             <p>SLAExpiration Filter</p>
                         </div>
+
                     </div>
                     <div [class.display]="expanded" class="checkboxes">
                         <label class="option">
@@ -32,7 +33,7 @@
                         <label for="date" *ngFor="let item of checklist; let i=index;" class="option">
                             <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
                                 (change)="isAllSelected()" />
-                            {{item.date}}
+                            {{item.date}} {{i+1}}
                         </label>
                     </div>
                 </div>

@@ -131,7 +131,7 @@ export class FileReportComponent implements OnInit {
           if (d == "SLAExpiration") {
             this.dates = data[d]
           }
-
+          
           if (d == "timeArray") {
             this.time = data[d];
 
@@ -147,6 +147,7 @@ export class FileReportComponent implements OnInit {
           }
         }
       })
+     
 
       // remove the SLAExiration dates object from datas array
       this.datas.pop()
@@ -200,6 +201,7 @@ export class FileReportComponent implements OnInit {
         this.dt = []
 
       }
+      console.log(this.checklist)
       this.flg = 1;
     }
 
@@ -210,6 +212,8 @@ export class FileReportComponent implements OnInit {
 
     console.log(this.pivotTableForm.value);
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
+      this.flg = 0
+      this.checklist = []
       this.onResponse(res)
     }, (err) => {
       console.log(err.message);
