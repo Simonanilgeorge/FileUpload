@@ -44,6 +44,10 @@ export class FileReportComponent implements OnInit {
   }
 
 
+
+  get pivotDate() {
+    return this.pivotTableForm.get("pivotDate");
+  }
   checkUncheckAll() {
     for (var i = 0; i < this.checklist.length; i++) {
       this.checklist[i].isSelected = this.masterSelected;
@@ -92,12 +96,12 @@ export class FileReportComponent implements OnInit {
   // function called when a filter is applied
   applyFilter() {
 
-    console.log(this.pivotTableForm.value);
 
-    console.log(this.filterDate)
+    // add pivotdate key to filterdate object
+    this.filterDate['pivotdate'] = this.pivotDate.value;
+    console.log(this.filterDate);
+
     this.expanded = true;
-
-
     this.filterDate['date'] = this.checkedList.map((list) => {
       return list.date;
     })
@@ -133,7 +137,7 @@ export class FileReportComponent implements OnInit {
 
           }
           // block to skip keys
-          if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration" || d=="timeArray") {
+          if (this.titles.includes(d) || d == "Task_Name" || d == "null" || d == "Grand_total" || d == "SLAExpiration" || d == "timeArray") {
             continue;
           }
           // block to find the grand total for each state
