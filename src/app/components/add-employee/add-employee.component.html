@@ -1,60 +1,60 @@
 <div class="container">
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-    <div *ngIf="flag">
-  
-      <app-toast [message]="message" [classBoolean]="toast"></app-toast>
-  
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-        <div class="inputgroup">
-          <h1 *ngIf="!update">Add Employee</h1>
-          <h1 *ngIf="update">Edit Employee</h1>
-        </div>
-        <div class="tablecontainer" formGroupName="inputs">
-  
 
-          <div class="inputgroup">
-            <label for="empcode">EMP CODE</label>
-            <input name="empcode" class="input" formControlName="empcode">
-          </div>
 
-          <div class="inputgroup">
-            <label for="name">NAME</label>
-            <input name="name" class="input" formControlName="name">
-          </div>
-          <div class="inputgroup">
-            <label for="doj">JOINING DATE</label>
-            <input type="date" name="doj" class="input" formControlName="doj">
-          </div>
-          
-          <div class="inputgroup">
-            <label for="client">CLIENT</label>
-            <select name="client" class="input" formControlName="client" >
-              <option value="" [disabled]="true">--Select--</option>
-              <option *ngFor="let client of ClientList" value="{{client}}">
-                {{client}}
-              </option>
-            </select>
-          </div>
-          <div class="inputgroup">
-            <label for="task">TASK</label>
-            <input name="task" class="input" formControlName="task">
-          </div>
+  <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
-          <div class="inputgroup">
-            <label for="search">SEARCH</label>
-            <input name="search" class="input" formControlName="search">
-          </div>
-  
-        </div>
-        <div class="tablecontainer">
-          <div class="inputgroup">
-            <button class="button" type="submit">submit</button>
-          </div>
-        </div>
-      </form>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="inputgroup">
+      <h1 *ngIf="!update">Add Employee</h1>
+      <h1 *ngIf="update">Edit Employee</h1>
     </div>
-    <div *ngIf="!flag" class="minicontainer">
-      <h2>Status was sent successfully...</h2>
+    <div class="tablecontainer" formGroupName="inputs">
+      <div class="inputgroup">
+        <label for="name">NAME</label>
+        <input name="name" class="input" formControlName="name">
+      </div>
+      <div class="inputgroup">
+        <label for="empcode">EMP CODE</label>
+        <input name="empcode" class="input" formControlName="empcode">
+      </div>
+
+      <div class="inputgroup">
+        <label for="doj">JOINING DATE</label>
+        <input type="date" name="doj" class="input" formControlName="doj">
+      </div>
+
+      <div class="inputgroup">
+        <label for="client">CLIENT</label>
+        <select name="client" class="input" formControlName="client">
+          <option value="" [disabled]="true">--Select--</option>
+          <option *ngFor="let client of ClientList" value="{{client}}">
+            {{client}}
+          </option>
+        </select>
+      </div>
+      <div class="inputgroup">
+        <label for="task">TASK</label>
+        <input name="task" class="input" formControlName="task">
+      </div>
+
+      <div class="inputgroup">
+        <label for="search">SEARCH</label>
+
+        <select name="search" class="input" formControlName="search">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Search">Search</option>
+          <option value="Non-Search">Non-Search</option>
+        </select>
+      </div>
+
     </div>
-  </div>
+    <div class="tablecontainer">
+      <div class="inputgroup">
+        <button class="button" type="submit">submit</button>
+      </div>
+    </div>
+  </form>
+
+</div>

@@ -13,20 +13,14 @@ import { LoginService } from '../../providers/login.service'
 
 export class AddEmployeeComponent implements OnInit {
   update: Boolean=false;
-  message = "Success";
+  message =null;
   toast: Boolean = false;
-  public notValid: boolean = false;
-  flag = true;
   userForm: FormGroup;
   update_id = { id: sessionStorage.getItem("updateID") }
   dropDownList: any;
   ClientList: string[]=["ASK","DT","TW"];
-  Tasklist: string[];
-  Processlist: string[];
-  temp: any;
-  final: any;
-  stateList: string[];
-  statusList: string[];
+
+
   
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
@@ -90,7 +84,7 @@ console.log(this.userForm.value)
     // send the form
     this.empReportService.addEmployee(this.userForm.value).subscribe((res) => {
 
-      this.showToastMessage("Success")
+      this.showToastMessage(res.response)
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
