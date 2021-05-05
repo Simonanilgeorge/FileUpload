@@ -220,11 +220,12 @@ input[type="file"]::-webkit-file-upload-button {
 
 }
 
+
 .elseblock {
   padding: 25px;
   height: 200px;
   color: steelblue;
-  margin: 200px auto;
+  margin: 100px auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
