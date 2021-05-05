@@ -57,4 +57,8 @@ export class EmpreportService {
   addEmployee(data):Observable<any>{
     return this.http.post<any>(this.employeeUrl,data)
   }
+
+  getEmployees():Observable<any>{
+    return this.http.get<any>(this.employeeUrl);
+  }
 }

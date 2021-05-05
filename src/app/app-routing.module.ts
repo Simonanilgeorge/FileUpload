@@ -11,12 +11,14 @@ import {OrderListComponent} from './components/order-list/order-list.component';
 import {MonthlyReportComponent} from './components/monthly-report/monthly-report.component';
 import {ClientReportComponent} from './components/client-report/client-report.component';
 import {AddEmployeeComponent} from './components/add-employee/add-employee.component';
+import {ViewEmployeeComponent} from './components/view-employee/view-employee.component';
 import { from } from 'rxjs';
 
 
 const routes: Routes = [
 {path:'',pathMatch:'full',component: LoginComponent},
 {path:'addemployee',component: AddEmployeeComponent},
+{path:'viewemployees',component: ViewEmployeeComponent},
 
 {path:'clientreport',component: ClientReportComponent},
 {path:'monthlyreport',component:MonthlyReportComponent},

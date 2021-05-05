@@ -20,6 +20,7 @@ import { ToastComponent } from './components/toast/toast.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { ClientReportComponent } from './components/client-report/client-report.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     ToastComponent,
     MonthlyReportComponent,
     ClientReportComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    ViewEmployeeComponent
   ],
   imports: [
     BrowserModule,
