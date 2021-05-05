@@ -19,6 +19,7 @@ import { TableComponent } from './components/table/table.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { ClientReportComponent } from './components/client-report/client-report.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { ClientReportComponent } from './components/client-report/client-report.
     TableComponent,
     ToastComponent,
     MonthlyReportComponent,
-    ClientReportComponent
+    ClientReportComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,

@@ -12,15 +12,25 @@
 
         </li>
 
+
         <li *ngIf="manager">
             Report
             <ul>
-                <li  routerLink="/viewreport">Daily Production Report</li>
+                
                 <li  routerLink="/monthlyreport">Monthly Report</li>
                 <li  routerLink="/clientreport">Client Report</li>
+                <li  routerLink="/viewreport">Daily Report</li>
             </ul>
-
         </li>
+        <li *ngIf="manager">
+            Employee
+            <ul>
+                <li  routerLink="/addemployee">Add employee</li>
+                <li  routerLink="/editemployee">Edit employee</li>
+      
+            </ul>
+        </li>
+
 
         <li *ngIf="employee" routerLink="/sendreport">Send Report</li>
 
