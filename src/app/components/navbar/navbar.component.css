@@ -35,22 +35,18 @@ li a:hover {
   background: white;
   color: steelblue;
 }
-li:hover {
-  background: rgb(255, 255, 255);
-  color: rgb(8, 66, 104);
-  transform: scale(0.86);
-}
 
 nav {
   padding: 5px;
   /* height:20vh; */
   /* border: 5px solid black; */
   background: rgba(40, 161, 151, 0.76);
-
 }
 
-ul {
-  /* border:5px solid steelblue; */
+/* parent ul and li*/
+
+nav ul {
+  /* border: 5px solid steelblue; */
   display: flex;
 
   /* justify-content: center; */
@@ -59,12 +55,14 @@ ul {
   flex-wrap: wrap;
 }
 
-li {
+
+ul li {
   color: rgb(236, 236, 236);
-  flex: 1 100px;
-  display: flex;
+  flex: 1 300px;
+  text-align: center;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   font-weight: bold;
   /* border: 2px solid darkcyan; */
   font-size: 1em;
@@ -74,9 +72,43 @@ li {
   border-radius: 1000px;
   transition: 0.3s ease-in-out;
   white-space: nowrap;
+  position: relative;
 }
 
+ul li:focus {
+  outline: none;
+}
 
-li:focus{
-    outline:none;
+ul li:hover {
+  background: rgb(255, 255, 255);
+  color: rgb(8, 66, 104);
+  /* transform: scale(0.86); */
+}
+
+ul li:hover ul {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(0px, 20px);
+}
+
+/* ----parent ul li end ---- */
+
+/* child ul and li */
+ul li ul {
+  background: rgba(236, 236, 236, 0.877);
+  border-radius: 8px;
+  position: absolute;
+right:0;
+left:0;
+
+  z-index: 100;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0px, -10px);
+  transition: 0.3s ease-in-out;
+}
+
+ul li ul li {
+  color: steelblue;
 }

@@ -1,16 +1,35 @@
-
-
 <nav>
     <ul>
         <li routerLink="/home">Home</li>
-        <li *ngIf="manager" routerLink="/upload">Generate Pivot Table</li>
-        <li *ngIf="manager" routerLink="/report">Pivot Table</li>
-        <li *ngIf="manager" routerLink="/viewreport">Daily Production Report</li>
-        <li *ngIf="manager" routerLink="/monthlyreport">Monthly Report</li>
-        <li *ngIf="manager" routerLink="/clientreport">Client Report</li>
+
+
+        <li *ngIf="manager">
+            Pivot Table
+            <ul>
+                <li  routerLink="/upload">Generate Pivot Table</li>
+                <li  routerLink="/report">View Pivot Table</li>
+            </ul>
+
+        </li>
+
+        <li *ngIf="manager">
+            Report
+            <ul>
+                <li  routerLink="/viewreport">Daily Production Report</li>
+                <li  routerLink="/monthlyreport">Monthly Report</li>
+                <li  routerLink="/clientreport">Client Report</li>
+            </ul>
+
+        </li>
+
         <li *ngIf="employee" routerLink="/sendreport">Send Report</li>
+
         <li *ngIf="employee" routerLink="/viewmystatus">My Report</li>
+
+
+
+
         <li class="logout" (click)="logOut()">Logout</li>
-        
+
     </ul>
 </nav>
