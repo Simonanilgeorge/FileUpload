@@ -16,7 +16,7 @@ export class EmpreportService {
   private clientReportUrl = "http://localhost:5000/clientrprt"
   private singleReportUrl="http://localhost:5000/singlestatus"
   private employeeUrl="http://localhost:5000/addemployee"
-
+  private editEmployeeUrl="http://localhost:5000/editemployee"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
@@ -60,5 +60,13 @@ export class EmpreportService {
 
   getEmployees():Observable<any>{
     return this.http.get<any>(this.employeeUrl);
+  }
+  
+  getSingleEmployee(id):Observable<any>{
+    return this.http.get<any>(`${this.editEmployeeUrl}/${id}`)
+  }
+
+  deleteEmployee(data):Observable<any>{
+    return this.http.delete<any>(`${this.editEmployeeUrl}/${data.id}`)
   }
 }

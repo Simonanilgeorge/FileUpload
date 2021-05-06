@@ -1,30 +1,30 @@
 <div class="container">
 
     <app-navbar></app-navbar>
-
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
     <form>
         <div class="inputgroup">
             <label for="name">SEARCH BY KEYWORD</label>
             <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
         </div>
     </form>
-    <div class="report-container">
-    <div class="tablecontainer" *ngIf="data">
+    <div class="report-container" *ngIf="data">
+        <div class="tablecontainer">
         
-        <table>
-            <tr>
-                <th *ngFor="let title of titles">{{title}}</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        
-            <tr *ngFor="let data of data | filter:searchedKeyword" >
+            <table>
+                <tr>
+                    <th *ngFor="let title of titles">{{title}}</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            
+                <tr *ngFor="let data of data | filter:searchedKeyword" >
 
-                <td *ngFor="let title of titles">{{data[title]}}</td>
-                <td ><button class="button" (click)="edit(data)">Edit</button></td>
-                <td ><button class="button" (click)="delet(data)">Delete</button></td>
-            </tr>
-        </table>
+                    <td *ngFor="let title of titles">{{data[title]}}</td>
+                    <td ><button class="button" (click)="edit(data)">Edit</button></td>
+                    <td ><button class="button" (click)="delete(data)">Delete</button></td>
+                </tr>
+            </table>
         </div>
     </div>
      

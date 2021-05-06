@@ -12,16 +12,16 @@ import { LoginService } from '../../providers/login.service'
 })
 
 export class AddEmployeeComponent implements OnInit {
-  update: Boolean=false;
-  message =null;
+  update: Boolean = false;
+  message = null;
   toast: Boolean = false;
   userForm: FormGroup;
-  update_id = { id: sessionStorage.getItem("updateID") }
+  employeeID = { id: sessionStorage.getItem("employeeID") }
   dropDownList: any;
-  ClientList: string[]=["ASK","DT","TW"];
+  ClientList: string[] = ["ASK", "DT", "TW"];
 
 
-  
+
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
 
@@ -30,28 +30,32 @@ export class AddEmployeeComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
 
+    this.checkUpdate();
+
+
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        doj:["",Validators.required],
-        empcode:["",Validators.required],
-        name:["",Validators.required],
-        task:["",Validators.required],
-        client:["",Validators.required],
-        search:["",Validators.required],
+        doj: ["", Validators.required],
+        empcode: ["", Validators.required],
+        name: ["", Validators.required],
+        task: ["", Validators.required],
+        client: ["", Validators.required],
+        search: ["", Validators.required],
         id: [""]
       })
     });
+
   }
 
 
 
-get doj(){
-  return this.inputs.get("doj");
-}
+  get doj() {
+    return this.inputs.get("doj");
+  }
 
-get empcode(){
-  return this.inputs.get("empcode");
-}
+  get empcode() {
+    return this.inputs.get("empcode");
+  }
 
   get name() {
     return this.inputs.get("name")
@@ -71,9 +75,25 @@ get empcode(){
     return this.inputs.get("inputs")
   }
 
+
+  checkUpdate() {
+
+    const id = sessionStorage.getItem("employeeID")
+    if (id) {
+      this.update = true;
+      this.getSingleEmployee();
+    }
+    else {
+      this.update = false;
+
+    }
+    return
+  }
+
+
   onSubmit() {
 
-console.log(this.userForm.value)
+    console.log(this.userForm.value)
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
@@ -104,11 +124,11 @@ console.log(this.userForm.value)
 
 
   // call singleReport for update
-  getSingleStatus() {
+  getSingleEmployee() {
 
-    this.empReportService.getSingleReport(this.update_id).subscribe((res) => {
-      sessionStorage.removeItem("updateID");
-      res = JSON.parse(res);      
+    this.empReportService.getSingleEmployee(this.employeeID).subscribe((res) => {
+      sessionStorage.removeItem("employeeID");
+      res = JSON.parse(res);
       this.inputs.patchValue(res[0]);
 
     }, (err) => {

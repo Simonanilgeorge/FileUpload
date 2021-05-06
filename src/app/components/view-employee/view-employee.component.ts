@@ -13,6 +13,8 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   titles = [];
+  message =null;
+  toast: Boolean = false;
   searchedKeyword;
   data = [];
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
@@ -36,6 +38,7 @@ export class ViewEmployeeComponent implements OnInit {
       this.titles = this.data.map((data) => {
         return Object.keys(data);
       })[0];
+      this.titles.pop()
     }, (err) => {
       console.log(err.message);
     })
@@ -45,9 +48,29 @@ export class ViewEmployeeComponent implements OnInit {
 
   edit(data) {
 
+    sessionStorage.setItem("employeeID", data.id);
+    this.router.navigate(['/addemployee'])
+
   }
   delete(data) {
 
+    console.log(data)
+    this.empReportService.deleteEmployee(data).subscribe((res)=>
+    {
+      this.showToastMessage("Deleted successfully")
+      this.ngOnInit();
+    },(err)=>{
+      this.showToastMessage("Deletion failed")
+      console.log(err.message)
+    })
+
+  }
+  showToastMessage(message) {
+    this.message = message;
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 2000)
   }
 
 }
