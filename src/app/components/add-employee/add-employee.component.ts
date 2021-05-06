@@ -50,29 +50,29 @@ export class AddEmployeeComponent implements OnInit {
 
 
   get doj() {
-    return this.inputs.get("doj");
+    return this.userForm.get("doj");
   }
 
   get empcode() {
-    return this.inputs.get("empcode");
+    return this.userForm.get("empcode");
   }
 
   get name() {
-    return this.inputs.get("name")
+    return this.userForm.get("name")
   }
 
   get task() {
-    return this.inputs.get("task");
+    return this.userForm.get("task");
   }
   get client() {
-    return this.inputs.get("client");
+    return this.userForm.get("client");
   }
   get search() {
-    return this.inputs.get("search");
+    return this.userForm.get("search");
   }
 
   get inputs() {
-    return this.inputs.get("inputs")
+    return this.userForm.get("inputs")
   }
 
 
@@ -87,7 +87,7 @@ export class AddEmployeeComponent implements OnInit {
       this.update = false;
 
     }
-    return
+
   }
 
 
@@ -126,9 +126,10 @@ export class AddEmployeeComponent implements OnInit {
   // call singleReport for update
   getSingleEmployee() {
 
-    this.empReportService.getSingleEmployee(this.employeeID).subscribe((res) => {
+    this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
       res = JSON.parse(res);
+      console.log(res);
       this.inputs.patchValue(res[0]);
 
     }, (err) => {
