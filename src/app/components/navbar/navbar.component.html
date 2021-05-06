@@ -1,45 +1,45 @@
 <nav>
-    <ul>
-        <li routerLink="/home">Home</li>
+    <ul class="parent-ul">
+        <li routerLink="/home" class="links">Home</li>
 
 
-        <li *ngIf="manager">
+        <li *ngIf="manager" class="links">
             Pivot Table
-            <ul>
-                <li  routerLink="/upload">Generate Pivot Table</li>
-                <li  routerLink="/report">View Pivot Table</li>
+            <ul class="dropdown">
+                <li  routerLink="/upload" class="child-links">Generate Pivot Table</li>
+                <li  routerLink="/report" class="child-links">View Pivot Table</li>
             </ul>
 
         </li>
 
 
-        <li *ngIf="manager">
+        <li *ngIf="manager" class="links">
             Report
-            <ul>
+            <ul class="dropdown">
                 
-                <li  routerLink="/monthlyreport">Monthly Report</li>
-                <li  routerLink="/clientreport">Client Report</li>
-                <li  routerLink="/viewreport">Daily Report</li>
+                <li  routerLink="/monthlyreport" class="child-links">Monthly Report</li>
+                <li  routerLink="/clientreport" class="child-links">Client Report</li>
+                <li  routerLink="/viewreport" class="child-links">Daily Report</li>
             </ul>
         </li>
-        <li *ngIf="manager">
+        <li *ngIf="manager" class="links">
             Employee
-            <ul>
-                <li  routerLink="/addemployee">Add employee</li>
-                <li  routerLink="/viewemployees">Edit employee</li>
+            <ul class="dropdown">
+                <li  routerLink="/addemployee" class="child-links">Add employee</li>
+                <li  routerLink="/viewemployees" class="child-links">Edit employee</li>
       
             </ul>
         </li>
 
 
-        <li *ngIf="employee" routerLink="/sendreport">Send Report</li>
+        <li *ngIf="employee" routerLink="/sendreport" class="links">Send Report</li>
 
-        <li *ngIf="employee" routerLink="/viewmystatus">My Report</li>
-
-
+        <li *ngIf="employee" routerLink="/viewmystatus" class="links">My Report</li>
 
 
-        <li class="logout" (click)="logOut()">Logout</li>
+
+
+        <li class="links logout" (click)="logOut()">Logout</li>
 
     </ul>
 </nav>

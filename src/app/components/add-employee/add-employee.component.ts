@@ -50,25 +50,25 @@ export class AddEmployeeComponent implements OnInit {
 
 
   get doj() {
-    return this.userForm.get("doj");
+    return this.inputs.get("doj");
   }
 
   get empcode() {
-    return this.userForm.get("empcode");
+    return this.inputs.get("empcode");
   }
 
   get name() {
-    return this.userForm.get("name")
+    return this.inputs.get("name")
   }
 
   get task() {
-    return this.userForm.get("task");
+    return this.inputs.get("task");
   }
   get client() {
-    return this.userForm.get("client");
+    return this.inputs.get("client");
   }
   get search() {
-    return this.userForm.get("search");
+    return this.inputs.get("search");
   }
 
   get inputs() {

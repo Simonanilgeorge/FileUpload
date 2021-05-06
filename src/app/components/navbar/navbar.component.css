@@ -45,7 +45,7 @@ nav {
 
 /* parent ul and li*/
 
-nav ul {
+.parent-ul{
   /* border: 5px solid steelblue; */
   display: flex;
 
@@ -55,7 +55,7 @@ nav ul {
   flex-wrap: wrap;
 }
 
-ul li {
+.links {
   color: rgb(236, 236, 236);
   flex: 1 100px;
   text-align: center;
@@ -75,17 +75,17 @@ ul li {
   position: relative;
 }
 
-ul li:focus {
+.links:focus {
   outline: none;
 }
 
-ul li:hover {
+.links:hover {
   background: rgb(255, 255, 255);
   color: rgb(8, 66, 104);
   /* transform: scale(0.86); */
 }
 
-ul li:hover ul {
+.links:hover .dropdown {
   opacity: 1;
   pointer-events: all;
   transform: translate(0px, 20px);
@@ -94,27 +94,40 @@ ul li:hover ul {
 /* ----parent ul li end ---- */
 
 /* child ul and li */
-ul li ul {
+
+
+
+
+.dropdown {
   background: rgba(236, 236, 236, 0.877);
   border-radius: 8px;
+  padding:20px;
   position: absolute;
-  right: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  z-index: 100;
+  justify-content: space-evenly;
 
+  right: 0;
+  left: 0;
+
+  z-index: 100;
   opacity: 0;
   pointer-events: none;
   transform: translate(0px, -10px);
   transition: 0.3s ease-in-out;
+
 }
 
-ul li ul li {
+.child-links {
+  padding:10px;
   color: steelblue;
   white-space: pre-wrap;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s ease-in-out;
+}
+
+.child-links:hover{
+  color: teal;
 }
