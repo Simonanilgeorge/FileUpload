@@ -100,24 +100,23 @@ font-size: 2rem;
 }
 
 .box {
-  padding: 20px;
+  padding: 40px;
 }
-
 .one {
   /* border: 5px solid rgba(115, 192, 187, 0.493); */
   grid-area: one;
   font-size: 1.1rem;
   font-weight: bolder;
   color: rgb(57, 163, 154);
-  border-top-right-radius: 1000px;
-  border-bottom-right-radius: 1000px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: white;
-  white-space: nowrap;
   box-shadow: 0px 6px 12px 0px grey;
   z-index: 10;
+white-space: pre-wrap;
 }
 
 .two {
@@ -154,6 +153,7 @@ font-size: 2rem;
 
 
 } */
-.content {
+
+/* .content {
   padding: 10px;
-}
+} */

@@ -11,6 +11,7 @@ import { EmpreportService } from '../../providers/empreport.service'
 export class MonthlyReportComponent implements OnInit {
   flag: Boolean = false;
   message;
+  total: any = 0
   toast: Boolean = false
   searchedKeyword: string;
   data = [];
@@ -47,6 +48,10 @@ export class MonthlyReportComponent implements OnInit {
       this.data = res.data;
       this.dates = res.dates;
       this.sheetNameRes=res.sheet;
+      this.total = 0
+      this.data.forEach(datas => {
+        this.total = this.total + datas.total 
+      });
       this.flag = true
     }, (err) => {
       console.log(err.message)

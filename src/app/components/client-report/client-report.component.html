@@ -45,6 +45,7 @@
 
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
-            <h2>Please choose the month required</h2>
-    </div>
+        <span *ngIf="!flag"> <h2>Please choose the month required</h2></span>
+        <span *ngIf="flag"> <h2>No reports available for the month</h2></span>
+ </div>
 </div>
