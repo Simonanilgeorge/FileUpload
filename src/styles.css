@@ -54,3 +54,12 @@
   
 
 
+.heading{
+padding:20px;
+}
+
+
+.heading h1,h2{
+  color: rgb(57, 163, 154);
+
+}

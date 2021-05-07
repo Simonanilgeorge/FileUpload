@@ -17,6 +17,7 @@ export class ViewEmployeeComponent implements OnInit {
   toast: Boolean = false;
   searchedKeyword;
   data = [];
+  flag:Boolean=false;
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class ViewEmployeeComponent implements OnInit {
         return Object.keys(data);
       })[0];
       this.titles.pop()
+      this.flag=true
     }, (err) => {
       console.log(err.message);
     })

@@ -1,9 +1,9 @@
 <nav>
     <ul class="parent-ul">
-        <li routerLink="/home" class="links">Home</li>
+        <li routerLink="/home" class="links" routerLinkActive="active-link">Home</li>
 
 
-        <li *ngIf="manager" class="links">
+        <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Pivot Table
             <ul class="dropdown">
                 <li  routerLink="/upload" class="child-links">Generate Pivot Table</li>
@@ -13,7 +13,7 @@
         </li>
 
 
-        <li *ngIf="manager" class="links">
+        <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Report
             <ul class="dropdown">
                 
@@ -22,7 +22,7 @@
                 <li  routerLink="/viewreport" class="child-links">Daily Report</li>
             </ul>
         </li>
-        <li *ngIf="manager" class="links">
+        <li *ngIf="manager" class="links" routerLinkActive="active-link"> 
             Employee
             <ul class="dropdown">
                 <li  routerLink="/addemployee" class="child-links">Add employee</li>
@@ -30,11 +30,9 @@
       
             </ul>
         </li>
+        <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Send Report</li>
 
-
-        <li *ngIf="employee" routerLink="/sendreport" class="links">Send Report</li>
-
-        <li *ngIf="employee" routerLink="/viewmystatus" class="links">My Report</li>
+        <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Report</li>
 
 
 

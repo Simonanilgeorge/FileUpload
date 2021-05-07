@@ -1,5 +1,5 @@
 .inputgroup{
-    padding:30px;
+    padding:20px;
 
 width: 250px;
 }
@@ -128,5 +128,6 @@ text-align: center;
     flex-wrap: wrap;
     /* flex-direction: column; */
   }
+
 
 

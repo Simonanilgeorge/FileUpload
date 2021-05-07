@@ -33,11 +33,11 @@
   }
   
   .input {
-    width: 100%;
     padding: 10px;
     border-radius: 5px;
-    background: white;
-    border: none;
+    margin:10px 0px;
+    border: 1px solid grey;
+    width: 100%;
   }
   /* .filter{
       padding:20px;

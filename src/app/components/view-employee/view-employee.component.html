@@ -2,13 +2,18 @@
 
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+
+<div class="heading">
+    <h1>Employee Details</h1>
+</div>
+
     <form>
         <div class="inputgroup">
             <label for="name">SEARCH BY KEYWORD</label>
             <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
         </div>
     </form>
-    <div class="report-container" *ngIf="data">
+    <div class="report-container" *ngIf="flag">
         <div class="tablecontainer">
         
             <table>

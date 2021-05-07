@@ -225,7 +225,7 @@ input[type="file"]::-webkit-file-upload-button {
   padding: 25px;
   height: 200px;
   color: steelblue;
-  margin: 100px auto;
+  margin:0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -248,9 +248,9 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .input {
-  width: 100%;
   padding: 10px;
   border-radius: 5px;
-  background: white;
-  border: none;
+  margin:10px 0px;
+  border: 1px solid grey;
+  width: 100%;
 }

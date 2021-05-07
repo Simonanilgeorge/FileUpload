@@ -1,60 +1,67 @@
+
 <div class="container">
     <app-navbar></app-navbar>
 
-    <div class="filter">
+    <div class="heading">
+        <h1>Daily Production Report</h1>
+    </div>
+    <div class="formcontainer">
 
-
-        <div class="inputgroup">
-            <label for="name">Search by keyword</label>
-
-            <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-        </div>
         <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
 
             <div class="inputgroup">
-                <label for="date">Search by date</label>
-                <input type="date" name="date" class="input" formControlName="dateFilter">
+                <label for="date">SEARCH BY DATE</label>
+                <input type="date" name="date" class="input" style="width:60%;" formControlName="dateFilter">
             </div>
             <div class="inputgroup">
                 <button type="submit" class="button">filter</button>
             </div>
         </form>
 
+        <form>
+            <div class="inputgroup">
+                <label for="name">SEARCH BY KEYWORD</label>
+
+                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
+            </div>
+        </form>
+
+
     </div>
     <div *ngIf="flag" class="report-container">
 
-            <div class="tablecontainer">
+        <div class="tablecontainer">
             <table>
                 <tr>
-                    <th >EMP CODE</th>
+                    <th>EMP CODE</th>
                     <th style="position: sticky;left:0;z-index:10;">NAME</th>
-                    <th >DOJ</th>
-                    <th >SERACH/NON-SERACH</th>
-                    <th >CLIENT</th>
-                    <th >TASK</th>
-                    <th >ORDER COUNT</th>
-                    <th >PRODUCTIVITY</th>
-                    <th >UTILIZATION</th>
-                    <th >REVENUE</th>
+                    <th>DOJ</th>
+                    <th>SERACH/NON-SERACH</th>
+                    <th>CLIENT</th>
+                    <th>TASK</th>
+                    <th>ORDER COUNT</th>
+                    <th>PRODUCTIVITY</th>
+                    <th>UTILIZATION</th>
+                    <th>REVENUE</th>
 
                 </tr>
-    
+
                 <tr *ngFor="let status of datas | filter:searchedKeyword">
-                    <td >{{status.emp_code}}</td>
+                    <td>{{status.emp_code}}</td>
                     <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{status.name}}</td>
-                    <td >{{status.doj}}</td>
-                    <td >{{status.search}}</td>
-                    <td >{{status.client}}</td>
-                    <td >{{status.task}}</td>
-                    <td >{{status.order_count}}</td>
-                    <td >{{status.productivity}}<span *ngIf="status['productivity']">%</span></td>
-                    <td >{{status.utilization}}<span *ngIf="status['utilization']">%</span></td>
-                    <td ><span *ngIf="status['revenue']">$ </span>{{status.revenue}}</td>
+                    <td>{{status.doj}}</td>
+                    <td>{{status.search}}</td>
+                    <td>{{status.client}}</td>
+                    <td>{{status.task}}</td>
+                    <td>{{status.order_count}}</td>
+                    <td>{{status.productivity}}<span *ngIf="status['productivity']">%</span></td>
+                    <td>{{status.utilization}}<span *ngIf="status['utilization']">%</span></td>
+                    <td><span *ngIf="status['revenue']">$ </span>{{status.revenue}}</td>
                 </tr>
-  
+
             </table>
         </div>
-    
+
     </div>
     <div class="statusmsg" *ngIf="!flag">
         <h2>Status yet to be updated by employee..</h2>

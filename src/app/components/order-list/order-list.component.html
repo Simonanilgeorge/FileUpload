@@ -1,14 +1,18 @@
 <div class="container">
     <app-navbar></app-navbar>
+
+    <div class="heading">
+        <h1>My Status</h1>
+    </div>
     <div class="filter">
         <form [formGroup]="user" (ngSubmit)="getStatus()">
 
             <div class="inputgroup">
-                <label for="date">Search by date</label>
+                <label for="date">SEARCH BY DATE</label>
                 <input type="date" name="date" class="input" formControlName="dateFilter">
             </div>
             <div class="inputgroup">
-                <button type="submit" class="button">filter</button>
+                <button type="submit" class="button">Filter</button>
             </div>
         </form>
     </div>

@@ -12,7 +12,8 @@ export class EmployeeReportComponent implements OnInit {
 
   datas: any;
 
-  flag: boolean = true;
+  
+  flag: boolean = false;
   searchedKeyword: string;
 
   filterForm = this.fb.group({
