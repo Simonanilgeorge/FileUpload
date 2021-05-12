@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,89 +16,63 @@ export class HomeComponent implements OnInit {
 
 
   @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
+
+  message = "Success";
+  toast: Boolean = false;
   fileUploadForm: FormGroup;
   fileInputLabel: string;
-  flag: Number = 0;
-  fl1: any;
-  fl2: any;
-
- 
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
     this.loginService.checkSessionStorage()
     this.loginService.navigateByRole(this.constructor.name)
     this.fileUploadForm = this.formBuilder.group({
-      rvsi: [''],
-      sp2: ['']
-
+      rvsi: ['', Validators.required],
+      sp2: ['', Validators.required]
     });
-    this.fl1 = null;
-    this.fl2 = null;
-
+  }
+  
+  get rvsi() {
+    return this.fileUploadForm.get("rvsi");
   }
 
+  get sp2() {
+    return this.fileUploadForm.get("sp2");
+  }
 
   // function when file is selected
-  onFileSelect(event) {
+  onFileSelect(event, name) {
 
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
 
-    if (event.target.files.length == 1) {
-
-      if (this.fl1 == null){
-        const file1 = event.target.files[0];
-        this.fl1 = 1;
-        this.fileUploadForm.get('rvsi').setValue(file1);
-        
-      }
-      else if(this.fl1 != null && this.fl2 == null){
-        const file2 = event.target.files[0];
-        this.fl2 = 1;
-        this.fileUploadForm.get('sp2').setValue(file2);
-      }
-      else{
-        alert("Two files has been choosen already. Please click ok to continue.")
-        this.onFormSubmit();
-
-      }
-    
-    }
-    else if (event.target.files.length == 2) {
-      this.fl1 = 1;
-      this.fl2 = 1;
-      const file1 = event.target.files[0];
-      const file2 = event.target.files[1];
+    if (!_.includes(af, event.target.files[0].type)) {
   
-      if (!_.includes(af, file1.type || file2.type)) {
-        alert('Only EXCEL Docs Allowed!');
-      }
-      else {
-        this.fileUploadForm.get('rvsi').setValue(file1);
-        this.fileUploadForm.get('sp2').setValue(file2);
-        this.flag = 0;
-     
-      }
+      this.toast=true;
+    this.showToastMessage("Only EXCEL Docs Allowed")
+      return;
     }
-    else {
-      
-      alert("More than 2 files has been choosen")
-      return false;
+
+    if (name === "rvsi") {
+      this.rvsi.setValue(event.target.files[0]);
     }
+    else{
+      this.sp2.setValue(event.target.files[0]);
+    }
+
   }
 
   onFormSubmit() {
 
-    if (!this.fileUploadForm.get('rvsi').value && !this.fileUploadForm.get('sp2').value) {
-      alert('No files selected');
+    if (this.fileUploadForm.status == "INVALID") {
+      this.toast=true;
+    this.showToastMessage("Select both the files")
       return false;
     }
-
     const formData = new FormData();
-    formData.append('rvsi', this.fileUploadForm.get('rvsi').value);
-    formData.append('sp2', this.fileUploadForm.get('sp2').value)
+    formData.append('rvsi', this.rvsi.value);
+    formData.append('sp2', this.sp2.value)
 
     this.uploadService.uploadFile(formData).subscribe((res) => {
 
@@ -107,4 +81,15 @@ export class HomeComponent implements OnInit {
       console.log(err.message);
     })
   }
+
+
+
+  showToastMessage(message) {
+    this.message = message;
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 3000)
+  }
+
 }

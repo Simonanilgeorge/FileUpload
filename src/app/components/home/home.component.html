@@ -3,7 +3,7 @@
 <div class="container">
     <app-navbar></app-navbar>
     <div class="formcontainer">
-
+        <app-toast [message]="message" [classBoolean]="toast"></app-toast>
         <div class="form">
             <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
 
@@ -11,13 +11,16 @@
                     <h3>Upload file</h3>
                 </div>
 
-
                 <!-- <div class="inputgroup">
                     <div class="button">Fetch excel files</div>
                 </div> -->
-                <div class="inputgroup"> <label for="customFile">{{'Choose RVSI & SP2 files'}}</label>
-                    <input type="file" id="customFile" name="file" multiple class="custom-file-input"
-                        (change)="onFileSelect($event)" #UploadFileInput>
+                <div class="inputgroup"> <label for="customFile">Choose RVSI</label>
+                    <input type="file" id="customFile" name="file"  class="custom-file-input"
+                        (change)="onFileSelect($event,'rvsi')" #UploadFileInput>
+                </div>
+                <div class="inputgroup"> <label for="customFile">Choose SP2</label>
+                    <input type="file" id="customFile" name="file"  class="custom-file-input"
+                        (change)="onFileSelect($event,'sp2')" #UploadFileInput>
                 </div>
 
                 <div class="inputgroup">

@@ -34,7 +34,7 @@
   }
   
   .transform {
-    animation: trans 2s ease-out;
+    animation: trans 3s ease-out;
   }
   
   @keyframes trans {
@@ -45,7 +45,6 @@
     50% {
       opacity: 1;
     }
-  
     100% {
       opacity: 0;
       transform: translate(0px, -120px);
