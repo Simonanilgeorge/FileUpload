@@ -33,16 +33,16 @@
         <div class="tablecontainer">
             <table>
                 <tr>
-                    <th >EMP CODE </th>
-                    <th style="position: sticky;left:0;z-index:10;" (click)="getTitleName('name')">NAME &uarr; &darr;</th>
+                    <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:10;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
-                    <th>CLIENT</th>
+                    <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
                     <th>TASK</th>
-                    <th (click)="getTitleName('order_count')">ORDER COUNT &uarr; &darr;</th>
-                    <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr; &darr;</th>
-                    <th (click)="getTitleName('utilization')">UTILIZATION &uarr; &darr;</th>
-                    <th (click)="getTitleName('revenue')">REVENUE &uarr; &darr;</th>
+                    <th (click)="getTitleName('order_count')">ORDER COUNT &uarr;&darr;</th>
+                    <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr;&darr;</th>
+                    <th (click)="getTitleName('utilization')">UTILIZATION &uarr;&darr;</th>
+                    <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
 
                 </tr>
 
@@ -53,10 +53,10 @@
                     <td>{{status.search}}</td>
                     <td>{{status.client}}</td>
                     <td>{{status.task}}</td>
-                    <td>{{status.order_count}}</td>
-                    <td>{{status.productivity}}<span *ngIf="status['productivity']">%</span></td>
-                    <td>{{status.utilization}}<span *ngIf="status['utilization']">%</span></td>
-                    <td><span *ngIf="status['revenue']">$ </span>{{status.revenue}}</td>
+                    <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
+                    <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
+                    <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
+                    <td><span *ngIf="status['revenue'] != 0">${{status.revenue}} </span></td>
                 </tr>
 
             </table>

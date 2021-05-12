@@ -41,16 +41,16 @@
         <div class="tablecontainer">
             <table>
                 <tr>
-                    <th>EMP CODE</th>
-                    <th style="position: sticky;left:0;z-index:10;">NAME</th>
+                    <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:10;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
-                    <th>CLIENT</th>
+                    <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
                     <th>TASK</th>
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
                     <th *ngIf="sheetNameRes=='Revenue'">Total</th>
                 </tr>
-                <tr *ngFor="let data of data | filter:searchedKeyword">
+                <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
                     <td>{{data.emp_code}}</td>
                     <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.name}}</td>
                     <td>{{data.doj}}</td>

@@ -76,6 +76,7 @@ text-align: center;
   
   
   th{
+    cursor:pointer;
     border: 1px solid black;
     padding:30px;
     text-transform: uppercase;

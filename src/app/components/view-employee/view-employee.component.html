@@ -18,12 +18,12 @@
         
             <table>
                 <tr>
-                    <th *ngFor="let title of titles">{{title}}</th>
+                    <th *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             
-                <tr *ngFor="let data of data | filter:searchedKeyword" >
+                <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
 
                     <td *ngFor="let title of titles">{{data[title]}}</td>
                     <td ><button class="button" (click)="edit(data)">Edit</button></td>

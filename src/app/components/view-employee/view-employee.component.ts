@@ -13,6 +13,7 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   titles = [];
+  titleName;
   message =null;
   toast: Boolean = false;
   searchedKeyword;
@@ -73,6 +74,16 @@ export class ViewEmployeeComponent implements OnInit {
     setTimeout(() => {
       this.toast = false;
     }, 2000)
+  }
+
+  getTitleName(title){
+    console.log(title);
+    this.titleName=null;
+    setTimeout(()=>{
+      this.titleName=title;
+    },100)
+
+
   }
 
 }

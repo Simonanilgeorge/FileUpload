@@ -10,6 +10,7 @@ import { EmpreportService } from '../../providers/empreport.service'
 })
 export class MonthlyReportComponent implements OnInit {
   flag: Boolean = false;
+  titleName;
   message;
   total: any = 0
   toast: Boolean = false
@@ -66,6 +67,16 @@ export class MonthlyReportComponent implements OnInit {
     setTimeout(() => {
       this.toast = false;
     }, 2000)
+  }
+
+  getTitleName(title){
+    console.log(title);
+    this.titleName=null;
+    setTimeout(()=>{
+      this.titleName=title;
+    },100)
+
+
   }
 
 }
