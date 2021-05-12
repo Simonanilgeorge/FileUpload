@@ -21,6 +21,7 @@ import { MonthlyReportComponent } from './components/monthly-report/monthly-repo
 import { ClientReportComponent } from './components/client-report/client-report.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
+import { SortPipe } from './pipes/sort.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { ViewEmployeeComponent } from './components/view-employee/view-employee.
     MonthlyReportComponent,
     ClientReportComponent,
     AddEmployeeComponent,
-    ViewEmployeeComponent
+    ViewEmployeeComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,

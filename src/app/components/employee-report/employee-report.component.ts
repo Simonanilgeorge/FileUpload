@@ -12,7 +12,7 @@ export class EmployeeReportComponent implements OnInit {
 
   datas: any;
 
-  
+  titleName;
   flag: boolean = false;
   searchedKeyword: string;
 
@@ -62,6 +62,16 @@ export class EmployeeReportComponent implements OnInit {
     else {
       this.flag = true;
     }
+
+
+  }
+
+  getTitleName(title){
+    console.log(title);
+    this.titleName=null;
+    setTimeout(()=>{
+      this.titleName=title;
+    },100)
 
 
   }
