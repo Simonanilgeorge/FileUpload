@@ -8,7 +8,7 @@
 .formcontainer {
   flex:1;
   padding: 50px;
-  /* border: 2px solid red; */
+
   align-self: center;
   display:flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
 .form{
 
   padding: 20px;
-  width:100%;
+  width:130%;
   /* border: 2px solid black; */
   background:white;
   border-radius:15px;
