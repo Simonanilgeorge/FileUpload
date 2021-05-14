@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
 
+
+  clicked=false;
+   rvsiFileName="Choose rvsi";
+   sp2FileName="Choose sp2";
+
   message = "Success";
   toast: Boolean = false;
   fileUploadForm: FormGroup;
@@ -33,7 +38,7 @@ export class HomeComponent implements OnInit {
       sp2: ['', Validators.required]
     });
   }
-  
+
   get rvsi() {
     return this.fileUploadForm.get("rvsi");
   }
@@ -54,10 +59,15 @@ export class HomeComponent implements OnInit {
       return;
     }
 
+    
     if (name === "rvsi") {
+      
+      this.rvsiFileName=event.target.files[0].name;
       this.rvsi.setValue(event.target.files[0]);
+      
     }
     else{
+      this.sp2FileName=event.target.files[0].name;
       this.sp2.setValue(event.target.files[0]);
     }
 
@@ -91,5 +101,6 @@ export class HomeComponent implements OnInit {
       this.toast = false;
     }, 3000)
   }
+
 
 }

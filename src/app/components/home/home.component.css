@@ -7,8 +7,8 @@
 
 .formcontainer {
   flex:1;
-  padding: 20px;
-  /* border: 2px solid black; */
+  padding: 50px;
+  /* border: 2px solid red; */
   align-self: center;
   display:flex;
   flex-direction: column;
@@ -16,13 +16,15 @@
   align-items: center;
 
 
+
 }
 
 
 .form{
+
   padding: 20px;
   width:100%;
-
+  /* border: 2px solid black; */
   background:white;
   border-radius:15px;
   color:rgb(13, 47, 75);
@@ -63,7 +65,7 @@
   outline: none;
 }
 
-
+/* 
 input[type="file"]::file-selector-button {
   background: steelblue;
   border: none;
@@ -94,4 +96,34 @@ input[type="file"]::-webkit-file-upload-button {
   color: white;
   font-weight: bolder;
   transition: 0.3s ease-in-out;
+} */
+
+
+/* new input file styles */
+
+.wrapper {
+  height: 100vh;
+  background: black;
 }
+
+.file {
+  display: none;
+
+}
+
+.file-name {
+  position: relative;
+  overflow: hidden;
+
+  padding: 15px;
+  cursor:pointer;
+  text-transform: uppercase;
+  color:steelblue;
+  border: 1px solid grey;
+  border-radius: 5px;
+  width:100%;
+
+
+}
+
+

@@ -11,25 +11,29 @@
                     <h3>Upload file</h3>
                 </div>
 
-                <!-- <div class="inputgroup">
-                    <div class="button">Fetch excel files</div>
-                </div> -->
-                <div class="inputgroup"> <label for="customFile">Choose RVSI</label>
-                    <input type="file" id="customFile" name="file"  class="custom-file-input"
-                        (change)="onFileSelect($event,'rvsi')" #UploadFileInput>
+                <!-- for rvsi -->
+                <div class="inputgroup">
+                    <input type="file" name="file" id="file" class="file" #rvsi (change)="onFileSelect($event,'rvsi')" >
+                    <div class="d-flex">
+                      <input type="text" name="file-name" id="file-name" class="file-name" readonly="readonly" [value]="rvsiFileName" (click)="rvsi.click()">
+                    </div>
                 </div>
-                <div class="inputgroup"> <label for="customFile">Choose SP2</label>
-                    <input type="file" id="customFile" name="file"  class="custom-file-input"
-                        (change)="onFileSelect($event,'sp2')" #UploadFileInput>
+
+
+                <!-- for sp2 -->
+                <div class="inputgroup">
+                    <input type="file" name="file" id="file" class="file" #sp2 (change)="onFileSelect($event,'sp2')" >
+                    <div class="d-flex">
+                      <input type="text" name="file-name" id="file-name" class="file-name" readonly="readonly" [value]="sp2FileName" (click)="sp2.click()">
+                    </div>
                 </div>
+
 
                 <div class="inputgroup">
                     <div>
                         <button type="submit" class="button">Generate report</button>
                     </div>
                 </div>
-
-
 
             </form>
         </div>
