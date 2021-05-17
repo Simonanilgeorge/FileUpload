@@ -32,10 +32,10 @@ export class ViewEmployeeComponent implements OnInit {
 
   getEmployees() {
 
+
     this.empReportService.getEmployees().subscribe((res) => {
 
       res = JSON.parse(res);
-      console.log(res);
       this.data = res;
       this.titles = this.data.map((data) => {
         return Object.keys(data);
@@ -57,7 +57,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
   delete(data) {
 
-    console.log(data)
+
     this.empReportService.deleteEmployee(data).subscribe((res)=>
     {
       this.showToastMessage("Deleted successfully")
@@ -77,7 +77,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getTitleName(title){
-    console.log(title);
+
     this.titleName=null;
     setTimeout(()=>{
       this.titleName=title;

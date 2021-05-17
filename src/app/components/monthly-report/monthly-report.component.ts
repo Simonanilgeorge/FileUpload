@@ -70,7 +70,7 @@ export class MonthlyReportComponent implements OnInit {
   }
 
   getTitleName(title){
-    console.log(title);
+
     this.titleName=null;
     setTimeout(()=>{
       this.titleName=title;

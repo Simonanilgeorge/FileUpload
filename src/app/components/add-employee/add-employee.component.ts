@@ -93,7 +93,7 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit() {
 
-    console.log(this.userForm.value)
+
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
@@ -129,7 +129,7 @@ export class AddEmployeeComponent implements OnInit {
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
       res = JSON.parse(res);
-      console.log(res);
+
       this.inputs.patchValue(res[0]);
 
     }, (err) => {

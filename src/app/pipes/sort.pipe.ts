@@ -12,7 +12,7 @@ export class SortPipe implements PipeTransform {
     let data=value;
 
     if(args){
-    console.log(`flag inside pipe ${this.flag}`);
+ 
     if(this.flag){
       data.sort((a,b)=>{
         if(a[`${args}`]>b[`${args}`]){

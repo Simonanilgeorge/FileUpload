@@ -99,7 +99,7 @@ export class FileReportComponent implements OnInit {
 
     // add pivotdate key to filterdate object
     this.filterDate['pivotdate'] = this.pivotDate.value;
-    console.log(this.filterDate);
+
 
     this.expanded = true;
     this.filterDate['date'] = this.checkedList.map((list) => {
@@ -201,7 +201,7 @@ export class FileReportComponent implements OnInit {
         this.dt = []
 
       }
-      console.log(this.checklist)
+  
       this.flg = 1;
     }
 
@@ -210,7 +210,7 @@ export class FileReportComponent implements OnInit {
 
   fetchTable() {
 
-    console.log(this.pivotTableForm.value);
+ 
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
       this.flg = 0
       this.checklist = []
