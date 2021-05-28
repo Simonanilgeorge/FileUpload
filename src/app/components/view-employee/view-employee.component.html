@@ -2,6 +2,20 @@
 
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+
+    <!-- modal box start -->
+    <div class="modal" [class.display]="modalBoolean" #modalRef>
+        <div class="modal-content">
+        <p>Are you sure you want to delete?</p>
+        <div class="buttoncontainer">
+            <button class="button" (click)="delete(dataToBeDeleted)">Yes</button>
+            <button class="button" (click)="closeModal()">No</button>
+        </div> 
+        </div>
+    </div>
+    
+<!-- modal box end -->
+
     <div class="heading">
         <h2>Employee Details</h2>
     </div>
@@ -13,8 +27,8 @@
                     <th colspan="8" style="position:sticky;top:0;">
                         <form>
                             <div class="inputgroup">
-                                <label for="name">Search &nbsp;</label>
-                                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
+             
+                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword">
                             </div>
                         </form>
                     </th>
@@ -24,7 +38,6 @@
                  
                     <th style="position:sticky;top:30px;">Delete</th>
                 </tr>
-
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
 
                     <td *ngFor="let title of titles">
@@ -32,7 +45,7 @@
                         <span *ngIf="title!='empcode'"> {{data[title]}}</span>
                     </td>
                     <td>
-                        <p (click)="delete(data)" style='cursor: pointer;'>&#10060;</p>
+                        <p (click)="showModal(data)" style='cursor: pointer;'>&#10060;</p>
                     </td>
                 </tr>
             </table>
