@@ -187,6 +187,7 @@ get status(){
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
+      console.log(this.dropDownList)
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
       this.stateList=this.dropDownList.States;

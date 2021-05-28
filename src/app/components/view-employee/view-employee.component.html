@@ -3,34 +3,47 @@
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
-<div class="heading">
-    <h1>Employee Details</h1>
-</div>
+    <div class="heading">
+        <h1>Employee Details</h1>
+    </div>
 
-    <form>
-        <div class="inputgroup">
-            <label for="name">SEARCH BY KEYWORD</label>
-            <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-        </div>
-    </form>
+
     <div class="report-container" *ngIf="flag">
         <div class="tablecontainer">
-        
+
             <table>
+
                 <tr>
-                    <th *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th colspan="8">
+                        <form>
+                            <div class="inputgroup">
+                                <label for="name">Search</label>
+                                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
+                            </div>
+                        </form>
+                    </th>
+
                 </tr>
-            
+                <tr>
+                    <th style="position:sticky;top:0;" *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
+                 
+                    <th style="position:sticky;top:0;">Delete</th>
+                </tr>
+
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
 
-                    <td *ngFor="let title of titles">{{data[title]}}</td>
-                    <td ><button class="button" (click)="edit(data)">Edit</button></td>
-                    <td ><button class="button" (click)="delete(data)">Delete</button></td>
+                    <td *ngFor="let title of titles">
+                   
+                        {{data[title]}}
+                        <span *ngIf="title=='empcode'" style='font-size:20px;cursor: pointer;' (click)="edit(data)"> &#9998;</span>
+                    </td>
+
+                    <td>
+                        <p (click)="delete(data)" style='cursor: pointer;'>&#10060;</p>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
-     
+
 </div>
