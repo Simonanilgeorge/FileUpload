@@ -1,50 +1,23 @@
 .inputgroup {
+
   display: flex;
   width: 250px;
 }
 
-.button {
-  border: none;
-  cursor: pointer;
-  display: block;
-  background: steelblue;
-  color: white;
-  border-radius: 5px;
-  /* padding: 10px 20px; */
-  width: 105px;
-  margin: 10px 0;
-  transition: 0.3s ease-in-out;
-}
 
-.button:hover {
-  background: rgb(47, 88, 119);
-}
 input {
-  /* padding: 10px; */
 
   border: 1px solid grey;
-  width: 100%;
+width:100%;
 }
 
-select {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-  width: 100%;
-  margin: 10px 0px;
-}
+
 
 label {
   display: block;
   color: steelblue;
 }
-option {
-  padding: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
+
 
 /* common styles */
 table {
@@ -52,7 +25,7 @@ table {
   text-align: center;
   width: 100%;
   white-space: nowrap;
-  font-size: 0.8rem;
+  font-size: 0.8em;
 }
 
 td {
@@ -63,7 +36,7 @@ td {
 
 th {
   cursor: pointer;
-
+padding:0.5rem;
   text-transform: uppercase;
   background: rgb(48, 48, 231);
   color: white;
@@ -87,19 +60,15 @@ tr:nth-of-type(even) {
 /* common styles end */
 
 .report-container {
-  padding: 30px;
+  padding: 0.1rem;
 }
 
-.filter {
-  /* border: 1px solid green; */
-  padding: 20px 10px;
-  /* flex-direction: column; */
 
-  display: flex;
-}
 
 form {
+
   display: flex;
   justify-content: flex-end;
+  align-items: flex-end;
   /* flex-direction: column; */
 }
