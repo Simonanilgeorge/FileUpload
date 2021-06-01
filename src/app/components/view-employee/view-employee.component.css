@@ -75,7 +75,6 @@ form {
 }
 
 
-
 .modal{
   border: 1px solid black;
   background: rgba(0,0,0,0.4);
@@ -85,9 +84,24 @@ form {
   z-index: 1;
   overflow:auto;
   top:0;
+
   left:0;
   display: none;
   
+
+
+}
+
+
+.modal-content{
+
+background-color: white;
+margin:20% auto;
+padding:30px;
+width:320px;
+animation: modalopen 0.5s;
+
+
 }
 
 .display{
@@ -95,15 +109,6 @@ form {
 }
 
 
-.modal-content{
-background-color: white;
-margin:20% auto;
-padding:20px;
-width:70%;
-animation: modalopen 0.5s;
-
-
-}
 
 @keyframes modalopen{
 0%{
@@ -116,18 +121,29 @@ transform: scale(1);
 }
 }
 
-.opnbutton{
-padding:1em 1em;
-border:none;
-cursor: pointer;;
 
+
+.openbtn{
+  border:1px solid black;
+  color: #ffffff;
+  background: #2196F3;
+  border: 1px solid #2196F3;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
 
 }
 
-.closebtn{
-cursor: pointer;
-color:#ccc;
-font-size: 30px;
-float:right;
-border:none;
+
+.buttoncontainer{
+
+  padding:10px 0px;
+  display: flex;
+  gap:10px;
+}
+
+.text{
+  padding: 10px 0px;
 }

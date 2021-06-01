@@ -31,6 +31,7 @@
     width: fit-content;
     white-space: nowrap;
     opacity: 0;
+    z-index:10000;
   }
   
   .transform {
@@ -63,4 +64,38 @@ padding:20px;
   color: rgb(57, 163, 154);
 
 
+}
+
+
+.button {
+  cursor: pointer;
+  border: none;
+  background: steelblue;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  width: 125px;
+  transition: 0.3s ease-in-out;
+  font-size: 15px;
+  display: block;
+  margin: 20px 0px;
+}
+.button[disabled] {
+  border: none;
+  background: steelblue;
+  opacity: 0.5;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: block;
+}
+
+.button:hover[disabled] {
+  background: steelblue;
+  cursor: default;
+  opacity: 0.5;
+}
+.button:hover {
+  background: rgb(42, 83, 116);
+  cursor: pointer;
 }

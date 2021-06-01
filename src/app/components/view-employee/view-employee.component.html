@@ -5,11 +5,18 @@
 
     <!-- modal box start -->
     <div class="modal" [class.display]="modalBoolean" #modalRef>
+
         <div class="modal-content">
-        <p>Are you sure you want to delete?</p>
+            <div class="text">
+                <h2>Confirm</h2>
+            </div>
+            <div class="text">
+                <p>Are you sure you want to delete?</p>
+            </div>
+
         <div class="buttoncontainer">
-            <button class="button" (click)="delete(dataToBeDeleted)">Yes</button>
-            <button class="button" (click)="closeModal()">No</button>
+            <button class="openbtn" (click)="delete(dataToBeDeleted)">Yes</button>
+            <button class="openbtn" (click)="closeModal()">No</button>
         </div> 
         </div>
     </div>

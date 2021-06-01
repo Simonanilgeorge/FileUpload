@@ -20,6 +20,7 @@ dataToBeDeleted;
   toast: Boolean = false;
   searchedKeyword;
   data = [];
+  singleSearch;
   flag: Boolean = false;
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
 
