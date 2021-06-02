@@ -1,43 +1,44 @@
 <nav>
     <ul class="parent-ul">
-        <li routerLink="/home" class="links" routerLinkActive="active-link">Home</li>
 
-
-        <li *ngIf="manager" class="links" routerLinkActive="active-link">
-            Pivot Table
-            <ul class="dropdown">
-                <li  routerLink="/upload" class="child-links">Generate Pivot Table</li>
-                <li  routerLink="/report" class="child-links">View Pivot Table</li>
-            </ul>
-
-        </li>
-
-
+        <div class="boxone">
+        <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
         <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Report
+
+
             <ul class="dropdown">
-                
-                <li  routerLink="/monthlyreport" class="child-links">Monthly Report</li>
-                <li  routerLink="/clientreport" class="child-links">Client Report</li>
-                <li  routerLink="/viewreport" class="child-links">Daily Report</li>
+
+                <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
+                <li routerLink="/clientreport" class="child-links">Client Report</li>
+                <li routerLink="/viewreport" class="child-links">Daily Report</li>
+                <li routerLink="/monthlyreport" class="child-links dt">
+                    DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
+                    <ul class="dt-ul">
+                        <li routerLink="/upload" class="child-links">Generate DT queue report</li>
+                        <li routerLink="/report" class="child-links">View DT queue report</li>
+                    </ul>
+                </li>
             </ul>
         </li>
-        <li *ngIf="manager" class="links" routerLinkActive="active-link"> 
-            Employee
+        <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            Admin
             <ul class="dropdown">
-                <li  routerLink="/addemployee" class="child-links">Add employee</li>
-                <li  routerLink="/viewemployees" class="child-links">Edit employee</li>
-      
+                <li routerLink="/addemployee" class="child-links">Add employee</li>
+                <li routerLink="/viewemployees" class="child-links">Edit employee</li>
+
             </ul>
         </li>
         <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Send Report</li>
 
         <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Report</li>
+    </div>
 
 
 
-
+ <div class="boxtwo">
         <li class="links logout" (click)="logOut()">Logout</li>
+    </div>
 
     </ul>
 </nav>
