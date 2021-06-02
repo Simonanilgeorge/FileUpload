@@ -5,29 +5,7 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.button {
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  height: 30px;
-  padding: 10px 16px;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  align-items: center;
-  background: steelblue;
 
-  color: white;
-
-  transition: 0.3s ease-in-out;
-}
-
-.button:hover {
-  background: rgb(47, 88, 119);
-}
-.button:focus {
-  outline: none;
-}
 
 .apply {
   margin-left: 15px;
@@ -150,14 +128,12 @@ td {
 }
 
 .select {
-  width: 200px;
-  padding: 15px;
-  background: steelblue;
-  color: white;
+white-space: nowrap;
+  padding: 10px 20px;
+  background: white;
+border: 1px solid black;
   font-weight: bold;
   text-align: center;
-  border-radius: 10px;
-
   cursor: pointer;
 }
 
@@ -167,6 +143,7 @@ td {
 
 .selectcontainer {
   display: flex;
+  gap:1rem;
   justify-content: flex-start;
   align-items: center;
 }
@@ -253,6 +230,10 @@ input[type="file"]::-webkit-file-upload-button {
   margin:10px 0px;
   border: 1px solid grey;
   width: 100%;
+}
+
+label{
+  color:black;
 }
 
 

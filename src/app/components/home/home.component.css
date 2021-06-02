@@ -15,8 +15,6 @@
   justify-content: center;
   align-items: center;
 
-
-
 }
 
 
@@ -43,60 +41,7 @@
 }
 
 
-.button {
-  cursor: pointer;
-  border-radius: 5px;
-  height: 30px;
-  padding: 16px 16px;
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  align-items: center;
-  background: teal;
-  color: white;
-  border: 1px solid teal;
-  transition: 0.3s ease-in-out;
-}
 
-.button:hover {
-  background: rgb(1, 82, 82);
-}
-.button:focus {
-  outline: none;
-}
-
-/* 
-input[type="file"]::file-selector-button {
-  background: steelblue;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
-  outline: none;
-  white-space: nowrap;
-
-  cursor: pointer;
-  color: white;
-  font-weight: bolder;
-  transition: 0.3s ease-in-out;
-}
-
-input[type="file"]::-webkit-file-upload-button:hover {
-  background: rgb(19, 88, 137);
-}
-
-input[type="file"]::-webkit-file-upload-button {
-  background: steelblue;;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
-  outline: none;
-  white-space: nowrap;
-
-  cursor: pointer;
-  color: white;
-  font-weight: bolder;
-  transition: 0.3s ease-in-out;
-} */
 
 
 /* new input file styles */

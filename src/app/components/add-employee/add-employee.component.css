@@ -12,10 +12,7 @@
   .statustitle {
     padding: 20px;
   }
-  h2,
-  h1 {
-    color: rgb(57, 163, 154);
-  }
+
   .statusbox {
     padding: 30px;
   }
@@ -42,31 +39,9 @@
     text-transform: capitalize;
   }
   
-  .button[disabled] {
-    border: none;
-    background: steelblue;
-    opacity: 0.5;
-    color: white;
-    border-radius: 5px;
-    padding: 10px 20px;
-  }
-  
-  td {
-    /* / border:1px solid black; / */
-    padding: 20px;
-  
-    font-weight: bolder;
-    border: 1px solid black;
-  }
-  
-  table {
-    color: black;
-    border-collapse: collapse;
-    /* / border:1px solid black; / */
-    width: 100%;
-    text-align: center;
-    overflow: auto;
-  }
+
+
+
   
   input {
     padding: 10px;
@@ -89,13 +64,7 @@
     cursor: pointer;
     border-radius: 5px;
   }
-  
-  th {
-    padding: 20px;
-  
-    font-weight: bolder;
-    border: 1px solid black;
-  }
+
   
   form {
     /* / border:1px solid black; / */
@@ -111,13 +80,7 @@
     /* / justify-content: space-around; / */
   }
   
-  td:last-child {
-    border: 0;
-  }
-  
-  th:last-child {
-    border: 0;
-  }
+
   
   .tablecontainer {
     overflow: auto;
@@ -133,7 +96,7 @@
   }
   .inputgroup {
     /* border: 1px solid black; */
-    color: rgba(29, 51, 110, 0.76);
+
     padding: 20px;
     display: grid;
     align-items: end;
@@ -149,7 +112,3 @@
     width: 70%;
     /* border: none; */
   }
-  label {
-    margin: 10px 0px;
-  }
-  

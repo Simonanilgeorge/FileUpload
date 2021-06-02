@@ -12,21 +12,21 @@
     </div>
     <div class="tablecontainer" formGroupName="inputs">
       <div class="inputgroup">
-        <label for="name">NAME</label>
+        <label for="name">Name</label>
         <input name="name" class="input" formControlName="name">
       </div>
       <div class="inputgroup">
-        <label for="empcode">EMP CODE</label>
+        <label for="empcode">Emp code</label>
         <input name="empcode" class="input" formControlName="empcode">
       </div>
 
       <div class="inputgroup">
-        <label for="doj">JOINING DATE</label>
+        <label for="doj">Joining date</label>
         <input type="date" name="doj" class="input" formControlName="doj">
       </div>
 
       <div class="inputgroup">
-        <label for="client">CLIENT</label>
+        <label for="client">Client</label>
         <select name="client" class="input" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
           <option *ngFor="let client of ClientList" value="{{client}}">
@@ -35,12 +35,12 @@
         </select>
       </div>
       <div class="inputgroup">
-        <label for="task">TASK</label>
+        <label for="task">Task</label>
         <input name="task" class="input" formControlName="task">
       </div>
 
       <div class="inputgroup">
-        <label for="search">SEARCH</label>
+        <label for="search">Search</label>
 
         <select name="search" class="input" formControlName="search">
           <option value="" [disabled]="true">--Select--</option>
@@ -52,7 +52,7 @@
     </div>
     <div class="tablecontainer">
       <div class="inputgroup">
-        <button class="button" type="submit">submit</button>
+        <button class="button" type="submit">Submit</button>
       </div>
     </div>
   </form>

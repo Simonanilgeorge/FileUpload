@@ -4,7 +4,7 @@
 
         <form [formGroup]="pivotTableForm" (ngSubmit)="fetchTable()">
             <div class="inputgroup">
-                <label for="date">SEARCH BY DATE</label>
+                <label for="date" style="color:steelblue;">Search by date</label>
                 <input type="date" name="date" class="input" formControlName="pivotDate">
             </div>
             <div class="inputgroup">
@@ -20,7 +20,7 @@
                 <div class="multiselect">
                     <div class="selectBox" (click)="showCheckboxes()">
                         <div class="select">
-                            <p>SLAExpiration Filter</p>
+                            <p>SLAExpiration Filter &nbsp; &#x25BF;</p>
                         </div>
 
                     </div>
@@ -37,7 +37,7 @@
                         </label>
                     </div>
                 </div>
-                <div><button class="button" class="apply" (click)="applyFilter()">Apply filter</button></div>
+                <div><button class="button"  (click)="applyFilter()">Apply filter</button></div>
             </div>
         </div>
 

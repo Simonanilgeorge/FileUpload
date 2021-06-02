@@ -10,19 +10,19 @@
         <form [formGroup]="Date" (ngSubmit)="onSubmit()">
             <div class="inputgroup">
                 <label for="">
-                    SELECT MONTH
+                    Select month
                 </label>
                 <input style="width: 60%;" type="month" formControlName="date">
 
             </div>
 
             <div class="inputgroup">
-                <button class="button">filter</button>
+                <button class="button">Filter</button>
             </div>
         </form>
         <form>
             <div class="inputgroup">
-                <label for="name">SEARCH BY KEYWORD</label>
+                <label for="name">Search by keyword</label>
                 <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
             </div>
         </form>

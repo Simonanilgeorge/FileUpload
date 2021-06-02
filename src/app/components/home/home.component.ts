@@ -86,7 +86,16 @@ export class HomeComponent implements OnInit {
 
     this.uploadService.uploadFile(formData).subscribe((res) => {
 
-      this.router.navigate(['/report'])
+      console.log(res);
+      if(res.response!="Invalid file")
+      {
+        this.router.navigate(['/report'])
+      }
+
+      else{
+        this.showToastMessage(res.response);
+      }
+
     }, (err) => {
       console.log(err.message);
     })
