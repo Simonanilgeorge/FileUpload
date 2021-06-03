@@ -5,6 +5,10 @@
 
   <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
+
+  <div class="cardcontainer">
+<div class="card">
+
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="inputgroup">
       <h1 *ngIf="!update">Add Employee</h1>
@@ -56,5 +60,6 @@
       </div>
     </div>
   </form>
-
+</div>
+</div>
 </div>

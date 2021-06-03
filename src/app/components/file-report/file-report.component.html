@@ -3,9 +3,12 @@
     <div class="filter">
 
         <form [formGroup]="pivotTableForm" (ngSubmit)="fetchTable()">
+
+
             <div class="inputgroup">
                 <label for="date" style="color:steelblue;">Search by date</label>
                 <input type="date" name="date" class="input" formControlName="pivotDate">
+            
             </div>
             <div class="inputgroup">
                 <button type="submit" class="button">Fetch pivot table</button>

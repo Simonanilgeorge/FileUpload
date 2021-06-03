@@ -11,7 +11,7 @@ import { LoginService } from '../../providers/login.service'
 })
 export class EmployeesendreportComponent implements OnInit {
 
-
+  displayBoolean=false;
   update: Boolean=false;
   message = "Success";
   toast: Boolean = false;
@@ -42,7 +42,7 @@ export class EmployeesendreportComponent implements OnInit {
         Client: ["", Validators.required],
         Task: ["", Validators.required],
         Process: [""],
-        state: ["", Validators.required],
+        state: ["--Select--", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
         totalTime: [""],
@@ -125,7 +125,7 @@ get status(){
 
 
     // check if all compulsory fields are filled
-    if (this.userForm.status === "INVALID") {
+    if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
 
       this.showToastMessage("Please fill all the fields");
       return;
@@ -134,6 +134,8 @@ get status(){
       this.showToastMessage("Please enter a value for Process")
       return;
     }
+
+
 
 
 
@@ -245,6 +247,18 @@ get status(){
     }, (err) => {
       console.log(err.message);
     })
+  }
+
+  display(){
+    this.displayBoolean=!this.displayBoolean;
+    console.log(this.displayBoolean)
+  }
+
+  getName(data){
+
+    this.state.setValue(data);
+
+
   }
 
 }

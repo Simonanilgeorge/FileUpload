@@ -103,3 +103,18 @@ label{
   background: rgb(42, 83, 116);
   cursor: pointer;
 }
+
+.card{
+width:60%;
+background:white;
+  /* border:1px solid black; */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.cardcontainer{
+/* 
+  border:3px solid green; */
+  display: grid;
+  padding:2rem;
+  place-items: center;
+}
