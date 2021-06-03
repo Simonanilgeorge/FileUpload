@@ -7,7 +7,7 @@
 
             <div class="inputgroup">
                 <label for="date" style="color:steelblue;">Search by date</label>
-                <input type="date" name="date" class="input" formControlName="pivotDate">
+                <input type="date" name="date" class="input" (change)="fetchTable()" formControlName="pivotDate">
             
             </div>
             <div class="inputgroup">

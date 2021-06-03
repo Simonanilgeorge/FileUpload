@@ -35,9 +35,10 @@ export class EmployeesendreportComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getDropDown();
+    
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        date: ["", Validators.required],
+        date: [new Date().toISOString().split('T')[0]],
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],

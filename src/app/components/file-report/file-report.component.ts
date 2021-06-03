@@ -10,7 +10,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./file-report.component.css']
 })
 export class FileReportComponent implements OnInit {
-
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
   flag: boolean = null;
@@ -26,9 +25,8 @@ export class FileReportComponent implements OnInit {
   checkedList: any;
   masterSelected: boolean;
   time = [];
-
   pivotTableForm = this.fb.group({
-    pivotDate: [""],
+    pivotDate: [new Date().toISOString().split('T')[0]],
     time: [""]
   })
   constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
@@ -37,7 +35,7 @@ export class FileReportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.getReportData();
+    this.fetchTable();
     this.masterSelected = false;
     this.getCheckedItemList();
 
@@ -70,15 +68,15 @@ export class FileReportComponent implements OnInit {
 
   }
 
-  getReportData() {
+  // getReportData() {
 
-    this.uploadService.getData().subscribe((res) => {
+  //   this.uploadService.getData().subscribe((res) => {
 
-      this.onResponse(res)
-    }, (err) => {
-      console.log(err.message)
-    })
-  }
+  //     this.onResponse(res)
+  //   }, (err) => {
+  //     console.log(err.message)
+  //   })
+  // }
 
 
   // function to hide/show checkboxes
@@ -209,8 +207,7 @@ export class FileReportComponent implements OnInit {
 
 
   fetchTable() {
-
- 
+ console.log(this.pivotTableForm.value)
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
       this.flg = 0
       this.checklist = []
