@@ -21,23 +21,22 @@
   padding: 30px 0px;
 }
 .formcontainer{
-  display: flex;
   /* border:2px solid black; */
-  justify-content: space-between;
   flex-wrap: wrap;
   /* margin:50px 0px; */
 }
 
 input{
-  padding: 10px;
-  border-radius: 5px;
-  margin:10px 0px;
+  padding: 5px;
+
+
   border: 1px solid grey;
   width: 100%;
 }
 
 label{
-  display: block;
+ display: block;
+ margin:10px 0px;
   color:steelblue;
 
 }
@@ -55,25 +54,20 @@ label{
   padding: 30px;
 }
 
-/* .inputgroup {
-  flex:1;
-  border:1px solid black;
-color:rgba(29, 51, 110, 0.76);
-  padding: 10px;
-} */
 
 
 form{
-  /* border: 3px solid red; */
+
   display:flex;
-  flex-wrap: wrap;
+gap:1rem;
+  justify-content: flex-end;
   /* flex-direction: column; */
 }
 
 .inputgroup{
-  padding:20px;
 
-  flex: 1 200px;
+padding-left: 1em;
+
 }
 
 
@@ -88,9 +82,7 @@ form{
   margin: 10px 0;
   transition: 0.3s ease-in-out;
 }
-/* label{
-   padding:10px 0;
-} */
+
 
 .button:hover{
   background: rgb(47, 88, 119);
@@ -104,46 +96,44 @@ padding:30px;
 
 } 
 
+/* table styles for employee-report component */
+th{
 
-table {
-  /* border: 1px solid black; */
+  position:sticky;
+  z-index:10;
+  top:2.7rem;
+}
+
+
+/* table {
+  
   border-collapse: collapse;
 text-align: center;
   width:100%;
   font-size:0.9rem;
 
 
-}
+} */
 
-td {
+/* td {
   border: 1px solid black;
   padding:10px;
   white-space: nowrap;
-}
+} */
 
 
-th{
-  cursor:pointer;
-  border: 1px solid black;
-  padding:10px;
-  text-transform: uppercase;
-  position:sticky;
-  top:0;
-  background: rgb(243, 241, 241);
-  white-space: nowrap;
 
-}
-tr {
+/* tr {
   padding:10px;
   border: 1px solid black;
 
-}
+} */
 
-.tablecontainer{
+/* .tablecontainer{
   border: 3px solid black;
   overflow: auto;
   max-height: 80vh;
 
 
-}
+} */
 

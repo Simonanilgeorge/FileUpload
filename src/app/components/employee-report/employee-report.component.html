@@ -7,24 +7,21 @@
     </div>
     <div class="formcontainer">
 
-        <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="filterForm" style="justify-content: flex-start;">
 
             <div class="inputgroup">
-                <label for="date">SEARCH BY DATE</label>
-                <input type="date" name="date" class="input" style="width:60%;" formControlName="dateFilter">
-            </div>
-            <div class="inputgroup">
-                <button type="submit" class="button">filter</button>
+                <label for="date">Date</label>
+                <input type="date" name="date" class="input" (change)="onSubmit()"formControlName="dateFilter" style="padding:10px">
             </div>
         </form>
 
-        <form>
+        <!-- <form>
             <div class="inputgroup">
                 <label for="name">SEARCH BY KEYWORD</label>
 
                 <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
             </div>
-        </form>
+        </form> -->
 
 
     </div>
@@ -33,8 +30,19 @@
         <div class="tablecontainer">
             <table>
                 <tr>
+                    <th colspan="10" style="position:sticky;top:0;">
+                        <form>
+                            <div class="inputgroup">
+             
+                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword">
+                            </div>
+                        </form>
+                    </th>
+                </tr>
+                <tr>
+
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:10;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:11;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
@@ -48,7 +56,7 @@
 
                 <tr *ngFor="let status of datas | filter:searchedKeyword | sort:titleName">
                     <td>{{status.emp_code}}</td>
-                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{status.name}}</td>
+                    <td style="position: sticky;left:0">{{status.name}}</td>
                     <td>{{status.doj}}</td>
                     <td>{{status.search}}</td>
                     <td>{{status.client}}</td>

@@ -21,7 +21,7 @@ label {
 
 
 /* common styles */
-table {
+/* table {
   border-collapse: collapse;
   text-align: center;
   width: 100%;
@@ -30,7 +30,7 @@ table {
 }
 
 td {
-  /* border: 1px solid black; */
+
 
   white-space: nowrap;
 }
@@ -53,10 +53,10 @@ tr:nth-of-type(even) {
 }
 
 .tablecontainer {
-  /* border: 1px solid black; */
+
   overflow: auto;
   max-height: 80vh;
-}
+} */
 
 /* common styles end */
 

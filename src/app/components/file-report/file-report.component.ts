@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
@@ -47,6 +46,9 @@ export class FileReportComponent implements OnInit {
 
   get pivotDate() {
     return this.pivotTableForm.get("pivotDate");
+  }
+  get time_(){
+    return this.pivotTableForm.get("time");
   }
   checkUncheckAll() {
     for (var i = 0; i < this.checklist.length; i++) {
@@ -99,7 +101,7 @@ export class FileReportComponent implements OnInit {
 
     // add pivotdate key to filterdate object
     this.filterDate['pivotdate'] = this.pivotDate.value;
-
+    this.filterDate['time'] = this.time_.value;
 
     this.expanded = true;
     this.filterDate['date'] = this.checkedList.map((list) => {
@@ -109,6 +111,7 @@ export class FileReportComponent implements OnInit {
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
       this.datas = null;
+      console.log(res)
       this.onResponse(res)
 
     }, (err) => {

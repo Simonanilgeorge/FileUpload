@@ -118,3 +118,50 @@ background:white;
   padding:2rem;
   place-items: center;
 }
+
+
+
+/* common styles */
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  font-size: 0.8em;
+}
+
+td {
+  border: 1px solid black;
+
+  white-space: nowrap;
+}
+
+th {
+  cursor: pointer;
+padding:0.5rem;
+  text-transform: uppercase;
+  background: rgb(48, 48, 231);
+  color: white;
+}
+
+/* tr:first-child th {
+  background: rgb(243, 241, 241);
+  text-transform: capitalize;
+} */
+
+tr:nth-of-type(even),tr:nth-of-type(even) td{
+  background: rgb(180, 213, 226);
+}
+
+tr:nth-of-type(odd),tr:nth-of-type(odd) td{
+  background: white;
+}
+
+
+.tablecontainer {
+  /* border: 1px solid black; */
+  overflow: auto;
+  max-height: 80vh;
+}
+
+/* common styles end */

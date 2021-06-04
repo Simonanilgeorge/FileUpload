@@ -41,12 +41,12 @@
                     </th>
                 </tr>
                 <tr>
-                    <th style="position:sticky;top:30px;" *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
+
+                    <th style="position:sticky;top:2.5rem;" *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
                  
-                    <th style="position:sticky;top:30px;">Delete</th>
+                    <th style="position:sticky;top:2.5rem;">Delete</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
-
                     <td *ngFor="let title of titles">
                         <span *ngIf="title=='empcode'" style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">{{data[title]}}</span>
                         <span *ngIf="title!='empcode'"> {{data[title]}}</span>

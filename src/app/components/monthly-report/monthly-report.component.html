@@ -54,7 +54,7 @@
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
                     <td>{{data.emp_code}}</td>
-                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.name}}</td>
+                    <td style="position: sticky;left:0; ">{{data.name}}</td>
                     <td>{{data.doj}}</td>
                     <td>{{data.search}}</td>
                     <td>{{data.client}}</td>
