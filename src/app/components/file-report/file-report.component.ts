@@ -149,7 +149,7 @@ export class FileReportComponent implements OnInit {
 
       // remove the SLAExiration dates object from datas array
       this.datas.pop()
-      // this.datas.pop()
+      this.datas.pop()
 
 
       // To find the grand total for each task
@@ -207,10 +207,12 @@ export class FileReportComponent implements OnInit {
 
 
   fetchTable() {
- console.log(this.pivotTableForm.value)
+  
+    console.log(this.pivotTableForm.value)
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
       this.flg = 0
       this.checklist = []
+    
       this.onResponse(res)
     }, (err) => {
       console.log(err.message);
