@@ -131,7 +131,7 @@ table {
 }
 
 td {
-  border: 1px solid black;
+
 
   white-space: nowrap;
 }
@@ -140,7 +140,7 @@ th {
   cursor: pointer;
 padding:0.5rem;
   text-transform: uppercase;
-  background: rgb(48, 48, 231);
+  background: rgb(42 67 125);
   color: white;
 }
 
@@ -149,14 +149,27 @@ padding:0.5rem;
   text-transform: capitalize;
 } */
 
-tr:nth-of-type(even),tr:nth-of-type(even) td{
-  background: rgb(180, 213, 226);
+
+/* even tr and td */
+tr:nth-of-type(even){
+  background: #dee2e6;
+
+ 
+}
+tr:nth-of-type(even) td{
+  background: #dee2e6;
 }
 
-tr:nth-of-type(odd),tr:nth-of-type(odd) td{
+/* odd tr and td */
+
+tr:nth-of-type(odd){
   background: white;
 }
 
+
+tr:nth-of-type(odd) td{
+  background: white;
+}
 
 .tablecontainer {
   /* border: 1px solid black; */
