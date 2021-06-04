@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-file-report',
@@ -35,7 +37,7 @@ export class FileReportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.fetchTable();
+    this.fetchTable('date');
     this.masterSelected = false;
     this.getCheckedItemList();
 
@@ -145,8 +147,6 @@ export class FileReportComponent implements OnInit {
           }
         }
       })
-     
-
       // remove the SLAExiration dates object from datas array
       this.datas.pop()
       this.datas.pop()
@@ -206,14 +206,18 @@ export class FileReportComponent implements OnInit {
   }
 
 
-  fetchTable() {
-  
+  fetchTable(name) {
+    if(name == "date"){
+      this.pivotTableForm.get("time").setValue("")
+    }
     console.log(this.pivotTableForm.value)
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
       this.flg = 0
       this.checklist = []
-    
       this.onResponse(res)
+      if (this.time.length != 0 && name == "date"){
+        this.pivotTableForm.get("time").setValue(this.time[0])
+      }
     }, (err) => {
       console.log(err.message);
     })
