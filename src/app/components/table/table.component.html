@@ -6,9 +6,8 @@
         <th>Edit</th>
         <th *ngFor="let title of titles">{{title}}</th>
     </tr>
-
     <tr *ngFor="let data of data">
-        <td ><button class="button" (click)="edit(data)">Edit</button></td>
+        <td ><p (click)="edit(data)">&#9998;</p></td>
         <td *ngFor="let title of titles">{{data[title]}}</td>
       
     </tr>

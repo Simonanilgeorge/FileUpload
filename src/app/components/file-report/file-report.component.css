@@ -36,6 +36,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   border-top-left-radius: 20px;
+  border: 1px solid black;
   /* font-size:0.8rem; */
 }
 
@@ -59,15 +60,15 @@ td {
 
   position: sticky;
   left: 0;
-  background: rgb(243, 241, 241);
-
+  background: rgb(42 67 125);
+color:white;
   z-index: 900;
 }
 
 .titles {
   top: 0;
   position: sticky;
-  background: rgb(243, 241, 241);
+
   /* border:2px solid red; */
 }
 
@@ -123,9 +124,7 @@ td {
   position: relative;
 }
 
-.box {
-  padding: 15px;
-}
+
 
 .select {
 white-space: nowrap;
@@ -144,9 +143,10 @@ border: 1px solid black;
 
 .selectcontainer {
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   justify-content: flex-start;
   align-items: center;
+  padding: 0 20px;
 }
 
 .display {
@@ -188,13 +188,12 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .tablecontainer {
-  margin: 0 auto;
-  width: 95%;
-
-  resize: both;
-  overflow: auto;
-  max-height: 70vh;
-  border: 3px solid black;
+    margin: 0 20px;
+    width: 95%;
+    resize: both;
+    overflow: auto;
+    max-height: 70vh;
+    /* padding: 0 20px; */
 
 }
 
@@ -203,23 +202,22 @@ input[type="file"]::-webkit-file-upload-button {
   padding: 25px;
   height: 200px;
   color: steelblue;
-  margin:0 auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  flex: 1;
+  justify-content: center;
   align-items: center;
   width: fit-content;
 }
 
 .filter {
-  /* border: 1px solid green; */
-  padding: 20px 10px;
-  flex-direction: column;
-  width: 280px;
+
+  padding: 20px 10px 0px 10px;
   display: flex;
 }
 .inputgroup {
-  flex: 1;
+width:200px;
   /* border:1px solid black; */
   color: rgba(29, 51, 110, 0.76);
   padding: 10px;

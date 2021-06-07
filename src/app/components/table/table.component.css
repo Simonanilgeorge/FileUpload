@@ -1,5 +1,5 @@
-table {
-    /* border: 1px solid black; */
+/* table {
+
     border-collapse: collapse;
 text-align: center;
     width:100%;
@@ -47,4 +47,14 @@ text-align: center;
   
   .button:hover{
     background: rgb(47, 88, 119);
+  } */
+
+  p{
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  td{
+padding:0.8em;
+font-size: 0.9rem;
   }
