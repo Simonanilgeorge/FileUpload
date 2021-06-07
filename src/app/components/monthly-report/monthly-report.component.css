@@ -1,7 +1,7 @@
 .inputgroup{
-    padding:20px;
+    padding:1em;
     /* border:1px solid black; */
-    flex: 1 200px;
+
 }
 
 
@@ -14,7 +14,7 @@
     border-radius: 5px;
     padding: 10px 20px;
     width: 105px;
-    margin: 10px 0;
+
     transition: 0.3s ease-in-out;
   }
   /* label{
@@ -26,8 +26,8 @@
   }
   input{
     padding: 10px;
-    border-radius: 5px;
-    margin:10px 0px;
+
+
     border: 1px solid grey;
     width: 100%;
   }
@@ -38,7 +38,7 @@
     border-radius: 5px;
     font-size: 1rem;
     width: 100%;
-    margin:10px 0px;
+ 
   }
   
   
@@ -78,8 +78,8 @@ text-align: center;
   th{
 
     position:sticky;
-    top:0;
-
+    top:2.7rem;
+z-index:11;
   }
   /* tr {
     padding:10px;
@@ -97,7 +97,9 @@ text-align: center;
 
 
   .report-container{
-    /* display:flex; */
+    flex:1;
+    display:flex;
+    align-items: center;
   padding:30px;
     /* flex-direction: column;
     justify-content: space-evenly; */
@@ -127,7 +129,14 @@ text-align: center;
     /* border: 3px solid red; */
     display:flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     /* flex-direction: column; */
   }
 
 
+  .search{
+    /* padding: 5px; */
+      border: 1px solid grey;
+      /* width: 100%; */
+      background: red;
+  }

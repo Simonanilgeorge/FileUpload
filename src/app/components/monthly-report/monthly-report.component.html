@@ -30,18 +30,28 @@
                 <button class="button" (click)="filter()">filter</button>
             </div>
         </form>
-        <form>
+        <!-- <form>
             <div class="inputgroup">
                 <label for="name">SEARCH BY KEYWORD</label>
                 <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
             </div>
-        </form>
+        </form> -->
     </div>
 
     <div class="report-container" *ngIf="total != 0">
 
         <div class="tablecontainer">
             <table>
+                <tr>
+                    <th colspan="40" style="position:sticky;top:0;">
+                        <form>
+                            <div class="inputgroup" style="padding:0;">
+             
+                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword" class="search">
+                            </div>
+                        </form>
+                    </th>
+                </tr>
                 <tr>
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
                     <th style="position: sticky;left:0;z-index:10;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
