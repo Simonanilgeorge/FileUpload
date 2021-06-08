@@ -4,10 +4,12 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
-  styleUrls: ['./employeesendreport.component.css']
+  styleUrls: ['./employeesendreport.component.css'],
+  providers: [DatePipe]
 })
 export class EmployeesendreportComponent implements OnInit {
 
@@ -27,8 +29,9 @@ export class EmployeesendreportComponent implements OnInit {
   final: any;
   stateList: string[];
   statusList: string[];
+  myDate = new Date();
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
 
@@ -38,7 +41,7 @@ export class EmployeesendreportComponent implements OnInit {
     
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        date: [new Date().toISOString().split('T')[0]],
+        date: [this.datePipe.transform(this.myDate, 'yyyy-MM-dd')],
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
@@ -192,7 +195,7 @@ get status(){
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      console.log(this.dropDownList)
+      
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
       this.stateList=this.dropDownList.States;
