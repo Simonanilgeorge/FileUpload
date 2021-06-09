@@ -10,7 +10,7 @@ export class SortPipe implements PipeTransform {
   transform(value: any, args:any): any {
 
     let data=value;
-
+    console.log(args)
     if(args){
  
     if(this.flag){

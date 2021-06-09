@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
   ClientList: string[];
   Tasklist: string[];
   Processlist: string[];
-
+  searchedKeyword
   statusList: string[];
 
   filterForm:FormGroup=this.fb.group({
@@ -55,11 +55,15 @@ export class OrderListComponent implements OnInit {
 
   }
 
+  
   get Task() {
     return this.filterForm.get("Task")
   }
   get Process() {
     return this.filterForm.get("Process")
+  }
+  get Client(){
+    return this.filterForm.get("Client")
   }
 
   getStatus() {

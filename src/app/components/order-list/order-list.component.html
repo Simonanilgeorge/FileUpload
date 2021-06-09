@@ -74,10 +74,11 @@
         </form>
    
 
+       
 
     <div *ngIf="flag" class="report-container">
        <div *ngIf="datas" class="report">
-            <app-table [data]="datas"></app-table>
+            <app-table [data]="datas|filterForm.value.Client"></app-table>
         </div>
     </div>
     <div class="statusmsg" *ngIf="!flag">
