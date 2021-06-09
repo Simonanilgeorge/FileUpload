@@ -21,7 +21,7 @@ export class TableComponent implements OnInit {
 
   }
   getTitles() {
-    if (!this.data) {
+    if (this.data.length==0) {
       return;
     }
 

@@ -4,6 +4,7 @@
     <div class="heading">
         <h1>My Status</h1>
     </div>
+    
 
  
         <form [formGroup]="user" (ngSubmit)="getStatus()"  class="filter">
@@ -21,12 +22,10 @@
             </div>
         </form>
 
-
-        <h1>{{filterForm.value|json}}</h1>
         <form [formGroup]="filterForm" class="filter">
             <div class="inputgroup">
                 <label for="date"> Date</label>
-                <input type="date" name="date" class="input" formControlName="date" >
+                <input type="date" name="date" class="input" formControlName="date" placeholder="yyyy-mm-dd">
             </div>
             <div class="inputgroup">
                 <label for="orderNumber">Order Number</label>
@@ -78,7 +77,7 @@
 
     <div *ngIf="flag" class="report-container">
        <div *ngIf="datas" class="report">
-            <app-table [data]="datas"></app-table>
+            <app-table [data]="datas|multifilter:filterForm.value"></app-table>
         </div>
     </div>
     <div class="statusmsg" *ngIf="!flag">

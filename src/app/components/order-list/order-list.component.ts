@@ -55,7 +55,10 @@ export class OrderListComponent implements OnInit {
 
   }
 
-  
+
+  get date(){
+    return this.filterForm.get("date")
+  }
   get Task() {
     return this.filterForm.get("Task")
   }
