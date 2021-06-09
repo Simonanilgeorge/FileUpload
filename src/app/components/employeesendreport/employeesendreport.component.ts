@@ -25,10 +25,11 @@ export class EmployeesendreportComponent implements OnInit {
   ClientList: string[];
   Tasklist: string[];
   Processlist: string[];
-  temp: any;
-  final: any;
   stateList: string[];
   statusList: string[];
+  temp: any;
+  final: any;
+
   myDate = new Date();
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }

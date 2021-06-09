@@ -4,22 +4,77 @@
     <div class="heading">
         <h1>My Status</h1>
     </div>
-    <div class="filter">
-        <form [formGroup]="user" (ngSubmit)="getStatus()">
+
+ 
+        <form [formGroup]="user" (ngSubmit)="getStatus()"  class="filter">
 
             <div class="inputgroup">
-                <label for="date">SEARCH BY DATE</label>
+                <label for="date">Start Date</label>
                 <input type="date" name="date" class="input" formControlName="dateFilter">
             </div>
             <div class="inputgroup">
-                <label for="date">SEARCH BY DATE</label>
+                <label for="date">End Date</label>
                 <input type="date" name="date" class="input" formControlName="enddateFilter">
             </div>
             <div class="inputgroup">
                 <button type="submit" class="button">Filter</button>
             </div>
         </form>
-    </div>
+
+
+        <h1>{{filterForm.value|json}}</h1>
+        <form [formGroup]="filterForm" class="filter">
+            <div class="inputgroup">
+                <label for="date"> Date</label>
+                <input type="date" name="date" class="input" formControlName="date" >
+            </div>
+            <div class="inputgroup">
+                <label for="orderNumber">Order Number</label>
+                <input type="text" name="orderNumber" class="input" formControlName="orderNumber">
+            </div>
+            <div class="inputgroup">
+                <label for="status">Status</label>
+  
+                <select name="status" class="input" formControlName="status">
+  
+                  <option value="">None</option>
+                  <option *ngFor="let status of statusList">
+                    {{status}}
+                  </option>
+                </select>
+              </div>
+            <div class="inputgroup">
+                <label for="client">Client</label>
+                <select name="client" class="input" formControlName="Client" (change)="changeClientOptions($event)">
+                  <option value="">None</option>
+                  <option *ngFor="let client of ClientList" value="{{client}}">
+                    {{client}}
+                  </option>
+                </select>
+              </div>
+              <div class="inputgroup">
+                <label for="task">Task</label>
+                <select name="task" class="input" formControlName="Task" (change)="changeTaskOptions($event)">
+                  <option value="">None</option>
+                  <option *ngFor="let task of Tasklist" value="{{task}}">
+                    {{task}}
+                  </option>
+                </select>
+              </div>
+              <div class="inputgroup">
+                <label for="process">Process</label>
+                <select name="process" class="input" formControlName="Process">
+                  <option value="">None</option>
+                  <option *ngFor="let process of Processlist" value="{{process}}">
+                    {{process}}
+                  </option>
+                </select>
+              </div>
+
+        </form>
+   
+
+
     <div *ngIf="flag" class="report-container">
        <div *ngIf="datas" class="report">
             <app-table [data]="datas"></app-table>
