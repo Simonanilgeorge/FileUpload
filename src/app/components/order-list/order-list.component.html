@@ -4,7 +4,7 @@
     <div class="heading">
         <h1>My Status</h1>
     </div>
-    
+
 
  
         <form [formGroup]="user" (ngSubmit)="getStatus()"  class="filter">
@@ -25,7 +25,7 @@
         <form [formGroup]="filterForm" class="filter">
             <div class="inputgroup">
                 <label for="date"> Date</label>
-                <input type="date" name="date" class="input" formControlName="date" placeholder="yyyy-mm-dd">
+                <input type="date" name="date" class="input" formControlName="date">
             </div>
             <div class="inputgroup">
                 <label for="orderNumber">Order Number</label>
@@ -69,11 +69,13 @@
                   </option>
                 </select>
               </div>
+              <div class="inputgroup">
+            
+                <button class="button" (click)="clearFields()">Clear</button>
+            </div>
 
         </form>
    
-
-       
 
     <div *ngIf="flag" class="report-container">
        <div *ngIf="datas" class="report">

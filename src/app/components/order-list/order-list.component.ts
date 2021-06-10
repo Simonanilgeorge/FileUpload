@@ -88,6 +88,7 @@ export class OrderListComponent implements OnInit {
 
 
     res = JSON.parse(res);
+    console.log(res);
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = false;
@@ -136,6 +137,7 @@ export class OrderListComponent implements OnInit {
   getDropDown() {
 
     this.empreportService.getDropDownList().subscribe((res) => {
+
       this.dropDownList = res;
       
       this.ClientList = this.dropDownList.Client;
@@ -164,6 +166,21 @@ export class OrderListComponent implements OnInit {
     this.Process.setValue("");
     this.final = this.filterForm.value.Client + this.filterForm.value.Task
     this.Processlist = this.dropDownList[this.final]
+  }
+
+
+  clearFields(){
+
+    this.filterForm.reset({
+      date: [""],
+      orderNumber: [""],
+      Client: [""],
+      Task: [""],
+      Process: [""],
+      status: [""],
+
+    })
+    console.log(this.filterForm.getRawValue())
   }
 
 }
