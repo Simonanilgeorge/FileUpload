@@ -1,26 +1,10 @@
 .inputgroup{
     padding:20px;
     /* border:1px solid black; */
-    flex: 1 200px;
+ 
 }
 
 
-  input{
-    padding: 10px;
-    border-radius: 5px;
-    margin:10px 0px;
-    border: 1px solid grey;
-    width: 100%;
-  }
-
-  select {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    width: 100%;
-    margin:10px 0px;
-  }
   
   
   label{
@@ -28,89 +12,31 @@
       color:steelblue;
 
   }
-  option {
-    padding: 10px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-
-
-
-  /* table {
-
-    border-collapse: collapse;
-text-align: center;
-    width:100%;
-    white-space: nowrap;
-
-
-  } */
-  
 
   td {
-    border: 1px solid black;
     padding:0.5em;
     white-space: nowrap;
   }
   
   
   th{
-    border: 1px solid black;
-
-
     position:sticky;
     top:0;
 
   }
-  /* tr {
-
-    border: 1px solid black;
-
-  }
-   */
-
-  /* .tablecontainer{
-    border: 3px solid black;
-    overflow: auto;
-    max-height: 80vh;
-
-  } */
 
 
   .report-container{
-    /* display:flex; */
-  padding:30px;
-    /* flex-direction: column;
-    justify-content: space-evenly; */
-    /* align-items: center; */
-    /* border:2px solid steelblue; */
-  
+padding:2em 1em;
   } 
 
-  .filter {
-    /* border: 1px solid green; */
-    padding: 20px 10px;
-  /* flex-direction: column; */
-
-    display: flex;
-  }
-
-  .formcontainer{
-    display: flex;
-    /* border:2px solid black; */
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-  }
 
 
   form{
-    /* border: 3px solid red; */
+
     display:flex;
     flex-wrap: wrap;
-    /* flex-direction: column; */
+  
   }
 
 

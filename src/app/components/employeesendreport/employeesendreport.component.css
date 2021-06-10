@@ -62,11 +62,6 @@ form {
 }
 
 
-.formcontainer-primary {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15em, auto));
-}
-
 .inputgroup {
   /* border: 1px solid black; */
   color: rgba(29, 51, 110, 0.76);

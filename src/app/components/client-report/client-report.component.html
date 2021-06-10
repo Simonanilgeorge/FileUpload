@@ -6,27 +6,25 @@
     <h1>Client Report</h1>
 </div>
 
-    <div class="formcontainer">
+   
         <form [formGroup]="Date" (ngSubmit)="onSubmit()">
             <div class="inputgroup">
                 <label for="">
                     Select month
                 </label>
-                <input style="width: 60%;" type="month" formControlName="date">
+                <input class="input-primary" type="month" formControlName="date">
 
             </div>
-
+            <!-- <div class="inputgroup">
+                <label for="name">Search by keyword</label>
+                <input type="text" name="name" class="input-primary" [(ngModel)]="searchedKeyword">
+            </div> -->
             <div class="inputgroup">
                 <button class="button">Filter</button>
             </div>
         </form>
-        <form>
-            <div class="inputgroup">
-                <label for="name">Search by keyword</label>
-                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-            </div>
-        </form>
-    </div>
+ 
+
 
     <div class="report-container" *ngIf="data.length != 0">
 
@@ -38,7 +36,7 @@
                     <th>Total</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword">
-                    <td style="position: sticky;left:0; background: rgb(243, 241, 241);">{{data.client}}</td>
+                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">{{data.client}}</td>
                     <td *ngFor="let date of dates">
                         <span *ngIf="data[date]">${{data[date]}}</span> 
                     </td>

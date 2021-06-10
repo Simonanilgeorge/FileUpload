@@ -26,13 +26,7 @@ td {
   flex-wrap: wrap;
 }
 
-.tablesearch {
 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-
-}
 
 .search {
   border: 1px solid grey;
