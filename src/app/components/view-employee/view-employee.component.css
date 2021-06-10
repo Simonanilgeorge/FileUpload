@@ -5,75 +5,15 @@
 }
 
 
-input {
-
+.search {
   border: 1px solid grey;
   padding:5px;
 width:100%;
 }
 
-
-
-label {
-  display: block;
-  color: steelblue;
-}
-
-
-/* common styles */
-/* table {
-  border-collapse: collapse;
-  text-align: center;
-  width: 100%;
-  white-space: nowrap;
-  font-size: 0.8em;
-}
-
-td {
-
-
-  white-space: nowrap;
-}
-
-th {
-  cursor: pointer;
-padding:0.5rem;
-  text-transform: uppercase;
-  background: rgb(48, 48, 231);
-  color: white;
-}
-
-tr:first-child th {
-  background: rgb(243, 241, 241);
-  text-transform: capitalize;
-}
-
-tr:nth-of-type(even) {
-  background: rgb(180, 213, 226);
-}
-
-.tablecontainer {
-
-  overflow: auto;
-  max-height: 80vh;
-} */
-
-/* common styles end */
-
 .report-container {
-  padding: 0.1rem;
+  padding: 1em;
 }
-
-
-
-form {
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  /* flex-direction: column; */
-}
-
 
 .modal{
   border: 1px solid black;
@@ -84,15 +24,9 @@ form {
   z-index: 1;
   overflow:auto;
   top:0;
-
   left:0;
   display: none;
-  
-
-
 }
-
-
 .modal-content{
 
 background-color: white;
@@ -108,8 +42,6 @@ animation: modalopen 0.5s;
   display:block;
 }
 
-
-
 @keyframes modalopen{
 0%{
 /* opacity: 0; */
@@ -120,9 +52,6 @@ transform: scale(0);
 transform: scale(1);
 }
 }
-
-
-
 .openbtn{
   border:1px solid black;
   color: #ffffff;
@@ -146,5 +75,10 @@ transform: scale(1);
 
 .text{
   padding: 10px 0px;
+}
+
+th{
+  position: sticky;
+  top: 3.4em;
 }
 

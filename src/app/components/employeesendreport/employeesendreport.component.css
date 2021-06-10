@@ -1,31 +1,24 @@
 .minicontainer {
-  padding: 25px;
-  height: 200px;
-  margin: 200px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  width: fit-content;
+
+    display: flex;
+
+    justify-content: center;
+
+    width: 100%;
+
 }
 
-.statustitle {
-  padding: 20px;
-}
 
-.statusbox {
-  padding: 30px;
-}
 
 
 textarea {
-  padding: 10px;
+  padding: 0.6em;
 
   width: 100%;
-  border-radius: 10px;
+  border-radius: 0.6em;
 }
 .inputarea {
-  padding: 20px;
+  padding: 1.2em;
 
   display: flex;
   justify-content: center;
@@ -42,85 +35,65 @@ textarea {
 
 
 
-input {
-  padding: 10px;
-  border-radius: 5px;
+/* input {
+  padding: 0.6em;
+  border-radius: 0.3em;
   border: 1px solid grey;
   width: 100%;
 }
 
-select {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-  width: 100%;
-}
+ */
 
-option {
-  padding: 10px;
-  /* font-size: 1.2rem; */
-  cursor: pointer;
-  border-radius: 5px;
-}
 
 
 
 form {
   /* / border:1px solid black; / */
-  padding: 20px;
+  padding: 1.2em;
   flex: 1;
 }
 
 .buttoncontainer {
   /* / border:1px solid black; / */
-  padding: 20px 0px;
+  padding: 1.2em 0em;
   width: 50%;
   display: flex;
   /* / justify-content: space-around; / */
 }
 
 
-.tablecontainer {
-  overflow: auto;
-  /* border: solid green 1px; */
+.formcontainer-primary {
   display: grid;
-  /* grid-template-columns: repeat(2,1fr); */
-  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
-  grid-gap: 20px;
-  /* grid-auto-flow: dense; */
+  grid-template-columns: repeat(auto-fill, minmax(15em, auto));
 }
+
 .inputgroup {
   /* border: 1px solid black; */
   color: rgba(29, 51, 110, 0.76);
-  padding: 20px;
+  padding: 1.1em;
   display: grid;
   align-items: end;
-  max-height: 130px;
+  max-height: 8em;
   /* width:70%; */
 }
 
-.input {
-  margin: 10px 0px;
-  padding: 10px;
-  border-radius: 5px;
-  background: white;
-  width: 70%;
-  /* border: none; */
-}
+
 
 
 
 .parent{
   position: relative;
-  margin: 10px 0px;
-  padding: 10px;
-  border-radius: 5px;
+
+  padding: 0.5em;
+  border-radius: 0.3em;
   background: white;
-  width: 70%;
   cursor: pointer;
-  border:1px solid grey;
-  color:black;
+  border: 1px solid grey;
+  color: black;
+  width: 100%;
+  font-size: 0.9rem;
+  height: 3em;
+
 }
 
 .dropdown{
@@ -159,11 +132,8 @@ li{
 
 
 .dropdown-icon{
-display: flex;
-
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.2em 0em;
 }
 
-.card{
-  width:90%;
-}

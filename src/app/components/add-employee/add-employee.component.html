@@ -14,24 +14,24 @@
       <h1 *ngIf="!update">Add Employee</h1>
       <h1 *ngIf="update">Edit Employee</h1>
     </div>
-    <div class="tablecontainer" formGroupName="inputs">
+    <div class="formcontainer-primary" formGroupName="inputs">
       <div class="inputgroup">
         <label for="name">Name</label>
-        <input name="name" class="input" formControlName="name">
+        <input name="name" class="input-primary" formControlName="name" autocomplete="off">
       </div>
       <div class="inputgroup">
         <label for="empcode">Emp code</label>
-        <input name="empcode" class="input" formControlName="empcode">
+        <input name="empcode" class="input-primary" formControlName="empcode" autocomplete="off">
       </div>
 
       <div class="inputgroup">
         <label for="doj">Joining date</label>
-        <input type="date" name="doj" class="input" formControlName="doj">
+        <input type="date" name="doj" class="input-primary" formControlName="doj">
       </div>
 
       <div class="inputgroup">
         <label for="client">Client</label>
-        <select name="client" class="input" formControlName="client">
+        <select name="client" class="input-primary" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
           <option *ngFor="let client of ClientList" value="{{client}}">
             {{client}}
@@ -40,13 +40,13 @@
       </div>
       <div class="inputgroup">
         <label for="task">Task</label>
-        <input name="task" class="input" formControlName="task">
+        <input name="task" class="input-primary" formControlName="task" autocomplete="off">
       </div>
 
       <div class="inputgroup">
         <label for="search">Search</label>
 
-        <select name="search" class="input" formControlName="search">
+        <select name="search" class="input-primary" formControlName="search">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Search">Search</option>
           <option value="Non-Search">Non-Search</option>
@@ -54,7 +54,7 @@
       </div>
 
     </div>
-    <div class="tablecontainer">
+    <div class="minicontainer">
       <div class="inputgroup">
         <button class="button" type="submit">Submit</button>
       </div>

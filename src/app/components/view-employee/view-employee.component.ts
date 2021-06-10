@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
@@ -14,7 +14,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   modalBoolean: Boolean = false
   titles = [];
-dataToBeDeleted;
+  dataToBeDeleted;
   titleName;
   message = null;
   toast: Boolean = false;
@@ -60,11 +60,11 @@ dataToBeDeleted;
   }
   delete(data) {
 
-this.modalBoolean=false;
+    this.modalBoolean = false;
     this.empReportService.deleteEmployee(data).subscribe((res) => {
-      
+
       this.showToastMessage("Deleted successfully")
-      
+
       this.ngOnInit();
     }, (err) => {
       this.showToastMessage("Deletion failed")
@@ -95,13 +95,13 @@ this.modalBoolean=false;
 
 
     this.modalBoolean = true;
-    this.dataToBeDeleted=data;
+    this.dataToBeDeleted = data;
   }
 
   closeModal() {
 
     this.modalBoolean = false;
-    this.dataToBeDeleted=null;
+    this.dataToBeDeleted = null;
   }
 
 }

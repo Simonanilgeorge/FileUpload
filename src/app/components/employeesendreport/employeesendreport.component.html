@@ -1,6 +1,6 @@
 <div class="container">
   <app-navbar></app-navbar>
-  <div *ngIf="flag">
+
 
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
@@ -11,19 +11,19 @@
             <h1 *ngIf="!update">Enter your daily status updates</h1>
             <h1 *ngIf="update">Edit status</h1>
           </div>
-          <div class="tablecontainer" formGroupName="inputs">
+          <div class="formcontainer-primary" formGroupName="inputs">
 
             <div class="inputgroup">
-              <label for="date">DATE</label>
-              <input type="date" name="date" class="input" formControlName="date">
+              <label for="date">Date</label>
+              <input type="date" name="date" class="input-primary" formControlName="date">
             </div>
             <div class="inputgroup">
-              <label for="orderNumber">ORDER NUMBER</label>
-              <input name="orderNumber" class="input" formControlName="orderNumber">
+              <label for="orderNumber">Order Number</label>
+              <input name="orderNumber" class="input-primary" formControlName="orderNumber" autocomplete="off">
             </div>
             <div class="inputgroup">
-              <label for="client">CLIENT</label>
-              <select name="client" class="input" formControlName="Client" (change)="changeClientOptions($event)">
+              <label for="client">Client</label>
+              <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions($event)">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let client of ClientList" value="{{client}}">
                   {{client}}
@@ -31,8 +31,8 @@
               </select>
             </div>
             <div class="inputgroup">
-              <label for="task">TASK</label>
-              <select name="task" class="input" formControlName="Task" (change)="changeTaskOptions($event)">
+              <label for="task">Task</label>
+              <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions($event)">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let task of Tasklist" value="{{task}}">
                   {{task}}
@@ -40,8 +40,8 @@
               </select>
             </div>
             <div class="inputgroup">
-              <label for="process">PROCESS</label>
-              <select name="process" class="input" formControlName="Process">
+              <label for="process">Process</label>
+              <select name="process" class="input-primary" formControlName="Process">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let process of Processlist" value="{{process}}">
                   {{process}}
@@ -49,7 +49,7 @@
               </select>
             </div>
             <div class="inputgroup">
-              <label for="state">STATE</label>
+              <label for="state">State</label>
               <ul>
                 <li class="parent" (click)=display()>
                   <div class="dropdown-icon">
@@ -63,17 +63,17 @@
               </ul>
             </div>
             <div class="inputgroup">
-              <label for="start_time">START TIME</label>
-              <input type="time" name="start_time" class="input" formControlName="startTime">
+              <label for="start_time">Start Time</label>
+              <input type="time" name="start_time" class="input-primary" formControlName="startTime">
             </div>
             <div class="inputgroup">
-              <label for="end_time">END TIME</label>
-              <input type="time" name="end_time" class="input" formControlName="endTime">
+              <label for="end_time">End Time</label>
+              <input type="time" name="end_time" class="input-primary" formControlName="endTime">
             </div>
             <div class="inputgroup">
-              <label for="status">STATUS</label>
+              <label for="status">Status</label>
 
-              <select name="status" class="input" formControlName="status">
+              <select name="status" class="input-primary" formControlName="status">
 
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let status of statusList">
@@ -81,18 +81,15 @@
                 </option>
               </select>
             </div>
-
           </div>
-          <div class="tablecontainer">
-            <div class="inputgroup">
-              <button class="button" type="submit">submit</button>
+          <div class="minicontainer">
+            <div class="inputgroup" style="padding:0.2em">
+              <button class="button" type="submit">Submit</button>
             </div>
           </div>
         </form>
-
       </div>
     </div>
-    <div *ngIf="!flag" class="minicontainer">
-      <h2>Status was sent successfully...</h2>
-    </div>
+
+
   </div>

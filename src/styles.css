@@ -105,18 +105,21 @@ label{
 }
 
 .card{
-width:60%;
+width:90%;
 background:white;
   /* border:1px solid black; */
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
 }
 
 .cardcontainer{
-/* 
-  border:3px solid green; */
-  display: grid;
+
+  /* border:3px solid green; */
+  display: flex;
+justify-content: center;
+align-items: center;
   padding:2rem;
-  place-items: center;
+flex:1;
+height:100%;
 }
 
 
@@ -171,10 +174,58 @@ tr:nth-of-type(odd) td{
   background: white;
 }
 
+
+.tablesearch {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+}
 .tablecontainer {
   /* border: 1px solid black; */
   overflow: auto;
   max-height: 80vh;
 }
+
+
+.formcontainer-primary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, auto));
+}
+
+.minicontainer {
+
+  display: flex;
+
+  justify-content: center;
+
+  width: 100%;
+
+}
+
+
+/* inputs */
+
+select {
+  cursor: pointer;
+  /* font-size: 0.9rem; */
+}
+/* option {
+  padding: 0.6em;
+
+  cursor: pointer;
+  border-radius: 0.3em;
+} */
+
+.input-primary{
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid grey;
+  width: 100%;
+  height: 3em;
+}
+
+
 
 /* common styles end */

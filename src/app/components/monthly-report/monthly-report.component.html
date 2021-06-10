@@ -8,18 +8,19 @@
     <div class="heading">
         <h1>Monthly Report</h1>
     </div>
-    <div class="formcontainer">
-        <form [formGroup]="Date">
+
+
+        <form [formGroup]="Date" class="formcontainer">
             <div class="inputgroup">
                 <label for="">
-                    SELECT MONTH
+                    Select Month
                 </label>
-                <input type="month" formControlName="date">
+                <input type="month" formControlName="date" class="input-primary">
 
             </div>
             <div class="inputgroup">
-                <label for="name">SELECT SHEET</label>
-                <select class="input" formControlName="sheetName">
+                <label for="name">Select Sheet</label>
+                <select class="input-primary" formControlName="sheetName">
                     <option value="" [disabled]="true">--Select--</option>
                     <option *ngFor="let sheet of SheetList">
                         {{sheet}}
@@ -27,16 +28,11 @@
                 </select>
             </div>
             <div class="inputgroup">
-                <button class="button" (click)="filter()">filter</button>
+                <button class="button" (click)="filter()">Filter</button>
             </div>
         </form>
-        <!-- <form>
-            <div class="inputgroup">
-                <label for="name">SEARCH BY KEYWORD</label>
-                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-            </div>
-        </form> -->
-    </div>
+
+ 
 
     <div class="report-container" *ngIf="total != 0">
 
@@ -44,17 +40,16 @@
             <table>
                 <tr>
                     <th colspan="40" style="position:sticky;top:0;">
-                        <form>
+                        <form class="tablesearch">
                             <div class="inputgroup" style="padding:0;">
-             
-                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword" class="search">
+                                <input type="text" placeholder="Search" name="name" class="input-primary" [(ngModel)]="searchedKeyword" class="search" autocomplete="off">
                             </div>
                         </form>
                     </th>
                 </tr>
                 <tr>
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:10;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:12;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>

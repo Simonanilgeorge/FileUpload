@@ -11,7 +11,10 @@
                 <h2>Confirm</h2>
             </div>
             <div class="text">
-                <p>Are you sure you want to delete?</p>
+
+                <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted" > {{dataToBeDeleted.name|titlecase}}</span>?</p>
+                
+               
             </div>
 
         <div class="buttoncontainer">
@@ -32,19 +35,19 @@
 
                 <tr>
                     <th colspan="8" style="position:sticky;top:0;">
-                        <form>
+                        <form class="tablesearch">
                             <div class="inputgroup">
              
-                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword">
+                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword" class="search">
                             </div>
                         </form>
                     </th>
                 </tr>
                 <tr>
 
-                    <th style="position:sticky;top:2.5rem;" *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
+                    <th  *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
                  
-                    <th style="position:sticky;top:2.5rem;">Delete</th>
+                    <th >Delete</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
                     <td *ngFor="let title of titles">
