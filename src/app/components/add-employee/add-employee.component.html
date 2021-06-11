@@ -11,8 +11,8 @@
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="inputgroup">
-      <h1 *ngIf="!update">Add Employee</h1>
-      <h1 *ngIf="update">Edit Employee</h1>
+      <h2 *ngIf="!update">Add Employee</h2>
+      <h2 *ngIf="update">Edit Employee</h2>
     </div>
     <div class="formcontainer-primary" formGroupName="inputs">
       <div class="inputgroup">
@@ -52,7 +52,6 @@
           <option value="Non-Search">Non-Search</option>
         </select>
       </div>
-
     </div>
     <div class="minicontainer">
       <div class="inputgroup">

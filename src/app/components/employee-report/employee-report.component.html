@@ -3,10 +3,8 @@
     <app-navbar></app-navbar>
 
     <div class="heading">
-        <h1>Daily Production Report</h1>
+        <h2>Daily Production Report</h2>
     </div>
-
-
         <form [formGroup]="filterForm" class="formcontainer"> 
 
             <div class="inputgroup">
@@ -29,7 +27,7 @@
                         </form>
                     </th>
                 </tr>
-                
+
                 <tr>
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
                     <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
