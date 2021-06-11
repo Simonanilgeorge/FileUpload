@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,23 +11,23 @@
 .container {
   display: flex;
   flex-direction: column;
-  /* border: 5px solid red; */
+
   background: rgb(243, 241, 241);
   min-height: 100vh;
 }
 
 .toast {
-  padding: 40px;
+  padding: 2.5em;
   pointer-events: none;
   position: fixed;
-  /* top: 100px; */
-  top: 200px;
-  right: 50px;
+
+  top: 12.5em;
+  right: 3.12em;
   color: #3c763d;
   background-color: #dff0d8;
   font-weight: bold;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 0.3em;
   width: fit-content;
   white-space: nowrap;
   opacity: 0;
@@ -47,12 +48,12 @@
   }
   100% {
     opacity: 0;
-    transform: translate(0px, -120px);
+    transform: translate(0em, -7.5em);
   }
 }
 
 .heading {
-  padding: 20px;
+  padding: 1.25em;
 }
 
 h1,
@@ -65,28 +66,26 @@ h2 {
 label {
   color: steelblue;
 }
-
 .button {
   cursor: pointer;
   border: none;
   background: steelblue;
   color: white;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 0.3em;
+  padding: 0.6em 1.25em;
   width: fit-content;
   transition: 0.3s ease-in-out;
-  font-size: 15px;
   display: block;
   white-space: nowrap;
-  margin: 20px 0px;
+  margin-top: 1.65em;
 }
 .button[disabled] {
   border: none;
   background: steelblue;
   opacity: 0.5;
   color: white;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 0.3em;
+  padding: 0.6em 1.25em;
   display: block;
 }
 
@@ -110,7 +109,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2em;
   flex: 1;
   height: 100%;
 }
@@ -128,9 +127,10 @@ td {
   white-space: nowrap;
 }
 
+
 th {
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.5em;
   text-transform: uppercase;
   background: rgb(42 67 125);
   color: white;
@@ -196,7 +196,7 @@ select {
 
 .input-primary {
   padding: 0.5em;
-  border-radius: 5px;
+  border-radius: 0.3em;
   border: 1px solid grey;
   width: 100%;
   height: 3em;

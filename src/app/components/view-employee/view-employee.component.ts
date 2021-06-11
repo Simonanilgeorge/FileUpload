@@ -59,7 +59,8 @@ export class ViewEmployeeComponent implements OnInit {
 
   }
   delete(data) {
-
+    console.log(data)
+    
     this.modalBoolean = false;
     this.empReportService.deleteEmployee(data).subscribe((res) => {
 
@@ -91,9 +92,10 @@ export class ViewEmployeeComponent implements OnInit {
   }
   showModal(data) {
     // (click)="delete(data)" 
+
+
+    data.username=sessionStorage.getItem('user')
     console.log(data)
-
-
     this.modalBoolean = true;
     this.dataToBeDeleted = data;
   }

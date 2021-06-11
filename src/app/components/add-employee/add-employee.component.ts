@@ -41,7 +41,8 @@ export class AddEmployeeComponent implements OnInit {
         task: ["", Validators.required],
         client: ["", Validators.required],
         search: ["", Validators.required],
-        id: [""]
+        id: [""],
+        username:[sessionStorage.getItem('user')]
       })
     });
 

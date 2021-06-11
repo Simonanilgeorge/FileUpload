@@ -67,6 +67,6 @@ export class EmpreportService {
   }
 
   deleteEmployee(data):Observable<any>{
-    return this.http.delete<any>(`${this.editEmployeeUrl}/${data.id}`)
+    return this.http.post<any>(this.editEmployeeUrl,data)
   }
 }

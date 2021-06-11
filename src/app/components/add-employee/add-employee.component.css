@@ -1,29 +1,18 @@
 
-
-
-  
-
-
-
-  
-
-
   
   form {
     /* / border:1px solid black; / */
-    padding: 20px;
+    padding: 1.25em;
     flex: 1;
   }
   
-
-
   .inputgroup {
     /* border: 1px solid black; */
 
-    padding: 20px;
+    padding: 1.25em;
     display: grid;
     align-items: end;
-    max-height: 130px;
+    max-height: 8.125em;
     /* width:70%; */
   }
   
