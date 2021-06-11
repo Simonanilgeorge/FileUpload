@@ -5,20 +5,20 @@
 .container {
   display: flex;
   flex-direction: column;
-  /* border: 5px solid red; */
+
   min-height: 100vh;
 }
 
 .contentcontainer {
   height: 80vh;
   position: relative;
-  /* border: 5px solid grey; */
+
   overflow: hidden;
-  /* background:black; */
+
 }
 
 .circle {
-  /* backdrop-filter:blur(10px); */
+
   position: absolute;
   border-radius: 50%;
   /* border:1px solid black; */
