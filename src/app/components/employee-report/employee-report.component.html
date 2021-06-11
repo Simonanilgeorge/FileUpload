@@ -5,44 +5,34 @@
     <div class="heading">
         <h1>Daily Production Report</h1>
     </div>
-    <div class="formcontainer">
 
-        <form [formGroup]="filterForm" style="justify-content: flex-start;">
+
+        <form [formGroup]="filterForm" class="formcontainer"> 
 
             <div class="inputgroup">
                 <label for="date">Date</label>
-                <input type="date" name="date" class="input" (change)="onSubmit()"formControlName="dateFilter" style="padding:10px">
+                <input type="date" name="date" class="input-primary" (change)="onSubmit()"formControlName="dateFilter">
             </div>
         </form>
 
-        <!-- <form>
-            <div class="inputgroup">
-                <label for="name">SEARCH BY KEYWORD</label>
-
-                <input type="text" name="name" class="input" [(ngModel)]="searchedKeyword">
-            </div>
-        </form> -->
-
-
-    </div>
     <div *ngIf="flag" class="report-container">
 
         <div class="tablecontainer">
             <table>
                 <tr>
                     <th colspan="10" style="position:sticky;top:0;">
-                        <form>
+                        <form class="tablesearch">
                             <div class="inputgroup">
              
-                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword">
+                                <input type="text" placeholder="Search" name="name" class="search"[(ngModel)]="searchedKeyword">
                             </div>
                         </form>
                     </th>
                 </tr>
+                
                 <tr>
-
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:11;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>

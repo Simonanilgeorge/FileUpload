@@ -38,7 +38,7 @@
                         <form class="tablesearch">
                             <div class="inputgroup">
              
-                                <input type="text" placeholder="Search" name="name" class="input" [(ngModel)]="searchedKeyword" class="search">
+                                <input type="text" placeholder="Search" name="name"  [(ngModel)]="searchedKeyword" class="search">
                             </div>
                         </form>
                     </th>
@@ -55,7 +55,7 @@
                         <span *ngIf="title!='empcode'"> {{data[title]}}</span>
                     </td>
                     <td>
-                        <p (click)="showModal(data)" style='cursor: pointer;'>&#10060;</p>
+                        <p (click)="showModal(data)" style='cursor: pointer;   font-size: 0.6rem;'>&#10060;</p>
                     </td>
                 </tr>
             </table>

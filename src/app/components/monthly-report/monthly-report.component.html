@@ -42,12 +42,13 @@
                     <th colspan="40" style="position:sticky;top:0;">
                         <form class="tablesearch">
                             <div class="inputgroup" style="padding:0;">
-                                <input type="text" placeholder="Search" name="name" class="input-primary" [(ngModel)]="searchedKeyword" class="search" autocomplete="off">
+                                <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword" class="search" autocomplete="off">
                             </div>
                         </form>
                     </th>
                 </tr>
                 <tr>
+                    
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
                     <th style="position: sticky;left:0;z-index:12;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>

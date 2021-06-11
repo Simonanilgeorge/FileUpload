@@ -1,7 +1,7 @@
 .inputgroup {
 
   display: flex;
-  width: 200px;
+  width: 14em;
 }
 
 
@@ -44,11 +44,11 @@ animation: modalopen 0.5s;
 
 @keyframes modalopen{
 0%{
-/* opacity: 0; */
+
 transform: scale(0);
 }
 100%{
-/* opacity: 1; */
+
 transform: scale(1);
 }
 }
@@ -82,3 +82,8 @@ th{
   top: 3.4em;
 }
 
+
+td {
+  padding: 0.5em;
+  font-size: 0.8rem;
+}
