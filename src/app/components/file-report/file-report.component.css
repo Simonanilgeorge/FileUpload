@@ -7,27 +7,6 @@
 
 
 
-.apply {
-  margin-left: 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  /* height: 50px; */
-  padding: 15px 16px;
-
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  align-items: center;
-  background: green;
-  color: white;
-  border: 1px solid rgb(39, 131, 196);
-  background: rgb(39, 131, 196);
-  transition: 0.2s ease-in-out;
-}
-
-.apply:hover {
-  background: rgb(24, 86, 130);
-}
 
 table {
   text-align: center;
@@ -35,45 +14,39 @@ table {
   height: 100%;
   width: 100%;
   border-collapse: collapse;
-  border-top-left-radius: 20px;
+  border-top-left-radius: 1.25em;
   border: 1px solid black;
-  /* font-size:0.8rem; */
+
 }
 
 th {
   border: 1px solid black;
-  /* font-size: 20px; */
-  /* width: 150px;
-  height: 50px; */
-
-  padding: 10px;
 }
 td {
   border: 1px solid black;
-  padding: 10px;
-
-
 }
 
 .taskname {
   font-weight: bolder;
-
   position: sticky;
   left: 0;
   background: rgb(42 67 125);
-color:white;
+  color: white;
   z-index: 900;
+  padding: 0.8em;
+
 }
 
 .titles {
   top: 0;
   position: sticky;
+  padding: 1em;
 
   /* border:2px solid red; */
 }
 
 .multiselect {
-  width: 200px;
+  width: 12.5em;
 }
 
 .selectBox {
@@ -112,11 +85,11 @@ color:white;
   background: white;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-  width: 200px;
+  border-radius: 0.6em;
+  width: 12.5em;
 
   overflow: scroll;
-  height: 200px;
+  height: 12.5em;
   transition: 0.3s ease-in-out;
 }
 
@@ -128,7 +101,7 @@ color:white;
 
 .select {
 white-space: nowrap;
-  padding: 10px 20px;
+  padding: 0.6em 1.25em;
   background: white;
 border: 1px solid black;
   font-weight: bold;
@@ -138,15 +111,15 @@ border: 1px solid black;
 }
 
 .option {
-  margin: 10px;
+  margin: 0.6em;
 }
 
 .selectcontainer {
   display: flex;
-  gap: 1rem;
+  gap: 1em;
   justify-content: flex-start;
-  align-items: center;
-  padding: 0 20px;
+  align-items: flex-end;
+  padding: 1.25em;
 }
 
 .display {
@@ -158,8 +131,8 @@ border: 1px solid black;
 input[type="file"]::file-selector-button {
   background: rgb(39, 131, 196);
   border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
   outline: none;
   white-space: nowrap;
 
@@ -176,8 +149,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
 input[type="file"]::-webkit-file-upload-button {
   background: rgb(39, 131, 196);
   border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
   outline: none;
   white-space: nowrap;
 
@@ -188,7 +161,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .tablecontainer {
-    margin: 0 20px;
+    margin: 0 1.25em;
     width: 95%;
     resize: both;
     overflow: auto;
@@ -199,8 +172,8 @@ input[type="file"]::-webkit-file-upload-button {
 
 
 .elseblock {
-  padding: 25px;
-  height: 200px;
+  padding: 1.56em;
+  height: 12.5em;
   color: steelblue;
   margin: 0 auto;
   display: flex;
@@ -213,30 +186,13 @@ input[type="file"]::-webkit-file-upload-button {
 
 .filter {
 
-  padding: 20px 10px 0px 10px;
+  padding: 1em 0.6em 0em 0.6em;
   display: flex;
 }
 .inputgroup {
-width:200px;
+width:12.5em;
   /* border:1px solid black; */
   color: rgba(29, 51, 110, 0.76);
-  padding: 10px;
+  padding: 0.6em;
 }
 
-.input {
-  padding: 10px;
-  border-radius: 5px;
-  margin:10px 0px;
-  border: 1px solid grey;
-  width: 100%;
-}
-
-label{
-  color:black;
-}
-
-
-
-select{
-  font-size: 0.9rem;
-}

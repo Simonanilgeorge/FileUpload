@@ -6,7 +6,7 @@
 
 
     <div class="heading">
-        <h2>Monthly Report</h2>
+        <h2>Monthly {{sheetNameRes}} Report</h2>
     </div>
 
 
@@ -58,7 +58,7 @@
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
                     <th>TASK</th>
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
-                    <th *ngIf="sheetNameRes=='Revenue'||'Orders'">Total</th>
+                    <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                 </tr>
                 
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
@@ -76,10 +76,10 @@
                         </span>
                     </td>
 
-                    <td *ngIf="sheetNameRes=='Revenue'||'Orders'"><span *ngIf="data.total"><span *ngIf="sheetNameRes=='Revenue'">$</span>{{data.total}}</span></td>
+                    <td *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'"><span *ngIf="data.total"><span *ngIf="sheetNameRes=='Revenue'">$</span>{{data.total}}</span></td>
                 </tr>
 
-                <tr *ngIf="sheetNameRes=='Revenue'||'Orders'">
+                <tr *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">
                     <td style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
                         Grand Total</td>
                     <td colspan="5" style="background: rgb(42 67 125); color:white;"></td>
@@ -92,7 +92,7 @@
                     </td>
                     <td style="background: rgb(42 67 125); color:white;">
                         <span *ngIf="sheetNameRes=='Revenue'">$</span>
-                        {{total}}
+                        {{total|number}}
                     </td>
                 </tr>
 

@@ -7,12 +7,13 @@
 
             <div class="inputgroup">
                 <label for="date" style="color:steelblue;">Search by date</label>
-                <input type="date" name="date" class="input" (change)="fetchTable('date')" formControlName="pivotDate">
+                <input type="date" name="date" class="input-primary
+                " (change)="fetchTable('date')" formControlName="pivotDate">
             
             </div>
             <div class="inputgroup">
                 <label for="time" style="color:steelblue;">Search by time</label>
-                <select class="input" formControlName="time" (change)="fetchTable('time')">
+                <select class="input-primary" formControlName="time" (change)="fetchTable('time')">
                     <option *ngFor="let t of time" value="{{t}}" >{{t}}</option>
                 </select>
             </div>

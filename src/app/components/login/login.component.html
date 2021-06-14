@@ -7,8 +7,8 @@
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
             <div class="inputarea">
                 <label for="username">Username</label><input id="username" type="text" class="input"
-                    formControlName="username">
-                <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                    formControlName="username" autocomplete="off">
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" > 
                     <small class="warning-message">username required</small>
                 </div>
             </div>
