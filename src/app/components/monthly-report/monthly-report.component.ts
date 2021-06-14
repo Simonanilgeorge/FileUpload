@@ -15,6 +15,7 @@ export class MonthlyReportComponent implements OnInit {
   titleName;
   message;
   total: any = 0
+  columnSum = {};
   toast: Boolean = false
   searchedKeyword: string;
   data = [];
@@ -50,13 +51,31 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
+      console.log(res)
       this.data = res.data;
       this.dates = res.dates;
       this.sheetNameRes=res.sheet;
       this.total = 0
+
+      // initialize columnsum keys to 0
+      this.dates.forEach((date)=>{
+        this.columnSum[date]=0;
+      })
+     
+      // check if value exist in data
       this.data.forEach(datas => {
-        this.total = this.total + datas.total 
+        this.total = this.total + datas.total
+        this.dates.forEach((date)=>{
+          if(datas[date]){
+            this.columnSum[date]=this.columnSum[date]+datas[date]
+            console.log(this.columnSum[date],date)
+            
+          }
+        }) 
+        
       });
+      console.log("column sum is ")
+console.log(this.columnSum)
       this.flag = true
     }, (err) => {
       console.log(err.message)

@@ -10,29 +10,29 @@
     </div>
 
 
-        <form [formGroup]="Date" class="formcontainer">
-            <div class="inputgroup">
-                <label for="">
-                    Select Month
-                </label>
-                <input type="month" formControlName="date" class="input-primary" (change)="filter()">
+    <form [formGroup]="Date" class="formcontainer">
+        <div class="inputgroup">
+            <label for="">
+                Select Month
+            </label>
+            <input type="month" formControlName="date" class="input-primary" (change)="filter()">
 
-            </div>
-            <div class="inputgroup">
-                <label for="name">Select Sheet</label>
-                <select class="input-primary" formControlName="sheetName" (change)="filter()">
-                    <!-- <option value="" [disabled]="true">--Select--</option> -->
-                    <option *ngFor="let sheet of SheetList">
-                        {{sheet}}
-                    </option>
-                </select>
-            </div>
-            <!-- <div class="inputgroup">
+        </div>
+        <div class="inputgroup">
+            <label for="name">Select Sheet</label>
+            <select class="input-primary" formControlName="sheetName" (change)="filter()">
+                <!-- <option value="" [disabled]="true">--Select--</option> -->
+                <option *ngFor="let sheet of SheetList">
+                    {{sheet}}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="inputgroup">
                 <button class="button" (click)="filter()">Filter</button>
             </div> -->
-        </form>
+    </form>
 
- 
+
 
     <div class="report-container" *ngIf="total != 0">
 
@@ -42,7 +42,8 @@
                     <th colspan="40" style="position:sticky;top:0;">
                         <form class="tablesearch">
                             <div class="inputgroup" style="padding:0;">
-                                <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword" class="search" autocomplete="off">
+                                <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
+                                    class="search" autocomplete="off">
                             </div>
                         </form>
                     </th>
@@ -50,14 +51,16 @@
                 <tr>
 
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:12;"  (click)="getTitleName('name')">NAME &uarr;&darr;</th>
+                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;
+                    </th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
                     <th>TASK</th>
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
-                    <th *ngIf="sheetNameRes=='Revenue'">Total</th>
+                    <th *ngIf="sheetNameRes=='Revenue'||'Orders'">Total</th>
                 </tr>
+                
                 <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
                     <td>{{data.emp_code}}</td>
                     <td style="position: sticky;left:0; ">{{data.name}}</td>
@@ -73,7 +76,24 @@
                         </span>
                     </td>
 
-                    <td *ngIf="sheetNameRes=='Revenue'"><span *ngIf="data.total">${{data.total}}</span></td>
+                    <td *ngIf="sheetNameRes=='Revenue'||'Orders'"><span *ngIf="data.total"><span *ngIf="sheetNameRes=='Revenue'">$</span>{{data.total}}</span></td>
+                </tr>
+
+                <tr *ngIf="sheetNameRes=='Revenue'||'Orders'">
+                    <td style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
+                        Grand Total</td>
+                    <td colspan="5" style="background: rgb(42 67 125); color:white;"></td>
+                    <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
+
+                        <span *ngIf="columnSum[date]!=0">
+                            <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                             {{columnSum[date]| number}}
+                        </span>
+                    </td>
+                    <td style="background: rgb(42 67 125); color:white;">
+                        <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                        {{total}}
+                    </td>
                 </tr>
 
             </table>
