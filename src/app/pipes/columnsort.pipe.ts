@@ -9,26 +9,16 @@ export class ColumnsortPipe implements PipeTransform {
   transform(value: any, args:any): any {
 
 
-    console.log("value")
-    console.log(value)
-    console.log("args")
-    console.log(args)
-    // let newDate
-    // if (args.date != ""){
-    // var datePipe = new DatePipe("en-US");
-    // newDate = datePipe.transform(args.date, 'dd-MM-yyyy');
-    // }
-    // else{
-    //   newDate = ""
-    // }
-    // let data = value
-    // let filteredData = []
+    let data = value
+    let filteredData = []
   
-    // filteredData = data.filter((data) => {
-    // return data.order_number.includes(args.orderNumber) && data.date.includes(newDate) && data.status.includes(args.status)
-    // && data.Client.includes(args.Client) && data.Task.includes(args.Task) && data.Process.includes(args.Process)
-    // })
-    // return filteredData
+    filteredData = data.filter((data) => {
+    return data.empcode.toLowerCase().includes(args.empcode.toLowerCase()) && data.doj.toLowerCase().includes(args.doj.toLowerCase()) 
+    && data.search.toLowerCase().includes(args.search.toLowerCase()) && data.client.toLowerCase().includes(args.client.toLowerCase()) 
+    && data.task.toLowerCase().includes(args.task.toLowerCase()) && data.name.toLowerCase().includes(args.name.toLowerCase())
+    })
+    return filteredData
+
     }
   
   }

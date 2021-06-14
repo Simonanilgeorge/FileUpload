@@ -12,7 +12,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
-
   modalBoolean: Boolean = false
   titles = [];
   dataToBeDeleted;
@@ -23,7 +22,16 @@ export class ViewEmployeeComponent implements OnInit {
   data = [];
   singleSearch;
   flag: Boolean = false;
-  filterForm={}
+  flg:Boolean = false;
+
+  filterForm:FormGroup=this.fb.group({
+    empcode:[""],
+    name: [""],
+    doj: [""],
+    search: [""],
+    client: [""],
+    task: [""]
+  })
 
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private fb: FormBuilder) { }
 
@@ -108,8 +116,8 @@ export class ViewEmployeeComponent implements OnInit {
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
   }
-  testing(){
-    console.log(this.filterForm)
+  showInput(){
+    this.flg = !this.flg
   }
 
 }
