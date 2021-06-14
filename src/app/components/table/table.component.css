@@ -1,54 +1,7 @@
-/* table {
-
-    border-collapse: collapse;
-text-align: center;
-    width:100%;
-    
-
-  }
-  
-  td {
-    border: 1px solid black;
-    padding:20px;
-    white-space: nowrap;
-  }
-  
-  
-  th{
-    border: 1px solid black;
-    padding:20px;
-    text-transform: uppercase;
-  }
-  tr {
-    padding:20px;
-    border: 1px solid black;
-
-  }
-  
-  .tablecontainer{
-    border: 3px solid black;
-    overflow: auto;
-
-  }
-
-  .button {
-    border: none;
-    cursor: pointer;
-    display: block;
-    background: steelblue;
-    color: white;
-    border-radius: 5px;
-    padding: 10px 20px;
-    width: 105px;
-    margin: 10px 0;
-    transition: 0.3s ease-in-out;
-  }
-
-  
-  .button:hover{
-    background: rgb(47, 88, 119);
-  } */
-
+th{
+  position: sticky;
+  top:0;
+}
   p{
     cursor: pointer;
     font-size: 1.1rem;

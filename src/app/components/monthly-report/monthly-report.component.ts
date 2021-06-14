@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../providers/login.service'
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
-  styleUrls: ['./monthly-report.component.css']
+  styleUrls: ['./monthly-report.component.css'],
+  providers:[DatePipe]
 })
 export class MonthlyReportComponent implements OnInit {
   flag: Boolean = false;
@@ -19,15 +21,17 @@ export class MonthlyReportComponent implements OnInit {
   dates = [];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+
   Date = this.fb.group({
-    date: ['', Validators.required],
-    sheetName: ['', Validators.required]
+    date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],
+    sheetName: ['Revenue', Validators.required]
   })
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
+    this.filter()
   }
 
   get date() {

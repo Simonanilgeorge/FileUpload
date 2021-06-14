@@ -15,21 +15,21 @@
                 <label for="">
                     Select Month
                 </label>
-                <input type="month" formControlName="date" class="input-primary">
+                <input type="month" formControlName="date" class="input-primary" (change)="filter()">
 
             </div>
             <div class="inputgroup">
                 <label for="name">Select Sheet</label>
-                <select class="input-primary" formControlName="sheetName">
-                    <option value="" [disabled]="true">--Select--</option>
+                <select class="input-primary" formControlName="sheetName" (change)="filter()">
+                    <!-- <option value="" [disabled]="true">--Select--</option> -->
                     <option *ngFor="let sheet of SheetList">
                         {{sheet}}
                     </option>
                 </select>
             </div>
-            <div class="inputgroup">
+            <!-- <div class="inputgroup">
                 <button class="button" (click)="filter()">Filter</button>
-            </div>
+            </div> -->
         </form>
 
  
@@ -81,7 +81,7 @@
 
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
-        <h2>Please choose the month and sheet required</h2>
+        <h2>Loading...</h2>
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="total == 0 && data.length != 0">
         <h2>No reports available for the month </h2>

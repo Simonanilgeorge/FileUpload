@@ -7,21 +7,21 @@
 </div>
 
    
-        <form [formGroup]="Date" (ngSubmit)="onSubmit()">
+        <form [formGroup]="Date" >
             <div class="inputgroup">
                 <label for="">
                     Select month
                 </label>
-                <input class="input-primary" type="month" formControlName="date">
+                <input class="input-primary" type="month" formControlName="date" (change)="onSubmit()">
 
             </div>
             <!-- <div class="inputgroup">
                 <label for="name">Search by keyword</label>
                 <input type="text" name="name" class="input-primary" [(ngModel)]="searchedKeyword">
             </div> -->
-            <div class="inputgroup">
+            <!-- <div class="inputgroup">
                 <button class="button">Filter</button>
-            </div>
+            </div> -->
         </form>
  
 
@@ -48,7 +48,7 @@
 
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
-        <span *ngIf="!flag"> <h2>Please choose the month required</h2></span>
+        <span *ngIf="!flag"> <h2>Loading...</h2></span>
         <span *ngIf="flag"> <h2>No reports available for the month</h2></span>
  </div>
 </div>

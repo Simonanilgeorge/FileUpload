@@ -3,10 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
-  styleUrls: ['./employee-report.component.css']
+  styleUrls: ['./employee-report.component.css'],
+  providers:[DatePipe]
 })
 export class EmployeeReportComponent implements OnInit {
 
@@ -15,11 +17,10 @@ export class EmployeeReportComponent implements OnInit {
   titleName;
   flag: boolean = false;
   searchedKeyword: string;
-
   filterForm = this.fb.group({
-    dateFilter: ['']
+    dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')]
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder,private loginService:LoginService) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder,private loginService:LoginService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();

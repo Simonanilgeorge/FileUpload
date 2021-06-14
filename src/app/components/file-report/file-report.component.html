@@ -20,7 +20,7 @@
         </form>
 
 
-    <div *ngIf="flag; else elseBlock">
+    <div *ngIf="flag">
  
 
             <div class="selectcontainer">
@@ -72,13 +72,12 @@
         </div>
     </div>
 
-    <ng-template #elseBlock>
+    <div *ngIf="!flag">
         <div class="elseblock">
 
             <h2>No reports available</h2>
-
             <button style="width:250px;" class="button" routerLink="/upload">Generate Report</button>
         </div>
-    </ng-template>
+    </div>
 
 </div>

@@ -7,7 +7,7 @@
 
 .formcontainer {
   flex:1;
-  padding: 50px;
+  padding: 3.125em;
 
   align-self: center;
   display:flex;
@@ -20,23 +20,23 @@
 
 .form{
 
-  padding: 20px;
-  width:130%;
-  /* border: 2px solid black; */
+  padding: 1.25em;
+  width:21em;
+
   background:white;
-  border-radius:15px;
+  border-radius:0.9em;
   color:rgb(13, 47, 75);
 
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
 }
 
 .inputgroup{
-  padding: 20px;
+  padding: 1.25em;
   display: flex;
-  height:100px;
+  height:6.25em;
   flex-direction: column;
   justify-content: space-between;
-  /* border: 2px solid black; */
+
 
 }
 
@@ -44,7 +44,7 @@
 
 
 
-/* new input file styles */
+
 
 .wrapper {
   height: 100vh;
@@ -60,12 +60,12 @@
   position: relative;
   overflow: hidden;
 
-  padding: 15px;
+  padding: 0.9em;
   cursor:pointer;
   text-transform: uppercase;
   color:steelblue;
   border: 1px solid grey;
-  border-radius: 5px;
+  border-radius: 0.3em;
   width:100%;
 
 
