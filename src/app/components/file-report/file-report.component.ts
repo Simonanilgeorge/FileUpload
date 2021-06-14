@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class FileReportComponent implements OnInit {
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
-  flag: boolean = null;
+  flag: number = 2;
   flg: number = 0;
   filterDate: any = {};
   dt: any = {};
@@ -159,12 +159,12 @@ export class FileReportComponent implements OnInit {
 
 
       if (this.datas.length == 0) {
-        this.flag = false;
+        this.flag = 0;
 
         return;
       }
       else {
-        this.flag = true;
+        this.flag = 1;
       }
 
       this.columnSum["Grand_total"] = 0;
@@ -210,11 +210,14 @@ export class FileReportComponent implements OnInit {
 
 
   fetchTable(name) {
+
+    this.flag=2;
     if(name == "date"){
       this.pivotTableForm.get("time").setValue("")
     }
     console.log(this.pivotTableForm.value)
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
+
       this.flg = 0
       this.checklist = []
       this.onResponse(res)
