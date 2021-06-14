@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -22,7 +23,9 @@ export class ViewEmployeeComponent implements OnInit {
   data = [];
   singleSearch;
   flag: Boolean = false;
-  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
+  filterForm={}
+
+  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -104,6 +107,9 @@ export class ViewEmployeeComponent implements OnInit {
 
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
+  }
+  testing(){
+    console.log(this.filterForm)
   }
 
 }

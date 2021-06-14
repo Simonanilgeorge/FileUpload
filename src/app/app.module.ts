@@ -23,6 +23,7 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { ViewEmployeeComponent } from './components/view-employee/view-employee.component';
 import { SortPipe } from './pipes/sort.pipe';
 import { MultifilterPipe } from './pipes/multifilter.pipe';
+import { ColumnsortPipe } from './pipes/columnsort.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MultifilterPipe } from './pipes/multifilter.pipe';
     ViewEmployeeComponent,
     SortPipe,
     MultifilterPipe,
+    ColumnsortPipe,
 
   ],
   imports: [

@@ -44,12 +44,16 @@
                     </th>
                 </tr>
                 <tr>
-
-                    <th  *ngFor="let title of titles" (click)="getTitleName(title)">{{title}} &uarr;&darr;</th>
-                 
+                    <th  *ngFor="let title of titles">
+                        <span (click)="showInput()">{{title}} </span> 
+                        <span (click)="getTitleName(title)">&uarr;&darr;</span>
+                        <div class="inputgroup">  
+                            <input type="text" placeholder="Search" (input)="testing()" class="search" [(ngModel)]="filterForm[title]">
+                        </div>
+                    </th>
                     <th >Delete</th>
                 </tr>
-                <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
+                <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName | columnsort:filterForm">
                     <td *ngFor="let title of titles">
                         <span *ngIf="title=='empcode'" style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">{{data[title]}}</span>
                         <span *ngIf="title!='empcode'"> {{data[title]}}</span>
