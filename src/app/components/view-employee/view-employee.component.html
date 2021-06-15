@@ -56,12 +56,11 @@
                         <th>Delete</th>
 
                     </tr>
-                    <tr
-                        *ngFor="let data of data | filter:searchedKeyword | columnsort:filterForm.value | sort:titleName ">
+                    <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:filterForm.value | sort:titleName ">
                         <td *ngFor="let title of titles">
-                            <span *ngIf="title=='empcode'"
-                                style='cursor: pointer; text-decoration: underline; color:blueviolet'
-                                (click)="edit(data)">{{data[title]}}</span>
+                            <span *ngIf="title=='empcode'"style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">
+                                {{data[title]}}
+                            </span>
                             <span *ngIf="title!='empcode'"> {{data[title]}}</span>
                         </td>
                         <td>

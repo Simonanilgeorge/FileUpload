@@ -22,6 +22,16 @@ export class MonthlyReportComponent implements OnInit {
   dates = [];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+  
+
+  filterForm:FormGroup=this.fb.group({
+    empcode:[""],
+    name: [""],
+    doj: [""],
+    search: [""],
+    client: [""],
+    task: [""]
+  })
 
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],

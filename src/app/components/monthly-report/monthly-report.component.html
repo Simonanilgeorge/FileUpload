@@ -37,6 +37,8 @@
     <div class="report-container" *ngIf="total != 0">
 
         <div class="tablecontainer">
+
+            <form [formGroup]="filterForm">
             <table>
                 <tr>
                     <th colspan="40" style="position:sticky;top:0;">
@@ -51,7 +53,8 @@
                 <tr>
 
                     <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;
+                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">
+                        NAME &uarr;&darr;
                     </th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
@@ -97,6 +100,7 @@
                 </tr>
 
             </table>
+        </form>
         </div>
 
     </div>

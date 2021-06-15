@@ -9,7 +9,7 @@
 .search {
   border: 1px solid grey;
   padding:0.3em;
-width:100%;
+
 }
 .report-container {
   padding: 1em;
@@ -88,3 +88,8 @@ td {
   padding: 0.5em;
   font-size: 0.8rem;
 }
+
+
+/* .inputgroup-columnsort{
+border:1px solid black;
+} */
