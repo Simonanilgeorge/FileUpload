@@ -22,7 +22,7 @@ export class ViewEmployeeComponent implements OnInit {
   data = [];
   singleSearch;
   flag: Boolean = false;
-  flg:Boolean = false;
+  showColumnInput:Boolean = false;
 
   filterForm:FormGroup=this.fb.group({
     empcode:[""],
@@ -117,7 +117,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.dataToBeDeleted = null;
   }
   showInput(){
-    this.flg = !this.flg
+    this.showColumnInput = !this.showColumnInput
   }
 
 }

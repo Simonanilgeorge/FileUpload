@@ -35,3 +35,16 @@ td {
   padding: 0.4em;
   background: white;
 }
+
+
+.stickyheading{
+  position: sticky;
+  left:0;
+  z-index:12
+}
+
+.stickydata{
+  position: sticky;
+  left:0;
+}
+

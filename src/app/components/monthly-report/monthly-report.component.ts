@@ -20,12 +20,14 @@ export class MonthlyReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
+  titles=[];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+  showColumnInput;
   
 
   filterForm:FormGroup=this.fb.group({
-    empcode:[""],
+    emp_code:[""],
     name: [""],
     doj: [""],
     search: [""],
@@ -65,6 +67,14 @@ export class MonthlyReportComponent implements OnInit {
       this.data = res.data;
       this.dates = res.dates;
       this.sheetNameRes=res.sheet;
+
+      // get titles
+      this.titles=this.data.map((data)=>{
+        return Object.keys(data)
+      })[0]
+      this.titles.pop()
+      
+      console.log(this.titles)
       this.total = 0
 
       // initialize columnsum keys to 0
@@ -78,7 +88,6 @@ export class MonthlyReportComponent implements OnInit {
         this.dates.forEach((date)=>{
           if(datas[date]){
             this.columnSum[date]=this.columnSum[date]+datas[date]
-            console.log(this.columnSum[date],date)
             
           }
         }) 
@@ -112,4 +121,8 @@ console.log(this.columnSum)
 
   }
 
+  showInput(){
+    this.showColumnInput = !this.showColumnInput
+    console.log(this.filterForm.getRawValue())
+  }
 }
