@@ -13,9 +13,10 @@
             </div>
         </form>
 
-    <div *ngIf="flag" class="report-container">
+    <div *ngIf="flag==1" class="report-container">
 
         <div class="tablecontainer">
+            <form [formGroup]="columnFilterForm">
             <table>
                 <tr>
                     <th colspan="10" style="position:sticky;top:0;">
@@ -29,26 +30,35 @@
                 </tr>
 
                 <tr>
-                    <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
+
+                    <th *ngFor="let title of titles">
+                      <span (click)="showInput()">{{title}}</span>
+
+                      <span (click)="getTitleName(title)">&uarr;&darr;</span>
+                      <div class="inputgroup-columnsort" *ngIf="showColumnInput">
+                        <input type="text" class="search" formControlName="{{title}}">
+                    </div>
+                    </th>
+                    <!-- <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
                     <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
                     <th>DOJ</th>
                     <th>SERACH/NON-SERACH</th>
                     <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
-                    <th>TASK</th>
+                    <th>TASK</th> -->
                     <th (click)="getTitleName('order_count')">ORDER COUNT &uarr;&darr;</th>
                     <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr;&darr;</th>
                     <th (click)="getTitleName('utilization')">UTILIZATION &uarr;&darr;</th>
                     <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
-
                 </tr>
 
-                <tr *ngFor="let status of datas | filter:searchedKeyword | sort:titleName">
-                    <td>{{status.emp_code}}</td>
+                <tr *ngFor="let status of datas | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName">
+                    <!-- <td>{{status.emp_code}}</td>
                     <td style="position: sticky;left:0">{{status.name}}</td>
                     <td>{{status.doj}}</td>
                     <td>{{status.search}}</td>
                     <td>{{status.client}}</td>
-                    <td>{{status.task}}</td>
+                    <td>{{status.task}}</td> -->
+                    <td *ngFor="let title of titles">{{status[title]}}</td>
                     <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
                     <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
                     <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
@@ -56,11 +66,17 @@
                 </tr>
 
             </table>
+        </form>
         </div>
 
     </div>
-    <div class="statusmsg" *ngIf="!flag">
+    <div class="statusmsg" *ngIf="flag==0">
         <h2>Status yet to be updated by employee..</h2>
+
+    </div>
+
+    <div class="statusmsg" *ngIf="flag==2">
+        <h2>Loading...</h2>
 
     </div>
 

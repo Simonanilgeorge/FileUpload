@@ -15,8 +15,18 @@ export class EmployeeReportComponent implements OnInit {
   datas: any;
 
   titleName;
-  flag: boolean = false;
+  titles=[]
+  flag = 2;
   searchedKeyword: string;
+  showColumnInput;
+  columnFilterForm=this.fb.group({
+    emp_code:[""],
+    name: [""],
+    doj: [""],
+    search: [""],
+    client: [""],
+    task: [""]
+  })
   filterForm = this.fb.group({
     dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')]
   });
@@ -55,13 +65,20 @@ export class EmployeeReportComponent implements OnInit {
   onResponse(res) {
 
     res = JSON.parse(res);
+    this.titles=res.map((data)=>{
+      return Object.keys(data)
+    })[0]
+    this.titles.splice(6,4)    
+    console.log(this.titles)
+
+    console.log(res)
     this.datas = res;
     if (this.datas.length == 0) {
-      this.flag = false;
+      this.flag = 0;
       return;
     }
     else {
-      this.flag = true;
+      this.flag = 1;
     }
 
 
@@ -75,6 +92,10 @@ export class EmployeeReportComponent implements OnInit {
     },100)
 
 
+  }
+  showInput(){
+    this.showColumnInput = !this.showColumnInput
+    console.log(this.columnFilterForm.getRawValue())
   }
 
 }
