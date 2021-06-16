@@ -85,14 +85,17 @@ td {
   background: white;
   display: flex;
   flex-direction: column;
-  border-radius: 0.6em;
   width: 12.5em;
-
   overflow: scroll;
   height: 12.5em;
   transition: 0.3s ease-in-out;
 }
 
+label{
+  color:black;
+  margin-left: 0.2em;
+  padding: 0.1em;
+}
 .multiselect {
   position: relative;
 }

@@ -2,15 +2,15 @@
 
 <div class="container">
     <app-navbar></app-navbar>
-    <div class="formcontainer">
-        <app-toast [message]="message" [classBoolean]="toast"></app-toast>
-        <div class="form">
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+    <div class="formcontainer" *ngIf="flag==0">
+
+        <div class="form" >
             <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
 
                 <div class="inputgroup">
                     <h3>Upload file</h3>
                 </div>
-
                 <!-- for rvsi -->
                 <div class="inputgroup">
                     <input type="file" name="file" id="file" class="file" #rvsi (change)="onFileSelect($event,'rvsi')" >
@@ -36,6 +36,12 @@
                 </div>
 
             </form>
+
         </div>
     </div>
+    
+<div class="formcontainer" *ngIf="flag==1">
+<h2>Please wait...</h2>
+</div>
+
 </div>

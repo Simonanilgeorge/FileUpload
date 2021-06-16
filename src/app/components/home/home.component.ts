@@ -18,10 +18,10 @@ export class HomeComponent implements OnInit {
   @ViewChild('UploadFileInput', { static: false }) uploadFileInput: ElementRef;
 
 
-  clicked=false;
-   rvsiFileName="Choose rvsi";
-   sp2FileName="Choose sp2";
-
+  clicked = false;
+  rvsiFileName = "Choose rvsi";
+  sp2FileName = "Choose sp2";
+  flag = 0;
   message = "Success";
   toast: Boolean = false;
   fileUploadForm: FormGroup;
@@ -53,31 +53,31 @@ export class HomeComponent implements OnInit {
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
 
     if (!_.includes(af, event.target.files[0].type)) {
-  
-      this.toast=true;
-    this.showToastMessage("Only EXCEL Docs Allowed")
+
+      this.toast = true;
+      this.showToastMessage("Only EXCEL Docs Allowed")
       return;
     }
 
-    
+
     if (name === "rvsi") {
-      
-      this.rvsiFileName=event.target.files[0].name;
+
+      this.rvsiFileName = event.target.files[0].name;
       this.rvsi.setValue(event.target.files[0]);
-      
+
     }
-    else{
-      this.sp2FileName=event.target.files[0].name;
+    else {
+      this.sp2FileName = event.target.files[0].name;
       this.sp2.setValue(event.target.files[0]);
     }
 
   }
 
   onFormSubmit() {
-
+    this.flag = 1;
     if (this.fileUploadForm.status == "INVALID") {
-      this.toast=true;
-    this.showToastMessage("Select both the files")
+      this.toast = true;
+      this.showToastMessage("Select both the files")
       return false;
     }
     const formData = new FormData();
@@ -87,13 +87,13 @@ export class HomeComponent implements OnInit {
     this.uploadService.uploadFile(formData).subscribe((res) => {
 
       console.log(res);
-      if(res.response!="Invalid file")
-      {
+      if (res.response != "Invalid file") {
         this.router.navigate(['/report'])
       }
 
-      else{
+      else {
         this.showToastMessage(res.response);
+        this.flag=0;
       }
 
     }, (err) => {
