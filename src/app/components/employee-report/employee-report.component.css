@@ -61,5 +61,15 @@ td {
   background: white;
 }
 
+.stickyheading{
+  position: sticky;
+  left:0;
+  z-index:12
+}
+
+.stickydata{
+  position: sticky;
+  left:0;
+}
 
 

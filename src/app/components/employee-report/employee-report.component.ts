@@ -20,7 +20,7 @@ export class EmployeeReportComponent implements OnInit {
   searchedKeyword: string;
   showColumnInput;
   columnFilterForm=this.fb.group({
-    emp_code:[""],
+    empcode:[""],
     name: [""],
     doj: [""],
     search: [""],
@@ -65,13 +65,6 @@ export class EmployeeReportComponent implements OnInit {
   onResponse(res) {
 
     res = JSON.parse(res);
-    this.titles=res.map((data)=>{
-      return Object.keys(data)
-    })[0]
-    this.titles.splice(6,4)    
-    console.log(this.titles)
-
-    console.log(res)
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = 0;
@@ -79,6 +72,11 @@ export class EmployeeReportComponent implements OnInit {
     }
     else {
       this.flag = 1;
+      this.titles=res.map((data)=>{
+        return Object.keys(data)
+      })[0]
+      this.titles.splice(6,4)    
+      console.log(this.titles)
     }
 
 

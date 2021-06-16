@@ -31,7 +31,7 @@
 
                 <tr>
 
-                    <th *ngFor="let title of titles">
+                    <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                       <span (click)="showInput()">{{title}}</span>
 
                       <span (click)="getTitleName(title)">&uarr;&darr;</span>
@@ -51,14 +51,14 @@
                     <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
                 </tr>
 
-                <tr *ngFor="let status of datas | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName">
+                <tr *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
                     <!-- <td>{{status.emp_code}}</td>
                     <td style="position: sticky;left:0">{{status.name}}</td>
                     <td>{{status.doj}}</td>
                     <td>{{status.search}}</td>
                     <td>{{status.client}}</td>
                     <td>{{status.task}}</td> -->
-                    <td *ngFor="let title of titles">{{status[title]}}</td>
+                    <td *ngFor="let title of titles" [class.stickydata]="title=='name'">{{status[title]}}</td>
                     <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
                     <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
                     <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>

@@ -24,7 +24,7 @@ export class ViewEmployeeComponent implements OnInit {
   flag: Boolean = false;
   showColumnInput:Boolean = false;
 
-  filterForm:FormGroup=this.fb.group({
+  columnFilterForm:FormGroup=this.fb.group({
     empcode:[""],
     name: [""],
     doj: [""],

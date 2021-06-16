@@ -24,21 +24,19 @@ export class MonthlyReportComponent implements OnInit {
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   showColumnInput;
-  
-
-  filterForm:FormGroup=this.fb.group({
-    emp_code:[""],
+  columnFilterForm:FormGroup=this.fb.group({
+    empcode:[""],
     name: [""],
     doj: [""],
     search: [""],
     client: [""],
     task: [""]
   })
-
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],
     sheetName: ['Revenue', Validators.required]
   })
+
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
@@ -53,10 +51,7 @@ export class MonthlyReportComponent implements OnInit {
 
   filter() {
 
-
-
     if (this.Date.status === "INVALID") {
-
       this.showToastMessage("Select month and sheet");
       return;
     }
@@ -76,7 +71,6 @@ export class MonthlyReportComponent implements OnInit {
       
       console.log(this.titles)
       this.total = 0
-
       // initialize columnsum keys to 0
       this.dates.forEach((date)=>{
         this.columnSum[date]=0;
@@ -88,7 +82,6 @@ export class MonthlyReportComponent implements OnInit {
         this.dates.forEach((date)=>{
           if(datas[date]){
             this.columnSum[date]=this.columnSum[date]+datas[date]
-            
           }
         }) 
         
@@ -100,8 +93,6 @@ console.log(this.columnSum)
       console.log(err.message)
     })
   }
-
-
 
   showToastMessage(message) {
     this.message = message;
@@ -117,12 +108,10 @@ console.log(this.columnSum)
     setTimeout(()=>{
       this.titleName=title;
     },100)
-
-
   }
 
   showInput(){
     this.showColumnInput = !this.showColumnInput
-    console.log(this.filterForm.getRawValue())
+    console.log(this.columnFilterForm.getRawValue())
   }
 }

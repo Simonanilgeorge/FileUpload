@@ -38,7 +38,7 @@
 
         <div class="tablecontainer">
 
-            <form [formGroup]="filterForm">
+            <form [formGroup]="columnFilterForm">
             <table>
                 <tr>
                     <th colspan="40" style="position:sticky;top:0;">
@@ -71,7 +71,7 @@
                     <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                 </tr>
                 
-                <tr *ngFor="let data of data | filter:searchedKeyword | sort:titleName">
+                <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
                     <!-- <td>{{data.emp_code}}</td>
                     <td style="position: sticky;left:0; ">{{data.name}}</td>
                     <td>{{data.doj}}</td>
