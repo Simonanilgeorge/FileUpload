@@ -98,7 +98,6 @@ export class FileReportComponent implements OnInit {
   // function called when a filter is applied
   applyFilter() {
 
-
     // add pivotdate key to filterdate object
     this.filterDate['pivotdate'] = this.pivotDate.value;
     this.filterDate['time'] = this.time_.value;
@@ -110,8 +109,9 @@ export class FileReportComponent implements OnInit {
 
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
+      console.log(res);
       this.datas = null;
-      console.log(res)
+   
       this.onResponse(res)
 
     }, (err) => {
@@ -192,7 +192,6 @@ export class FileReportComponent implements OnInit {
 
 
     if (this.flg == 0) {
-
       for (var i = 0; i < this.dates.length; i++) {
 
         this.dt["id"] = i

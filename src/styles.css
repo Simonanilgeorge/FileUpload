@@ -171,7 +171,8 @@ tr:nth-of-type(odd) td {
 }
 .formcontainer-primary {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12em, auto));
+  grid-template-columns: repeat(auto-fit, minmax(14em, auto));
+  
 }
 .minicontainer {
   display: flex;

@@ -9,8 +9,6 @@
 }
 
 
-
-
 textarea {
   padding: 0.6em;
 
@@ -61,7 +59,6 @@ form {
   /* / justify-content: space-around; / */
 }
 
-
 .inputgroup {
   /* border: 1px solid black; */
   color: rgba(29, 51, 110, 0.76);
@@ -72,6 +69,9 @@ form {
   /* width:70%; */
 }
 
+.input-primary{
+  width:15em;
+}
 
 
 
@@ -85,7 +85,7 @@ form {
   cursor: pointer;
   border: 1px solid grey;
   color: black;
-  width: 100%;
+  width: 14em;
   font-size: 0.9rem;
   height: 3em;
 
