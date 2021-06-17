@@ -41,18 +41,16 @@ export class EmployeeReportComponent implements OnInit {
 
   getReport() {
 
+
     this.empreportService.getReport().subscribe((res) => {
-
       this.onResponse(res);
-
-
     }, (err) => {
       console.log(err.message)
     })
   }
 
   onSubmit() {
-
+    this.flag=2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
 
       this.onResponse(res);

@@ -1,73 +1,60 @@
-
 <div class="container">
     <app-navbar></app-navbar>
 
     <div class="heading">
         <h2>Daily Production Report</h2>
     </div>
-        <form [formGroup]="filterForm" class="formcontainer"> 
+    <form [formGroup]="filterForm" class="formcontainer">
 
-            <div class="inputgroup">
-                <label for="date">Date</label>
-                <input type="date" name="date" class="input-primary" (change)="onSubmit()"formControlName="dateFilter">
-            </div>
-        </form>
+        <div class="inputgroup">
+            <label for="date">Date</label>
+            <input type="date" name="date" class="input-primary" (change)="onSubmit()" formControlName="dateFilter">
+        </div>
+    </form>
 
     <div *ngIf="flag==1" class="report-container">
 
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
-            <table>
-                <tr>
-                    <th colspan="10" style="position:sticky;top:0;">
-                        <form class="tablesearch">
-                            <div class="inputgroup">
-             
-                                <input type="text" placeholder="Search" name="name" class="search"[(ngModel)]="searchedKeyword">
+                <table>
+                    <tr>
+                        <th colspan="10" style="position:sticky;top:0;">
+                            <form class="tablesearch">
+                                <div class="inputgroup">
+
+                                    <input type="text" placeholder="Search" name="name" class="search"
+                                        [(ngModel)]="searchedKeyword">
+                                </div>
+                            </form>
+                        </th>
+                    </tr>
+
+                    <tr>
+
+                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
+                            <span style="cursor: pointer;" (click)="getTitleName(title)" (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
+                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
+                                <input type="text" class="search" formControlName="{{title}}">
                             </div>
-                        </form>
-                    </th>
-                </tr>
+                        </th>
+                        <th (click)="getTitleName('order_count')">ORDER COUNT &uarr;&darr;</th>
+                        <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr;&darr;</th>
+                        <th (click)="getTitleName('utilization')">UTILIZATION &uarr;&darr;</th>
+                        <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
+                    </tr>
 
-                <tr>
+                    <tr
+                        *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
 
-                    <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-                      <span (click)="showInput()">{{title}}</span>
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'">{{status[title]}}</td>
+                        <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
+                        <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
+                        <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
+                        <td><span *ngIf="status['revenue'] != 0">${{status.revenue}} </span></td>
+                    </tr>
 
-                      <span (click)="getTitleName(title)">&uarr;&darr;</span>
-                      <div class="inputgroup-columnsort" *ngIf="showColumnInput">
-                        <input type="text" class="search" formControlName="{{title}}">
-                    </div>
-                    </th>
-                    <!-- <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">NAME &uarr;&darr;</th>
-                    <th>DOJ</th>
-                    <th>SERACH/NON-SERACH</th>
-                    <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
-                    <th>TASK</th> -->
-                    
-                    <th (click)="getTitleName('order_count')">ORDER COUNT &uarr;&darr;</th>
-                    <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr;&darr;</th>
-                    <th (click)="getTitleName('utilization')">UTILIZATION &uarr;&darr;</th>
-                    <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
-                </tr>
-
-                <tr *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
-                    <!-- <td>{{status.emp_code}}</td>
-                    <td style="position: sticky;left:0">{{status.name}}</td>
-                    <td>{{status.doj}}</td>
-                    <td>{{status.search}}</td>
-                    <td>{{status.client}}</td>
-                    <td>{{status.task}}</td> -->
-                    <td *ngFor="let title of titles" [class.stickydata]="title=='name'">{{status[title]}}</td>
-                    <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
-                    <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
-                    <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
-                    <td><span *ngIf="status['revenue'] != 0">${{status.revenue}} </span></td>
-                </tr>
-
-            </table>
-        </form>
+                </table>
+            </form>
         </div>
 
     </div>

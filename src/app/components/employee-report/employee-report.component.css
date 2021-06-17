@@ -17,14 +17,13 @@
 .statusmsg {
 
   text-align: center;
-/* 
-  border:1px solid black; */
-  /* margin:100px 0; */
   display: flex;
   color:rgba(29, 51, 110, 0.76);
   justify-content: center;
   align-items: center;
   padding: 30px;
+  flex:1;
+
 }
 
 

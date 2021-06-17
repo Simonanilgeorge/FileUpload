@@ -51,33 +51,16 @@
                     </th>
                 </tr>
                 <tr>
-                    <!-- <th (click)="getTitleName('emp_code')">EMP CODE &uarr;&darr;</th>
-                    <th style="position: sticky;left:0;z-index:12;" (click)="getTitleName('name')">
-                        NAME &uarr;&darr;
-                    </th>
-                    <th>DOJ</th>
-                    <th>SERACH/NON-SERACH</th>
-                    <th (click)="getTitleName('client')">CLIENT &uarr;&darr;</th>
-                    <th>TASK</th> -->
-
                     <th *ngFor="let title of titles"  [class.stickyheading]="title=='name'">
-                     <span (click)="showInput()"> {{title}}</span>   
-                     <span (click)="getTitleName(title)">&uarr;&darr;</span>
+                        <span style="cursor: pointer;" (click)="getTitleName(title)" (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
                      <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                         <input type="text" class="search" formControlName="{{title}}">
                     </div>
                     </th>
                     <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
                     <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
-                </tr>
-                
+                </tr>      
                 <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
-                    <!-- <td>{{data.emp_code}}</td>
-                    <td style="position: sticky;left:0; ">{{data.name}}</td>
-                    <td>{{data.doj}}</td>
-                    <td>{{data.search}}</td>
-                    <td>{{data.client}}</td>
-                    <td>{{data.task}}</td> -->
                     <td *ngFor="let title of titles" [class.stickydata]="title=='name'">{{data[title]}}</td>
                     <td *ngFor="let date of dates">
                         <span *ngIf="data[date]">

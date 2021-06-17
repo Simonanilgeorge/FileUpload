@@ -13,9 +13,9 @@ export class ColumnsortPipe implements PipeTransform {
     let filteredData = []
   
     filteredData = data.filter((data) => {
-    return data.empcode.toLowerCase().includes(args.empcode.toLowerCase()) && data.doj.toLowerCase().includes(args.doj.toLowerCase()) 
-    && data.search.toLowerCase().includes(args.search.toLowerCase()) && data.client.toLowerCase().includes(args.client.toLowerCase()) 
-    && data.task.toLowerCase().includes(args.task.toLowerCase()) && data.name.toLowerCase().includes(args.name.toLowerCase())
+    return data.empcode.toLowerCase().startsWith(args.empcode.toLowerCase()) && data.doj.toLowerCase().startsWith(args.doj.toLowerCase()) 
+    && data.search.toLowerCase().startsWith(args.search.toLowerCase()) && data.client.toLowerCase().startsWith(args.client.toLowerCase()) 
+    && data.task.toLowerCase().startsWith(args.task.toLowerCase()) && data.name.toLowerCase().startsWith(args.name.toLowerCase())
     })
     return filteredData
 

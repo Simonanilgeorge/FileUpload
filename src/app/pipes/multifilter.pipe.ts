@@ -19,8 +19,8 @@ transform(value: any, args:any): any {
   let filteredData = []
 
   filteredData = data.filter((data) => {
-  return data.order_number.includes(args.orderNumber) && data.date.includes(newDate) && data.status.includes(args.status)
-  && data.Client.includes(args.Client) && data.Task.includes(args.Task) && data.Process.includes(args.Process)
+  return data.order_number.toLowerCase().startsWith(args.orderNumber.toLowerCase()) && data.date.startsWith(newDate) && data.status.startsWith(args.status)
+  && data.Client.startsWith(args.Client) && data.Task.startsWith(args.Task) && data.Process.startsWith(args.Process)
   })
   return filteredData
   }
