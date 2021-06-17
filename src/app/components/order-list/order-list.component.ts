@@ -74,7 +74,7 @@ export class OrderListComponent implements OnInit {
     if(this.user.status=="INVALID"){
       return;
     }
-    console.log(this.user.value)
+
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
 
       this.onResponse(res);
@@ -88,7 +88,7 @@ export class OrderListComponent implements OnInit {
 
 
     res = JSON.parse(res);
-    console.log(res);
+
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = false;
@@ -156,7 +156,7 @@ export class OrderListComponent implements OnInit {
 
     this.Tasklist = this.dropDownList[this.filterForm.value.Client];
     this.Processlist = null
-
+    
 
   }
 
@@ -164,7 +164,9 @@ export class OrderListComponent implements OnInit {
 
     this.final = null
     this.Process.setValue("");
-    this.final = this.filterForm.value.Client + this.filterForm.value.Task
+    if(this.filterForm.value.Task != ""){
+      this.final = this.filterForm.value.Client + this.filterForm.value.Task
+    }
     this.Processlist = this.dropDownList[this.final]
   }
 
@@ -180,10 +182,7 @@ export class OrderListComponent implements OnInit {
       status: [""],
 
     })
-    console.log(this.filterForm.getRawValue())
+    
   }
 
 }
-
-
-

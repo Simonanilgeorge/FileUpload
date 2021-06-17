@@ -129,8 +129,7 @@ get status(){
     }
 
 
-    console.log(this.userForm.status)
-    console.log(this.userForm.value)
+
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
 

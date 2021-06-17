@@ -76,7 +76,7 @@ export class EmployeeReportComponent implements OnInit {
         return Object.keys(data)
       })[0]
       this.titles.splice(6,4)    
-      console.log(this.titles)
+      
     }
 
 
@@ -93,7 +93,7 @@ export class EmployeeReportComponent implements OnInit {
   }
   showInput(){
     this.showColumnInput = !this.showColumnInput
-    console.log(this.columnFilterForm.getRawValue())
+    
   }
 
 }

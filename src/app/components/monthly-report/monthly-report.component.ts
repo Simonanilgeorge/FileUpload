@@ -58,7 +58,7 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-      console.log(res)
+    
       this.data = res.data;
       this.dates = res.dates;
       this.sheetNameRes=res.sheet;
@@ -69,7 +69,7 @@ export class MonthlyReportComponent implements OnInit {
       })[0]
       this.titles.pop()
       
-      console.log(this.titles)
+  
       this.total = 0
       // initialize columnsum keys to 0
       this.dates.forEach((date)=>{
@@ -86,8 +86,7 @@ export class MonthlyReportComponent implements OnInit {
         }) 
         
       });
-      console.log("column sum is ")
-console.log(this.columnSum)
+
       this.flag = true
     }, (err) => {
       console.log(err.message)
@@ -112,6 +111,6 @@ console.log(this.columnSum)
 
   showInput(){
     this.showColumnInput = !this.showColumnInput
-    console.log(this.columnFilterForm.getRawValue())
+
   }
 }

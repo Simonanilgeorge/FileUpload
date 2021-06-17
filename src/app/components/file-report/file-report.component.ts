@@ -109,7 +109,7 @@ export class FileReportComponent implements OnInit {
 
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
-      console.log(res);
+
       this.datas = null;
    
       this.onResponse(res)
@@ -214,7 +214,7 @@ export class FileReportComponent implements OnInit {
     if(name == "date"){
       this.pivotTableForm.get("time").setValue("")
     }
-    console.log(this.pivotTableForm.value)
+  
     this.uploadService.getFilteredPivotTable(this.pivotTableForm.value).subscribe((res) => {
 
       this.flg = 0
