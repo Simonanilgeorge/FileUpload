@@ -4,7 +4,10 @@
 <table>
     <tr>
         <th>Edit</th>
-        <th *ngFor="let title of titles">{{title}}</th>
+        <th *ngFor="let heading of headings">
+            {{ heading}}
+
+        </th>
     </tr>
     <tr *ngFor="let data of data">
         <td ><p (click)="edit(data)">&#9998;</p></td>

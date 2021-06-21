@@ -13,9 +13,8 @@ import { DatePipe } from '@angular/common';
 export class EmployeeReportComponent implements OnInit {
 
   datas: any;
-
   titleName;
-  titles=[]
+  titles=["empcode","name","doj","search","client","task"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
@@ -36,6 +35,7 @@ export class EmployeeReportComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getReport();
+    console.log(new Date())
 
   }
 
@@ -63,20 +63,13 @@ export class EmployeeReportComponent implements OnInit {
   onResponse(res) {
 
     res = JSON.parse(res);
-
-  
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = 0;
       return;
     }
     else {
-      this.flag = 1;
-      this.titles=res.map((data)=>{
-        return Object.keys(data)
-      })[0]
-      this.titles.splice(6,4)    
-      
+      this.flag = 1;      
     }
 
 

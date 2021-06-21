@@ -20,7 +20,7 @@ export class MonthlyReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
-  titles=[];
+  titles=["empcode","name","doj","search","client","task"];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   showColumnInput;
@@ -58,18 +58,10 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-    
       this.data = res.data;
       this.dates = res.dates;
       this.sheetNameRes=res.sheet;
-
-      // get titles
-      this.titles=this.data.map((data)=>{
-        return Object.keys(data)
-      })[0]
-      this.titles.pop()
       
-  
       this.total = 0
       // initialize columnsum keys to 0
       this.dates.forEach((date)=>{

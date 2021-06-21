@@ -57,7 +57,7 @@
                         <input type="text" class="search" formControlName="{{title}}">
                     </div>
                     </th>
-                    <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
+                    <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
                     <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                 </tr>      
                 <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">

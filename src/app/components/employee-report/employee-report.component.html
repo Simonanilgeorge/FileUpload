@@ -32,15 +32,28 @@
                     <tr>
 
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-                            <span style="cursor: pointer;" (click)="getTitleName(title)" (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
+                            <span style="cursor: pointer;" (click)="getTitleName(title)"
+                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>
                         </th>
-                        <th (click)="getTitleName('order_count')">ORDER COUNT &uarr;&darr;</th>
-                        <th (click)="getTitleName('productivity')">PRODUCTIVITY &uarr;&darr;</th>
-                        <th (click)="getTitleName('utilization')">UTILIZATION &uarr;&darr;</th>
-                        <th (click)="getTitleName('revenue')">REVENUE &uarr;&darr;</th>
+                        <th>
+                            <span style="cursor: pointer;" (click)="getTitleName('order_count')"> ORDER COUNT
+                                &uarr;&darr;</span>
+                        </th>
+                        <th>
+                            <span style="cursor: pointer;" (click)="getTitleName('productivity')"> PRODUCTIVITY
+                                &uarr;&darr;</span>
+                        </th>
+                        <th>
+                            <span style="cursor: pointer;" (click)="getTitleName('utilization')"> UTILIZATION
+                                &uarr;&darr;</span>
+                        </th>
+                        <th>
+                            <span style="cursor: pointer;" (click)="getTitleName('revenue')"> REVENUE
+                                &uarr;&darr;</span>
+                        </th>
                     </tr>
 
                     <tr

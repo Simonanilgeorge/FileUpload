@@ -7,19 +7,19 @@
 
 
  
-        <form [formGroup]="user" (ngSubmit)="getStatus()"  class="filter">
+        <form [formGroup]="user" class="filter">
 
             <div class="inputgroup">
                 <label for="date">Start Date</label>
-                <input type="date" name="date" class="input-primary" formControlName="dateFilter">
+                <input type="date" name="date" class="input-primary" formControlName="dateFilter" (change)="getStatus()">
             </div>
             <div class="inputgroup">
                 <label for="date">End Date</label>
-                <input type="date" name="date" class="input-primary" formControlName="enddateFilter">
+                <input type="date" name="date" class="input-primary" formControlName="enddateFilter" (change)="getStatus()">
             </div>
-            <div class="inputgroup">
+            <!-- <div class="inputgroup">
                 <button type="submit" class="button">Filter</button>
-            </div>
+            </div> -->
         </form>
 
         <form [formGroup]="filterForm" class="filter">

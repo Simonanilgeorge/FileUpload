@@ -61,6 +61,7 @@ h2,
 .heading h1,
 h2 {
   color: steelblue;
+  text-align: center;
 }
 
 label {

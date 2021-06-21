@@ -13,6 +13,7 @@ export class TableComponent implements OnInit {
   @Output() text = new EventEmitter();
 
   titles;
+  headings;
   constructor(private empreportService: EmpreportService, private router: Router) { }
 
   ngOnInit(): void {
@@ -21,7 +22,7 @@ export class TableComponent implements OnInit {
 
   }
   getTitles() {
-    if (this.data.length==0) {
+    if (this.data.length == 0) {
       return;
     }
 
@@ -29,12 +30,24 @@ export class TableComponent implements OnInit {
       return Object.keys(data);
     })[0];
 
-
     this.titles.pop();
+    this.headings = this.titles.map((title) => {
+      if (title.includes("_")) {
+        return title.replace(/_/g, " ")
+      }
+      else {
+        return title
+      }
+    })
+    console.log(this.headings)
+
   }
+
+
+
   edit(data) {
 
-  
+
     sessionStorage.setItem("updateID", data.id);
     this.router.navigate(['/sendreport'])
 
