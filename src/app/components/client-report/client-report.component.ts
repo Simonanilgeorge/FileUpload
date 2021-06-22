@@ -16,8 +16,8 @@ export class ClientReportComponent implements OnInit {
   flag: boolean = false;
   dates = [];
   searchedKeyword: string;
-  columnSum
-  total
+  columnSum={};
+  total;
 
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required]
@@ -40,6 +40,7 @@ export class ClientReportComponent implements OnInit {
       this.dates = res.dates;
       this.data = res.data;
 
+      this.total = 0
       // initialize columnsum keys to 0
       this.dates.forEach((date) => {
         this.columnSum[date] = 0;
@@ -54,9 +55,20 @@ export class ClientReportComponent implements OnInit {
         })
 
       });
+    
       this.flag = true;
     }, (err) => {
       console.log(err.message);
     })
+  }
+  
+  checkDay(date){
+    if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)
+    {
+      return true
+    }
+    else{
+      return false
+    }
   }
 }
