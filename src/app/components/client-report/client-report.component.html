@@ -3,7 +3,7 @@
 
     
 <div class="heading">
-    <h2>Client Report</h2>
+    <h2>Client Based Monthly Revenue Report</h2>
 </div>
 
    
@@ -32,7 +32,7 @@
             <table>
                 <tr>
                     <th style="position: sticky;left:0;z-index:10;">CLIENT</th>
-                    <th *ngFor="let date of dates; let i=index;">{{i+1}}</th>
+                    <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
                     <th>Total</th>
                 </tr>
                 <tr *ngFor="let data of data | filter:searchedKeyword">
@@ -41,6 +41,10 @@
                         <span *ngIf="data[date]">${{data[date]}}</span> 
                     </td>
                     <td><span *ngIf="data.total">${{data.total}}</span></td>
+                </tr>
+                <tr>
+                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">Total</td>
+                    <td *ngFor="let date of dates "style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;"> ${{columnSum[date]| number}}</td>
                 </tr>
 
             </table>

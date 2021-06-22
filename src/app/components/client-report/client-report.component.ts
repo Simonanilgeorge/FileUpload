@@ -8,19 +8,21 @@ import { DatePipe } from '@angular/common';
   selector: 'app-client-report',
   templateUrl: './client-report.component.html',
   styleUrls: ['./client-report.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class ClientReportComponent implements OnInit {
 
-data=[];
-flag:boolean = false;
-dates=[];
-searchedKeyword: string;
+  data = [];
+  flag: boolean = false;
+  dates = [];
+  searchedKeyword: string;
+  columnSum
+  total
 
-  Date=this.fb.group({
-    date:[this.datePipe.transform(new Date(),"yyyy-MM"),Validators.required]
+  Date = this.fb.group({
+    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required]
   })
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -29,16 +31,31 @@ searchedKeyword: string;
   }
 
 
-  onSubmit(){
+  onSubmit() {
 
-    this.empReportService.getClientReport(this.Date.value).subscribe((res)=>{
+    this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
-      res=JSON.parse(res);
-      this.dates=res.dates;
-      this.data=res.data;
+      res = JSON.parse(res);
+
+      this.dates = res.dates;
+      this.data = res.data;
+
+      // initialize columnsum keys to 0
+      this.dates.forEach((date) => {
+        this.columnSum[date] = 0;
+      })
+      // check if value exist in data
+      this.data.forEach(datas => {
+        this.total = this.total + datas.total
+        this.dates.forEach((date) => {
+          if (datas[date]) {
+            this.columnSum[date] = this.columnSum[date] + datas[date]
+          }
+        })
+
+      });
       this.flag = true;
-
-    },(err)=>{
+    }, (err) => {
       console.log(err.message);
     })
   }

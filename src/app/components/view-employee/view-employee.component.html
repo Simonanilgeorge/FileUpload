@@ -56,7 +56,7 @@
 
                     </tr>
                     <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
-                        <td *ngFor="let title of titles">
+                        <td *ngFor="let title of titles" [class.textleft]="title=='name'|| title=='task'||title=='search'">
                             <span *ngIf="title=='empcode'"style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">
                                 {{data[title]}}
                             </span>

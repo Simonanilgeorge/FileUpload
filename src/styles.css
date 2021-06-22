@@ -116,6 +116,11 @@ label {
 }
 
 /* common styles */
+
+.textleft{
+  text-align: start;
+}
+
 table {
   border-collapse: collapse;
   text-align: center;

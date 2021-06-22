@@ -19,7 +19,7 @@
 
         </div>
         <div class="inputgroup">
-            <label for="name">Select Sheet</label>
+            <label for="name">Select Report</label>
             <select class="input-primary" formControlName="sheetName" (change)="filter()">
                 <!-- <option value="" [disabled]="true">--Select--</option> -->
                 <option *ngFor="let sheet of SheetList">
@@ -61,7 +61,7 @@
                     <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                 </tr>      
                 <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
-                    <td *ngFor="let title of titles" [class.stickydata]="title=='name'">{{data[title]}}</td>
+                    <td *ngFor="let title of titles" [class.stickydata]="title=='name'" [class.textleft]="title=='name'|| title=='task'||title=='search'">{{data[title]}}</td>
                     <td *ngFor="let date of dates">
                         <span *ngIf="data[date]">
                             <span *ngIf="sheetNameRes=='Revenue'">$</span>
