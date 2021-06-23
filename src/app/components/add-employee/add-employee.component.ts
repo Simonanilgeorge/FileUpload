@@ -50,13 +50,18 @@ export class AddEmployeeComponent implements OnInit {
         shift: ["", Validators.required],
         productionStatus: ["", Validators.required],
         trainingDuration: ["", Validators.required],
-        plannedOutOfReviewDate: [""],
+        plannedOutOfReviewDate: [{ value: '', disabled: true },Validators.required],
+        actualOutOfReviewDate:[""],
         username: [sessionStorage.getItem('user')]
       })
     });
 
   }
 
+
+  get actualOutOfReviewDate(){
+    return this.inputs.get("actualOutOfReviewDate")
+  }
   get plannedOutOfReviewDate() {
     return this.inputs.get("plannedOutOfReviewDate")
   }
@@ -231,7 +236,7 @@ export class AddEmployeeComponent implements OnInit {
 
     let array = [];
     for (let i = 1; i <= number; i++) {
-      array.push(`Week ${i}`)
+      array.push(`${i} Week`)
     }
     return array;
   }
@@ -239,11 +244,15 @@ export class AddEmployeeComponent implements OnInit {
   calculatePlannedDate() {
     if (this.trainingDuration.value != "" && this.doj.value != "") {
       // calculate planned date
-      let days = this.trainingDuration.value.split(" ")[1] * 7;
+      let days = this.trainingDuration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
+      console.log(result)
       result.setDate(result.getDate() + days);
+      console.log(result)
 
       this.plannedOutOfReviewDate.setValue(this.datePipe.transform(result,"yyyy-MM-dd"))
+      this.actualOutOfReviewDate.setValue(this.datePipe.transform(result,"yyyy-MM-dd"))
+      
 
 
     }
