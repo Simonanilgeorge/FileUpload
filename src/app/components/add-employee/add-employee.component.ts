@@ -3,12 +3,14 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css']
+  styleUrls: ['./add-employee.component.css'],
+  providers:[DatePipe]
 })
 
 export class AddEmployeeComponent implements OnInit {
@@ -26,7 +28,7 @@ export class AddEmployeeComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private datePipe:DatePipe) { }
 
 
   ngOnInit(): void {
@@ -48,10 +50,15 @@ export class AddEmployeeComponent implements OnInit {
         shift: ["", Validators.required],
         productionStatus: ["", Validators.required],
         trainingDuration: ["", Validators.required],
+        plannedOutOfReviewDate: [""],
         username: [sessionStorage.getItem('user')]
       })
     });
 
+  }
+
+  get plannedOutOfReviewDate() {
+    return this.inputs.get("plannedOutOfReviewDate")
   }
 
   get productionStatus() {
@@ -162,8 +169,7 @@ export class AddEmployeeComponent implements OnInit {
 
   }
   add(e, i) {
-
-    this.displayBoolean = !this.displayBoolean;
+    // this.displayBoolean = !this.displayBoolean;
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
 
@@ -223,11 +229,30 @@ export class AddEmployeeComponent implements OnInit {
 
   counter(number: number) {
 
-    let array=[];
+    let array = [];
     for (let i = 1; i <= number; i++) {
       array.push(`Week ${i}`)
     }
     return array;
   }
+
+  calculatePlannedDate() {
+    if (this.trainingDuration.value != "" && this.doj.value != "") {
+      // calculate planned date
+      let days = this.trainingDuration.value.split(" ")[1] * 7;
+      let result = new Date(this.doj.value);
+      result.setDate(result.getDate() + days);
+
+      this.plannedOutOfReviewDate.setValue(this.datePipe.transform(result,"yyyy-MM-dd"))
+
+
+    }
+    else {
+      return;
+    }
+  }
+
+
+
 }
 
