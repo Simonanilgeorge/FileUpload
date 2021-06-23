@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 
 export class AddEmployeeComponent implements OnInit {
@@ -28,7 +28,7 @@ export class AddEmployeeComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private datePipe:DatePipe) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
 
   ngOnInit(): void {
@@ -50,8 +50,9 @@ export class AddEmployeeComponent implements OnInit {
         shift: ["", Validators.required],
         productionStatus: ["", Validators.required],
         trainingDuration: ["", Validators.required],
-        plannedOutOfReviewDate: [{ value: '', disabled: true },Validators.required],
-        actualOutOfReviewDate:[""],
+        plannedOutOfReviewDate: [{ value: '', disabled: true }, Validators.required],
+        actualOutOfReviewDate: [""],
+        delayReviewDuration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
     });
@@ -59,7 +60,11 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  get actualOutOfReviewDate(){
+  get delayReviewDuration() {
+    return this.inputs.get("delayReviewDuration");
+  }
+
+  get actualOutOfReviewDate() {
     return this.inputs.get("actualOutOfReviewDate")
   }
   get plannedOutOfReviewDate() {
@@ -250,15 +255,49 @@ export class AddEmployeeComponent implements OnInit {
       result.setDate(result.getDate() + days);
       console.log(result)
 
-      this.plannedOutOfReviewDate.setValue(this.datePipe.transform(result,"yyyy-MM-dd"))
-      this.actualOutOfReviewDate.setValue(this.datePipe.transform(result,"yyyy-MM-dd"))
-      
-
+      this.plannedOutOfReviewDate.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
+      this.actualOutOfReviewDate.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
 
     }
     else {
       return;
     }
+  }
+
+
+  calculateDelayReviewDuration() {
+
+    let endDate = new Date(this.actualOutOfReviewDate.value).getTime();
+    let startDate = new Date(this.plannedOutOfReviewDate.value).getTime();
+
+    let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
+
+    if (resultDate > 0) {
+
+      // to display in months and days
+      let result = Math.floor(resultDate/ 30);
+      if(result==0){
+
+        this.delayReviewDuration.setValue(`${resultDate} days`)
+      }
+      else{
+
+   
+        let days = resultDate % 30;
+        this.delayReviewDuration.setValue(`${result} Month ${days} days`)
+  
+      }
+
+      // number of days only
+      // this.delayReviewDuration.setValue(`${result} days`)
+
+
+    }
+    else {
+      alert("actual out of review date cannot be before planned out of review date")
+      return
+    }
+
   }
 
 

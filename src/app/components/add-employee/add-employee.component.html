@@ -126,7 +126,12 @@
 
 <div class="inputgroup">
   <label for="actualOutOfReviewDate">Actual Out Of Review Date</label>
-  <input type="date" name="actualOutOfReviewDate" class="input-primary" formControlName="actualOutOfReviewDate" >
+  <input type="date" name="actualOutOfReviewDate" class="input-primary" formControlName="actualOutOfReviewDate" (change)="calculateDelayReviewDuration()">
+</div>
+
+<div class="inputgroup">
+  <label for="Delay Review Duration">Delay Review Duration</label>
+  <input type="text" name="Delay Review Duration" class="input-primary" formControlName="delayReviewDuration" >
 </div>
 <!-- new fields end -->
 
