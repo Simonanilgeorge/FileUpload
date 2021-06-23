@@ -31,18 +31,90 @@
 
       <div class="inputgroup">
         <label for="client">Client</label>
-        <select name="client" class="input-primary" formControlName="client">
+        <select name="client" class="input-primary" (change)="changeClientOptions($event)" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
           <option *ngFor="let client of ClientList" value="{{client}}">
             {{client}}
           </option>
         </select>
       </div>
+      <!-- change start -->
       <div class="inputgroup">
-        <label for="task">Task</label>
-        <input name="task" class="input-primary" formControlName="task" autocomplete="off">
+        <!-- get styles from state -->
+        <label for="state">Task</label>
+        <ul>
+          <li class="parent" (click)=display()>
+            <div class="dropdown-text">
+              <!-- <p>{{state.value}} </p> -->
+
+              <p *ngIf="task.value.length==0">--Select--</p>
+              <p *ngFor="let task of task.value">{{task}},</p>
+            </div>
+            <p class="icon">&#x276F;</p>
+            <ul class="dropdown" [class.display]="displayBoolean">
+              <!-- <li *ngFor="let data of stateList" (click)="getName(data)">{{data}}</li> -->
+              <div *ngFor="let input of Tasklist;let i=index" class="checkbox">
+                <label for="">
+                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive">
+                    {{input}}
+                </label>
+            </div>
+            </ul>
+          </li>
+        </ul>
+
       </div>
 
+      <!-- change end -->
+
+      <!-- new Drop downs start -->
+      <div class="inputgroup">
+        <label for="shift">Shift</label>
+        <select name="shift" class="input-primary" formControlName="shift">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Morning Shift" >Morning Shift</option>
+          <option value="Night Shift" >Night Shift</option>
+        </select>
+      </div>
+
+      <div class="inputgroup">
+        <label for="Production status">Production status</label>
+        <select name="Production status" class="input-primary" formControlName="productionStatus">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Training" >Training</option>
+          <option value="100% Review" >100% Review</option>
+          <option value="Partial Review" >Partial Review</option>
+          <option value="100% Production" >100% Production</option>
+        </select>
+      </div>
+
+
+      <div class="inputgroup">
+        <label for="Training Duration">Training Duration</label>
+        <select name="Training Duration" class="input-primary"  formControlName="trainingDuration">
+          <option value="" [disabled]="true">--Select--</option>
+          <option *ngFor="let week of counter(24)" [value]="week">
+            {{week}}
+          </option>
+        </select>
+      </div>
+
+      <!-- <div class="inputgroup">
+        <label for="Training Duration">Training Duration</label>
+        <ul>
+          <li class="parent" (click)=display()>
+            <div class="dropdown-icon">
+              <p>{{trainingDuration.value}} </p>
+  
+            </div>
+            <p class="icon">&#x276F;</p>
+            <ul class="dropdown" [class.display]="displayBoolean">
+              <li *ngFor="let week of counter(24)" (click)="getName(week)">{{week}}</li>
+            </ul>
+          </li>
+        </ul>
+      </div> -->
+<!-- new dropdowns end -->
       <div class="inputgroup">
         <label for="search">Search/Non-Search</label>
 

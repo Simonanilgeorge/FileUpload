@@ -12,13 +12,16 @@ import { LoginService } from '../../providers/login.service'
 })
 
 export class AddEmployeeComponent implements OnInit {
+  isActive: boolean = false;
   update: Boolean = false;
   message = null;
   toast: Boolean = false;
   userForm: FormGroup;
   employeeID = { id: sessionStorage.getItem("employeeID") }
   dropDownList: any;
-  ClientList: string[] = ["ASK", "DT", "TW"];
+  displayBoolean = false;
+  ClientList: string[];
+  Tasklist = []
 
 
 
@@ -32,23 +35,35 @@ export class AddEmployeeComponent implements OnInit {
 
     this.checkUpdate();
 
-
+    this.getDropDown();
     this.userForm = this.fb.group({
       inputs: this.fb.group({
         doj: ["", Validators.required],
         empcode: ["", Validators.required],
         name: ["", Validators.required],
-        task: ["", Validators.required],
+        task: this.fb.array([], Validators.required),
         client: ["", Validators.required],
         search: ["", Validators.required],
         id: [""],
-        username:[sessionStorage.getItem('user')]
+        shift: ["", Validators.required],
+        productionStatus: ["", Validators.required],
+        trainingDuration: ["", Validators.required],
+        username: [sessionStorage.getItem('user')]
       })
     });
 
   }
 
+  get productionStatus() {
+    return this.inputs.get("productionStatus")
+  }
+  get shift() {
+    return this.inputs.get("shift")
+  }
 
+  get trainingDuration() {
+    return this.inputs.get("trainingDuration")
+  }
 
   get doj() {
     return this.inputs.get("doj");
@@ -63,8 +78,9 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   get task() {
-    return this.inputs.get("task");
+    return this.inputs.get("task") as FormArray
   }
+
   get client() {
     return this.inputs.get("client");
   }
@@ -94,13 +110,16 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit() {
 
-
+    console.log(this.userForm.getRawValue())
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
       this.showToastMessage("Please fill all the fields");
       return;
     }
+
+
+    return;
 
     // send the form
     this.empReportService.addEmployee(this.userForm.value).subscribe((res) => {
@@ -138,4 +157,77 @@ export class AddEmployeeComponent implements OnInit {
     })
   }
 
+  display() {
+    this.displayBoolean = !this.displayBoolean;
+
+  }
+  add(e, i) {
+
+    this.displayBoolean = !this.displayBoolean;
+    if (e.target.checked) {
+      this.task.push(this.fb.control(e.target.value))
+
+      // console.log(this.task.getRawValue());
+    }
+    else if (!e.target.checked && this.task.getRawValue().includes(e.target.value)) {
+      let index = this.task.getRawValue().findIndex((check) => {
+        return e.target.value === check;
+
+      })
+      this.task.removeAt(index);
+
+    }
+    console.log(`current value for task is ${this.task.getRawValue()}`)
+
+
+
+  }
+
+  changeClientOptions(event) {
+
+    console.log(`current value for task is ${this.task.getRawValue()}`)
+    this.isActive = true
+    setTimeout(() => {
+      this.isActive = false
+    }, 5)
+    this.task.clear()
+    this.Tasklist = this.dropDownList[this.inputs.value.client];
+
+    console.log(`current value for task is ${this.task.getRawValue()}`)
+
+
+    console.log(`current value for isActive is ${this.isActive}`)
+
+
+  }
+
+  getDropDown() {
+
+    this.empReportService.getDropDownList().subscribe((res) => {
+      this.dropDownList = res;
+
+      this.ClientList = this.dropDownList.Client;
+
+    }, (err) => {
+      console.log(err.message)
+    })
+
+  }
+
+
+  getName(data) {
+
+    console.log(data)
+    this.trainingDuration.setValue(data);
+  }
+
+  counter(number: number) {
+
+    let array=[];
+    for (let i = 1; i <= number; i++) {
+      array.push(`Week ${i}`)
+    }
+    return array;
+  }
 }
+
