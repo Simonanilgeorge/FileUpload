@@ -51,7 +51,8 @@ export class AddEmployeeComponent implements OnInit {
         productionStatus: ["", Validators.required],
         trainingDuration: ["", Validators.required],
         plannedOutOfReviewDate: [{ value: '', disabled: true }, Validators.required],
-        actualOutOfReviewDate: [""],
+        actualOutOfReviewDate: ["",Validators.required],
+        delayReason:["",Validators.required],
         delayReviewDuration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
@@ -60,6 +61,10 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
+  get delayReason(){
+    return this.inputs.get("delayReason")
+
+  }
   get delayReviewDuration() {
     return this.inputs.get("delayReviewDuration");
   }
@@ -136,7 +141,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
 
-    return;
+
 
     // send the form
     this.empReportService.addEmployee(this.userForm.value).subscribe((res) => {

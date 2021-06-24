@@ -25,11 +25,6 @@
       </div>
 
       <div class="inputgroup">
-        <label for="doj">Date of Joining</label>
-        <input type="date" name="doj" class="input-primary" formControlName="doj" (change)="calculatePlannedDate()">
-      </div>
-
-      <div class="inputgroup">
         <label for="client">Client</label>
         <select name="client" class="input-primary" (change)="changeClientOptions($event)" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
@@ -65,6 +60,16 @@
 
       </div>
 
+      <div class="inputgroup">
+        <label for="search">Search/Non-Search</label>
+
+        <select name="search" class="input-primary" formControlName="search">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Search">Search</option>
+          <option value="Non-Search">Non-Search</option>
+        </select>
+      </div>
+
       <!-- change end -->
 
       <!-- new Drop downs start -->
@@ -89,15 +94,7 @@
       </div>
 
 
-      <div class="inputgroup">
-        <label for="Training Duration">Training Duration</label>
-        <select name="Training Duration" class="input-primary"  formControlName="trainingDuration" (change)="calculatePlannedDate()">
-          <option value="" [disabled]="true">--Select--</option>
-          <option *ngFor="let week of counter(24)" [value]="week">
-            {{week}}
-          </option>
-        </select>
-      </div>
+
 
       <!-- <div class="inputgroup">
         <label for="Training Duration">Training Duration</label>
@@ -118,6 +115,22 @@
 
 <!-- new fields start-->
 
+
+<div class="inputgroup">
+  <label for="doj">Date of Joining</label>
+  <input type="date" name="doj" class="input-primary" formControlName="doj" (change)="calculatePlannedDate()">
+</div>
+
+<div class="inputgroup">
+  <label for="Training Duration">Training Duration</label>
+  <select name="Training Duration" class="input-primary"  formControlName="trainingDuration" (change)="calculatePlannedDate()">
+    <option value="" [disabled]="true">--Select--</option>
+    <option *ngFor="let week of counter(24)" [value]="week">
+      {{week}}
+    </option>
+  </select>
+</div>
+
 <div class="inputgroup">
   <label for="plannedOutOfReviewDate">Planned Out Of Review Date</label>
   <input type="date" name="plannedOutOfReviewDate" class="input-primary" formControlName="plannedOutOfReviewDate" >
@@ -133,17 +146,21 @@
   <label for="Delay Review Duration">Delay Review Duration</label>
   <input type="text" name="Delay Review Duration" class="input-primary" formControlName="delayReviewDuration" >
 </div>
+
+<div class="inputgroup">
+  <label for="Delay Reason">Delay Reason</label>
+  <select name="Delay Reason" class="input-primary" formControlName="delayReason">
+    <option value="" [disabled]="true">--Select--</option>
+    <option value="Productivity issue" >Productivity issue</option>
+    <option value="Quality issue" >Quality issue</option>
+    <option value="Planning issue" >Planning issue</option>
+    <option value="Low volume impacting review process" >Low volume impacting review process</option>
+    <option value="No issue" >No issue</option>
+  </select>
+</div>
 <!-- new fields end -->
 
-      <div class="inputgroup">
-        <label for="search">Search/Non-Search</label>
 
-        <select name="search" class="input-primary" formControlName="search">
-          <option value="" [disabled]="true">--Select--</option>
-          <option value="Search">Search</option>
-          <option value="Non-Search">Non-Search</option>
-        </select>
-      </div>
       
     </div>
     <div class="minicontainer">
