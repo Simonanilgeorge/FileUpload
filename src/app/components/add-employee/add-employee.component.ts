@@ -48,12 +48,12 @@ export class AddEmployeeComponent implements OnInit {
         search: ["", Validators.required],
         id: [""],
         shift: ["", Validators.required],
-        productionStatus: ["", Validators.required],
-        trainingDuration: ["", Validators.required],
-        plannedOutOfReviewDate: [{ value: '', disabled: true }, Validators.required],
-        actualOutOfReviewDate: ["",Validators.required],
-        delayReason:["",Validators.required],
-        delayReviewDuration: [{ value: '0', disabled: true }, Validators.required],
+        production_status: ["", Validators.required],
+        training_duration: ["", Validators.required],
+        planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
+        actual_out_of_review_date: ["",Validators.required],
+        delay_reason:["",Validators.required],
+        delay_review_duration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
     });
@@ -61,30 +61,30 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  get delayReason(){
-    return this.inputs.get("delayReason")
+  get delay_reason(){
+    return this.inputs.get("delay_reason")
 
   }
-  get delayReviewDuration() {
-    return this.inputs.get("delayReviewDuration");
+  get delay_review_duration() {
+    return this.inputs.get("delay_review_duration");
   }
 
-  get actualOutOfReviewDate() {
-    return this.inputs.get("actualOutOfReviewDate")
+  get actual_out_of_review_date() {
+    return this.inputs.get("actual_out_of_review_date")
   }
-  get plannedOutOfReviewDate() {
-    return this.inputs.get("plannedOutOfReviewDate")
+  get planned_out_of_review_date() {
+    return this.inputs.get("planned_out_of_review_date")
   }
 
-  get productionStatus() {
-    return this.inputs.get("productionStatus")
+  get production_status() {
+    return this.inputs.get("production_status")
   }
   get shift() {
     return this.inputs.get("shift")
   }
 
-  get trainingDuration() {
-    return this.inputs.get("trainingDuration")
+  get training_duration() {
+    return this.inputs.get("training_duration")
   }
 
   get doj() {
@@ -144,7 +144,7 @@ export class AddEmployeeComponent implements OnInit {
 
 
     // send the form
-    this.empReportService.addEmployee(this.userForm.value).subscribe((res) => {
+    this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
       this.showToastMessage(res.response)
       this.ngOnInit();
@@ -239,7 +239,7 @@ export class AddEmployeeComponent implements OnInit {
   getName(data) {
 
     console.log(data)
-    this.trainingDuration.setValue(data);
+    this.training_duration.setValue(data);
   }
 
   counter(number: number) {
@@ -252,16 +252,16 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   calculatePlannedDate() {
-    if (this.trainingDuration.value != "" && this.doj.value != "") {
+    if (this.training_duration.value != "" && this.doj.value != "") {
       // calculate planned date
-      let days = this.trainingDuration.value.split(" ")[0] * 7;
+      let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
       console.log(result)
       result.setDate(result.getDate() + days);
       console.log(result)
 
-      this.plannedOutOfReviewDate.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
-      this.actualOutOfReviewDate.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
+      this.planned_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
+      this.actual_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
 
     }
     else {
@@ -270,10 +270,10 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  calculateDelayReviewDuration() {
+  calculatedelay_review_duration() {
 
-    let endDate = new Date(this.actualOutOfReviewDate.value).getTime();
-    let startDate = new Date(this.plannedOutOfReviewDate.value).getTime();
+    let endDate = new Date(this.actual_out_of_review_date.value).getTime();
+    let startDate = new Date(this.planned_out_of_review_date.value).getTime();
 
     let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
 
@@ -283,18 +283,18 @@ export class AddEmployeeComponent implements OnInit {
       let result = Math.floor(resultDate/ 30);
       if(result==0){
 
-        this.delayReviewDuration.setValue(`${resultDate} days`)
+        this.delay_review_duration.setValue(`${resultDate} days`)
       }
       else{
 
    
         let days = resultDate % 30;
-        this.delayReviewDuration.setValue(`${result} Month ${days} days`)
+        this.delay_review_duration.setValue(`${result} Month ${days} days`)
   
       }
 
       // number of days only
-      // this.delayReviewDuration.setValue(`${result} days`)
+      // this.delay_review_duration.setValue(`${result} days`)
 
 
     }

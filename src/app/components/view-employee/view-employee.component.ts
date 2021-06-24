@@ -30,8 +30,16 @@ export class ViewEmployeeComponent implements OnInit {
     doj: [""],
     search: [""],
     client: [""],
-    task: [""]
+    task: [""],
+    delay_review_duration:[""],
+    delay_reason:[""],
+    actual_out_of_review_date:[""],
+    planned_out_of_review_date:[""],
+    training_duration:[""],
+    production_status:[""],
+    shift:[""]
   })
+
 
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private fb: FormBuilder) { }
 
@@ -55,6 +63,8 @@ export class ViewEmployeeComponent implements OnInit {
         return Object.keys(data);
       })[0];
       this.titles.pop()
+      console.log(res);
+      console.log(`titles : ${this.titles}`)
       this.flag = true
     }, (err) => {
       console.log(err.message);

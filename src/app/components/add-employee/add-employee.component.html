@@ -84,7 +84,7 @@
 
       <div class="inputgroup">
         <label for="Production status">Production status</label>
-        <select name="Production status" class="input-primary" formControlName="productionStatus">
+        <select name="Production status" class="input-primary" formControlName="production_status">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Training" >Training</option>
           <option value="100% Review" >100% Review</option>
@@ -101,7 +101,7 @@
         <ul>
           <li class="parent" (click)=display()>
             <div class="dropdown-icon">
-              <p>{{trainingDuration.value}} </p>
+              <p>{{training_duration.value}} </p>
   
             </div>
             <p class="icon">&#x276F;</p>
@@ -123,7 +123,7 @@
 
 <div class="inputgroup">
   <label for="Training Duration">Training Duration</label>
-  <select name="Training Duration" class="input-primary"  formControlName="trainingDuration" (change)="calculatePlannedDate()">
+  <select name="Training Duration" class="input-primary"  formControlName="training_duration" (change)="calculatePlannedDate()">
     <option value="" [disabled]="true">--Select--</option>
     <option *ngFor="let week of counter(24)" [value]="week">
       {{week}}
@@ -132,24 +132,24 @@
 </div>
 
 <div class="inputgroup">
-  <label for="plannedOutOfReviewDate">Planned Out Of Review Date</label>
-  <input type="date" name="plannedOutOfReviewDate" class="input-primary" formControlName="plannedOutOfReviewDate" >
+  <label for="planned_out_of_review_date">Planned Out Of Review Date</label>
+  <input type="date" name="planned_out_of_review_date" class="input-primary" formControlName="planned_out_of_review_date" >
 </div>
 
 
 <div class="inputgroup">
-  <label for="actualOutOfReviewDate">Actual Out Of Review Date</label>
-  <input type="date" name="actualOutOfReviewDate" class="input-primary" formControlName="actualOutOfReviewDate" (change)="calculateDelayReviewDuration()">
+  <label for="actual_out_of_review_date">Actual Out Of Review Date</label>
+  <input type="date" name="actual_out_of_review_date" class="input-primary" formControlName="actual_out_of_review_date" (change)="calculatedelay_review_duration()">
 </div>
 
 <div class="inputgroup">
   <label for="Delay Review Duration">Delay Review Duration</label>
-  <input type="text" name="Delay Review Duration" class="input-primary" formControlName="delayReviewDuration" >
+  <input type="text" name="Delay Review Duration" class="input-primary" formControlName="delay_review_duration" >
 </div>
 
 <div class="inputgroup">
   <label for="Delay Reason">Delay Reason</label>
-  <select name="Delay Reason" class="input-primary" formControlName="delayReason">
+  <select name="Delay Reason" class="input-primary" formControlName="delay_reason">
     <option value="" [disabled]="true">--Select--</option>
     <option value="Productivity issue" >Productivity issue</option>
     <option value="Quality issue" >Quality issue</option>
