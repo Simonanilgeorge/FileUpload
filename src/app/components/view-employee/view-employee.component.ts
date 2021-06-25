@@ -54,6 +54,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   getEmployees() {
 
+    // get all employees
 
     this.empReportService.getEmployees().subscribe((res) => {
 
@@ -63,8 +64,6 @@ export class ViewEmployeeComponent implements OnInit {
         return Object.keys(data);
       })[0];
       this.titles.pop()
-      console.log(res);
-      console.log(`titles : ${this.titles}`)
       this.flag = true
     }, (err) => {
       console.log(err.message);
@@ -75,7 +74,9 @@ export class ViewEmployeeComponent implements OnInit {
 
   edit(data) {
 
-    sessionStorage.setItem("employeeID", data.id);
+    // edit an employee
+
+    sessionStorage.setItem("employeeID", data.empcode);
     this.router.navigate(['/addemployee'])
 
   }

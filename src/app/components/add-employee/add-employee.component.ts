@@ -23,10 +23,7 @@ export class AddEmployeeComponent implements OnInit {
   dropDownList: any;
   displayBoolean = false;
   ClientList: string[];
-  Tasklist = []
-
-
-
+Tasklist = []
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
@@ -35,15 +32,15 @@ export class AddEmployeeComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
 
-    this.checkUpdate();
 
     this.getDropDown();
+    this.checkUpdate();
     this.userForm = this.fb.group({
       inputs: this.fb.group({
         doj: ["", Validators.required],
         empcode: ["", Validators.required],
         name: ["", Validators.required],
-        task: this.fb.array([], Validators.required),
+        task: this.fb.array([]),
         client: ["", Validators.required],
         search: ["", Validators.required],
         id: [""],
@@ -51,8 +48,8 @@ export class AddEmployeeComponent implements OnInit {
         production_status: ["", Validators.required],
         training_duration: ["", Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-        actual_out_of_review_date: ["",Validators.required],
-        delay_reason:["",Validators.required],
+        actual_out_of_review_date: ["", Validators.required],
+        delay_reason: ["", Validators.required],
         delay_review_duration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
@@ -61,7 +58,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  get delay_reason(){
+  get delay_reason() {
     return this.inputs.get("delay_reason")
 
   }
@@ -126,7 +123,6 @@ export class AddEmployeeComponent implements OnInit {
       this.update = false;
 
     }
-
   }
 
 
@@ -139,8 +135,6 @@ export class AddEmployeeComponent implements OnInit {
       this.showToastMessage("Please fill all the fields");
       return;
     }
-
-
 
 
     // send the form
@@ -171,14 +165,20 @@ export class AddEmployeeComponent implements OnInit {
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
       res = JSON.parse(res);
-
+      console.log(res)
+      // this.Tasklist = this.dropDownList[res[0].client];
       this.inputs.patchValue(res[0]);
 
+      res[0].task.forEach((task) => {
+        this.task.push(this.fb.control(task))
+      })
+
+      console.log("after patch value")
+      console.log(this.inputs.value)
     }, (err) => {
       console.log(err.message);
     })
   }
-
   display() {
     this.displayBoolean = !this.displayBoolean;
 
@@ -199,9 +199,6 @@ export class AddEmployeeComponent implements OnInit {
 
     }
     console.log(`current value for task is ${this.task.getRawValue()}`)
-
-
-
   }
 
   changeClientOptions(event) {
@@ -228,6 +225,7 @@ export class AddEmployeeComponent implements OnInit {
       this.dropDownList = res;
 
       this.ClientList = this.dropDownList.Client;
+      // this.checkUpdate();
 
     }, (err) => {
       console.log(err.message)
@@ -280,23 +278,20 @@ export class AddEmployeeComponent implements OnInit {
     if (resultDate > 0) {
 
       // to display in months and days
-      let result = Math.floor(resultDate/ 30);
-      if(result==0){
+      let result = Math.floor(resultDate / 30);
+      if (result == 0) {
 
         this.delay_review_duration.setValue(`${resultDate} days`)
       }
-      else{
+      else {
 
-   
         let days = resultDate % 30;
         this.delay_review_duration.setValue(`${result} Month ${days} days`)
-  
+
       }
 
       // number of days only
       // this.delay_review_duration.setValue(`${result} days`)
-
-
     }
     else {
       alert("actual out of review date cannot be before planned out of review date")
@@ -304,8 +299,6 @@ export class AddEmployeeComponent implements OnInit {
     }
 
   }
-
-
 
 }
 
