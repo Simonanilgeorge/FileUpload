@@ -66,7 +66,13 @@ export class EmpreportService {
     return this.http.get<any>(`${this.editEmployeeUrl}/${id}`)
   }
 
-  deleteEmployee(data):Observable<any>{
-    return this.http.post<any>(`${this.editEmployeeUrl}/${data.empcode}`,data)
+  deleteEmployee(deleteObject):Observable<any>{
+    let data={
+      inputs:null
+    };
+    data.inputs=deleteObject
+    console.log(data)
+
+    return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.empcode}`,data)
   }
 }
