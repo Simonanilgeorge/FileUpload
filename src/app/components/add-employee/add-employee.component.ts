@@ -27,7 +27,6 @@ Tasklist = []
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
-
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
@@ -37,19 +36,19 @@ Tasklist = []
     this.checkUpdate();
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        doj: ["", Validators.required],
-        empcode: ["", Validators.required],
-        name: ["", Validators.required],
+        doj: [{ value: '', disabled: this.update }, Validators.required],
+        empcode: [{ value: '', disabled: this.update }, Validators.required],
+        name: [{ value: '', disabled: this.update }, Validators.required],
         task: this.fb.array([]),
-        client: ["", Validators.required],
-        search: ["", Validators.required],
+        client: [{ value: '', disabled: this.update }, Validators.required],
+        search: [{ value: '', disabled: this.update }, Validators.required],
         id: [""],
-        shift: ["", Validators.required],
-        production_status: ["", Validators.required],
-        training_duration: ["", Validators.required],
+        shift: ["",Validators.required],
+        production_status: ["",Validators.required],
+        training_duration: [{ value: '', disabled: this.update }, Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-        actual_out_of_review_date: ["", Validators.required],
-        delay_reason: ["", Validators.required],
+        actual_out_of_review_date: ["",Validators.required],
+        delay_reason: ["",Validators.required],
         delay_review_duration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
@@ -184,6 +183,10 @@ Tasklist = []
 
   }
   add(e, i) {
+
+    // if(this.update){
+    //   return;
+    // }
     // this.displayBoolean = !this.displayBoolean;
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
