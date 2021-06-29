@@ -140,7 +140,10 @@ Tasklist = []
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
       this.showToastMessage(res.response)
-      this.ngOnInit();
+      if(res.response==="Success"){
+        this.ngOnInit();
+      }
+
     }, (err) => {
       console.log(err.message)
       this.showToastMessage("Failed")
