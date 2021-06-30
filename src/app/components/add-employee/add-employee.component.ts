@@ -141,7 +141,14 @@ Tasklist = []
 
       this.showToastMessage(res.response)
       if(res.response==="Success"){
+        // enable form for add employee
+        this.userForm.enable()
+        this.delay_review_duration.disable()
+        this.planned_out_of_review_date.disable()
         this.ngOnInit();
+
+
+
       }
 
     }, (err) => {
