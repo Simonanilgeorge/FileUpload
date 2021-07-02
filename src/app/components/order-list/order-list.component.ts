@@ -13,7 +13,8 @@ import { DatePipe } from '@angular/common';
 })
 export class OrderListComponent implements OnInit {
   flag: boolean = true;
-
+toast
+message
   final: any;
   myDate = new Date();
   user: FormGroup
@@ -56,6 +57,14 @@ export class OrderListComponent implements OnInit {
   }
 
 
+  get dateFilter(){
+    return this.user.get("dateFilter")
+  }
+
+  get enddateFilter(){
+    return this.user.get("enddateFilter")
+  }
+
   get date(){
     return this.filterForm.get("date")
   }
@@ -73,6 +82,14 @@ export class OrderListComponent implements OnInit {
 
     if(this.user.status=="INVALID"){
       return;
+    }
+
+    this.endDate
+    let endDate = new Date(this.enddateFilter.value).getTime();
+    let startDate = new Date(this.dateFilter.value).getTime();
+    if(startDate>endDate){
+      this.showToastMessage("start date cannot be after end date")
+
     }
 
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
@@ -184,5 +201,14 @@ export class OrderListComponent implements OnInit {
     })
     
   }
+
+  showToastMessage(message) {
+    this.message = message;
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 2000)
+  }
+
 
 }

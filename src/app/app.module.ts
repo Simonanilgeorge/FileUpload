@@ -24,6 +24,7 @@ import { ViewEmployeeComponent } from './components/view-employee/view-employee.
 import { SortPipe } from './pipes/sort.pipe';
 import { MultifilterPipe } from './pipes/multifilter.pipe';
 import { ColumnsortPipe } from './pipes/columnsort.pipe';
+import { YearlyClientReportComponent } from './components/yearly-client-report/yearly-client-report.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ColumnsortPipe } from './pipes/columnsort.pipe';
     SortPipe,
     MultifilterPipe,
     ColumnsortPipe,
+    YearlyClientReportComponent,
 
   ],
   imports: [

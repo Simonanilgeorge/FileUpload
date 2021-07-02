@@ -307,11 +307,14 @@ Tasklist = []
       // this.delay_review_duration.setValue(`${result} days`)
     }
     else {
-      alert("actual out of review date cannot be before planned out of review date")
+      this.showToastMessage("actual out of review date cannot be before planned out of review date")
       return
     }
 
   }
+
+  
+  
 
 }
 

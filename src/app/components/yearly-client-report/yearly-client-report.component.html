@@ -1,25 +1,28 @@
 <div class="container">
     <app-navbar></app-navbar>
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
     <div class="heading">
-        <h2 *ngIf="yearlyProductionReport=='0'">Daily Production Report</h2>
-        <h2 *ngIf="yearlyProductionReport=='1'">Yearly Production Report</h2>
+
+        <h2 >Year Based Client Report</h2>
     </div>
+
+
     <!-- Yearly Prodution Report -->
-    <form *ngIf="yearlyProductionReport=='1'" [formGroup]="yearlyFilterForm" class="formcontainer" >
+    <form [formGroup]="filterForm" class="formcontainer" >
         <div class="inputgroup">
-            <label for="From">From</label>
-            <input type="date" formControlName="startDate" class="input-primary" (change)="yearlyProductionOnSubmit()">
+            <label for="From">Start Date</label>
+            <input type="date" formControlName="startDate" class="input-primary" (change)="onSubmit()">
         </div>
         <div class="inputgroup">
-            <label for="To">To</label>
-            <input type="date" formControlName="endDate" class="input-primary" (change)="yearlyProductionOnSubmit()">
+            <label for="To">End Date</label>
+            <input type="date" formControlName="endDate" class="input-primary" (change)="onSubmit()">
         </div>
 
     </form>
 
     <!-- Daily Production Report -->
-    <form *ngIf="yearlyProductionReport=='0'" [formGroup]="filterForm" class="formcontainer">
+    <!-- <form *ngIf="yearlyProductionReport=='0'" [formGroup]="filterForm" class="formcontainer">
 
         <div class="inputgroup">
             <label for="date">Date</label>
@@ -87,14 +90,14 @@
 
     </div>
     <div class="statusmsg" *ngIf="flag==0">
-        <h2>No Reports Available</h2>
+        <h2>Status yet to be updated by employee..</h2>
 
     </div>
 
     <div class="statusmsg" *ngIf="flag==2">
         <h2>Loading...</h2>
 
-    </div>
+    </div> -->
 
 
 </div>

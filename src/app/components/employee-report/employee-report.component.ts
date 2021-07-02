@@ -30,11 +30,14 @@ export class EmployeeReportComponent implements OnInit {
   })
 
   yearlyFilterForm = this.fb.group({
-    startYear: [new Date().getFullYear()],
-    endYear: [new Date().getFullYear()+1]
+    dateFilter: [""],
+    startDate: [this.datePipe.transform(new Date(), 'yyyy-01-01')],
+    endDate: [this.datePipe.transform(new Date(), 'yyyy-12-31')]
   })
   filterForm = this.fb.group({
-    dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')]
+    dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
+    startDate: [""],
+    endDate: [""]
   });
   constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router) { }
 
@@ -43,13 +46,15 @@ export class EmployeeReportComponent implements OnInit {
     console.log(this.router.url)
     if(this.router.url=="/viewreport"){
       this.yearlyProductionReport = "0";
+      this.getReport();
     }
     else if(this.router.url=="/viewyearlyreport"){
       this.yearlyProductionReport = "1";
+      this.yearlyProductionOnSubmit()
     }
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.getReport();
+  
     console.log(new Date())
 
   }
@@ -111,19 +116,16 @@ export class EmployeeReportComponent implements OnInit {
     this.showColumnInput = !this.showColumnInput
 
   }
-getYears(){
-  let startYear=new Date().getFullYear()
-  let endYear=startYear+1
-  this.startYear.setValue(startYear)
-  this.endYear.setValue(endYear)
-}
+
   yearlyProductionOnSubmit(){
-    if(this.startYear.value>this.endYear.value){
-      console.log("start year cannot be greater than end year")
-      return
-      
-    }
 
     console.log(this.yearlyFilterForm.value)
+    this.flag = 2;
+    this.empreportService.getReportByFilter(this.yearlyFilterForm.value).subscribe((res) => {
+
+      this.onResponse(res);
+    }, (err) => {
+      console.log(err.message);
+    })
   }
 }
