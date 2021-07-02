@@ -2,9 +2,37 @@
     <app-navbar></app-navbar>
 
     <div class="heading">
-        <h2>Daily Production Report</h2>
+        <h2 *ngIf="yearlyProductionReport=='0'">Daily Production Report</h2>
+        <h2 *ngIf="yearlyProductionReport=='1'">Yearly Production Report</h2>
     </div>
-    <form [formGroup]="filterForm" class="formcontainer">
+
+    <div class="formcontainer" style="padding:1em;">
+
+        <!-- <div class="inputgroup">
+            <select name="production report" class="input-primary" [(ngModel)]="yearlyProductionReport" >
+                <option value="0">Daily Production Report</option>
+                <option value="1">Yearly Production Report</option>
+              </select>
+        </div> -->
+    </div>
+    <!-- Yearly Prodution Report -->
+    <form *ngIf="yearlyProductionReport=='1'" [formGroup]="yearlyFilterForm" class="formcontainer" >
+        <div class="inputgroup">
+            <label for="From">From</label>
+            <input type="number" formControlName="startYear" class="input-primary" >
+        </div>
+        <div class="inputgroup">
+            <label for="To">To</label>
+            <input type="number" formControlName="endYear" class="input-primary" >
+        </div>
+
+        <div class="inputgroup" style="padding:0.2em">
+            <button class="button" (click)="yearlyProductionOnSubmit()">Submit</button>
+          </div>
+    </form>
+
+    <!-- Daily Production Report -->
+    <form *ngIf="yearlyProductionReport=='0'" [formGroup]="filterForm" class="formcontainer">
 
         <div class="inputgroup">
             <label for="date">Date</label>

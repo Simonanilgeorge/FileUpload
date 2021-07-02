@@ -4,39 +4,62 @@ import { EmpreportService } from '../../providers/empreport.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
   styleUrls: ['./employee-report.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class EmployeeReportComponent implements OnInit {
 
+  yearlyProductionReport = "0";
   datas: any;
   titleName;
-  titles=["empcode","name","doj","search","client","task"];
+  titles = ["empcode", "name", "doj", "search", "client", "task"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
-  columnFilterForm=this.fb.group({
-    empcode:[""],
+  columnFilterForm = this.fb.group({
+    empcode: [""],
     name: [""],
     doj: [""],
     search: [""],
     client: [""],
     task: [""]
   })
+
+  yearlyFilterForm = this.fb.group({
+    startYear: [new Date().getFullYear()],
+    endYear: [new Date().getFullYear()+1]
+  })
   filterForm = this.fb.group({
     dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')]
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder,private loginService:LoginService,private datePipe:DatePipe) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
+
+    console.log(this.router.url)
+    if(this.router.url=="/viewreport"){
+      this.yearlyProductionReport = "0";
+    }
+    else if(this.router.url=="/viewyearlyreport"){
+      this.yearlyProductionReport = "1";
+    }
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getReport();
     console.log(new Date())
 
+  }
+
+  get startYear(){
+    return this.yearlyFilterForm.get("startYear")
+  }
+
+  get endYear(){
+    return this.yearlyFilterForm.get("endYear")
   }
 
   getReport() {
@@ -50,7 +73,7 @@ export class EmployeeReportComponent implements OnInit {
   }
 
   onSubmit() {
-    this.flag=2;
+    this.flag = 2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
 
       this.onResponse(res);
@@ -69,24 +92,38 @@ export class EmployeeReportComponent implements OnInit {
       return;
     }
     else {
-      this.flag = 1;      
+      this.flag = 1;
     }
 
 
   }
 
-  getTitleName(title){
+  getTitleName(title) {
 
-    this.titleName=null;
-    setTimeout(()=>{
-      this.titleName=title;
-    },100)
+    this.titleName = null;
+    setTimeout(() => {
+      this.titleName = title;
+    }, 100)
 
 
   }
-  showInput(){
+  showInput() {
     this.showColumnInput = !this.showColumnInput
-    
-  }
 
+  }
+getYears(){
+  let startYear=new Date().getFullYear()
+  let endYear=startYear+1
+  this.startYear.setValue(startYear)
+  this.endYear.setValue(endYear)
+}
+  yearlyProductionOnSubmit(){
+    if(this.startYear.value>this.endYear.value){
+      console.log("start year cannot be greater than end year")
+      return
+      
+    }
+
+    console.log(this.yearlyFilterForm.value)
+  }
 }

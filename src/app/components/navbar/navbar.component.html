@@ -1,8 +1,10 @@
 <nav>
+
     <ul class="parent-ul">
 
         <div class="boxone">
         <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
+
         <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Report
 
@@ -21,6 +23,8 @@
                 </li>
             </ul>
         </li>
+        <li *ngIf="manager" routerLink="/viewyearlyreport" class="links" routerLinkActive="active-link">Yearly Production report</li>
+
         <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Admin
             <ul class="dropdown">
