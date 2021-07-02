@@ -21,83 +21,29 @@
 
     </form>
 
-    <!-- Daily Production Report -->
-    <!-- <form *ngIf="yearlyProductionReport=='0'" [formGroup]="filterForm" class="formcontainer">
-
-        <div class="inputgroup">
-            <label for="date">Date</label>
-            <input type="date" name="date" class="input-primary" (change)="onSubmit()" formControlName="dateFilter">
-        </div>
-    </form>
-
-    <div *ngIf="flag==1" class="report-container">
+    <div class="report-container" *ngIf="flag==1">
 
         <div class="tablecontainer">
-            <form [formGroup]="columnFilterForm">
-                <table>
-                    <tr>
-                        <th colspan="10" style="position:sticky;top:0;">
-                            <form class="tablesearch">
-                                <div class="inputgroup">
+            <table>
+                <tr>
+                    <th>CLIENT</th>
+                    <th>REVENUE</th>
+                    <th>ORDER COUNT</th>                     
+                </tr>
+                <tr *ngFor="let data of data ">  
+                    <td>{{data.client}}</td>
+                    <td>{{data.revenue}}</td>
+                    <td>{{data.order_count}}</td>
+                </tr>
 
-                                    <input type="text" placeholder="Search" name="name" class="search"
-                                        [(ngModel)]="searchedKeyword">
-                                </div>
-                            </form>
-                        </th>
-                    </tr>
-
-                    <tr>
-
-                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-                            <span style="cursor: pointer;" (click)="getTitleName(title)"
-                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
-                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
-                                <input type="text" class="search" formControlName="{{title}}">
-                            </div>
-                        </th>
-                        <th>
-                            <span style="cursor: pointer;" (click)="getTitleName('order_count')"> ORDER COUNT
-                                &uarr;&darr;</span>
-                        </th>
-                        <th>
-                            <span style="cursor: pointer;" (click)="getTitleName('productivity')"> PRODUCTIVITY
-                                &uarr;&darr;</span>
-                        </th>
-                        <th>
-                            <span style="cursor: pointer;" (click)="getTitleName('utilization')"> UTILIZATION
-                                &uarr;&darr;</span>
-                        </th>
-                        <th>
-                            <span style="cursor: pointer;" (click)="getTitleName('revenue')"> REVENUE
-                                &uarr;&darr;</span>
-                        </th>
-                    </tr>
-
-                    <tr
-                        *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
-
-                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'" [class.textleft]="title=='name'|| title=='task'||title=='search'">{{status[title]}}</td>
-                        <td><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
-                        <td><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
-                        <td><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
-                        <td><span *ngIf="status['revenue'] != 0">${{status.revenue}} </span></td>
-                    </tr>
-
-                </table>
-            </form>
+            </table>
         </div>
 
     </div>
-    <div class="statusmsg" *ngIf="flag==0">
-        <h2>Status yet to be updated by employee..</h2>
-
-    </div>
-
-    <div class="statusmsg" *ngIf="flag==2">
-        <h2>Loading...</h2>
-
-    </div> -->
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" >
+        <span *ngIf="flag==2"> <h2>Loading...</h2></span>
+        <span ngIf="flag==0"> <h2>No reports available</h2></span>
+ </div>
 
 
 </div>
