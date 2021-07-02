@@ -17,6 +17,7 @@ export class EmpreportService {
   private singleReportUrl="http://localhost:5000/singlestatus"
   private employeeUrl="http://localhost:5000/addemployee"
   private editEmployeeUrl="http://localhost:5000/editemployee"
+  private yearlyClientUrl="http://localhost:5000/yearlyclientrprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
@@ -75,4 +76,9 @@ export class EmpreportService {
 
     return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.empcode}`,data)
   }
+
+getYearlyClientReport(data):Observable<any>{
+  return this.http.post<any>(this.yearlyClientUrl,data)
+}
+
 }

@@ -50,6 +50,13 @@ onSubmit(){
     return
   }
 console.log(this.filterForm.value)
+
+
+this.empreportService.getYearlyClientReport(this.filterForm.value).subscribe((res)=>{
+  console.log(res)
+},(err)=>{
+  console.log(err.message)
+})
 }
 
 
