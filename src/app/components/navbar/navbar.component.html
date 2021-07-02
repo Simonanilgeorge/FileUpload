@@ -23,10 +23,15 @@
                 </li>
             </ul>
         </li>
-        <li *ngIf="manager" routerLink="/viewyearlyreport" class="links" routerLinkActive="active-link">Yearly Production Report</li>
-        <li *ngIf="manager" routerLink="/yearlyclientreport" class="links" routerLinkActive="active-link">Yearly Client Report</li>
+ 
+        <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            Yearly Report
+            <ul class="dropdown">
+                <li routerLink="/viewyearlyreport" class="child-links">Yearly Employee Report</li>
+                <li routerLink="/yearlyclientreport" class="child-links">Yearly Client Report</li>
 
-        
+            </ul>
+        </li>
 
         <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Admin

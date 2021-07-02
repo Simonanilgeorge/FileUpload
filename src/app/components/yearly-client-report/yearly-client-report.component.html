@@ -4,7 +4,7 @@
 
     <div class="heading">
 
-        <h2 >Year Based Client Report</h2>
+        <h2 >Yearly Client Report</h2>
     </div>
 
 
@@ -40,9 +40,9 @@
         </div>
 
     </div>
-    <div class="report-container" style="margin: 0 auto;color:steelblue;" >
+    <div class="statusmsg" style="margin: 0 auto;color:steelblue;" >
         <span *ngIf="flag==2"> <h2>Loading...</h2></span>
-        <span ngIf="flag==0"> <h2>No reports available</h2></span>
+        <span *ngIf="flag==0"> <h2>No reports available</h2></span>
  </div>
 
 
