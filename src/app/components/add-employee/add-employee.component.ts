@@ -127,7 +127,7 @@ Tasklist = []
 
   onSubmit() {
 
-    console.log(this.userForm.getRawValue())
+
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
@@ -174,7 +174,7 @@ Tasklist = []
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
       res = JSON.parse(res);
-      console.log(res)
+ 
       // this.Tasklist = this.dropDownList[res[0].client];
       this.inputs.patchValue(res[0]);
 
@@ -182,8 +182,7 @@ Tasklist = []
         this.task.push(this.fb.control(task))
       })
 
-      console.log("after patch value")
-      console.log(this.inputs.value)
+
     }, (err) => {
       console.log(err.message);
     })
@@ -211,12 +210,12 @@ Tasklist = []
       this.task.removeAt(index);
 
     }
-    console.log(`current value for task is ${this.task.getRawValue()}`)
+    
   }
 
   changeClientOptions(event) {
 
-    console.log(`current value for task is ${this.task.getRawValue()}`)
+
     this.isActive = true
     setTimeout(() => {
       this.isActive = false
@@ -224,10 +223,9 @@ Tasklist = []
     this.task.clear()
     this.Tasklist = this.dropDownList[this.inputs.value.client];
 
-    console.log(`current value for task is ${this.task.getRawValue()}`)
+  
 
 
-    console.log(`current value for isActive is ${this.isActive}`)
 
 
   }
@@ -249,7 +247,7 @@ Tasklist = []
 
   getName(data) {
 
-    console.log(data)
+    
     this.training_duration.setValue(data);
   }
 
@@ -267,9 +265,9 @@ Tasklist = []
       // calculate planned date
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
-      console.log(result)
+
       result.setDate(result.getDate() + days);
-      console.log(result)
+ 
 
       this.planned_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
       this.actual_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))

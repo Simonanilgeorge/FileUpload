@@ -72,7 +72,7 @@ export class EmpreportService {
       inputs:null
     };
     data.inputs=deleteObject
-    console.log(data)
+
 
     return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.empcode}`,data)
   }

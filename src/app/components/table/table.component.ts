@@ -39,7 +39,7 @@ export class TableComponent implements OnInit {
         return title
       }
     })
-    console.log(this.headings)
+
 
   }
 

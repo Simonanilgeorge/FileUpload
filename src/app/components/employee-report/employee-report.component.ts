@@ -43,7 +43,7 @@ export class EmployeeReportComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.router.url)
+
     if(this.router.url=="/viewreport"){
       this.yearlyProductionReport = "0";
       this.getReport();
@@ -55,7 +55,7 @@ export class EmployeeReportComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
   
-    console.log(new Date())
+
 
   }
 
@@ -119,7 +119,7 @@ export class EmployeeReportComponent implements OnInit {
 
   yearlyProductionOnSubmit(){
 
-    console.log(this.yearlyFilterForm.value)
+
     this.flag = 2;
     this.empreportService.getReportByFilter(this.yearlyFilterForm.value).subscribe((res) => {
 

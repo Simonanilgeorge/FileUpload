@@ -20,6 +20,12 @@
   border-radius: 2%;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
 }
+
+.status{
+  width: 20em;
+  padding: 1.25em;
+
+}
 label {
   margin-bottom: 0.6em;
 }

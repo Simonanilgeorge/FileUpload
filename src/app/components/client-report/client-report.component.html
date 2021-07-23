@@ -54,7 +54,7 @@
         </div>
 
     </div>
-    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
+    <div class="statusmsg"  *ngIf="data.length == 0">
         <span *ngIf="!flag"> <h2>Loading...</h2></span>
         <span *ngIf="flag"> <h2>No reports available for the month</h2></span>
  </div>

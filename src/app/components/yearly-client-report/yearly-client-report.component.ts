@@ -55,11 +55,11 @@ export class YearlyClientReportComponent implements OnInit {
       this.showToastMessage("start date cannot be after end date")
       return
     }
-    console.log(this.filterForm.value)
+
 
 
     this.empreportService.getYearlyClientReport(this.filterForm.value).subscribe((res) => {
-      console.log(res)
+
       this.data=JSON.parse(res)
       if(this.data.length==0){
         this.flag = 0;

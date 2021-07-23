@@ -3,7 +3,8 @@ WORKDIR /usr/src/app
 COPY . .
 RUN npm install -g @angular/cli
 RUN npm install
-RUN npm run build
+RUN ng build --prod
+# RUN npm run build
 
 FROM nginx:latest
 

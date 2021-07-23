@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   public notValid: boolean = false;
   noAccess: boolean = false;
+  flag=0;
 
   userForm = this.fb.group({
     username: ['', Validators.required],
@@ -31,6 +32,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
+    this.flag=1;
+    this.username.setValue(this.username.value.trim())
     this.loginService.login(this.userForm.value).subscribe((res) => {
 
 
@@ -48,10 +51,12 @@ export class LoginComponent implements OnInit {
 
       else {
         this.notValid = true
+        this.flag=0;
       }
 
 
     }, (err) => {
+      this.flag=0;
       console.log(err.message)
     })
 

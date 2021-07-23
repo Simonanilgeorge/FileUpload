@@ -1,36 +1,41 @@
 <div class="container">
-<div class="mincontainer">
-    <div class="logintitle">
-        <h1>Login</h1>
-    </div>
-    <div class="loginbox">
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-            <div class="inputarea">
-                <label for="username">Username</label><input id="username" type="text" class="input"
-                    formControlName="username" autocomplete="off">
-                <div *ngIf="username.invalid && (username.dirty || username.touched)" > 
-                    <small class="warning-message">username required</small>
-                </div>
-            </div>
+    <div class="mincontainer">
+        <div class="logintitle" *ngIf="flag==0">
+            <h1>Login</h1>
+        </div>
 
-            <div class="inputarea">
-                <label for="password">Password</label><input id="password" type="password" class="input"
-                    formControlName="password">
-                <div *ngIf="password.invalid && (password.dirty || password.touched)">
-                    <small class="warning-message">Password required</small>
+        <div class="loginbox" *ngIf="flag==0">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <div class="inputarea">
+                    <label for="username">Username</label><input id="username" type="text" class="input"
+                        formControlName="username" autocomplete="off">
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                        <small class="warning-message">username required</small>
+                    </div>
                 </div>
-            </div>
-            <div class="inputarea">
-                <button type="submit" [disabled]="!userForm.valid" class="button">Sign in</button>
-            </div>
-        </form>
-    </div>
-    <div *ngIf="notValid">
-        <div class="invalidcred">Invalid credentials</div>
-    </div>
 
-    <div *ngIf="noAccess">
-        <div class="invalidcred">Access denied</div>
+                <div class="inputarea">
+                    <label for="password">Password</label><input id="password" type="password" class="input"
+                        formControlName="password">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                        <small class="warning-message">Password required</small>
+                    </div>
+                </div>
+                <div class="inputarea">
+                    <button type="submit" [disabled]="!userForm.valid" class="button">Sign in</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="status" *ngIf="flag==1">
+            <h2>Loading...</h2>
+        </div>
+        <div *ngIf="notValid">
+            <div class="invalidcred">Invalid credentials</div>
+        </div>
+
+        <div *ngIf="noAccess">
+            <div class="invalidcred">Access denied</div>
+        </div>
     </div>
-</div>
 </div>
