@@ -9,15 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpreportService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url = "http://localhost:5000/empreport";
-  private statusUrl = "http://localhost:5000/mystatus"
-  private dropDownUrl = "http://localhost:5000/dropdown"
-  private monthlyReportUrl = "http://localhost:5000/revenue"
-  private clientReportUrl = "http://localhost:5000/clientrprt"
-  private singleReportUrl="http://localhost:5000/singlestatus"
-  private employeeUrl="http://localhost:5000/addemployee"
-  private editEmployeeUrl="http://localhost:5000/editemployee"
-  private yearlyClientUrl="http://localhost:5000/yearlyclientrprt"
+  private url = "http://192.168.101.81:5000/empreport";
+  private statusUrl = "http://192.168.101.81:5000/mystatus"
+  private dropDownUrl = "http://192.168.101.81:5000/dropdown"
+  private monthlyReportUrl = "http://192.168.101.81:5000/revenue"
+  private clientReportUrl = "http://192.168.101.81:5000/clientrprt"
+  private singleReportUrl="http://192.168.101.81:5000/singlestatus"
+  private employeeUrl="http://192.168.101.81:5000/addemployee"
+  private editEmployeeUrl="http://192.168.101.81:5000/editemployee"
+  private yearlyClientUrl="http://192.168.101.81:5000/yearlyclientrprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
