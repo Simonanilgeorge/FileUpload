@@ -30,11 +30,11 @@
         <div class="status" *ngIf="flag==1">
             <h2>Loading...</h2>
         </div>
-        <div *ngIf="notValid">
+        <div *ngIf="notValid && flag==0"> 
             <div class="invalidcred">Invalid credentials</div>
         </div>
 
-        <div *ngIf="noAccess">
+        <div *ngIf="noAccess && flag==0">
             <div class="invalidcred">Access denied</div>
         </div>
     </div>
