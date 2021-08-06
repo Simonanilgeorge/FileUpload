@@ -18,7 +18,6 @@ export class LoginService {
   }
 
   saveUsername(user, description, account_name) {
-    console.log(sessionStorage)
     sessionStorage.setItem('user', user)
     sessionStorage.setItem('role', description)
     sessionStorage.setItem('account_name', account_name)
