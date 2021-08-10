@@ -9,15 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpreportService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url = "http://183.82.112.31:4200/api/empreport";
-  private statusUrl = "http://183.82.112.31:4200/api/mystatus"
-  private dropDownUrl = "http://183.82.112.31:4200/api/dropdown"
-  private monthlyReportUrl = "http://183.82.112.31:4200/api/revenue"
-  private clientReportUrl = "http://183.82.112.31:4200/api/clientrprt"
-  private singleReportUrl="http://183.82.112.31:4200/api/singlestatus"
-  private employeeUrl="http://183.82.112.31:4200/api/addemployee"
-  private editEmployeeUrl="http://183.82.112.31:4200/api/editemployee"
-  private yearlyClientUrl="http://183.82.112.31:4200/api/yearlyclientrprt"
+  private url = "http://localhost/api/empreport";
+  private statusUrl = "http://localhost/api/mystatus"
+  private dropDownUrl = "http://localhost/api/dropdown"
+  private monthlyReportUrl = "http://localhost/api/revenue"
+  private clientReportUrl = "http://localhost/api/clientrprt"
+  private singleReportUrl="http://localhost/api/singlestatus"
+  private employeeUrl="http://localhost/api/addemployee"
+  private editEmployeeUrl="http://localhost/api/editemployee"
+  private yearlyClientUrl="http://localhost/api/yearlyclientrprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
