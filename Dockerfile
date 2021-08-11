@@ -1,13 +1,13 @@
-FROM node:latest as build
+FROM node:latest
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install -g @angular/cli
 RUN npm install
-RUN ng build --prod
+# RUN ng build --prod
 # RUN npm run build
 
-FROM nginx:latest
+# FROM nginx:latest
 
-COPY --from=build /usr/src/app/dist/NTC /usr/share/nginx/html
+# COPY --from=build /usr/src/app/dist/NTC /usr/share/nginx/html
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
 
