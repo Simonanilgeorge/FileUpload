@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.username.setValue(this.username.value.trim())
     this.loginService.login(this.userForm.value).subscribe((res) => {
 
-
+      console.log(res)
       if (res.login == "success") {
 
         this.router.navigate(['home'])
