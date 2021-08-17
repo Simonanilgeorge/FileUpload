@@ -3,6 +3,8 @@
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
+    <button class="button" (click)="export()">export</button>
+
     <!-- modal box start -->
     <div class="modal" [class.display]="modalBoolean" #modalRef>
 
@@ -33,7 +35,7 @@
     <div class="report-container" *ngIf="flag">
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
-                <table>
+                <table id="excel-table">
                     <tr>
                         <th style="position:sticky;top:0;">
                             <form class="tablesearch">

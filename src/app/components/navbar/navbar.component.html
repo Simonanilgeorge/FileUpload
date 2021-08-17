@@ -12,8 +12,25 @@
             <ul class="dropdown">
 
                 <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
-                <li routerLink="/clientreport" class="child-links">Client Based Monthly Revenue Report</li>
+                <li routerLink="/viewyearlyreport" class="child-links">Yearly Report</li>
+          
                 <li routerLink="/viewreport" class="child-links">Daily Report</li>
+                <!-- <li class="child-links dt">
+                    DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
+                    <ul class="dt-ul">
+                        <li routerLink="/upload" class="child-links">Generate DT queue report</li>
+                        <li routerLink="/report" class="child-links">View DT queue report</li>
+                    </ul>
+                </li> -->
+            </ul>
+        </li>
+ 
+        <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            Client Reports
+            <ul class="dropdown">
+                <li routerLink="/clientreport" class="child-links">Monthly Report</li>
+                <!-- <li routerLink="/viewyearlyreport" class="child-links">Yearly Employee Report</li> -->
+                <li routerLink="/yearlyclientreport" class="child-links">Yearly Report</li>
                 <li class="child-links dt">
                     DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
                     <ul class="dt-ul">
@@ -21,14 +38,6 @@
                         <li routerLink="/report" class="child-links">View DT queue report</li>
                     </ul>
                 </li>
-            </ul>
-        </li>
- 
-        <li *ngIf="manager" class="links" routerLinkActive="active-link">
-            Yearly Report
-            <ul class="dropdown">
-                <li routerLink="/viewyearlyreport" class="child-links">Yearly Employee Report</li>
-                <li routerLink="/yearlyclientreport" class="child-links">Yearly Client Report</li>
 
             </ul>
         </li>
@@ -36,8 +45,8 @@
         <li *ngIf="manager" class="links" routerLinkActive="active-link">
             Admin
             <ul class="dropdown">
-                <li routerLink="/addemployee" class="child-links">Add employee</li>
-                <li routerLink="/viewemployees" class="child-links">Edit employee</li>
+                <li routerLink="/addemployee" class="child-links">Add Employee</li>
+                <li routerLink="/viewemployees" class="child-links">Edit Employee</li>
 
             </ul>
         </li>

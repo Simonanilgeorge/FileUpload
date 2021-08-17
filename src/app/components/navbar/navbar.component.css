@@ -72,7 +72,7 @@ box-shadow: 0 3px 3px solid black;
   padding: 1em 1em 1em 0em;
   gap: 1rem;
   white-space: nowrap;
-  /* left: 0; */
+  left: 0;
   right: 0;
   /* min-width: 12.5em; */
   z-index: 100;
@@ -115,7 +115,7 @@ box-shadow: 0 3px 3px solid black;
   gap: 1rem;
   right: 0;
 
-  transform: translate(50%, 30%);
+  transform: translate(100%, 35%);
 
   z-index: 100;
   opacity: 0;

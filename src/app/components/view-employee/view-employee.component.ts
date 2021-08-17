@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as XLSX from 'xlsx'; 
 
 
 @Component({
@@ -12,6 +13,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
+  fileName="employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
   dataToBeDeleted;
@@ -131,4 +133,19 @@ export class ViewEmployeeComponent implements OnInit {
     this.showColumnInput = !this.showColumnInput
   }
 
+// export to excel file
+  export(){
+           /* table id is passed over here */   
+           let element = document.getElementById('excel-table'); 
+
+           const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    
+           /* generate workbook and add the worksheet */
+           const wb: XLSX.WorkBook = XLSX.utils.book_new();
+           XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+           /* save to file */
+           XLSX.writeFile(wb, this.fileName);
+
+  }
 }
