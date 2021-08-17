@@ -33,7 +33,7 @@
             <form [formGroup]="columnFilterForm">
                 <table>
                     <tr>
-                        <th colspan="10" style="position:sticky;top:0;">
+                        <th style="position:sticky;top:0;">
                             <form class="tablesearch">
                                 <div class="inputgroup">
 
@@ -41,6 +41,10 @@
                                         [(ngModel)]="searchedKeyword">
                                 </div>
                             </form>
+                        </th>
+
+                        <th colspan="9" style="position:sticky;top:0;">
+
                         </th>
                     </tr>
 

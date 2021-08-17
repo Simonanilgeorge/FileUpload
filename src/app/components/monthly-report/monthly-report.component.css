@@ -7,14 +7,13 @@ th {
   position: sticky;
   top: 3.2em;
   z-index: 11;
-/* border:1px solid white; */
+  /* border:1px solid white; */
 }
 
 td {
-
   padding: 0.3em;
   font-size: 0.8rem;
-  border:1px solid rgb(42 67 125);
+  /* border:1px solid rgb(42 67 125); */
 }
 
 .report-container {
@@ -31,31 +30,27 @@ td {
   justify-content: center;
 }
 
-
-
 .search {
   border: 1px solid grey;
   padding: 0.4em;
   background: white;
 }
 
-
-.stickyheading{
+.stickyheading {
   position: sticky;
-  left:0;
-  z-index:12
+  left: 0;
+  z-index: 12;
 }
 
-.stickydata{
+.stickydata {
   position: sticky;
-  left:0;
+  left: 0;
 }
 
-.display{
-  display:none;
+.display {
+  display: none;
 }
 
-
-.weekend{
+.weekend {
   background: rgb(178 200 253);
 }
