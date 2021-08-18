@@ -13,7 +13,15 @@
                 Select month
             </label>
             <input class="input-primary" type="month" formControlName="date" (change)="onSubmit()">
-
+        </div>
+        <div class="inputgroup">
+            <label for="name">Select Report</label>
+            <select class="input-primary" formControlName="sheetName" (change)="onSubmit()">
+                <!-- <option value="" [disabled]="true">--Select--</option> -->
+                <option *ngFor="let sheet of sheetList">
+                    {{sheet}}
+                </option>
+            </select>
         </div>
         <!-- <div class="inputgroup">
                 <label for="name">Search by keyword</label>

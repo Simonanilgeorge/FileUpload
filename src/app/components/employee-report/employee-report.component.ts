@@ -18,7 +18,10 @@ export class EmployeeReportComponent implements OnInit {
   yearlyProductionReport = "0";
   datas: any;
   titleName;
+
+  sheetName="Revenue";
   titles = ["empcode", "name", "doj", "search", "client", "task"];
+  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
@@ -105,6 +108,7 @@ export class EmployeeReportComponent implements OnInit {
 
   }
 
+  // reset titlename for sort(ascending descending)
   getTitleName(title) {
 
     this.titleName = null;

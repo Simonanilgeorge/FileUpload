@@ -11,6 +11,8 @@ import { ExportExcelService } from '../../providers/export-excel.service'
   providers: [DatePipe]
 })
 export class ClientReportComponent implements OnInit {
+  sheetList=["Revenue","Volume"]
+
   fileName="client_based_monthly_report.xlsx"
   data = [];
   flag: boolean = false;
@@ -20,7 +22,8 @@ export class ClientReportComponent implements OnInit {
   total;
 
   Date = this.fb.group({
-    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required]
+    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required],
+    sheetName: ['Revenue', Validators.required]
   })
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe,private exportExcelService: ExportExcelService) { }
 
@@ -31,8 +34,11 @@ export class ClientReportComponent implements OnInit {
   }
 
 
+
+  // function called when filter is changed
   onSubmit() {
 
+    console.log(this.Date.getRawValue())
     this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
@@ -45,7 +51,7 @@ export class ClientReportComponent implements OnInit {
       this.dates.forEach((date) => {
         this.columnSum[date] = 0;
       })
-      // check if value exist in data
+      // check if value exist in data; get columnwise sum
       this.data.forEach(datas => {
         this.total = this.total + datas.total
         this.dates.forEach((date) => {
