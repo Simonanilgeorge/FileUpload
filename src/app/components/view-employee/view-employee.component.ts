@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
+import { ExportExcelService } from '../../providers/export-excel.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as XLSX from 'xlsx'; 
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -13,7 +14,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
-  fileName="employee_details.xlsx"
+  fileName = "employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
   dataToBeDeleted;
@@ -24,26 +25,26 @@ export class ViewEmployeeComponent implements OnInit {
   data = [];
   singleSearch;
   flag: Boolean = false;
-  showColumnInput:Boolean = false;
+  showColumnInput: Boolean = false;
 
-  columnFilterForm:FormGroup=this.fb.group({
-    empcode:[""],
+  columnFilterForm: FormGroup = this.fb.group({
+    empcode: [""],
     name: [""],
     doj: [""],
     search: [""],
     client: [""],
     task: [""],
-    delay_review_duration:[""],
-    delay_reason:[""],
-    actual_out_of_review_date:[""],
-    planned_out_of_review_date:[""],
-    training_duration:[""],
-    production_status:[""],
-    shift:[""]
+    delay_review_duration: [""],
+    delay_reason: [""],
+    actual_out_of_review_date: [""],
+    planned_out_of_review_date: [""],
+    training_duration: [""],
+    production_status: [""],
+    shift: [""]
   })
 
 
-  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private fb: FormBuilder) { }
+  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -83,8 +84,8 @@ export class ViewEmployeeComponent implements OnInit {
 
   }
   delete(data) {
-    
-    
+
+
     this.modalBoolean = false;
     this.empReportService.deleteEmployee(data).subscribe((res) => {
 
@@ -118,7 +119,7 @@ export class ViewEmployeeComponent implements OnInit {
     // (click)="delete(data)" 
 
 
-    data.username=sessionStorage.getItem('user')
+    data.username = sessionStorage.getItem('user')
 
     this.modalBoolean = true;
     this.dataToBeDeleted = data;
@@ -129,23 +130,15 @@ export class ViewEmployeeComponent implements OnInit {
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
   }
-  showInput(){
+  showInput() {
     this.showColumnInput = !this.showColumnInput
   }
 
-// export to excel file
-  export(){
-           /* table id is passed over here */   
-           let element = document.getElementById('excel-table'); 
+  // export to excel file
+  // export() {
+  //   /* table id is passed over here */
+  //   let element = document.getElementById('excel-table');
+  //   this.exportExcelService.exportToExcel(element, this.fileName)
 
-           const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-    
-           /* generate workbook and add the worksheet */
-           const wb: XLSX.WorkBook = XLSX.utils.book_new();
-           XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
-           /* save to file */
-           XLSX.writeFile(wb, this.fileName);
-
-  }
+  // }
 }

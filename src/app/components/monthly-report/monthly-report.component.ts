@@ -3,6 +3,7 @@ import { LoginService } from '../../providers/login.service'
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
+import { ExportExcelService } from '../../providers/export-excel.service'
 
 @Component({
   selector: 'app-monthly-report',
@@ -11,6 +12,8 @@ import { DatePipe } from '@angular/common';
   providers:[DatePipe]
 })
 export class MonthlyReportComponent implements OnInit {
+
+  fileName="monthly_production_report.xlsx"
   flag: Boolean = false;
   titleName;
   message;
@@ -37,7 +40,7 @@ export class MonthlyReportComponent implements OnInit {
     sheetName: ['Revenue', Validators.required]
   })
 
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -58,8 +61,10 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
+
       this.data = res.data;
       this.dates = res.dates;
+       
       this.sheetNameRes=res.sheet;
       
       this.total = 0
@@ -115,4 +120,11 @@ export class MonthlyReportComponent implements OnInit {
       return false
     }
   }
+      // export to excel file
+      export() {
+        /* table id is passed over here */
+        let element = document.querySelector(".table-excel");
+        this.exportExcelService.exportToExcel(element, this.fileName)
+    
+      }
 }

@@ -3,6 +3,7 @@ import { UploadService } from '../../providers/upload.service'
 import { LoginService } from '../../providers/login.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ExportExcelService } from '../../providers/export-excel.service'
 
 
 @Component({
@@ -11,6 +12,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./file-report.component.css']
 })
 export class FileReportComponent implements OnInit {
+  fileName="DTQueue_Report.xlsx"
   expanded: Boolean = true;
   SLAExpirationFilter: String[] = []
   flag: number = 2;
@@ -30,7 +32,7 @@ export class FileReportComponent implements OnInit {
     pivotDate: [new Date().toISOString().split('T')[0]],
     time: [""]
   })
-  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder) { }
+  constructor(private uploadService: UploadService, private loginService: LoginService, private router: Router, private fb: FormBuilder,private exportExcelService: ExportExcelService) { }
 
   ngOnInit(): void {
 
@@ -227,5 +229,11 @@ export class FileReportComponent implements OnInit {
       console.log(err.message);
     })
   }
-
+    // export to excel file
+    export() {
+      /* table id is passed over here */
+      let element = document.querySelector(".table-excel");
+      this.exportExcelService.exportToExcel(element, this.fileName)
+  
+    }
 }

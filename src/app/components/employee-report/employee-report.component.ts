@@ -4,6 +4,8 @@ import { EmpreportService } from '../../providers/empreport.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
+import { ExportExcelService } from '../../providers/export-excel.service'
+
 
 @Component({
   selector: 'app-employee-report',
@@ -12,7 +14,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class EmployeeReportComponent implements OnInit {
-
+  fileName="daily_production_report.xlsx"
   yearlyProductionReport = "0";
   datas: any;
   titleName;
@@ -39,7 +41,7 @@ export class EmployeeReportComponent implements OnInit {
     startDate: [""],
     endDate: [""]
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router,private exportExcelService: ExportExcelService) { }
 
   ngOnInit(): void {
 
@@ -127,5 +129,12 @@ export class EmployeeReportComponent implements OnInit {
     }, (err) => {
       console.log(err.message);
     })
+  }
+    // export to excel file
+  export() {
+    /* table id is passed over here */
+    let element = document.querySelector(".table-excel");
+    this.exportExcelService.exportToExcel(element, this.fileName)
+
   }
 }

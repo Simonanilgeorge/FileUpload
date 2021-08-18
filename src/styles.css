@@ -80,6 +80,26 @@ label {
   white-space: nowrap;
   margin-top: 1.65em;
 }
+
+.exportbutton{
+  cursor: pointer;
+  border: none;
+  background: steelblue;
+  color: white;
+  border:1px solid white;
+  border-radius: 0.3em;
+  padding: 0.3em 1.25em;
+
+  transition: 0.3s ease-in-out;
+  display: block;
+
+}
+
+.exportbutton:hover{
+  background: steelblue;
+  
+  opacity: 0.5;
+}
 .button[disabled] {
   border: none;
   background: steelblue;

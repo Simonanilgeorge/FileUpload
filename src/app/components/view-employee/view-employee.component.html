@@ -3,7 +3,7 @@
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
-    <button class="button" (click)="export()">export</button>
+
 
     <!-- modal box start -->
     <div class="modal" [class.display]="modalBoolean" #modalRef>
@@ -31,6 +31,7 @@
 
     <div class="heading">
         <h2>Employee Details</h2>
+
     </div>
     <div class="report-container" *ngIf="flag">
         <div class="tablecontainer">
@@ -44,16 +45,17 @@
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search">
                                 </div>
+
                             </form>
                         </th>
                         <th colspan="14" style="position:sticky;top:0;">
-
-
+                            <!-- <input type="button" value="Export" class="exportbutton" (click)="export()"> -->
                         </th>
                     </tr>
                     <tr>
                         <th *ngFor="let title of titles">
-                            <span style="cursor: pointer;" (dblclick)="showInput()" (click)="getTitleName(title)">{{title}} &uarr;&darr;</span>
+                            <span style="cursor: pointer;" (dblclick)="showInput()"
+                                (click)="getTitleName(title)">{{title}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>
@@ -61,9 +63,12 @@
                         <th>Delete</th>
 
                     </tr>
-                    <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
-                        <td *ngFor="let title of titles" [class.textleft]="title=='name'|| title=='task'||title=='search'">
-                            <span *ngIf="title=='empcode'"style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">
+                    <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName " >
+                        <td *ngFor="let title of titles"
+                            [class.textleft]="title=='name'|| title=='task'||title=='search'">
+                            <span *ngIf="title=='empcode'"
+                                style='cursor: pointer; text-decoration: underline; color:blueviolet'
+                                (click)="edit(data)">
                                 {{data[title]}}
                             </span>
                             <span *ngIf="title!='empcode'"> {{data[title]}}</span>

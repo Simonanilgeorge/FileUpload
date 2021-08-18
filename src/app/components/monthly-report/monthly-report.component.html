@@ -39,7 +39,7 @@
         <div class="tablecontainer">
 
             <form [formGroup]="columnFilterForm">
-                <table>
+                <table class="table-excel">
                     <tr>
                         <th style="position:sticky;top:0;">
                             <form class="tablesearch">
@@ -50,6 +50,8 @@
                             </form>
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
+                            <input type="button" value="Export" class="exportbutton" (click)="export()">
+                            
                         </th>
                     </tr>
                     <tr>
