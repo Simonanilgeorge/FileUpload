@@ -33,16 +33,18 @@ export class ClientReportComponent implements OnInit {
     this.onSubmit()
   }
 
-
+get sheetName(){
+  return this.Date.get("sheetName")
+}
 
   // function called when filter is changed
   onSubmit() {
 
-    console.log(this.Date.getRawValue())
+    console.log(this.sheetName.value)
     this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-
+      console.log(res)
       this.dates = res.dates;
       this.data = res.data;
 
