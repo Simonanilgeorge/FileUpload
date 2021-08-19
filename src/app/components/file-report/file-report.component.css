@@ -10,9 +10,9 @@
 
 table {
   text-align: center;
-  /* width:500px;  */
+
   height: 100%;
-  width: 100%;
+
   /* border-collapse: collapse; */
   border-top-left-radius: 1.25em;
   border: 1px solid black;
@@ -122,7 +122,8 @@ border: 1px solid black;
   gap: 1em;
   justify-content: flex-start;
   align-items: flex-end;
-  padding: 1.25em;
+  padding: 0.5em 1.25em;
+
 }
 
 .display {
@@ -168,7 +169,7 @@ input[type="file"]::-webkit-file-upload-button {
     width: 95%;
     resize: both;
     overflow: auto;
-    max-height: 65vh;
+    max-height: 62vh;
     /* padding: 0 20px; */
 
 }
@@ -189,7 +190,6 @@ input[type="file"]::-webkit-file-upload-button {
 
 .filter {
 
-  padding: 1em 0.6em 0em 0.6em;
   display: flex;
   justify-content: center;
 }
@@ -200,3 +200,8 @@ width:12.5em;
   padding: 0.6em;
 }
 
+
+.button{
+  margin-top:0;
+
+}

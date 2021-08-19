@@ -10,7 +10,7 @@
 <div class="card">
 
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <div class="inputgroup">
+    <div class="heading">
       <h2 *ngIf="!update">Add Employee</h2>
       <h2 *ngIf="update">Edit Employee</h2>
     </div>
@@ -44,7 +44,7 @@
               <!-- <p>{{state.value}} </p> -->
 
               <p *ngIf="task.value.length==0">--Select--</p>
-              <p *ngFor="let task of task.value">{{task}},</p>
+              <p > {{task.value.join() }}</p>
             </div>
             <p class="icon">&#x276F;</p>
             <ul class="dropdown" [class.display]="displayBoolean">
@@ -150,13 +150,13 @@
 
 <div class="inputgroup">
   <label for="Delay Reason">Delay Reason</label>
-  <select name="Delay Reason" class="input-primary" formControlName="delay_reason">
+  <select name="Delay Reason" class="input-primary option" formControlName="delay_reason">
     <option value="" [disabled]="true">--Select--</option>
-    <option value="Productivity issue" >Productivity issue</option>
-    <option value="Quality issue" >Quality issue</option>
-    <option value="Planning issue" >Planning issue</option>
+    <option value="Productivity issue" > Productivity Issue</option>
+    <option value="Quality issue" >Quality Issue</option>
+    <option value="Planning issue" >Planning Issue</option>
     <option value="Low volume impacting review process" >Low volume impacting review process</option>
-    <option value="No issue" >No issue</option>
+    <option value="No issue" >No Issue</option>
   </select>
 </div>
 

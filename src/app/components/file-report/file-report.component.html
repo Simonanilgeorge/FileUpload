@@ -1,18 +1,21 @@
 <div class="container">
     <app-navbar></app-navbar>
 
+    <div class="heading">
+        <h2>DT Queue Report</h2>
+    </div>
 
         <form [formGroup]="pivotTableForm" class="filter">
 
 
             <div class="inputgroup">
-                <label for="date" style="color:steelblue;">Search by date</label>
+                <label for="date" style="color:steelblue;">Select Day</label>
                 <input type="date" name="date" class="input-primary
                 " (change)="fetchTable('date')" formControlName="pivotDate">
             
             </div>
             <div class="inputgroup">
-                <label for="time" style="color:steelblue;">Search by time</label>
+                <label for="time" style="color:steelblue;">Select Time</label>
                 <select class="input-primary" formControlName="time" (change)="fetchTable('time')">
                     <option *ngFor="let t of time" value="{{t}}" >{{t}}</option>
                 </select>
@@ -28,9 +31,8 @@
                 <div class="multiselect">
                     <div class="selectBox" (click)="showCheckboxes()">
                         <div class="select">
-                            <p>SLAExpiration Filter &nbsp; &#x25BF;</p>
+                            <p>SLA Expiration &nbsp; &#x25BF;</p>
                         </div>
-
                     </div>
                     <div [class.display]="expanded" class="checkboxes">
                         <label >
@@ -59,7 +61,7 @@
                     <th style="position: sticky;left:0;top:0;z-index:1000;">Task Name
                     </th>
                     <th *ngFor="let title of titles" class="titles">{{title}}</th>
-                    <th class="titles">Grand total</th>
+                    <th class="titles"> Total</th>
                 </tr>
 
                 <tr *ngFor="let data of datas">
@@ -68,7 +70,7 @@
                     <td>{{data.Grand_total}}</td>
                 </tr>
                 <tr>
-                    <td class="taskname" style="font-weight:bolder;">Grand total</td>
+                    <td class="taskname" style="font-weight:bolder;">Grand Total</td>
                     <td *ngFor="let title of titles">{{columnSum[title]}}</td>
                     <td>{{columnSum["Grand_total"]}}</td>
                 </tr>

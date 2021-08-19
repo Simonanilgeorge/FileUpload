@@ -52,7 +52,7 @@
                     <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">{{data.client}}</td>
                     <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
                         <span *ngIf="data[date]">
-                            <span *ngIf="sheetName=='Revenue'">$</span>
+                            <span *ngIf="sheetName.value=='Revenue'">$</span>
                         {{data[date]}}</span>
                     </td>
                     <td><span *ngIf="data.total"><span *ngIf="sheetName.value=='Revenue'">$</span>

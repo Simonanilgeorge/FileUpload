@@ -58,6 +58,7 @@
 
 h1,
 h2,
+h3,
 .heading h1,
 h2 {
   color: steelblue;
@@ -146,7 +147,9 @@ label {
 table {
   border-collapse: collapse;
   text-align: center;
-  width: 100%;
+  max-width: 100%;
+  /* move table to center */
+  margin: 0 auto;
   white-space: nowrap;
   font-size: 0.8em;
 }
