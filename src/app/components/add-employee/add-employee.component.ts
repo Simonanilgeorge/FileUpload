@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
@@ -14,6 +14,9 @@ import { DatePipe } from '@angular/common';
 })
 
 export class AddEmployeeComponent implements OnInit {
+
+  @ViewChild('myDiv') myDiv: ElementRef;
+
   isActive: boolean = false;
   update: Boolean = false;
   message = null;
@@ -23,7 +26,7 @@ export class AddEmployeeComponent implements OnInit {
   dropDownList: any;
   displayBoolean = false;
   ClientList: string[];
-Tasklist = []
+  Tasklist = []
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
@@ -43,12 +46,12 @@ Tasklist = []
         client: [{ value: '', disabled: this.update }, Validators.required],
         search: [{ value: '', disabled: this.update }, Validators.required],
         id: [""],
-        shift: ["",Validators.required],
-        production_status: ["",Validators.required],
+        shift: ["", Validators.required],
+        production_status: ["", Validators.required],
         training_duration: [{ value: '', disabled: this.update }, Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-        actual_out_of_review_date: ["",Validators.required],
-        delay_reason: ["",Validators.required],
+        actual_out_of_review_date: ["", Validators.required],
+        delay_reason: ["", Validators.required],
         delay_review_duration: [{ value: '0', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
@@ -140,7 +143,7 @@ Tasklist = []
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
       this.showToastMessage(res.response)
-      if(res.response==="Success"){
+      if (res.response === "Success") {
         // enable form for add employee
         this.userForm.enable()
         this.delay_review_duration.disable()
@@ -174,7 +177,7 @@ Tasklist = []
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
       res = JSON.parse(res);
- 
+
       // this.Tasklist = this.dropDownList[res[0].client];
       this.inputs.patchValue(res[0]);
 
@@ -188,6 +191,7 @@ Tasklist = []
     })
   }
   display() {
+
     this.displayBoolean = !this.displayBoolean;
 
   }
@@ -196,7 +200,7 @@ Tasklist = []
     // if(this.update){
     //   return;
     // }
-    // this.displayBoolean = !this.displayBoolean;
+    this.displayBoolean = !this.displayBoolean;
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
 
@@ -210,7 +214,7 @@ Tasklist = []
       this.task.removeAt(index);
 
     }
-    
+
   }
 
   changeClientOptions(event) {
@@ -223,7 +227,7 @@ Tasklist = []
     this.task.clear()
     this.Tasklist = this.dropDownList[this.inputs.value.client];
 
-  
+
 
 
 
@@ -247,7 +251,7 @@ Tasklist = []
 
   getName(data) {
 
-    
+
     this.training_duration.setValue(data);
   }
 
@@ -256,7 +260,7 @@ Tasklist = []
     let array = [];
     array.push(`${1} Week`)
     for (let i = 2; i <= number; i++) {
-      
+
       array.push(`${i} Weeks`)
     }
     return array;
@@ -269,7 +273,7 @@ Tasklist = []
       let result = new Date(this.doj.value);
 
       result.setDate(result.getDate() + days);
- 
+
 
       this.planned_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
       this.actual_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
@@ -313,8 +317,31 @@ Tasklist = []
 
   }
 
-  
-  
+
+  // @HostListener('document:click', ['$event']) 
+  clickOutside(e) {
+
+    if(e.target.classList.contains("test")||e.target.classList.contains("checkbox")||e.target.classList.contains("dropdown")||e.target.classList.contains("dropdown-text")||e.target.classList.contains("parent")){
+      // this.displayBoolean=true
+      // console.log("if");
+      return
+      
+    }else{
+      // console.log("else");
+      console.log(e.target.className)
+      this.displayBoolean=false
+      
+      // this.displayBoolean=false
+    }
+
+    
+
+  }
+
 
 }
+
+
+
+
 

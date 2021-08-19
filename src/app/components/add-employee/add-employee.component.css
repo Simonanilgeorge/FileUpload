@@ -95,6 +95,7 @@ white-space: nowrap;
 
 
   .checkbox{
+    
     display: flex;
     gap:0.2em;
   padding:0.2em;

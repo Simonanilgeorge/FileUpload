@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (click)="clickOutside($event)">
   <app-navbar></app-navbar>
 
 
@@ -37,21 +37,21 @@
       <!-- change start -->
       <div class="inputgroup">
         <!-- get styles from state -->
-        <label for="state">Task</label>
+        <label for="Task">Task</label>
         <ul>
           <li class="parent" (click)=display()>
             <div class="dropdown-text">
               <!-- <p>{{state.value}} </p> -->
 
               <p *ngIf="task.value.length==0">--Select--</p>
-              <p > {{task.value.join() }}</p>
+              <p class="test"> {{task.value.join() }}</p>
             </div>
             <p class="icon">&#x276F;</p>
             <ul class="dropdown" [class.display]="displayBoolean">
               <!-- <li *ngFor="let data of stateList" (click)="getName(data)">{{data}}</li> -->
               <div *ngFor="let input of Tasklist;let i=index" class="checkbox">
                 <label for="">
-                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="update">
+                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="update" class="test">
                     {{input}}
                 </label>
             </div>
