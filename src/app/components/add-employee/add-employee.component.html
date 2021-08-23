@@ -65,7 +65,7 @@
         <!-- get styles from state -->
         <label for="Task">Task</label>
         <ul>
-          <li class="parent" (click)=display() [class.taskupdate]="update">
+          <li class="parent" (click)=display() [class.taskupdate]="delete">
             <div class="dropdown-text">
               <!-- <p>{{state.value}} </p> -->
 
@@ -77,7 +77,7 @@
               <!-- <li *ngFor="let data of stateList" (click)="getName(data)">{{data}}</li> -->
               <div *ngFor="let input of Tasklist;let i=index" class="checkbox">
                 <label for="">
-                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="update" class="clickoutside">
+                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="delete" class="clickoutside">
                     {{input}}
                 </label>
             </div>

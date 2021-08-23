@@ -48,6 +48,7 @@ import { YearlyClientReportComponent } from './components/yearly-client-report/y
     ColumnsortPipe,
     YearlyClientReportComponent,
 
+
   ],
   imports: [
 

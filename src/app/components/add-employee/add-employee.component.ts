@@ -17,7 +17,7 @@ export class AddEmployeeComponent implements OnInit {
 
   @ViewChild('myDiv') myDiv: ElementRef;
 
-
+delete=false;
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
   isActive: boolean = false;
@@ -31,23 +31,23 @@ export class AddEmployeeComponent implements OnInit {
   ClientList: string[];
   Tasklist = []
 
+
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-
-
     this.getDropDown();
-    this.checkUpdate();
+
     this.userForm = this.fb.group({
       inputs: this.fb.group({
         doj: [{ value: '', disabled: this.update }, Validators.required],
         empcode: [{ value: '', disabled: this.update }, Validators.required],
         name: [{ value: '', disabled: this.update }, Validators.required],
         task: this.fb.array([]),
-        client: [{ value: '', disabled: this.update }, Validators.required],
-        search: [{ value: '', disabled: this.update }, Validators.required],
+        client: [{ value: '', disabled: false }, Validators.required],
+        search: [{ value: '', disabled: false }, Validators.required],
         id: [""],
         shift: ["", Validators.required],
         production_status: ["", Validators.required],
@@ -120,7 +120,9 @@ export class AddEmployeeComponent implements OnInit {
     const id = sessionStorage.getItem("employeeID")
     if (id) {
       this.update = true;
+
       this.getSingleEmployee();
+
     }
     else {
       this.update = false;
@@ -195,6 +197,15 @@ export class AddEmployeeComponent implements OnInit {
       })
 
 
+      // to do => values inside task should be checked 
+      console.log(this.userForm.getRawValue())
+      this.isActive=true
+      
+      console.log(this.dropDownList)
+      this.Tasklist = this.dropDownList[this.inputs.value.client];
+
+
+     
     }, (err) => {
       console.log(err.message);
     })
@@ -210,6 +221,7 @@ export class AddEmployeeComponent implements OnInit {
     //   return;
     // }
     this.displayBoolean = !this.displayBoolean;
+
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
 
@@ -235,12 +247,6 @@ export class AddEmployeeComponent implements OnInit {
     }, 5)
     this.task.clear()
     this.Tasklist = this.dropDownList[this.inputs.value.client];
-
-
-
-
-
-
   }
 
   getDropDown() {
@@ -249,6 +255,7 @@ export class AddEmployeeComponent implements OnInit {
       this.dropDownList = res;
 
       this.ClientList = this.dropDownList.Client;
+      this.checkUpdate();
       // this.checkUpdate();
 
     }, (err) => {

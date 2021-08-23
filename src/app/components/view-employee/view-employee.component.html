@@ -53,28 +53,28 @@
                         </th>
                     </tr>
                     <tr>
+                        <th>Edit</th>
                         <th *ngFor="let title of titles">
                             <span style="cursor: pointer;" (dblclick)="showInput()"
-                            (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>
+                                (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>
                         </th>
-                        <th>Delete</th>
+
 
                     </tr>
-                    <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName " >
-                        <td *ngFor="let title of titles"
-                            [class.textleft]="title=='name'|| title=='task'||title=='search'">
-                            <span *ngIf="title=='empcode'"
-                                style='cursor: pointer; text-decoration: underline; color:blueviolet'
-                                (click)="edit(data)">
-                                {{data[title]}}
-                            </span>
-                            <span *ngIf="title!='empcode'"> {{data[title]}}</span>
-                        </td>
+
+                    <tr
+                        *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
                         <td>
-                            <p (click)="showModal(data)" style='cursor: pointer;   font-size: 0.6rem;'>&#10060;</p>
+                            <span (click)="showModal(data)" style='cursor: pointer;font-size: 1.1em;'> 
+                                <i class="fa fa-trash-o"></i> </span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                        </td>
+                        <td *ngFor="let title of titles" class="textleft">
+                                {{data[title]}}
                         </td>
                     </tr>
                 </table>
