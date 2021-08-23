@@ -14,6 +14,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
+
+
   fileName = "employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
@@ -43,6 +45,22 @@ export class ViewEmployeeComponent implements OnInit {
     shift: [""]
   })
 
+
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "task": "Task",
+    "client": "Client",
+    "shift": "Shift",
+    "production_status": "Production Status",
+    "training_duration": "Training Duration",
+    "planned_out_of_review_date": "Planned Out of Review Date",
+    "actual_out_of_review_date": "Actual Out of Review Date",
+    "delay_reason": "Reason for Extension",
+    "delay_review_duration": "Review Extension"
+  }
 
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService) { }
 

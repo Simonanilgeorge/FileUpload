@@ -17,6 +17,9 @@ export class AddEmployeeComponent implements OnInit {
 
   @ViewChild('myDiv') myDiv: ElementRef;
 
+
+  // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+  valid: boolean = true;
   isActive: boolean = false;
   update: Boolean = false;
   message = null;
@@ -51,14 +54,12 @@ export class AddEmployeeComponent implements OnInit {
         training_duration: [{ value: '', disabled: this.update }, Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
         actual_out_of_review_date: ["", Validators.required],
-        delay_reason: ["", Validators.required],
-        delay_review_duration: [{ value: '0', disabled: true }, Validators.required],
+        delay_reason: ["No issue", Validators.required],
+        delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
     });
-
   }
-
 
   get delay_reason() {
     return this.inputs.get("delay_reason")
@@ -130,13 +131,21 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit() {
 
+    this.name.setValue(this.name.value.trim())
+    this.empcode.setValue(this.empcode.value.trim())
 
+    if (!this.valid) {
+      this.showToastMessage("actual out of review date cannot be before planned out of review date")
+      return
+    }
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
       this.showToastMessage("Please fill all the fields");
       return;
     }
+
+
 
 
     // send the form
@@ -292,25 +301,38 @@ export class AddEmployeeComponent implements OnInit {
 
     let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
 
-    if (resultDate > 0) {
+    if (resultDate >= 0) {
 
       // to display in months and days
+      this.valid = true
       let result = Math.floor(resultDate / 30);
       if (result == 0) {
 
-        this.delay_review_duration.setValue(`${resultDate} days`)
+        if (resultDate == 1) {
+          this.delay_review_duration.setValue(`${resultDate} day`)
+        }
+        else {
+          this.delay_review_duration.setValue(`${resultDate} days`)
+        }
+
       }
       else {
 
         let days = resultDate % 30;
-        this.delay_review_duration.setValue(`${result} Month ${days} days`)
+        if (days == 1) {
+          this.delay_review_duration.setValue(`${result} Month ${days} day`)
+        }
+        else {
+          this.delay_review_duration.setValue(`${result} Month ${days} days`)
+        }
+
 
       }
-
       // number of days only
       // this.delay_review_duration.setValue(`${result} days`)
     }
     else {
+      this.valid = false;
       this.showToastMessage("actual out of review date cannot be before planned out of review date")
       return
     }
@@ -321,24 +343,17 @@ export class AddEmployeeComponent implements OnInit {
   // @HostListener('document:click', ['$event']) 
   clickOutside(e) {
 
-    if(e.target.classList.contains("test")||e.target.classList.contains("checkbox")||e.target.classList.contains("dropdown")||e.target.classList.contains("dropdown-text")||e.target.classList.contains("parent")){
+    if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent")) {
       // this.displayBoolean=true
       // console.log("if");
       return
-      
-    }else{
+    } else {
       // console.log("else");
-      console.log(e.target.className)
-      this.displayBoolean=false
-      
+   
+      this.displayBoolean = false
       // this.displayBoolean=false
     }
-
-    
-
   }
-
-
 }
 
 

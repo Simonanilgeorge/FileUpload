@@ -12,17 +12,43 @@
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="heading">
       <h2 *ngIf="!update">Add Employee</h2>
-      <h2 *ngIf="update">Edit Employee</h2>
+      <h2 *ngIf="update">Update Employee Data</h2>
     </div>
 
     <div class="formcontainer-primary" formGroupName="inputs">
+
+
+      <div class="inputgroup">
+        <label for="empcode">Employee Code</label>
+        <input name="empcode" class="input-primary" formControlName="empcode" autocomplete="off">
+      </div>
+
       <div class="inputgroup">
         <label for="name">Employee Name</label>
         <input name="name" class="input-primary" formControlName="name" autocomplete="off">
       </div>
+
       <div class="inputgroup">
-        <label for="empcode">Employee Code</label>
-        <input name="empcode" class="input-primary" formControlName="empcode" autocomplete="off">
+        <label for="doj">Date of Joining</label>
+        <input type="date" name="doj" class="input-primary" formControlName="doj" (change)="calculatePlannedDate()">
+      </div>
+
+      <div class="inputgroup">
+        <label for="shift">Shift</label>
+        <select name="shift" class="input-primary" formControlName="shift">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Morning Shift" >Morning Shift</option>
+          <option value="Night Shift" >Night Shift</option>
+        </select>
+      </div>
+      <div class="inputgroup">
+        <label for="search">Search/Non-Search</label>
+
+        <select name="search" class="input-primary" formControlName="search">
+          <option value="" [disabled]="true">--Select--</option>
+          <option value="Search">Search</option>
+          <option value="Non-Search">Non-Search</option>
+        </select>
       </div>
 
       <div class="inputgroup">
@@ -39,19 +65,19 @@
         <!-- get styles from state -->
         <label for="Task">Task</label>
         <ul>
-          <li class="parent" (click)=display()>
+          <li class="parent" (click)=display() [class.taskupdate]="update">
             <div class="dropdown-text">
               <!-- <p>{{state.value}} </p> -->
 
               <p *ngIf="task.value.length==0">--Select--</p>
-              <p class="test"> {{task.value.join() }}</p>
+              <p class="clickoutside"> {{task.value.join() }}</p>
             </div>
             <p class="icon">&#x276F;</p>
             <ul class="dropdown" [class.display]="displayBoolean">
               <!-- <li *ngFor="let data of stateList" (click)="getName(data)">{{data}}</li> -->
               <div *ngFor="let input of Tasklist;let i=index" class="checkbox">
                 <label for="">
-                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="update" class="test">
+                    <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="update" class="clickoutside">
                     {{input}}
                 </label>
             </div>
@@ -61,30 +87,14 @@
 
       </div>
 
-      <div class="inputgroup">
-        <label for="search">Search/Non-Search</label>
-
-        <select name="search" class="input-primary" formControlName="search">
-          <option value="" [disabled]="true">--Select--</option>
-          <option value="Search">Search</option>
-          <option value="Non-Search">Non-Search</option>
-        </select>
-      </div>
 
       <!-- change end -->
 
       <!-- new Drop downs start -->
-      <div class="inputgroup">
-        <label for="shift">Shift</label>
-        <select name="shift" class="input-primary" formControlName="shift">
-          <option value="" [disabled]="true">--Select--</option>
-          <option value="Morning Shift" >Morning Shift</option>
-          <option value="Night Shift" >Night Shift</option>
-        </select>
-      </div>
+
 
       <div class="inputgroup">
-        <label for="Production status">Production status</label>
+        <label for="Production status">Production Status</label>
         <select name="Production status" class="input-primary" formControlName="production_status">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Training" >Training</option>
@@ -117,10 +127,7 @@
 <!-- new fields start-->
 
 
-<div class="inputgroup">
-  <label for="doj">Date of Joining</label>
-  <input type="date" name="doj" class="input-primary" formControlName="doj" (change)="calculatePlannedDate()">
-</div>
+
 
 <div class="inputgroup">
   <label for="Training Duration">Training Duration</label>
@@ -131,27 +138,26 @@
     </option>
   </select>
 </div>
-
 <div class="inputgroup">
-  <label for="planned_out_of_review_date">Planned Out Of Review Date</label>
+  <label for="planned_out_of_review_date">Planned Out of Review Date</label>
   <input type="date" name="planned_out_of_review_date" class="input-primary" formControlName="planned_out_of_review_date" >
 </div>
 
 
 <div class="inputgroup">
-  <label for="actual_out_of_review_date">Actual Out Of Review Date</label>
+  <label for="actual_out_of_review_date">Actual Out of Review Date</label>
   <input type="date" name="actual_out_of_review_date" class="input-primary" formControlName="actual_out_of_review_date" (change)="calculatedelay_review_duration()">
 </div>
 
 <div class="inputgroup">
-  <label for="Delay Review Duration">Delay Review Duration</label>
+  <label for="Delay Review Duration">Review Extension </label>
   <input type="text" name="Delay Review Duration" class="input-primary" formControlName="delay_review_duration" >
 </div>
 
 <div class="inputgroup">
-  <label for="Delay Reason">Delay Reason</label>
+  <label for="Delay Reason">Reason for Extension</label>
   <select name="Delay Reason" class="input-primary option" formControlName="delay_reason">
-    <option value="" [disabled]="true">--Select--</option>
+    <!-- <option value="" [disabled]="true">--Select--</option> -->
     <option value="Productivity issue" > Productivity Issue</option>
     <option value="Quality issue" >Quality Issue</option>
     <option value="Planning issue" >Planning Issue</option>

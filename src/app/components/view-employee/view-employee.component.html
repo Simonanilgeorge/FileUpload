@@ -55,7 +55,7 @@
                     <tr>
                         <th *ngFor="let title of titles">
                             <span style="cursor: pointer;" (dblclick)="showInput()"
-                                (click)="getTitleName(title)">{{title}} &uarr;&darr;</span>
+                            (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>

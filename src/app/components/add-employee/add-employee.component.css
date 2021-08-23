@@ -106,3 +106,14 @@ white-space: nowrap;
      padding:0.3em;
   
     }
+
+
+    label{
+      white-space: nowrap;
+    }
+
+
+    .taskupdate{
+      color:#c1c1c1;
+      border:1px solid #c1c1c1;
+    }
