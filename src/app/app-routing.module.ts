@@ -13,6 +13,7 @@ import {ClientReportComponent} from './components/client-report/client-report.co
 import {AddEmployeeComponent} from './components/add-employee/add-employee.component';
 import {ViewEmployeeComponent} from './components/view-employee/view-employee.component';
 import {YearlyClientReportComponent} from './components/yearly-client-report/yearly-client-report.component'
+import {YearlyEmployeeReportComponent} from './components/yearly-employee-report/yearly-employee-report.component'
 import { from } from 'rxjs';
 
 
@@ -30,7 +31,7 @@ const routes: Routes = [
 // {path:'sendreport/:id',component:EmployeesendreportComponent},
 {path:'viewmystatus',component:OrderListComponent},
 {path:'viewreport',component:EmployeeReportComponent},
-{path:'viewyearlyreport',component:EmployeeReportComponent},
+{path:'viewyearlyreport',component:YearlyEmployeeReportComponent},
 {path:'yearlyclientreport',component:YearlyClientReportComponent}
 ];
 

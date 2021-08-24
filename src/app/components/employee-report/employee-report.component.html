@@ -4,24 +4,13 @@
 <!-- 
     <input type="text" [(ngModel)]="sheetName"> -->
     <div class="heading">
-        <h2 *ngIf="yearlyProductionReport=='0'">Daily Production Report</h2>
-        <h2 *ngIf="yearlyProductionReport=='1'">Yearly Production Report</h2>
+        <h2 >Daily Production Report</h2>
+
     </div>
     <!-- Yearly Prodution Report -->
-    <form *ngIf="yearlyProductionReport=='1'" [formGroup]="yearlyFilterForm" class="formcontainer">
-        <div class="inputgroup">
-            <label for="From">From</label>
-            <input type="date" formControlName="startDate" class="input-primary" (change)="yearlyProductionOnSubmit()">
-        </div>
-        <div class="inputgroup">
-            <label for="To">To</label>
-            <input type="date" formControlName="endDate" class="input-primary" (change)="yearlyProductionOnSubmit()">
-        </div>
-
-    </form>
 
     <!-- Daily Production Report -->
-    <form *ngIf="yearlyProductionReport=='0'" [formGroup]="filterForm" class="formcontainer">
+    <form [formGroup]="filterForm" class="formcontainer">
 
         <div class="inputgroup">
             <label for="date">Date</label>
@@ -61,10 +50,9 @@
                     </tr>
 
                     <tr>
-
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                             <span style="cursor: pointer;" (click)="getTitleName(title)"
-                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
+                                (dblclick)="showInput()">{{headings[title]}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>

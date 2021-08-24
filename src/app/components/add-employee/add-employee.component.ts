@@ -371,10 +371,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  test() {
-    let checkbox = document.querySelectorAll(".clickoutside")
-    console.log(checkbox)
-  }
+
 }
 
 
