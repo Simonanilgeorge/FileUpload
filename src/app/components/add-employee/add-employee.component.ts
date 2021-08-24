@@ -45,7 +45,7 @@ export class AddEmployeeComponent implements OnInit {
         doj: [{ value: '', disabled: this.update }, Validators.required],
         empcode: [{ value: '', disabled: this.update }, Validators.required],
         name: [{ value: '', disabled: this.update }, Validators.required],
-        task: this.fb.array([]),
+        task: this.fb.array([],Validators.required),
         client: [{ value: '', disabled: false }, Validators.required],
         search: [{ value: '', disabled: false }, Validators.required],
         id: [""],
@@ -202,15 +202,15 @@ export class AddEmployeeComponent implements OnInit {
 
       this.Tasklist = this.dropDownList[this.inputs.value.client];
       console.log(this.task.value)
-
       setTimeout(() => {
-        let checkbox = this.elem.nativeElement.document.querySelectorAll('.clickoutside')
-        // console.log(checkbox)
+        let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
         checkbox.forEach((check) => {
-          console.log(check.value)
+          if (this.task.value.includes(check.value) && !check.checked) {
+            check.checked = true
+        }
         })
 
-      }, 2000)
+      }, 1000)
 
     }, (err) => {
       console.log(err.message);
