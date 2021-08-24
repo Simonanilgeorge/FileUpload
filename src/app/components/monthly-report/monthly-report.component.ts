@@ -52,6 +52,8 @@ export class MonthlyReportComponent implements OnInit {
     return this.Date.get("date");
   }
 
+
+  // function called on ngOnInit()
   filter() {
 
     if (this.Date.status === "INVALID") {

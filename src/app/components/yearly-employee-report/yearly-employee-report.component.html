@@ -1,1 +1,114 @@
-<p>yearly-employee-report works!</p>
+<div class="container">
+    <app-navbar></app-navbar>
+
+    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+
+
+
+    <div class="heading">
+        <h2>Monthly {{sheetNameRes}} Report</h2>
+    </div>
+
+
+    <form [formGroup]="Date" class="formcontainer">
+        <div class="inputgroup">
+            <label for="">
+                Select Month
+            </label>
+            <input type="month" formControlName="date" class="input-primary" (change)="filter()">
+
+        </div>
+        <div class="inputgroup">
+            <label for="name">Select Report</label>
+            <select class="input-primary" formControlName="sheetName" (change)="filter()">
+                <!-- <option value="" [disabled]="true">--Select--</option> -->
+                <option *ngFor="let sheet of SheetList">
+                    {{sheet}}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="inputgroup">
+                <button class="button" (click)="filter()">Filter</button>
+            </div> -->
+    </form>
+
+
+
+    <div class="report-container" *ngIf="total != 0">
+
+        <div class="tablecontainer">
+
+            <form [formGroup]="columnFilterForm">
+                <table class="table-excel">
+                    <tr>
+                        <th style="position:sticky;top:0;">
+                            <form class="tablesearch">
+                                <div class="inputgroup" style="padding:0;">
+                                    <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
+                                        class="search" autocomplete="off">
+                                </div>
+                            </form>
+                        </th>
+                        <th colspan="39" style="position:sticky;top:0;">
+                            <input type="button" value="Export" class="exportbutton" (click)="export()">
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
+                            <span style="cursor: pointer;" (click)="getTitleName(title)"
+                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
+                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
+                                <input type="text" class="search" formControlName="{{title}}">
+                            </div>
+                        </th>
+                        <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
+                        <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
+                    </tr>
+                    <tr
+                        *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
+                            [class.textleft]="title=='name'|| title=='task'||title=='search'">{{data[title]}}</td>
+                        <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
+                            <span *ngIf="data[date]">
+                                <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                                {{data[date]}}
+                                <span *ngIf="sheetNameRes=='Productivity'||sheetNameRes=='Utilization'">%</span>
+                            </span>
+                        </td>
+
+                        <td *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'"><span *ngIf="data.total"><span
+                                    *ngIf="sheetNameRes=='Revenue'">$</span>
+                                {{data.total}}</span></td>
+                    </tr>
+
+                    <tr *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">
+                        <td
+                            style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
+                            Grand Total</td>
+                        <td colspan="5" style="background: rgb(42 67 125); color:white;"></td>
+                        <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
+
+                            <span *ngIf="columnSum[date]!=0">
+                                <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                                 {{columnSum[date]| number}}
+                            </span>
+                        </td>
+                        <td style="background: rgb(42 67 125); color:white;">
+                            <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                            {{total|number}}
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+
+    </div>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
+        <h2>Loading...</h2>
+    </div>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="total == 0 && data.length != 0">
+        <h2>No data available for the Month </h2>
+    </div>
+</div>

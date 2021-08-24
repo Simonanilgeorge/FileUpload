@@ -1,0 +1,56 @@
+.inputgroup {
+  width: 14em;
+  padding: 0 1em;
+}
+
+th {
+  position: sticky;
+  top: 3.2em;
+  z-index: 11;
+  /* border:1px solid white; */
+}
+
+td {
+  padding: 0.3em;
+  font-size: 0.8rem;
+  /* border:1px solid rgb(42 67 125); */
+}
+
+.report-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0em 1em;
+}
+
+.formcontainer {
+  padding-bottom: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search {
+  border: 1px solid grey;
+  padding: 0.4em;
+  background: white;
+}
+
+.stickyheading {
+  position: sticky;
+  left: 0;
+  z-index: 12;
+}
+
+.stickydata {
+  position: sticky;
+  left: 0;
+}
+
+.display {
+  display: none;
+}
+
+.weekend {
+  background: rgb(178 200 253);
+}
