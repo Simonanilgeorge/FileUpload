@@ -17,7 +17,7 @@ export class AddEmployeeComponent implements OnInit {
 
   @ViewChild('myDiv') myDiv: ElementRef;
 
-delete=false;
+  delete = false;
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
   isActive: boolean = false;
@@ -32,7 +32,7 @@ delete=false;
   Tasklist = []
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe,private elem: ElementRef) { }
 
   ngOnInit(): void {
 
@@ -199,16 +199,24 @@ delete=false;
 
       // to do => values inside task should be checked 
       console.log(this.userForm.getRawValue())
-      this.isActive=true
-      
-      console.log(this.dropDownList)
+
       this.Tasklist = this.dropDownList[this.inputs.value.client];
+      console.log(this.task.value)
 
+      setTimeout(() => {
+        let checkbox = this.elem.nativeElement.document.querySelectorAll('.clickoutside')
+        // console.log(checkbox)
+        checkbox.forEach((check) => {
+          console.log(check.value)
+        })
 
-     
+      }, 2000)
+
     }, (err) => {
       console.log(err.message);
     })
+
+
   }
   display() {
 
@@ -350,16 +358,22 @@ delete=false;
   // @HostListener('document:click', ['$event']) 
   clickOutside(e) {
 
-    if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent")) {
+    if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent") || e.target.classList.contains("p-clickoutside")) {
       // this.displayBoolean=true
       // console.log("if");
       return
     } else {
       // console.log("else");
-   
+
       this.displayBoolean = false
       // this.displayBoolean=false
     }
+  }
+
+
+  test() {
+    let checkbox = document.querySelectorAll(".clickoutside")
+    console.log(checkbox)
   }
 }
 

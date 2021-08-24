@@ -2,7 +2,7 @@
   <app-navbar></app-navbar>
 
 
-
+<button class="button" (click)="test()">click</button>
   <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
 
@@ -70,7 +70,7 @@
               <!-- <p>{{state.value}} </p> -->
 
               <p *ngIf="task.value.length==0">--Select--</p>
-              <p class="clickoutside"> {{task.value.join() }}</p>
+              <p class="p-clickoutside"> {{task.value.join() }}</p>
             </div>
             <p class="icon">&#x276F;</p>
             <ul class="dropdown" [class.display]="displayBoolean">
