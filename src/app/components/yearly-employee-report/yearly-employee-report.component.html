@@ -6,7 +6,7 @@
 
 
     <div class="heading">
-        <h2>Monthly {{sheetNameRes}} Report</h2>
+        <h2>Yearly {{sheetNameRes}} Report</h2>
     </div>
 
 
@@ -15,7 +15,9 @@
             <label for="">
                 Select Month
             </label>
-            <input type="month" formControlName="date" class="input-primary" (change)="filter()">
+
+<input type="number"  class="input-primary" min="1980" max="2099" step="1" formControlName="date" (input)="filter()"/>
+
 
         </div>
         <div class="inputgroup">

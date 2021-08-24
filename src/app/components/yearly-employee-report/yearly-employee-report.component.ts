@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../providers/login.service'
-import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormGroup} from '@angular/forms';
+
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
@@ -34,7 +35,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
     task: [""]
   })
   Date = this.fb.group({
-    date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],
+    date: [this.datePipe.transform(new Date(),"yyyy"), Validators.required],
     sheetName: ['Revenue', Validators.required]
   })
 
@@ -58,7 +59,12 @@ export class YearlyEmployeeReportComponent implements OnInit {
       this.showToastMessage("Select month and sheet");
       return;
     }
-    this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
+
+    if(this.date.value.toString().length!=4 ){   
+      return
+    }
+
+    this.empReportService.getYearlyEmployeeReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
 
@@ -127,4 +133,5 @@ export class YearlyEmployeeReportComponent implements OnInit {
         this.exportExcelService.exportToExcel(element, this.fileName)
     
       }
+
 }

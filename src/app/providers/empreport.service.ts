@@ -18,6 +18,7 @@ export class EmpreportService {
   private employeeUrl="http://localhost:5000/api/addemployee"
   private editEmployeeUrl="http://localhost:5000/api/editemployee"
   private yearlyClientUrl="http://localhost:5000/api/yearlyclientrprt"
+  private yearlyEmployeeReportUrl = "http://localhost:5000/api/yearlyemprprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
@@ -79,6 +80,12 @@ export class EmpreportService {
 
 getYearlyClientReport(data):Observable<any>{
   return this.http.post<any>(this.yearlyClientUrl,data)
+}
+
+
+getYearlyEmployeeReport(date): Observable<any> {
+  return this.http.post<any>(this.yearlyEmployeeReportUrl, date);
+
 }
 
 }
