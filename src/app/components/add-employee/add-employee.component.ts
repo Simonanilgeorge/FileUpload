@@ -46,15 +46,15 @@ export class AddEmployeeComponent implements OnInit {
         empcode: [{ value: '', disabled: this.update }, Validators.required],
         name: [{ value: '', disabled: this.update }, Validators.required],
         task: this.fb.array([],Validators.required),
-        client: [{ value: '', disabled: false }, Validators.required],
-        search: [{ value: '', disabled: false }, Validators.required],
+        client: [{ value: '', disabled: this.delete }, Validators.required],
+        search: [{ value: '', disabled: this.delete }, Validators.required],
         id: [""],
-        shift: ["", Validators.required],
-        production_status: ["", Validators.required],
+        shift: [{ value: '', disabled: this.delete }, Validators.required],
+        production_status: [{ value: '', disabled: this.delete }, Validators.required],
         training_duration: [{ value: '', disabled: this.update }, Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-        actual_out_of_review_date: ["", Validators.required],
-        delay_reason: ["No issue", Validators.required],
+        actual_out_of_review_date: [{ value: '', disabled: this.delete }, Validators.required],
+        delay_reason: [{ value: 'No issue', disabled: this.delete }, Validators.required],
         delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
@@ -115,11 +115,33 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
+
+  // check if update or delete action is to be performed
   checkUpdate() {
 
     const id = sessionStorage.getItem("employeeID")
-    if (id) {
+    
+    const isDelete=sessionStorage.getItem("deleteEmployee")
+    console.log(`isDelete : ${isDelete}`)
+    console.log(`employee id : ${id}`)
+
+    if(id && isDelete ){
+
+      console.log("need to delete employee")
+
+      // disable all fields for update
+      this.update=true;
+     // disable all fields for delete
+      this.delete=true
+      // get info for single employee
+      this.getSingleEmployee();
+     
+    
+    }
+    else if (id && !isDelete) {
+      console.log("need to update employee")
       this.update = true;
+      this.delete=false;
 
       this.getSingleEmployee();
 
@@ -128,6 +150,8 @@ export class AddEmployeeComponent implements OnInit {
       this.update = false;
 
     }
+console.log(`this.update ${this.update}`)
+console.log(`this.delete ${this.delete}`)
   }
 
 
@@ -198,10 +222,10 @@ export class AddEmployeeComponent implements OnInit {
 
 
       // to do => values inside task should be checked 
-      console.log(this.userForm.getRawValue())
+
 
       this.Tasklist = this.dropDownList[this.inputs.value.client];
-      console.log(this.task.value)
+      
       setTimeout(() => {
         let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
         checkbox.forEach((check) => {
@@ -370,6 +394,9 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
+  deleteEmployee(){
+    sessionStorage.removeItem("deleteEmployee")
+  }
 
 
 }
