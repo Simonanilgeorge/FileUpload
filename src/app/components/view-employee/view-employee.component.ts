@@ -101,27 +101,21 @@ export class ViewEmployeeComponent implements OnInit {
     this.router.navigate(['/addemployee'])
 
   }
-
-
-
-// move function to add employee table
   delete(data) {
 
 
-    // this.modalBoolean = false;
-    // this.empReportService.deleteEmployee(data).subscribe((res) => {
+    this.modalBoolean = false;
+    this.empReportService.deleteEmployee(data).subscribe((res) => {
 
-    //   this.showToastMessage("Deleted successfully")
+      this.showToastMessage("Deleted successfully")
 
-    //   this.ngOnInit();
-    // }, (err) => {
-    //   this.showToastMessage("Deletion failed")
-    //   console.log(err.message)
-    // })
+      this.ngOnInit();
+    }, (err) => {
+      this.showToastMessage("Deletion failed")
+      console.log(err.message)
+    })
 
   }
-
-
   showToastMessage(message) {
     this.message = message;
     this.toast = true;
@@ -139,25 +133,14 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   }
-
-
-
-  // Called when delete butoon clicked
   showModal(data) {
     // (click)="delete(data)" 
 
-    // set session storage for edit(to call single employee info)
 
-    sessionStorage.setItem("employeeID", data.empcode);
+    data.username = sessionStorage.getItem('user')
 
-    // set new session storage for delete
-    sessionStorage.setItem("deleteEmployee",data.empcode)
-    this.router.navigate(['/addemployee'])
-
-    // data.username = sessionStorage.getItem('user')
-
-    // this.modalBoolean = true;
-    // this.dataToBeDeleted = data;
+    this.modalBoolean = true;
+    this.dataToBeDeleted = data;
   }
 
   closeModal() {
@@ -176,6 +159,4 @@ export class ViewEmployeeComponent implements OnInit {
   //   this.exportExcelService.exportToExcel(element, this.fileName)
 
   // }
-
-
 }
