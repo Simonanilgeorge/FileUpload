@@ -69,13 +69,13 @@ export class EmpreportService {
   }
 
   deleteEmployee(deleteObject):Observable<any>{
-    let data={
-      inputs:null
-    };
-    data.inputs=deleteObject
+    // let data={
+    //   inputs:null
+    // };
+    // data.inputs=deleteObject
 
 
-    return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.empcode}`,data)
+    return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.inputs.empcode}`,deleteObject)
   }
 
 getYearlyClientReport(data):Observable<any>{

@@ -3,15 +3,35 @@
 
 
   <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+  <div class="modal" [class.display]="modalBoolean" #modalRef>
+
+    <div class="modal-content">
+        <div class="text">
+            <h2>Confirm</h2>
+        </div>
+        <div class="text">
+            <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
+                    {{dataToBeDeleted.inputs.name|titlecase}}</span>?</p>
+
+
+        </div>
+
+        <div class="buttoncontainer">
+            <button class="openbtn" (click)="deleteEmployee(dataToBeDeleted)">Yes</button>
+            <button class="openbtn" (click)="closeModal()">No</button>
+        </div>
+    </div>
+</div>
 
 
   <div class="cardcontainer">
 <div class="card">
 
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="userForm" >
     <div class="heading">
-      <h2 *ngIf="!update">Add Employee</h2>
+      <h2 *ngIf="!update && !delete">Add Employee</h2>
       <h2 *ngIf="update">Update Employee Data</h2>
+      <h2 *ngIf="delete">Delete Employee Data</h2>
     </div>
 
     <div class="formcontainer-primary" formGroupName="inputs">
@@ -168,16 +188,18 @@
 
 
 <!-- new fields end -->
-
-
       
     </div>
     <div class="minicontainer">
-      <div class="inputgroup" style="justify-items: center;">
-        <button class="button" type="submit">Submit</button>
+      <div class="inputgroup" style="justify-items: center;" *ngIf="!delete">
+        <button class="button" type="submit" (click)="onSubmit()">Submit</button>
+      </div>
+      <div class="inputgroup" style="justify-items: center;" *ngIf="delete">
+        <button class="button" type="submit" (click)="showModal()">Delete</button>
       </div>
     </div>
   </form>
 </div>
+
 </div>
 </div>

@@ -12,7 +12,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
   providers: [DatePipe]
 })
 export class YearlyEmployeeReportComponent implements OnInit {
-  fileName="monthly_production_report.xlsx"
+  fileName="yearly_employee_report.xlsx"
   flag: Boolean = false;
   titleName;
   message;
@@ -23,6 +23,15 @@ export class YearlyEmployeeReportComponent implements OnInit {
   data = [];
   dates = [];
   titles=["empcode","name","doj","search","client","task"];
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "client":"Client",
+    "task": "Task"
+  }
+  
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   showColumnInput;
@@ -60,7 +69,8 @@ export class YearlyEmployeeReportComponent implements OnInit {
       return;
     }
 
-    if(this.date.value.toString().length!=4 ){   
+    // check date input length
+     if(this.date.value.toString().length!=4 ){   
       return
     }
 
@@ -117,15 +127,6 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   }
 
-  checkDay(date){
-    if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)
-    {
-      return true
-    }
-    else{
-      return false
-    }
-  }
       // export to excel file
       export() {
         /* table id is passed over here */

@@ -116,6 +116,8 @@ export class ViewEmployeeComponent implements OnInit {
     })
 
   }
+
+
   showToastMessage(message) {
     this.message = message;
     this.toast = true;
@@ -133,14 +135,17 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   }
+
+  // called on delete 
   showModal(data) {
     // (click)="delete(data)" 
 
-
-    data.username = sessionStorage.getItem('user')
-
-    this.modalBoolean = true;
-    this.dataToBeDeleted = data;
+    // data.username = sessionStorage.getItem('user')
+    // console.log(data)
+    sessionStorage.setItem("deleteEmployee",data.empcode)
+    this.router.navigate(['/addemployee'])
+    // this.modalBoolean = true;
+    // this.dataToBeDeleted = data;
   }
 
   closeModal() {

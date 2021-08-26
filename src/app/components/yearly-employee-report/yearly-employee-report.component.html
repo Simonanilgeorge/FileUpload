@@ -13,7 +13,7 @@
     <form [formGroup]="Date" class="formcontainer">
         <div class="inputgroup">
             <label for="">
-                Select Month
+                Select Year
             </label>
 
 <input type="number"  class="input-primary" min="1980" max="2099" step="1" formControlName="date" (input)="filter()"/>
@@ -59,7 +59,7 @@
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                             <span style="cursor: pointer;" (click)="getTitleName(title)"
-                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
+                                (dblclick)="showInput()">{{headings[title]}} &uarr;&darr;</span>
                             <div class="inputgroup-columnsort" *ngIf="showColumnInput">
                                 <input type="text" class="search" formControlName="{{title}}">
                             </div>
@@ -70,8 +70,8 @@
                     <tr
                         *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
                         <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
-                            [class.textleft]="title=='name'|| title=='task'||title=='search'">{{data[title]}}</td>
-                        <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
+                            class="textleft">{{data[title]}}</td>
+                        <td *ngFor="let date of dates">
                             <span *ngIf="data[date]">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
                                 {{data[date]}}

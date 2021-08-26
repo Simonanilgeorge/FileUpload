@@ -80,8 +80,7 @@
                         *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
 
                         <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
-                            [class.textleft]="title=='name'|| title=='task'||title=='search'">{{status[title]}}</td>
-                        
+                            class="textleft">{{status[title]}}</td>
                         <td *ngIf="sheetName=='Orders'"><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
                         <td *ngIf="sheetName=='Productivity'"><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
                         <td *ngIf="sheetName=='Utilization'"><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>

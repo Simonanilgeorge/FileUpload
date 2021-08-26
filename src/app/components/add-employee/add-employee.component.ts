@@ -17,6 +17,8 @@ export class AddEmployeeComponent implements OnInit {
 
   @ViewChild('myDiv') myDiv: ElementRef;
 
+  modalBoolean: Boolean = false
+  dataToBeDeleted;
   delete = false;
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
@@ -32,7 +34,7 @@ export class AddEmployeeComponent implements OnInit {
   Tasklist = []
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe,private elem: ElementRef) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef) { }
 
   ngOnInit(): void {
 
@@ -42,16 +44,16 @@ export class AddEmployeeComponent implements OnInit {
 
     this.userForm = this.fb.group({
       inputs: this.fb.group({
-        doj: [{ value: '', disabled: this.update }, Validators.required],
-        empcode: [{ value: '', disabled: this.update }, Validators.required],
-        name: [{ value: '', disabled: this.update }, Validators.required],
-        task: this.fb.array([],Validators.required),
+        doj: [{ value: '', disabled: false }, Validators.required],
+        empcode: [{ value: '', disabled: false }, Validators.required],
+        name: [{ value: '', disabled: false }, Validators.required],
+        task: this.fb.array([], Validators.required),
         client: [{ value: '', disabled: false }, Validators.required],
         search: [{ value: '', disabled: false }, Validators.required],
         id: [""],
         shift: ["", Validators.required],
         production_status: ["", Validators.required],
-        training_duration: [{ value: '', disabled: this.update }, Validators.required],
+        training_duration: [{ value: '', disabled: false }, Validators.required],
         planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
         actual_out_of_review_date: ["", Validators.required],
         delay_reason: ["No issue", Validators.required],
@@ -117,10 +119,21 @@ export class AddEmployeeComponent implements OnInit {
 
   checkUpdate() {
 
+    const deleteEmployee = sessionStorage.getItem("deleteEmployee")
+    // doj empcode name training duration to be disabled on update
     const id = sessionStorage.getItem("employeeID")
     if (id) {
       this.update = true;
-
+      this.empcode.disable()
+      this.name.disable()
+      this.doj.disable()
+      this.training_duration.disable()
+      this.getSingleEmployee();
+    }
+    else if (deleteEmployee) {
+      this.userForm.disable()
+      this.employeeID.id = deleteEmployee;
+      this.delete = true
       this.getSingleEmployee();
 
     }
@@ -187,6 +200,7 @@ export class AddEmployeeComponent implements OnInit {
 
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       sessionStorage.removeItem("employeeID");
+      sessionStorage.removeItem("deleteEmployee")
       res = JSON.parse(res);
 
       // this.Tasklist = this.dropDownList[res[0].client];
@@ -207,7 +221,7 @@ export class AddEmployeeComponent implements OnInit {
         checkbox.forEach((check) => {
           if (this.task.value.includes(check.value) && !check.checked) {
             check.checked = true
-        }
+          }
         })
 
       }, 1000)
@@ -370,8 +384,39 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
+// open on delete button click methods
+  showModal() {
 
 
+  // data.username = sessionStorage.getItem('user')
+  console.log("showModal function")
+
+    this.modalBoolean = true;
+    this.dataToBeDeleted = this.userForm.getRawValue();
+    console.log(this.dataToBeDeleted)
+  }
+
+  closeModal() {
+
+    this.modalBoolean = false;
+    this.dataToBeDeleted = null;
+  }
+
+  deleteEmployee(data) {
+
+
+    this.modalBoolean = false;
+    this.empReportService.deleteEmployee(data).subscribe((res) => {
+
+      this.showToastMessage("Deleted successfully")
+
+      this.ngOnInit();
+    }, (err) => {
+      this.showToastMessage("Deletion failed")
+      console.log(err.message)
+    })
+
+  }
 }
 
 

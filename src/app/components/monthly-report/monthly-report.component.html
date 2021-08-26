@@ -68,7 +68,7 @@
                     <tr
                         *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
                         <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
-                            [class.textleft]="title=='name'|| title=='task'||title=='search'">{{data[title]}}</td>
+                            class="textleft">{{data[title]}}</td>
                         <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
                             <span *ngIf="data[date]">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
