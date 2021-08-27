@@ -3,7 +3,7 @@
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
     <div class="heading">
-        <h2>My Production Data</h2>
+        <h2>Update Production Data</h2>
     </div>
 
 
@@ -36,7 +36,7 @@
             <div class="inputgroup">
                 <label for="client">Client</label>
                 <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions($event)">
-                  <option value="">None</option>
+                  <option value="">All</option>
                   <option *ngFor="let client of ClientList" value="{{client}}">
                     {{client}}
                   </option>
@@ -45,7 +45,7 @@
               <div class="inputgroup">
                 <label for="task">Task</label>
                 <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions($event)">
-                  <option value="">None</option>
+                  <option value="">All</option>
                   <option *ngFor="let task of Tasklist" value="{{task}}">
                     {{task}}
                   </option>
@@ -54,7 +54,7 @@
               <div class="inputgroup">
                 <label for="process">Process</label>
                 <select name="process" class="input-primary" formControlName="Process">
-                  <option value="">None</option>
+                  <option value="">All</option>
                   <option *ngFor="let process of Processlist" value="{{process}}">
                     {{process}}
                   </option>
@@ -63,7 +63,7 @@
               <div class="inputgroup">
                 <label for="status">Status</label>
                 <select name="status" class="input-primary" formControlName="status">
-                  <option value="">None</option>
+                  <option value="">All</option>
                   <option *ngFor="let status of statusList">
                     {{status}}
                   </option>
@@ -79,7 +79,28 @@
 
     <div *ngIf="flag" class="report-container">
        <div *ngIf="datas" class="report">
-            <app-table [data]="datas|multifilter:filterForm.value"></app-table>
+           
+<div class="tablecontainer">
+  <table class="table-excel">
+      <tr>
+       <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
+      </tr>
+      <tr>
+          <th>Edit</th>
+          <th *ngFor="let heading of headings">
+              {{ heading}}
+          </th>
+      </tr>
+      <tr *ngFor="let data of datas|multifilter:filterForm.value" >
+          <td ><p (click)="edit(data)">&#9998;</p></td>
+          <td *ngFor="let title of titles" >{{data[title]}}</td>
+      </tr>
+      <tr *ngIf="datas.length==0">
+          <td colspan="40" class="statusmsg">No Reports Available</td>
+      </tr>
+  </table>
+  </div>
+
         </div>
     </div>
     <div class="statusmsg" *ngIf="!flag">

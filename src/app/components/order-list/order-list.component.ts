@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ExportExcelService } from '../../providers/export-excel.service'
 
 
 @Component({
@@ -13,6 +15,9 @@ import { DatePipe } from '@angular/common';
 })
 export class OrderListComponent implements OnInit {
   flag: boolean = true;
+  fileName="My_production_data.xlsx"
+  titles;
+  headings;
 toast
 message
   final: any;
@@ -38,7 +43,7 @@ message
     status: [""],
   })
 
-  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe) {
+  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe,private router: Router,private exportExcelService: ExportExcelService) {
 
   }
   ngOnInit(): void {
@@ -95,6 +100,7 @@ message
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
 
       this.onResponse(res);
+      this.getTitles()
     }, (err) => {
       console.log(err.message);
     })
@@ -102,8 +108,6 @@ message
 
 
   onResponse(res) {
-
-
     res = JSON.parse(res);
 
     this.datas = res;
@@ -113,9 +117,11 @@ message
     }
     else {
       this.flag = true;
+      // this.getTitles()
     }
     return;
   }
+
 
   initializeDates() {
 
@@ -210,5 +216,46 @@ message
     }, 2000)
   }
 
+
+  getTitles() {
+
+    console.log(this.datas)
+    if (this.datas.length == 0) {
+      return;
+    }
+
+    this.titles = this.datas.map((data) => {
+      return Object.keys(data);
+    })[0];
+
+    this.titles.pop();
+    this.headings = this.titles.map((title) => {
+      if (title.includes("_")) {
+        return title.replace(/_/g, " ")
+      }
+      else {
+        return title
+      }
+    })
+
+
+  }
+
+
+
+  edit(data) {
+
+    sessionStorage.setItem("updateID", data.id);
+    this.router.navigate(['/sendreport'])
+
+  }
+
+        // export to excel file
+        export() {
+          /* table id is passed over here */
+          let element = document.querySelector(".table-excel");
+          this.exportExcelService.exportToExcel(element, this.fileName)
+      
+        }
 
 }
