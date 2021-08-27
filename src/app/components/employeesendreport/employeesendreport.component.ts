@@ -116,10 +116,9 @@ get status(){
     this.Processlist = this.dropDownList[this.final]
   }
 
-
-
   onSubmit() {
 
+    this.orderNumber.setValue(this.orderNumber.value.trim())
     if (this.Client.value == "NonProd") {
       this.orderNumber.setValue("nil");
       this.state.setValue("nil");

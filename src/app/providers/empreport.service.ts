@@ -73,8 +73,6 @@ export class EmpreportService {
     //   inputs:null
     // };
     // data.inputs=deleteObject
-
-
     return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.inputs.empcode}`,deleteObject)
   }
 

@@ -190,10 +190,14 @@
 <!-- new fields end -->
       
     </div>
-    <div class="minicontainer">
+    <div class="minicontainer" >
+      <div class="inputgroup" style="justify-items: center;" *ngIf="delete||update">
+        <button class="button" type="submit" (click)="goBack()">Cancel</button>
+      </div>
       <div class="inputgroup" style="justify-items: center;" *ngIf="!delete">
         <button class="button" type="submit" (click)="onSubmit()">Submit</button>
       </div>
+      
       <div class="inputgroup" style="justify-items: center;" *ngIf="delete">
         <button class="button" type="submit" (click)="showModal()">Delete</button>
       </div>

@@ -50,7 +50,6 @@ export class TableComponent implements OnInit {
 
   edit(data) {
 
-
     sessionStorage.setItem("updateID", data.id);
     this.router.navigate(['/sendreport'])
 

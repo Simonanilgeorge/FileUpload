@@ -3,7 +3,8 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
-import { DatePipe } from '@angular/common';
+import { DatePipe,Location } from '@angular/common';
+
 
 
 @Component({
@@ -34,7 +35,7 @@ export class AddEmployeeComponent implements OnInit {
   Tasklist = []
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef,private location:Location) { }
 
   ngOnInit(): void {
 
@@ -408,7 +409,11 @@ export class AddEmployeeComponent implements OnInit {
     this.modalBoolean = false;
     this.empReportService.deleteEmployee(data).subscribe((res) => {
 
+
       this.showToastMessage("Deleted successfully")
+      setTimeout(()=>{
+        this.location.back()
+      },1000)
 
       this.ngOnInit();
     }, (err) => {
@@ -416,6 +421,10 @@ export class AddEmployeeComponent implements OnInit {
       console.log(err.message)
     })
 
+  }
+
+  goBack(){
+    this.location.back()
   }
 }
 

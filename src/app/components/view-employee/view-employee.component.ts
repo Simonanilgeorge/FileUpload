@@ -101,21 +101,21 @@ export class ViewEmployeeComponent implements OnInit {
     this.router.navigate(['/addemployee'])
 
   }
-  delete(data) {
+  // delete(data) {
 
 
-    this.modalBoolean = false;
-    this.empReportService.deleteEmployee(data).subscribe((res) => {
+  //   this.modalBoolean = false;
+  //   this.empReportService.deleteEmployee(data).subscribe((res) => {
 
-      this.showToastMessage("Deleted successfully")
+  //     this.showToastMessage("Deleted successfully")
 
-      this.ngOnInit();
-    }, (err) => {
-      this.showToastMessage("Deletion failed")
-      console.log(err.message)
-    })
+  //     this.ngOnInit();
+  //   }, (err) => {
+  //     this.showToastMessage("Deletion failed")
+  //     console.log(err.message)
+  //   })
 
-  }
+  // }
 
 
   showToastMessage(message) {
@@ -148,11 +148,11 @@ export class ViewEmployeeComponent implements OnInit {
     // this.dataToBeDeleted = data;
   }
 
-  closeModal() {
+  // closeModal() {
 
-    this.modalBoolean = false;
-    this.dataToBeDeleted = null;
-  }
+  //   this.modalBoolean = false;
+  //   this.dataToBeDeleted = null;
+  // }
   showInput() {
     this.showColumnInput = !this.showColumnInput
   }
