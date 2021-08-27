@@ -1,115 +1,138 @@
 <div class="container">
-    <app-navbar></app-navbar>
-    <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+  <app-navbar></app-navbar>
+  <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
-    <div class="heading">
-        <h2>Update Production Data</h2>
+  <div class="heading">
+    <h2>Update Production Data</h2>
+  </div>
+
+
+
+  <form [formGroup]="user" class="filter">
+
+    <div class="inputgroup">
+      <label for="date">Start Date</label>
+      <input type="date" name="date" class="input-primary" formControlName="dateFilter" (change)="getStatus()">
     </div>
-
-
- 
-        <form [formGroup]="user" class="filter">
-
-            <div class="inputgroup">
-                <label for="date">Start Date</label>
-                <input type="date" name="date" class="input-primary" formControlName="dateFilter" (change)="getStatus()">
-            </div>
-            <div class="inputgroup">
-                <label for="date">End Date</label>
-                <input type="date" name="date" class="input-primary" formControlName="enddateFilter" (change)="getStatus()">
-            </div>
-            <!-- <div class="inputgroup">
+    <div class="inputgroup">
+      <label for="date">End Date</label>
+      <input type="date" name="date" class="input-primary" formControlName="enddateFilter" (change)="getStatus()">
+    </div>
+    <!-- <div class="inputgroup">
                 <button type="submit" class="button">Filter</button>
             </div> -->
-        </form>
+  </form>
 
-        <form [formGroup]="filterForm" class="filter">
-            <div class="inputgroup">
-                <label for="date"> Date</label>
-                <input type="date" name="date" class="input-primary" formControlName="date">
-            </div>
-            <div class="inputgroup">
-                <label for="orderNumber">Order Number</label>
-                <input type="text" name="orderNumber" class="input-primary" formControlName="orderNumber" autocomplete="off">
-            </div>
 
-            <div class="inputgroup">
-                <label for="client">Client</label>
-                <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions($event)">
+
+
+
+  <div *ngIf="flag" class="report-container">
+    <!-- <div *ngIf="datas" class="report"> -->
+
+      <div class="tablecontainer">
+        <form [formGroup]="filterForm">
+          <table class="table-excel">
+            <tr >
+              <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton"
+                  (click)="export()"></th>
+            </tr>
+            <tr >
+              <th>
+                <!-- <div class="inputgroup"> -->
+
+                <button  class="exportbutton" (click)="clearFields()">Clear</button>
+                <!-- </div> -->
+
+              </th>
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="date"> Date</label> -->
+                <input style="width:10em;" type="date" name="date"  formControlName="date">
+                <!-- </div> -->
+              </th>
+
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="orderNumber">Order Number</label> -->
+                <input style="width:9em;" type="text" name="orderNumber"  formControlName="orderNumber" autocomplete="off" >
+                <!-- </div> -->
+              </th>
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="client">Client</label> -->
+                <select name="client"  formControlName="Client"
+                  (change)="changeClientOptions($event)">
                   <option value="">All</option>
                   <option *ngFor="let client of ClientList" value="{{client}}">
                     {{client}}
                   </option>
                 </select>
-              </div>
-              <div class="inputgroup">
-                <label for="task">Task</label>
-                <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions($event)">
+                <!-- </div> -->
+              </th>
+
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="task">Task</label> -->
+                <select name="task"  formControlName="Task" (change)="changeTaskOptions($event)">
                   <option value="">All</option>
                   <option *ngFor="let task of Tasklist" value="{{task}}">
                     {{task}}
                   </option>
                 </select>
-              </div>
-              <div class="inputgroup">
-                <label for="process">Process</label>
-                <select name="process" class="input-primary" formControlName="Process">
+                <!-- </div> -->
+              </th>
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="process">Process</label> -->
+                <select name="process"  formControlName="Process">
                   <option value="">All</option>
                   <option *ngFor="let process of Processlist" value="{{process}}">
                     {{process}}
                   </option>
                 </select>
-              </div>
-              <div class="inputgroup">
-                <label for="status">Status</label>
-                <select name="status" class="input-primary" formControlName="status">
+                <!-- </div> -->
+              </th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>
+                <!-- <div class="inputgroup"> -->
+                <!-- <label for="status">Status</label> -->
+                <select name="status"  formControlName="status">
                   <option value="">All</option>
                   <option *ngFor="let status of statusList">
                     {{status}}
                   </option>
                 </select>
-              </div>
-              <div class="inputgroup">
-            
-                <button class="button" (click)="clearFields()">Clear</button>
-            </div>
-
+                <!-- </div> -->
+              </th>
+              <th></th>
+            </tr>
+            <tr>
+              <th>Edit</th>
+              <th *ngFor="let heading of headings">
+                {{ heading}}
+              </th>
+            </tr>
+            <tr *ngFor="let data of datas|multifilter:filterForm.value">
+              <td>
+                <p (click)="edit(data)">&#9998;</p>
+              </td>
+              <td *ngFor="let title of titles">{{data[title]}}</td>
+            </tr>
+            <tr *ngIf="datas.length==0">
+              <td colspan="40" class="statusmsg">No Reports Available</td>
+            </tr>
+          </table>
         </form>
-   
+      </div>
 
-    <div *ngIf="flag" class="report-container">
-       <div *ngIf="datas" class="report">
-           
-<div class="tablecontainer">
-  <table class="table-excel">
-      <tr>
-       <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
-      </tr>
-      <tr>
-          <th>Edit</th>
-          <th *ngFor="let heading of headings">
-              {{ heading}}
-          </th>
-      </tr>
-      <tr *ngFor="let data of datas|multifilter:filterForm.value" >
-          <td ><p (click)="edit(data)">&#9998;</p></td>
-          <td *ngFor="let title of titles" >{{data[title]}}</td>
-      </tr>
-      <tr *ngIf="datas.length==0">
-          <td colspan="40" class="statusmsg">No Reports Available</td>
-      </tr>
-  </table>
+    <!-- </div> -->
+  </div>
+  <div class="statusmsg" *ngIf="!flag">
+    <h2>No data available for the Date Range</h2>
+
   </div>
 
-        </div>
-    </div>
-    <div class="statusmsg" *ngIf="!flag">
-        <h2>No status updates available</h2>
-
-    </div>
-
 </div>
-
-
-
-
