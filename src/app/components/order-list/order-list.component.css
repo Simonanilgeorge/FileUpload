@@ -13,13 +13,10 @@
 
 
   .statusmsg {
-    text-align: center;
-
+    flex: 1;
     display: flex;
-    color: rgba(29, 51, 110, 0.76);
-    justify-content: center;
     align-items: center;
-    padding: 1.25em;
+    padding: 0em 1em;
   }
   
 
@@ -91,3 +88,6 @@ table{
 select{
   width: 9em;
 }
+
+
+

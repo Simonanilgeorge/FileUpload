@@ -27,7 +27,7 @@
 
 
 
-  <div *ngIf="flag" class="report-container">
+  <div *ngIf="flag==1" class="report-container">
     <!-- <div *ngIf="datas" class="report"> -->
 
       <div class="tablecontainer">
@@ -115,22 +115,28 @@
             </tr>
             <tr *ngFor="let data of datas|multifilter:filterForm.value">
               <td>
-                <p (click)="edit(data)">&#9998;</p>
+
+                <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
+              &nbsp;&nbsp;
+                <span (click)="delete(data)" style='cursor: pointer;font-size: 1.1em;'> 
+                  <i class="fa fa-trash-o"></i> </span>
               </td>
               <td *ngFor="let title of titles">{{data[title]}}</td>
             </tr>
-            <tr *ngIf="datas.length==0">
+            <!-- <tr *ngIf="datas.length==0">
               <td colspan="40" class="statusmsg">No Reports Available</td>
-            </tr>
+            </tr> -->
           </table>
         </form>
       </div>
 
     <!-- </div> -->
   </div>
-  <div class="statusmsg" *ngIf="!flag">
-    <h2>No data available for the Date Range</h2>
-
-  </div>
+  <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
+    <h2>Loading...</h2>
+</div>
+<div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
+    <h2>No data available for the Date Range </h2>
+</div>
 
 </div>

@@ -5,7 +5,7 @@ import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExportExcelService } from '../../providers/export-excel.service'
-import * as XLSX from 'xlsx'; 
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -15,16 +15,16 @@ import * as XLSX from 'xlsx';
   providers: [DatePipe]
 })
 export class OrderListComponent implements OnInit {
-  flag: boolean = true;
-  fileName="My_production_data.xlsx"
+  flag = 2;
+  fileName = "My_production_data.xlsx"
   titles;
   headings;
-toast
-message
+  toast
+  message
   final: any;
   myDate = new Date();
   user: FormGroup
-  datas=[];
+  datas = [];
   currentDate: any;
   startDate;
   endDate;
@@ -35,7 +35,7 @@ message
   searchedKeyword
   statusList: string[];
 
-  filterForm:FormGroup=this.fb.group({
+  filterForm: FormGroup = this.fb.group({
     date: [""],
     orderNumber: [""],
     Client: [""],
@@ -44,7 +44,7 @@ message
     status: [""],
   })
 
-  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe,private router: Router,private exportExcelService: ExportExcelService) {
+  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService) {
 
   }
   ngOnInit(): void {
@@ -55,23 +55,23 @@ message
     this.initializeDates()
     this.user = this.fb.group({
       account_name: sessionStorage.getItem('account_name'),
-      dateFilter: [this.startDate,Validators.required],
-      enddateFilter: [this.endDate,Validators.required]
+      dateFilter: [this.startDate, Validators.required],
+      enddateFilter: [this.endDate, Validators.required]
     })
     this.getStatus();
 
   }
 
 
-  get dateFilter(){
+  get dateFilter() {
     return this.user.get("dateFilter")
   }
 
-  get enddateFilter(){
+  get enddateFilter() {
     return this.user.get("enddateFilter")
   }
 
-  get date(){
+  get date() {
     return this.filterForm.get("date")
   }
   get Task() {
@@ -80,26 +80,28 @@ message
   get Process() {
     return this.filterForm.get("Process")
   }
-  get Client(){
+  get Client() {
     return this.filterForm.get("Client")
   }
 
   getStatus() {
 
-    if(this.user.status=="INVALID"){
+
+    this.flag=2
+    if (this.user.status == "INVALID") {
       return;
     }
 
     this.endDate
     let endDate = new Date(this.enddateFilter.value).getTime();
     let startDate = new Date(this.dateFilter.value).getTime();
-    if(startDate>endDate){
+    if (startDate > endDate) {
       this.showToastMessage("start date cannot be after end date")
 
     }
 
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
-
+      
       this.onResponse(res);
       this.getTitles()
     }, (err) => {
@@ -113,11 +115,11 @@ message
 
     this.datas = res;
     if (this.datas.length == 0) {
-      this.flag = false;
+      this.flag = 0;
       return;
     }
     else {
-      this.flag = true;
+      this.flag = 1;
       // this.getTitles()
     }
     return;
@@ -163,10 +165,10 @@ message
     this.empreportService.getDropDownList().subscribe((res) => {
 
       this.dropDownList = res;
-      
+
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
-      
+
     }, (err) => {
       console.log(err.message)
     })
@@ -180,7 +182,7 @@ message
 
     this.Tasklist = this.dropDownList[this.filterForm.value.Client];
     this.Processlist = null
-    
+
 
   }
 
@@ -188,14 +190,14 @@ message
 
     this.final = null
     this.Process.setValue("");
-    if(this.filterForm.value.Task != ""){
+    if (this.filterForm.value.Task != "") {
       this.final = this.filterForm.value.Client + this.filterForm.value.Task
     }
     this.Processlist = this.dropDownList[this.final]
   }
 
 
-  clearFields(){
+  clearFields() {
 
     this.filterForm.reset({
       date: [""],
@@ -206,7 +208,7 @@ message
       status: [""],
 
     })
-    
+
   }
 
   showToastMessage(message) {
@@ -251,23 +253,28 @@ message
 
   }
 
-        // export to excel file
-        export() {
-          // 
-          /* table id is passed over here */
-          let element = document.querySelector(".table-excel");
-          const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
+  // export to excel file
+  export() {
+    // 
+    /* table id is passed over here */
+    let element = document.querySelector(".table-excel");
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
 
-          ws['!rows'][1] = { hidden: true };
+    ws['!rows'][1] = { hidden: true };
 
-          /* generate workbook and add the worksheet */
-          const wb: XLSX.WorkBook = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      
-          /* save to file */
-          XLSX.writeFile(wb, this.fileName);
-          // this.exportExcelService.exportToExcel(element, this.fileName)
-      
-        }
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+    // this.exportExcelService.exportToExcel(element, this.fileName)
+
+  }
+
+  delete(data) {
+    sessionStorage.setItem("deleteID", data.id);
+    this.router.navigate(['/sendreport'])
+  }
 
 }
