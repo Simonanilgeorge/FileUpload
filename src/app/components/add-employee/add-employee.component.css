@@ -118,60 +118,79 @@ white-space: nowrap;
       border:1px solid #c1c1c1;
     }
 
-    .modal{
-      border: 1px solid black;
-      background: rgba(0,0,0,0.4);
-      position: fixed;
-      height: 100%;
-      width:100%;
-      z-index: 1;
-      overflow:auto;
-      top:0;
-      left:0;
-      display: none;
-    }
-    .modal-content{
-    
-    background-color: white;
-    margin:20% auto;
-    padding:1.87em;
-    width:20em;
-    animation: modalopen 0.5s;
-    
-    
-    }
-    
-    .display{
-      display:block;
-    }
-    
-    @keyframes modalopen{
-    0%{
-    
-    transform: scale(0);
-    }
-    100%{
-    
-    transform: scale(1);
-    }
-    }
-    .openbtn{
-      border:1px solid black;
-      color: #ffffff;
-      background: #2196F3;
-      border: 1px solid #2196F3;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-      border-radius: 3px;
-      cursor: pointer;
-    
-    }
-    
-    
-    .buttoncontainer{
-    
-      padding:0.6em 0em;
-      display: flex;
-      gap:0.6em;
-    }
+/* modal styles start */
+
+.text {
+  /* border:1px solid black; */
+  padding: 0.5em 0em;
+  text-align: center;
+}
+
+
+
+.modal {
+  /* border: 1px solid black; */
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.modal-content {
+  /* border:1px solid black; */
+  background-color: white;
+  margin: 20% auto;
+  padding: 1.87em 0em;
+  width: 20em;
+  animation: modalopen 0.5s;
+
+
+}
+
+.display {
+  display: block;
+}
+
+@keyframes modalopen {
+  0% {
+
+      transform: scale(0);
+  }
+
+  100% {
+
+      transform: scale(1);
+  }
+}
+
+
+.openbtn {
+  /* border: 1px solid black; */
+  color: #ffffff;
+  background: #2196F3;
+  border: 1px solid #2196F3;
+  padding: 0.2rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
+
+}
+
+
+.buttoncontainer {
+  /* border:1px solid black; */
+  padding: 0.6em 0em;
+  display: flex;
+  justify-content: center;
+  gap: 0.6em;
+  width: 100%;
+
+}
+
+/* modal styles end */

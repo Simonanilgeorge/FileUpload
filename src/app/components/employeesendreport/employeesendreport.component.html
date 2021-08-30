@@ -7,7 +7,7 @@
 
       <div class="modal-content">
           <div class="text">
-              <h2>Confirm</h2>
+              <h2>Confirm Delete</h2>
           </div>
           <div class="text">
               <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
@@ -102,6 +102,9 @@
             </div>
           </div>
           <div class="minicontainer">
+            <div class="inputgroup" style="justify-items: center;padding:0.2em" *ngIf="delete||update">
+              <button class="button" type="submit" (click)="goBack()">Cancel</button>
+            </div>
             <div class="inputgroup" style="padding:0.2em" *ngIf="!delete">
               <button class="button" (click)="onSubmit()">Submit</button>
             </div>

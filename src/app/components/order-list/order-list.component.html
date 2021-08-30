@@ -114,7 +114,7 @@
               </th>
             </tr>
             <tr *ngFor="let data of datas|multifilter:filterForm.value">
-              <td>
+              <td style="text-align: center;">
 
                 <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
               &nbsp;&nbsp;
@@ -129,7 +129,6 @@
           </table>
         </form>
       </div>
-
     <!-- </div> -->
   </div>
   <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">

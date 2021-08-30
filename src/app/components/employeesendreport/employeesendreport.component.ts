@@ -316,7 +316,8 @@ get status(){
       this.modalBoolean = false;
       this.dataToBeDeleted = null;
     }
-  
-
+goBack(){
+  this.location.back()
+}
 
 }

@@ -68,10 +68,12 @@
                     <tr
                         *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
                         <td>
+                            <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                            &nbsp;&nbsp;&nbsp;
                             <span (click)="showModal(data)" style='cursor: pointer;font-size: 1.1em;'> 
                                 <i class="fa fa-trash-o"></i> </span>
-                            &nbsp;&nbsp;&nbsp;
-                            <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                            
+                          
                         </td>
                         <td *ngFor="let title of titles" class="textleft">
                                 {{data[title]}}
