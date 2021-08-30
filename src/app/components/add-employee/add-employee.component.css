@@ -8,12 +8,11 @@
   
   .inputgroup {
     /* border: 1px solid black; */
-
-    padding: 1.25em;
+    color: rgba(29, 51, 110, 0.76);
+    padding: 1.1em;
     display: grid;
     align-items: end;
-    max-height: 8.125em;
-    width:15em;
+    max-height: 8em;
     /* width:70%; */
   }
   

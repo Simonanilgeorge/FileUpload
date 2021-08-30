@@ -191,14 +191,14 @@
       
     </div>
     <div class="minicontainer" >
-      <div class="inputgroup" style="justify-items: center;" *ngIf="delete||update">
+      <div class="inputgroup" *ngIf="delete||update">
         <button class="button" type="submit" (click)="goBack()">Cancel</button>
       </div>
-      <div class="inputgroup" style="justify-items: center;" *ngIf="!delete">
+      <div class="inputgroup" *ngIf="!delete">
         <button class="button" type="submit" (click)="onSubmit()">Submit</button>
       </div>
       
-      <div class="inputgroup" style="justify-items: center;" *ngIf="delete">
+      <div class="inputgroup" *ngIf="delete">
         <button class="button" type="submit" (click)="showModal()">Delete</button>
       </div>
     </div>
