@@ -56,8 +56,16 @@ export class YearlyClientReportComponent implements OnInit {
   onSubmit() {
     
     this.flag=2;
+
+    if (this.date.status === "INVALID") {
+      this.flag=0; 
+      this.showToastMessage("Select a year");
+      return;
+    }
+
     // check date input length
-    if(this.date.value.toString().length!=4 ){ 
+    if(this.date.value.toString().length!=4){ 
+      // this.showToastMessage("Select a valid year");
       this.flag=0;  
       return
     }

@@ -23,6 +23,15 @@ export class MonthlyReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "client": "Client",
+    "task": "Task"
+  }
+
   titles=["empcode","name","doj","search","client","task"];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];

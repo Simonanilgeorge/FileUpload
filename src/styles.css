@@ -146,7 +146,7 @@ label {
 
 table {
   border-collapse: collapse;
-  text-align: center;
+  /* text-align: center; */
   max-width: 100%;
   /* move table to center */
   margin: 0 auto;

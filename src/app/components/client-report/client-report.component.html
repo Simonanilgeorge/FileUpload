@@ -49,7 +49,7 @@
                 </tr>
 
                 <tr *ngFor="let data of data | filter:searchedKeyword">
-                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">{{data.client}}</td>
+                    <td style="position: sticky;left:0;">{{data.client}}</td>
                     <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
                         <span *ngIf="data[date]">
                             <span *ngIf="sheetName.value=='Revenue'">$</span>
@@ -59,7 +59,7 @@
                         {{data.total}}</span></td>
                 </tr>
                 <tr>
-                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;">Total</td>
+                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;font-weight: bolder;">Grand Total</td>
                     <td *ngFor="let date of dates"
                         style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">
 
