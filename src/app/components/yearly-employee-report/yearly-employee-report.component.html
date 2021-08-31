@@ -49,20 +49,21 @@
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search" autocomplete="off">
                                 </div>
+
                             </form>
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
-                            
                         </th>
                     </tr>
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-                            <span style="cursor: pointer;" (click)="getTitleName(title)"
-                                (dblclick)="showInput()">{{headings[title]}} &uarr;&darr;</span>
-                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
-                                <input type="text" class="search" formControlName="{{title}}">
+                            <div class="inputgroup-columnsort" >
+                                <input type="text" formControlName="{{title}}" >
                             </div>
+                            <span style="cursor: pointer;" (click)="getTitleName(title)"
+                                >{{headings[title]}} &uarr;&darr;</span>
+  
                         </th>
                         <th *ngFor="let date of dates; let i=index;">{{date}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
@@ -111,6 +112,6 @@
         <h2>Loading...</h2>
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="total == 0 && data.length != 0">
-        <h2>No data available for the Month </h2>
+        <h2>No data available for the Year </h2>
     </div>
 </div>

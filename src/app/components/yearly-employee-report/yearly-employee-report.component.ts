@@ -122,10 +122,10 @@ export class YearlyEmployeeReportComponent implements OnInit {
     },100)
   }
 
-  showInput(){
-    this.showColumnInput = !this.showColumnInput
+  // showInput(){
+  //   this.showColumnInput = !this.showColumnInput
 
-  }
+  // }
 
       // export to excel file
       export() {

@@ -56,11 +56,18 @@
                     </tr>
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-                            <span style="cursor: pointer;" (click)="getTitleName(title)"
-                                (dblclick)="showInput()">{{title}} &uarr;&darr;</span>
-                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
-                                <input type="text" class="search" formControlName="{{title}}">
+
+                            <!--  use below for dbclick *ngIf="showColumnInput"  -->
+                            <!-- styles class="search"  -->
+                            <div class="inputgroup-columnsort" >
+                                <input type="text" formControlName="{{title}}">
                             </div>
+                                
+                            <!-- use for span (dblclick)="showInput()" -->
+                            <span style="cursor: pointer;" (click)="getTitleName(title)">
+                                {{title}} &uarr;&darr;
+                            </span>
+       
                         </th>
                         <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>

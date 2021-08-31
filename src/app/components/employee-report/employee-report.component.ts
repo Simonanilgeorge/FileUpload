@@ -114,10 +114,10 @@ export class EmployeeReportComponent implements OnInit {
   }
 
   // column filter on double click
-  showInput() {
-    this.showColumnInput = !this.showColumnInput
+  // showInput() {
+  //   this.showColumnInput = !this.showColumnInput
 
-  }
+  // }
 
 
     // export to excel file

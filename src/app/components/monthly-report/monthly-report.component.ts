@@ -108,10 +108,10 @@ export class MonthlyReportComponent implements OnInit {
     },100)
   }
 
-  showInput(){
-    this.showColumnInput = !this.showColumnInput
+  // showInput(){
+  //   this.showColumnInput = !this.showColumnInput
 
-  }
+  // }
 
   checkDay(date){
     if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)

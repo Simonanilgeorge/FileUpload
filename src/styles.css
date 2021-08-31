@@ -196,6 +196,13 @@ tr:nth-of-type(odd) td {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+
+
+/* column sort inputs */
+.inputgroup-columnsort{
+  padding:0.5em;
+}
+
 .tablecontainer {
   /* border: 1px solid black; */
   overflow: auto;

@@ -153,9 +153,11 @@ export class ViewEmployeeComponent implements OnInit {
   //   this.modalBoolean = false;
   //   this.dataToBeDeleted = null;
   // }
-  showInput() {
-    this.showColumnInput = !this.showColumnInput
-  }
+
+
+  // showInput() {
+  //   this.showColumnInput = !this.showColumnInput
+  // }
 
   // export to excel file
   // export() {
