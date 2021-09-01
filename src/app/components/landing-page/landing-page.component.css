@@ -1,98 +1,65 @@
-
-
 /* new styles */
 
-.container {
-  display: flex;
-  flex-direction: column;
+/* .container {
+            display: flex;
+            flex-direction: column;
 
-  min-height: 100vh;
-}
+            min-height: 100vh;
+        } */
 
 .contentcontainer {
   height: 80vh;
   position: relative;
-
+  flex: 1;
+  /* background: rgb(161, 161, 192); */
   overflow: hidden;
-
-}
-
-.circle {
-
-  position: absolute;
-  border-radius: 50%;
-  /* border:1px solid black; */
-}
-
-.circle1 {
-  background: skyblue;
-  height: 1000px;
-  width: 1000px;
-  right: -400px;
-  top: -300px;
-}
-
-.circle2 {
-  right: -400px;
-  background: lightblue;
-  height: 700px;
-  width: 700px;
-  top: -100px;
-  z-index: 5;
-}
-
-.circle3 {
-  right: -400px;
-  top: -200px;
-  background: steelblue;
-  height: 800px;
-  width: 800px;
+  background: linear-gradient(45deg,white,skyblue);
 }
 
 .box {
-  padding: 40px;
+  padding: 1em;
 }
+
 .one {
-
   grid-area: one;
-  font-size: 1.1rem;
-  font-weight: bolder;
-  color: steelblue;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  padding: 3em 5em;
+  white-space: nowrap;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+
   background: white;
-  box-shadow: 0px 6px 12px 0px grey;
-  z-index: 10;
-white-space: pre-wrap;
+  /* box-shadow: 0px 6px 12px 0px grey; */
+  text-transform: capitalize;
 }
 
-.two {
-  /* border: 5px solid rgb(46, 80, 78); */
-  grid-area: two;
-  background: white;
-  z-index: 50;
-  clip-path: polygon(0 40%, 100% 0, 100% 28%, 0 85%);
-  /* backdrop-filter: blur(20px); */
-}
-
-.gridcontainer {
-  /* border: 5px solid black; */
-  /* padding: 20px; */
+.flexcontainer {
   height: 100%;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(1, 1fr 1fr);
-  grid-template-rows: repeat(1, 1fr 1fr 1fr);
-  grid-template-areas:
-    ". ."
-    "one ."
-    "two two";
+  display: flex;
+  align-items: center;
 }
 
+.design {
+  z-index: 2;
+  padding: 5em;
+  position: absolute;
+  left: 0;
 
-h2{
-  text-align: start;
+  /* border:1px solid black; */
+}
+
+.design1 {
+  width: 100%;
+  bottom: 0;
+  background-image: linear-gradient(to right, rgb(113 137 156), rgb(36 49 98));
+  clip-path: polygon(100% 56%, 0 100%, 100% 100%);
+  z-index: 4;
+}
+
+.design2 {
+  width: 100%;
+  bottom: 0;
+  background-image: linear-gradient(to right, #dc4a32, #3a1d18);
+  clip-path: polygon(100% 63%, 51% 80%, 0 64%, 0 100%, 100% 100%);
 }

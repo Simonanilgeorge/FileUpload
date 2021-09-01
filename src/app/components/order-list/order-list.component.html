@@ -113,7 +113,7 @@
                 {{ heading}}
               </th>
             </tr>
-            <tr *ngFor="let data of datas|multifilter:filterForm.value">
+            <tr *ngFor="let data of datas |multifilter:filterForm.value">
               <td style="text-align: center;">
 
                 <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
@@ -123,7 +123,8 @@
               </td>
               <td *ngFor="let title of titles">{{data[title]}}</td>
             </tr>
-            <!-- <tr *ngIf="datas.length==0">
+<!--             
+            <tr *ngIf=' datas|multifilter:filterForm.value'>
               <td colspan="40" class="statusmsg">No Reports Available</td>
             </tr> -->
           </table>

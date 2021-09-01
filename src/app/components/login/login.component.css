@@ -128,7 +128,7 @@ h1 {
   background-position: center;
 }
 
-.circle {
+.design {
   z-index: 2;
   padding: 5em;
   position: absolute;
@@ -137,7 +137,7 @@ h1 {
   /* border:1px solid black; */
 }
 
-.circle1 {
+.design1 {
   width: 100%;
   bottom: 0;
   background-image: linear-gradient(to right, rgb(113 137 156), rgb(36 49 98));
@@ -145,14 +145,14 @@ h1 {
   z-index: 4;
 }
 
-.circle2 {
+.design2 {
   width: 100%;
   bottom: 0;
   background-image: linear-gradient(to right, #dc4a32, #3a1d18);
   clip-path: polygon(100% 63%, 51% 80%, 0 64%, 0 100%, 100% 100%);
 }
 
-.circle3 {
+.design3 {
   width: 100%;
   background-image: linear-gradient(to left, rgb(113 137 156), rgb(36 49 98));
   clip-path: polygon(0 0, 0% 100%, 100% 0);
