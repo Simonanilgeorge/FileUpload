@@ -202,6 +202,7 @@ export class OrderListComponent implements OnInit {
 
   clearFields() {
 
+
     this.filterForm.reset({
       date: [""],
       orderNumber: [""],
@@ -211,6 +212,8 @@ export class OrderListComponent implements OnInit {
       status: [""],
 
     })
+    this.Tasklist = null
+    this.Processlist = null
 
   }
 
