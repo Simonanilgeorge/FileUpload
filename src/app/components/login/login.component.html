@@ -7,11 +7,12 @@
 
 
         <div class="logincontainer">
-        <div class="logintitle" *ngIf="flag==0">
-            <h1>Login</h1>
-        </div>
+
 
         <div class="loginbox" *ngIf="flag==0">
+            <div class="logintitle" *ngIf="flag==0">
+                <h1>Login</h1>
+            </div>
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <div class="inputarea">
                     <label for="username">Username</label><input id="username" type="text" class="input"
@@ -28,7 +29,7 @@
                         <small class="warning-message">Password required</small>
                     </div>
                 </div>
-                <div class="inputarea">
+                <div class="inputarea" style="align-items: center;justify-content: start;height:3em;">
                     <button type="submit" [disabled]="!userForm.valid" class="button">Sign in</button>
                 </div>
             </form>
@@ -45,8 +46,8 @@
             <div class="invalidcred">Access denied</div>
         </div>
         </div>
-        <div class="design design1"></div>
+        <!-- <div class="design design1"></div>
         <div class="design design2"></div>
-        <div class="design design3"></div>
+        <div class="design design3"></div> -->
     </div>
 </div>

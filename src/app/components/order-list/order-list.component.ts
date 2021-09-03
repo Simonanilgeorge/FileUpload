@@ -6,15 +6,18 @@ import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import * as XLSX from 'xlsx';
+import {MultifilterPipe} from '../../pipes/multifilter.pipe'
 
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe,MultifilterPipe]
 })
 export class OrderListComponent implements OnInit {
+
+  searchedItems;
   flag = 2;
   fileName = "My_production_data.xlsx"
   titles;
@@ -44,7 +47,7 @@ export class OrderListComponent implements OnInit {
     status: [""],
   })
 
-  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService) {
+  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService,private multiFilterPipe:MultifilterPipe) {
 
   }
   ngOnInit(): void {
@@ -276,5 +279,15 @@ export class OrderListComponent implements OnInit {
     sessionStorage.setItem("deleteID", data.id);
     this.router.navigate(['/sendreport'])
   }
+
+
+   public searchItems() {
+
+    console.log("inside component")
+     this.searchedItems = this.multiFilterPipe.transform(this.datas,this.filterForm.value);
+
+    return this.searchedItems;
+}
+
 
 }

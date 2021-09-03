@@ -122,11 +122,12 @@
                   <i class="fa fa-trash-o"></i> </span>
               </td>
               <td *ngFor="let title of titles">{{data[title]}}</td>
+           
+
             </tr>
-<!--             
-            <tr *ngIf=' datas|multifilter:filterForm.value'>
-              <td colspan="40" class="statusmsg">No Reports Available</td>
-            </tr> -->
+            <tr *ngIf='searchItems().length==0'>
+              <td colspan="13" style="text-align: center;">No Reports Available</td>
+            </tr>
           </table>
         </form>
       </div>

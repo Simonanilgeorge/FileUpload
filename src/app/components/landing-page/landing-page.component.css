@@ -13,7 +13,11 @@
   flex: 1;
   /* background: rgb(161, 161, 192); */
   overflow: hidden;
-  background: linear-gradient(45deg,white,skyblue);
+  /* background: linear-gradient(45deg,white,skyblue); */
+  background: url("../../../assets/images/bg.png");
+  background-size: contain;
+  /* background-position: center; */
+  
 }
 
 .box {
