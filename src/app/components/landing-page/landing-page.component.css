@@ -15,7 +15,7 @@
   overflow: hidden;
   /* background: linear-gradient(45deg,white,skyblue); */
   background: url("../../../assets/images/bg.png");
-  background-size: contain;
+  background-size: cover;
   /* background-position: center; */
   
 }
@@ -26,17 +26,20 @@
 
 .one {
   grid-area: one;
-  padding: 3em 5em;
+  padding: 2em 5em;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  border-top-right-radius: 1em;
-  border-bottom-right-radius: 1em;
+  border-top-right-radius: 1000px;
+  border-bottom-right-radius: 1000px;
+background:white;
+ 
+box-shadow: -1px 1px 20px 5px #243062;
 
-  background: white;
   /* box-shadow: 0px 6px 12px 0px grey; */
   text-transform: capitalize;
 }
+
 
 .flexcontainer {
   height: 100%;

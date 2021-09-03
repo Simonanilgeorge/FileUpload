@@ -1,9 +1,24 @@
 .home {
-  background: url("../../../assets/images/logo.png");
+  background-image: url("../../../assets/images/logo.png");
+  background-color: white;
 
   background-repeat: no-repeat;
   background-size: 70% 70%;
   background-position: left;
+  position: relative;
+}
+
+.home:after{
+  content: "";
+  padding:0.9em;
+  /* border:2px solid green; */
+  position: absolute;
+  right:0;
+  top:0;
+  bottom:0;
+  /* transform: translate(100%); */
+  background:#243062;
+  border-bottom-left-radius: 1.2em;
 }
 .logout {
   color: white;
@@ -12,16 +27,16 @@
 }
 
 nav {
-  /* height:20vh; */
-  /* border: 5px solid black; */
-  background: white;
+
+  background: #243062;
+
 }
 
 /* parent ul and li*/
 
 .parent-ul {
   display: flex;
-
+  
   justify-content: space-between;
   /* padding: 10px; */
 }
@@ -29,7 +44,7 @@ nav {
 .links {
 
   text-align: center;
-  color: black;
+  color: white;
   width: 200px;
   /* text-align: center; */
   padding: 1rem;
@@ -136,3 +151,4 @@ box-shadow: 0 3px 3px solid black;
 .boxtwo {
   display: flex;
 }
+
