@@ -83,7 +83,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
     this.empReportService.getYearlyEmployeeReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-
+      console.log(res)
       this.data = res.data;
       this.dates = res.dates;
 
@@ -106,11 +106,12 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
       });
 
-      if (this.data.length != 0) {
-        this.flag = 1;
+      if (this.total == 0 && this.data.length != 0) {
+
+        this.flag = 0;
       }
       else {
-        this.flag = 0;
+        this.flag = 1;
       }
     }, (err) => {
       console.log(err.message)

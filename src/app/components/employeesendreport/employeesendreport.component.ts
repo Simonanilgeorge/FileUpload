@@ -123,9 +123,9 @@ get status(){
 
     this.orderNumber.setValue(this.orderNumber.value.trim())
     if (this.Client.value == "NonProd") {
-      this.orderNumber.setValue("nil");
-      this.state.setValue("nil");
-      this.status.setValue("nil");
+      this.orderNumber.setValue(" ");
+      this.state.setValue(" ");
+      this.status.setValue(" ");
 
 
     }
@@ -180,7 +180,7 @@ get status(){
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
-    if (time1[0] > time2[0]) {
+    if (time1[0] > time2[0]||time1[0]==time2[0] && time1[1]>time2[1]) {
       time2[0] = time2[0] + 24;
 
     }
