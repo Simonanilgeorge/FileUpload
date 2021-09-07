@@ -171,8 +171,8 @@ white-space: nowrap;
 .openbtn {
   /* border: 1px solid black; */
   color: #ffffff;
-  background: #2196F3;
-  border: 1px solid #2196F3;
+  background: steelblue;
+  border: 1px solid steelblue;
   padding: 0.2rem 1rem;
   font-size: 1rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
