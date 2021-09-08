@@ -86,7 +86,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
     this.empReportService.getYearlyEmployeeReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-      console.log(res)
+  
       this.data = res.data;
       this.dates = res.dates;
 

@@ -26,7 +26,7 @@ export class TableComponent implements OnInit {
   }
   getTitles() {
 
-    console.log(this.data)
+ 
     if (this.data.length == 0) {
       return;
     }

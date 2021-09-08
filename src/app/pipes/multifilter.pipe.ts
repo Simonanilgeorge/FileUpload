@@ -26,7 +26,7 @@ transform(value: any, args:any): any {
   return data.order_number.toLowerCase().startsWith(args.orderNumber.toString().toLowerCase()) && data.date.includes(newDate) && data.status.includes(args.status)
   && data.Client.includes(args.Client) && data.Task.includes(args.Task) && data.Process.includes(args.Process)
   })
-  // console.log(filteredData)
+
   return filteredData
   }
 

@@ -213,10 +213,10 @@ export class AddEmployeeComponent implements OnInit {
 
 
       // to do => values inside task should be checked 
-      console.log(this.userForm.getRawValue())
+
 
       this.Tasklist = this.dropDownList[this.inputs.value.client];
-      console.log(this.task.value)
+
       setTimeout(() => {
         let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
         checkbox.forEach((check) => {
@@ -248,7 +248,7 @@ export class AddEmployeeComponent implements OnInit {
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
 
-      // console.log(this.task.getRawValue());
+
     }
     else if (!e.target.checked && this.task.getRawValue().includes(e.target.value)) {
       let index = this.task.getRawValue().findIndex((check) => {
@@ -374,14 +374,12 @@ export class AddEmployeeComponent implements OnInit {
   clickOutside(e) {
 
     if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent") || e.target.classList.contains("p-clickoutside")) {
-      // this.displayBoolean=true
-      // console.log("if");
+
       return
     } else {
-      // console.log("else");
-
+ 
       this.displayBoolean = false
-      // this.displayBoolean=false
+    
     }
   }
 
@@ -389,12 +387,11 @@ export class AddEmployeeComponent implements OnInit {
   showModal() {
 
 
-  // data.username = sessionStorage.getItem('user')
-  console.log("showModal function")
+
 
     this.modalBoolean = true;
     this.dataToBeDeleted = this.userForm.getRawValue();
-    console.log(this.dataToBeDeleted)
+  
   }
 
   closeModal() {

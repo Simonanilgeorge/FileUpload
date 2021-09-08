@@ -76,7 +76,7 @@ export class YearlyClientReportComponent implements OnInit {
 
 
       res = JSON.parse(res);
-      console.log(res)
+  
       this.data = res.data;
       this.dates = res.dates;
        

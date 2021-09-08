@@ -89,7 +89,7 @@
                                 {{data.total}}</span></td>
                     </tr>
 
-                    <tr *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">
+                    <tr *ngIf="(sheetNameRes=='Revenue'||sheetNameRes=='Orders') && searchItems().length!=0">
                         <td
                             style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
                             Grand Total</td>
@@ -107,7 +107,7 @@
                         </td>
                     </tr>
                     <tr *ngIf='searchItems().length==0'>
-                        <td colspan="40" style="text-align: center;">No Reports Available</td>
+                        <td colspan="40" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                       </tr>
 
                 </table>

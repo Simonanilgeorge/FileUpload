@@ -228,7 +228,7 @@ export class OrderListComponent implements OnInit {
 
   getTitles() {
 
-    console.log(this.datas)
+
     if (this.datas.length == 0) {
       return;
     }
@@ -286,7 +286,7 @@ export class OrderListComponent implements OnInit {
 
    public searchItems() {
 
-    console.log("inside component")
+
      this.searchedItems = this.multiFilterPipe.transform(this.datas,this.filterForm.value);
 
     return this.searchedItems;

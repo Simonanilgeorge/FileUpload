@@ -304,11 +304,11 @@ get status(){
 
 
     // data.username = sessionStorage.getItem('user')
-    console.log("showModal function")
+
   
       this.modalBoolean = true;
       this.dataToBeDeleted = this.userForm.getRawValue();
-      console.log(this.dataToBeDeleted)
+    
     }
   
     closeModal() {

@@ -6,16 +6,18 @@ import { LoginService } from '../../providers/login.service'
 import { ExportExcelService } from '../../providers/export-excel.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 
 
 @Component({
   selector: 'app-view-employee',
   templateUrl: './view-employee.component.html',
-  styleUrls: ['./view-employee.component.css']
+  styleUrls: ['./view-employee.component.css'],
+  providers:[ColumnsortPipe]
 })
 export class ViewEmployeeComponent implements OnInit {
 
-
+  searchedItems
   fileName = "employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
@@ -62,7 +64,7 @@ export class ViewEmployeeComponent implements OnInit {
     "delay_review_duration": "Review Extension"
   }
 
-  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService) { }
+  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -101,21 +103,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.router.navigate(['/addemployee'])
 
   }
-  // delete(data) {
 
-
-  //   this.modalBoolean = false;
-  //   this.empReportService.deleteEmployee(data).subscribe((res) => {
-
-  //     this.showToastMessage("Deleted successfully")
-
-  //     this.ngOnInit();
-  //   }, (err) => {
-  //     this.showToastMessage("Deletion failed")
-  //     console.log(err.message)
-  //   })
-
-  // }
 
 
   showToastMessage(message) {
@@ -138,32 +126,19 @@ export class ViewEmployeeComponent implements OnInit {
 
   // called on delete 
   showModal(data) {
-    // (click)="delete(data)" 
 
-    // data.username = sessionStorage.getItem('user')
-    // console.log(data)
     sessionStorage.setItem("deleteEmployee",data.empcode)
     this.router.navigate(['/addemployee'])
-    // this.modalBoolean = true;
-    // this.dataToBeDeleted = data;
+
   }
 
-  // closeModal() {
-
-  //   this.modalBoolean = false;
-  //   this.dataToBeDeleted = null;
-  // }
 
 
-  // showInput() {
-  //   this.showColumnInput = !this.showColumnInput
-  // }
+  public searchItems() {
 
-  // export to excel file
-  // export() {
-  //   /* table id is passed over here */
-  //   let element = document.getElementById('excel-table');
-  //   this.exportExcelService.exportToExcel(element, this.fileName)
 
-  // }
+    this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
+
+   return this.searchedItems;
+}
 }
