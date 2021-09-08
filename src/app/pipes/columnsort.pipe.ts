@@ -8,7 +8,6 @@ import { DatePipe } from '@angular/common';
 export class ColumnsortPipe implements PipeTransform {
 
   transform(value: any, args:any): any {
-
 // change emp_code to empcode in python
     let filteredData = value
     let keys = Object.keys(args)
@@ -19,13 +18,16 @@ export class ColumnsortPipe implements PipeTransform {
 
     return filteredData
     }
-    
+
     returnFilteredData(data, key, columnFilter) {
-    
+
       if(columnFilter[key]!=""){
+
           let filteredData = data.filter((data) => {
-            
+        if(data[key]){
           return data[key].toLowerCase().startsWith(columnFilter[key].toLowerCase())
+        }    
+     
       })
       return filteredData
       }

@@ -4,15 +4,17 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
+
 
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
   styleUrls: ['./monthly-report.component.css'],
-  providers:[DatePipe]
+  providers:[DatePipe,ColumnsortPipe]
 })
 export class MonthlyReportComponent implements OnInit {
-
+  searchedItems
   fileName="monthly_production_report.xlsx"
   flag: Boolean = false;
   titleName;
@@ -49,7 +51,7 @@ export class MonthlyReportComponent implements OnInit {
     sheetName: ['Revenue', Validators.required]
   })
 
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -138,4 +140,12 @@ export class MonthlyReportComponent implements OnInit {
         this.exportExcelService.exportToExcel(element, this.fileName)
     
       }
+
+   public searchItems() {
+
+
+     this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
+
+    return this.searchedItems;
+}
 }

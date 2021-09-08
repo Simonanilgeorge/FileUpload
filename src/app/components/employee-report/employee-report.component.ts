@@ -5,17 +5,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 
 
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
   styleUrls: ['./employee-report.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe,ColumnsortPipe]
 })
 export class EmployeeReportComponent implements OnInit {
 
-
+  searchedItems
   // Daily Production report
   fileName="daily_production_report.xlsx"
 
@@ -52,7 +53,7 @@ export class EmployeeReportComponent implements OnInit {
     startDate: [""],
     endDate: [""]
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router,private exportExcelService: ExportExcelService) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
 
@@ -127,4 +128,11 @@ export class EmployeeReportComponent implements OnInit {
     this.exportExcelService.exportToExcel(element, this.fileName)
 
   }
+  public searchItems() {
+
+
+    this.searchedItems = this.columnSortPipe.transform(this.datas,this.columnFilterForm.value);
+
+   return this.searchedItems;
+}
 }

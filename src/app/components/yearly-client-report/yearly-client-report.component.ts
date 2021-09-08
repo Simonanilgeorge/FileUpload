@@ -6,6 +6,7 @@ import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 
+
 @Component({
   selector: 'app-yearly-client-report',
   templateUrl: './yearly-client-report.component.html',
@@ -13,7 +14,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
   providers: [DatePipe]
 })
 export class YearlyClientReportComponent implements OnInit {
-
+  
   fileName="yearly_client_report.xlsx"
   data=[]
   flag=2;
@@ -125,4 +126,5 @@ export class YearlyClientReportComponent implements OnInit {
     this.exportExcelService.exportToExcel(element, this.fileName)
 
   }
+
 }

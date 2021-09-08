@@ -106,6 +106,9 @@
                             {{total|number}}
                         </td>
                     </tr>
+                    <tr *ngIf='searchItems().length==0'>
+                        <td colspan="40" style="text-align: center;">No Reports Available</td>
+                      </tr>
 
                 </table>
             </form>
