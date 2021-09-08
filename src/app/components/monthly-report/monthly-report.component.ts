@@ -3,14 +3,19 @@ import { LoginService } from '../../providers/login.service'
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
+import { ExportExcelService } from '../../providers/export-excel.service'
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
+
 
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
   styleUrls: ['./monthly-report.component.css'],
-  providers:[DatePipe]
+  providers:[DatePipe,ColumnsortPipe]
 })
 export class MonthlyReportComponent implements OnInit {
+  searchedItems
+  fileName="monthly_production_report.xlsx"
   flag: Boolean = false;
   titleName;
   message;
@@ -20,6 +25,15 @@ export class MonthlyReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "client": "Client",
+    "task": "Task"
+  }
+
   titles=["empcode","name","doj","search","client","task"];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
@@ -37,7 +51,7 @@ export class MonthlyReportComponent implements OnInit {
     sheetName: ['Revenue', Validators.required]
   })
 
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -49,6 +63,8 @@ export class MonthlyReportComponent implements OnInit {
     return this.Date.get("date");
   }
 
+
+  // function called on ngOnInit()
   filter() {
 
     if (this.Date.status === "INVALID") {
@@ -58,8 +74,10 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
+
       this.data = res.data;
       this.dates = res.dates;
+       
       this.sheetNameRes=res.sheet;
       
       this.total = 0
@@ -101,10 +119,10 @@ export class MonthlyReportComponent implements OnInit {
     },100)
   }
 
-  showInput(){
-    this.showColumnInput = !this.showColumnInput
+  // showInput(){
+  //   this.showColumnInput = !this.showColumnInput
 
-  }
+  // }
 
   checkDay(date){
     if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)
@@ -115,4 +133,19 @@ export class MonthlyReportComponent implements OnInit {
       return false
     }
   }
+      // export to excel file
+      export() {
+        /* table id is passed over here */
+        let element = document.querySelector(".table-excel");
+        this.exportExcelService.exportToExcel(element, this.fileName)
+    
+      }
+
+   public searchItems() {
+
+
+     this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
+
+    return this.searchedItems;
+}
 }

@@ -1,13 +1,33 @@
-th{
+th {
   position: sticky;
-  top:0;
+  top: 0;
 }
-  p{
-    cursor: pointer;
-    font-size: 1.1rem;
-  }
+p {
+  cursor: pointer;
+  font-size: 1.1rem;
+}
 
-  td{
-padding:0.3em;
-font-size: 0.9rem;
-  }
+td {
+  /* border: 1px solid rgb(42 67 125); */
+  padding: 0.3em;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.tablecontainer {
+  max-height: 55vh;
+}
+
+
+.statusmsg {
+  text-align: center;
+
+
+  color: rgba(29, 51, 110, 0.76);
+
+  padding: 1.25em;
+}
+
+table{
+  width:100%;
+}

@@ -4,19 +4,37 @@ import { EmpreportService } from '../../providers/empreport.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
+import { ExportExcelService } from '../../providers/export-excel.service'
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
+
 
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
   styleUrls: ['./employee-report.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe,ColumnsortPipe]
 })
 export class EmployeeReportComponent implements OnInit {
 
-  yearlyProductionReport = "0";
+  searchedItems
+  // Daily Production report
+  fileName="daily_production_report.xlsx"
+
   datas: any;
   titleName;
+
+  sheetName="Revenue";
   titles = ["empcode", "name", "doj", "search", "client", "task"];
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "client":"Client",
+    "task": "Task"
+  }
+  
+  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
@@ -29,47 +47,24 @@ export class EmployeeReportComponent implements OnInit {
     task: [""]
   })
 
-  yearlyFilterForm = this.fb.group({
-    dateFilter: [""],
-    startDate: [this.datePipe.transform(new Date(), 'yyyy-01-01')],
-    endDate: [this.datePipe.transform(new Date(), 'yyyy-12-31')]
-  })
+
   filterForm = this.fb.group({
     dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
     startDate: [""],
     endDate: [""]
   });
-  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router) { }
+  constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
 
-
-    if(this.router.url=="/viewreport"){
-      this.yearlyProductionReport = "0";
-      this.getReport();
-    }
-    else if(this.router.url=="/viewyearlyreport"){
-      this.yearlyProductionReport = "1";
-      this.yearlyProductionOnSubmit()
-    }
+    this.getReport();
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
   
-
-
   }
 
-  get startYear(){
-    return this.yearlyFilterForm.get("startYear")
-  }
-
-  get endYear(){
-    return this.yearlyFilterForm.get("endYear")
-  }
-
+// get daily production report(called initially with no date)
   getReport() {
-
-
     this.empreportService.getReport().subscribe((res) => {
       this.onResponse(res);
     }, (err) => {
@@ -77,6 +72,8 @@ export class EmployeeReportComponent implements OnInit {
     })
   }
 
+
+  //call this function with filter form values
   onSubmit() {
     this.flag = 2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
@@ -88,6 +85,9 @@ export class EmployeeReportComponent implements OnInit {
 
   }
 
+
+
+  // function called on response 
   onResponse(res) {
 
     res = JSON.parse(res);
@@ -103,6 +103,7 @@ export class EmployeeReportComponent implements OnInit {
 
   }
 
+  // reset titlename for sort(ascending descending)
   getTitleName(title) {
 
     this.titleName = null;
@@ -112,20 +113,26 @@ export class EmployeeReportComponent implements OnInit {
 
 
   }
-  showInput() {
-    this.showColumnInput = !this.showColumnInput
+
+  // column filter on double click
+  // showInput() {
+  //   this.showColumnInput = !this.showColumnInput
+
+  // }
+
+
+    // export to excel file
+  export() {
+    /* table id is passed over here */
+    let element = document.querySelector(".table-excel");
+    this.exportExcelService.exportToExcel(element, this.fileName)
 
   }
+  public searchItems() {
 
-  yearlyProductionOnSubmit(){
 
+    this.searchedItems = this.columnSortPipe.transform(this.datas,this.columnFilterForm.value);
 
-    this.flag = 2;
-    this.empreportService.getReportByFilter(this.yearlyFilterForm.value).subscribe((res) => {
-
-      this.onResponse(res);
-    }, (err) => {
-      console.log(err.message);
-    })
-  }
+   return this.searchedItems;
+}
 }

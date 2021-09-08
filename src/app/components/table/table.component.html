@@ -1,18 +1,23 @@
 
 
 <div class="tablecontainer">
-<table>
+<table class="table-excel">
+    <tr>
+     <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
+    </tr>
     <tr>
         <th>Edit</th>
         <th *ngFor="let heading of headings">
             {{ heading}}
-
         </th>
     </tr>
-    <tr *ngFor="let data of data">
+    <tr *ngFor="let data of data" >
         <td ><p (click)="edit(data)">&#9998;</p></td>
         <td *ngFor="let title of titles" >{{data[title]}}</td>
       
+    </tr>
+    <tr *ngIf="data.length==0">
+        <td colspan="40" class="statusmsg">No Reports Available</td>
     </tr>
 </table>
 </div>

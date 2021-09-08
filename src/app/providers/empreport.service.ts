@@ -18,6 +18,8 @@ export class EmpreportService {
   private employeeUrl="http://localhost:5000/api/addemployee"
   private editEmployeeUrl="http://localhost:5000/api/editemployee"
   private yearlyClientUrl="http://localhost:5000/api/yearlyclientrprt"
+  private yearlyEmployeeReportUrl = "http://localhost:5000/api/yearlyemprprt"
+  private deleteEmployeeStatus="http://localhost:5000/api/delemprprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
@@ -68,17 +70,26 @@ export class EmpreportService {
   }
 
   deleteEmployee(deleteObject):Observable<any>{
-    let data={
-      inputs:null
-    };
-    data.inputs=deleteObject
-
-
-    return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.empcode}`,data)
+    // let data={
+    //   inputs:null
+    // };
+    // data.inputs=deleteObject
+    return this.http.post<any>(`${this.editEmployeeUrl}/${deleteObject.inputs.empcode}`,deleteObject)
   }
 
 getYearlyClientReport(data):Observable<any>{
   return this.http.post<any>(this.yearlyClientUrl,data)
+}
+
+
+getYearlyEmployeeReport(date): Observable<any> {
+  return this.http.post<any>(this.yearlyEmployeeReportUrl, date);
+
+}
+
+deleteEmployeeReport(data): Observable<any> {
+  return this.http.post<any>(this.deleteEmployeeStatus, data);
+
 }
 
 }

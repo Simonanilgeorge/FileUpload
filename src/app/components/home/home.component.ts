@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
 
 
   clicked = false;
-  rvsiFileName = "Choose rvsi";
-  sp2FileName = "Choose sp2";
+  rvsiFileName = "Select rvsi";
+  sp2FileName = "Select sp2";
   flag = 0;
   message = "Success";
   toast: Boolean = false;
@@ -55,7 +55,10 @@ export class HomeComponent implements OnInit {
     if (!_.includes(af, event.target.files[0].type)) {
 
       this.toast = true;
-      this.showToastMessage("Only EXCEL Docs Allowed")
+      event.target.value = null
+      
+      this.showToastMessage("Only Excel file allowed !")
+
       return;
     }
 
@@ -74,12 +77,15 @@ export class HomeComponent implements OnInit {
   }
 
   onFormSubmit() {
-    this.flag = 1;
+
     if (this.fileUploadForm.status == "INVALID") {
       this.toast = true;
       this.showToastMessage("Select both the files")
+ 
       return false;
     }
+
+    this.flag = 1;
     const formData = new FormData();
     formData.append('rvsi', this.rvsi.value);
     formData.append('sp2', this.sp2.value)

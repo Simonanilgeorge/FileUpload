@@ -3,7 +3,7 @@ import { LoginService } from '../../providers/login.service'
 import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
-
+import { ExportExcelService } from '../../providers/export-excel.service'
 @Component({
   selector: 'app-client-report',
   templateUrl: './client-report.component.html',
@@ -11,7 +11,9 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class ClientReportComponent implements OnInit {
+  sheetList=["Revenue","Volume"]
 
+  fileName="client_based_monthly_report.xlsx"
   data = [];
   flag: boolean = false;
   dates = [];
@@ -20,9 +22,10 @@ export class ClientReportComponent implements OnInit {
   total;
 
   Date = this.fb.group({
-    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required]
+    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required],
+    sheetName: ['Revenue', Validators.required]
   })
-  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe) { }
+  constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe,private exportExcelService: ExportExcelService) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -30,8 +33,13 @@ export class ClientReportComponent implements OnInit {
     this.onSubmit()
   }
 
+get sheetName(){
+  return this.Date.get("sheetName")
+}
 
+  // function called when filter is changed
   onSubmit() {
+
 
     this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
@@ -45,7 +53,7 @@ export class ClientReportComponent implements OnInit {
       this.dates.forEach((date) => {
         this.columnSum[date] = 0;
       })
-      // check if value exist in data
+      // check if value exist in data; get columnwise sum
       this.data.forEach(datas => {
         this.total = this.total + datas.total
         this.dates.forEach((date) => {
@@ -71,4 +79,13 @@ export class ClientReportComponent implements OnInit {
       return false
     }
   }
+
+
+      // export to excel file
+      export() {
+        /* table id is passed over here */
+        let element = document.querySelector(".table-excel");
+        this.exportExcelService.exportToExcel(element, this.fileName)
+    
+      }
 }

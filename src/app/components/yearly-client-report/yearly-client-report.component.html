@@ -1,49 +1,107 @@
 <div class="container">
     <app-navbar></app-navbar>
+
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
-    <div class="heading">
 
-        <h2 >Yearly Client Report</h2>
+
+    <div class="heading">
+        <h2>Yearly Client Report</h2>
     </div>
 
 
-    <!-- Yearly Prodution Report -->
-    <form [formGroup]="filterForm" class="formcontainer" >
+    <form [formGroup]="filterForm" class="formcontainer">
         <div class="inputgroup">
-            <label for="From">Start Date</label>
-            <input type="date" formControlName="startDate" class="input-primary" (change)="onSubmit()">
-        </div>
-        <div class="inputgroup">
-            <label for="To">End Date</label>
-            <input type="date" formControlName="endDate" class="input-primary" (change)="onSubmit()">
-        </div>
+            <label for="">
+                Select Year
+            </label>
 
+<input type="number"  class="input-primary" maxlength="4" min="1980" max="2099" step="1" formControlName="date" (input)="onSubmit()"/>
+
+
+        </div>
+        <div class="inputgroup">
+            <label for="name">Select Report</label>
+            <select class="input-primary" formControlName="sheetName" (change)="onSubmit()">
+                <!-- <option value="" [disabled]="true">--Select--</option> -->
+                <option *ngFor="let sheet of SheetList">
+                    {{sheet}}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="inputgroup">
+                <button class="button" (click)="filter()">Filter</button>
+            </div> -->
     </form>
 
-    <div class="report-container" *ngIf="flag==1">
 
-        <div class="tablecontainer">
-            <table>
-                <tr>
-                    <th>CLIENT</th>
-                    <th>REVENUE</th>
-                    <th>ORDER COUNT</th>                     
-                </tr>
-                <tr *ngFor="let data of data ">  
-                    <td>{{data.client}}</td>
-                    <td>{{data.revenue}}</td>
-                    <td>{{data.order_count}}</td>
-                </tr>
 
-            </table>
+    <div class="report-container" >
+
+        <div class="tablecontainer" *ngIf="flag==1">
+
+           
+                <table class="table-excel">
+                    <tr>
+                       
+                        <th colspan="15" style="position:sticky;top:0;">
+                            <input type="button" value="Export" class="exportbutton" (click)="export()">
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let title of titles" >
+                            {{title}} 
+                            
+                        </th>
+                        
+                        <th *ngFor="let date of dates; let i=index;">{{date}}</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr
+                        *ngFor="let data of data">
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
+                            class="textleft">{{data[title]}}</td>
+                        <td *ngFor="let date of dates">
+                            <span *ngIf="data[date]">
+                                <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                                {{data[date]}}
+                                
+                            </span>
+                        </td>
+
+                        <td><span *ngIf="data.total"><span
+                                    *ngIf="sheetNameRes=='Revenue'">$</span>
+                                {{data.total}}</span></td>
+                    </tr>
+
+                    <tr>
+                        <td
+                            style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
+                            Grand Total</td>
+                        
+                        <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
+
+                            <span *ngIf="columnSum[date]!=0">
+                                <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                                 {{columnSum[date]| number}}
+                            </span>
+                        </td>
+                        <td style="background: rgb(42 67 125); color:white;">
+                            <span *ngIf="sheetNameRes=='Revenue'">$</span>
+                            {{total|number}}
+                        </td>
+                    </tr>
+
+                </table>
+           
         </div>
 
     </div>
-    <div class="statusmsg" style="margin: 0 auto;color:steelblue;" >
-        <span *ngIf="flag==2"> <h2>Loading...</h2></span>
-        <span *ngIf="flag==0"> <h2>No reports available</h2></span>
- </div>
-
-
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
+        <h2>Loading...</h2>
+    </div>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
+        <h2>No data available for the Year </h2>
+    </div>
 </div>

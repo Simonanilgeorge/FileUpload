@@ -7,13 +7,14 @@
 
         <div class="form" >
             <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
-
                 <div class="inputgroup">
                     <h3>Upload file</h3>
+
                 </div>
+                
                 <!-- for rvsi -->
                 <div class="inputgroup">
-                    <input type="file" name="file" id="file" class="file" #rvsi (change)="onFileSelect($event,'rvsi')" >
+                    <input type="file" name="file" id="file" class="file" #rvsi (input)="onFileSelect($event,'rvsi')" >
                     <div class="d-flex">
                       <input type="text" name="file-name" id="file-name" class="file-name" readonly="readonly" [value]="rvsiFileName" (click)="rvsi.click()">
                     </div>
@@ -30,7 +31,7 @@
 
 
                 <div class="inputgroup">
-                    <div>
+                    <div style="display: flex;justify-content: center;">
                         <button type="submit" class="button">Generate report</button>
                     </div>
                 </div>

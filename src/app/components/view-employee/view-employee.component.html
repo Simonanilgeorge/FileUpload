@@ -3,8 +3,10 @@
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
 
+
+
     <!-- modal box start -->
-    <div class="modal" [class.display]="modalBoolean" #modalRef>
+    <!-- <div class="modal" [class.display]="modalBoolean" #modalRef>
 
         <div class="modal-content">
             <div class="text">
@@ -23,49 +25,64 @@
                 <button class="openbtn" (click)="closeModal()">No</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- modal box end -->
 
     <div class="heading">
         <h2>Employee Details</h2>
+
     </div>
     <div class="report-container" *ngIf="flag">
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
-                <table>
+                <table id="excel-table">
                     <tr>
-                        <th colspan="15" style="position:sticky;top:0;">
+                        <th style="position:sticky;top:0;">
                             <form class="tablesearch">
                                 <div class="inputgroup">
 
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search">
                                 </div>
+
                             </form>
+                        </th>
+                        <th colspan="14" style="position:sticky;top:0;">
+                            <!-- <input type="button" value="Export" class="exportbutton" (click)="export()"> -->
                         </th>
                     </tr>
                     <tr>
+                        <th>Edit</th>
                         <th *ngFor="let title of titles">
-                            <span style="cursor: pointer;" (dblclick)="showInput()" (click)="getTitleName(title)">{{title}} &uarr;&darr;</span>
-                            <div class="inputgroup-columnsort" *ngIf="showColumnInput">
-                                <input type="text" class="search" formControlName="{{title}}">
+                            <div class="inputgroup-columnsort" >
+                                <input type="text"  formControlName="{{title}}">
                             </div>
+                            <span style="cursor: pointer;" 
+                                (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>
+
                         </th>
-                        <th>Delete</th>
+
 
                     </tr>
-                    <tr *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
-                        <td *ngFor="let title of titles" [class.textleft]="title=='name'|| title=='task'||title=='search'">
-                            <span *ngIf="title=='empcode'"style='cursor: pointer; text-decoration: underline; color:blueviolet'(click)="edit(data)">
-                                {{data[title]}}
-                            </span>
-                            <span *ngIf="title!='empcode'"> {{data[title]}}</span>
-                        </td>
+
+                    <tr
+                        *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value | sort:titleName ">
                         <td>
-                            <p (click)="showModal(data)" style='cursor: pointer;   font-size: 0.6rem;'>&#10060;</p>
+                            <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span (click)="showModal(data)" style='cursor: pointer;font-size: 1.1em;'> 
+                                <i class="fa fa-trash-o"></i> </span>
+                            
+                          
+                        </td>
+                        <td *ngFor="let title of titles" class="textleft">
+                                {{data[title]}}
                         </td>
                     </tr>
+                    <tr *ngIf='searchItems().length==0'>
+                        <td colspan="50" style="text-align: center;background: #dee2e6;">No Data Available</td>
+                      </tr>
                 </table>
             </form>
         </div>

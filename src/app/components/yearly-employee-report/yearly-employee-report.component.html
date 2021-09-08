@@ -6,16 +6,19 @@
 
 
     <div class="heading">
-        <h2>Monthly {{sheetNameRes}} Report</h2>
+        <h2>Yearly {{sheetNameRes}} Report</h2>
     </div>
 
 
     <form [formGroup]="Date" class="formcontainer">
         <div class="inputgroup">
             <label for="">
-                Select Month
+                Select Year
             </label>
-            <input type="month" formControlName="date" class="input-primary" (change)="filter()">
+
+            <input type="number" class="input-primary" maxlength="4" min="1980" max="2099" step="1" formControlName="date"
+                (input)="filter()" />
+
 
         </div>
         <div class="inputgroup">
@@ -34,7 +37,7 @@
 
 
 
-    <div class="report-container" *ngIf="total != 0">
+    <div class="report-container" *ngIf="flag==1">
 
         <div class="tablecontainer">
 
@@ -47,36 +50,30 @@
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search" autocomplete="off">
                                 </div>
+
                             </form>
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
-                            
                         </th>
                     </tr>
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-
-                            <!--  use below for dbclick *ngIf="showColumnInput"  -->
-                            <!-- styles class="search"  -->
-                            <div class="inputgroup-columnsort" >
+                            <div class="inputgroup-columnsort">
                                 <input type="text" formControlName="{{title}}">
                             </div>
-                                
-                            <!-- use for span (dblclick)="showInput()" -->
-                            <span style="cursor: pointer;" (click)="getTitleName(title)">
-                                {{headings[title]}} &uarr;&darr;
-                            </span>
-       
+                            <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}}
+                                &uarr;&darr;</span>
+
                         </th>
-                        <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
+                        <th *ngFor="let date of dates; let i=index;">{{date}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                     </tr>
                     <tr
                         *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
-                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
-                            class="textleft">{{data[title]}}</td>
-                        <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'" class="textleft">
+                            {{data[title]}}</td>
+                        <td *ngFor="let date of dates">
                             <span *ngIf="data[date]">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
                                 {{data[date]}}
@@ -107,7 +104,7 @@
                         </td>
                     </tr>
                     <tr *ngIf='searchItems().length==0'>
-                        <td colspan="40" style="text-align: center;background: #dee2e6;">No Reports Available</td>
+                        <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                       </tr>
 
                 </table>
@@ -115,10 +112,10 @@
         </div>
 
     </div>
-    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
         <h2>Loading...</h2>
     </div>
-    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="total == 0 && data.length != 0">
-        <h2>No data available for the Month </h2>
+    <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
+        <h2>No data available for the Year </h2>
     </div>
 </div>

@@ -3,15 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
+import { ExportExcelService } from '../../providers/export-excel.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import * as XLSX from 'xlsx';
+import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 
 
 @Component({
   selector: 'app-view-employee',
   templateUrl: './view-employee.component.html',
-  styleUrls: ['./view-employee.component.css']
+  styleUrls: ['./view-employee.component.css'],
+  providers:[ColumnsortPipe]
 })
 export class ViewEmployeeComponent implements OnInit {
+
+  searchedItems
+  fileName = "employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
   dataToBeDeleted;
@@ -22,26 +29,42 @@ export class ViewEmployeeComponent implements OnInit {
   data = [];
   singleSearch;
   flag: Boolean = false;
-  showColumnInput:Boolean = false;
+  showColumnInput: Boolean = false;
 
-  columnFilterForm:FormGroup=this.fb.group({
-    empcode:[""],
+  columnFilterForm: FormGroup = this.fb.group({
+    empcode: [""],
     name: [""],
     doj: [""],
     search: [""],
     client: [""],
     task: [""],
-    delay_review_duration:[""],
-    delay_reason:[""],
-    actual_out_of_review_date:[""],
-    planned_out_of_review_date:[""],
-    training_duration:[""],
-    production_status:[""],
-    shift:[""]
+    delay_review_duration: [""],
+    delay_reason: [""],
+    actual_out_of_review_date: [""],
+    planned_out_of_review_date: [""],
+    training_duration: [""],
+    production_status: [""],
+    shift: [""]
   })
 
 
-  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute,private fb: FormBuilder) { }
+  headings = {
+    "empcode": "Employee code",
+    "name": "Employee name",
+    "doj": "Date of Joining",
+    "search": "Search/Non-Search",
+    "task": "Task",
+    "client": "Client",
+    "shift": "Shift",
+    "production_status": "Production Status",
+    "training_duration": "Training Duration",
+    "planned_out_of_review_date": "Planned Out of Review Date",
+    "actual_out_of_review_date": "Actual Out of Review Date",
+    "delay_reason": "Reason for Extension",
+    "delay_review_duration": "Review Extension"
+  }
+
+  constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
@@ -80,21 +103,9 @@ export class ViewEmployeeComponent implements OnInit {
     this.router.navigate(['/addemployee'])
 
   }
-  delete(data) {
-    
-    
-    this.modalBoolean = false;
-    this.empReportService.deleteEmployee(data).subscribe((res) => {
 
-      this.showToastMessage("Deleted successfully")
 
-      this.ngOnInit();
-    }, (err) => {
-      this.showToastMessage("Deletion failed")
-      console.log(err.message)
-    })
 
-  }
   showToastMessage(message) {
     this.message = message;
     this.toast = true;
@@ -112,23 +123,22 @@ export class ViewEmployeeComponent implements OnInit {
 
 
   }
+
+  // called on delete 
   showModal(data) {
-    // (click)="delete(data)" 
 
+    sessionStorage.setItem("deleteEmployee",data.empcode)
+    this.router.navigate(['/addemployee'])
 
-    data.username=sessionStorage.getItem('user')
-
-    this.modalBoolean = true;
-    this.dataToBeDeleted = data;
   }
 
-  closeModal() {
 
-    this.modalBoolean = false;
-    this.dataToBeDeleted = null;
-  }
-  showInput(){
-    this.showColumnInput = !this.showColumnInput
-  }
 
+  public searchItems() {
+
+
+    this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
+
+   return this.searchedItems;
+}
 }

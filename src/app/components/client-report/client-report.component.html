@@ -1,61 +1,88 @@
 <div class="container">
     <app-navbar></app-navbar>
 
-    
-<div class="heading">
-    <h2>Client Based Monthly Revenue Report</h2>
-</div>
 
-   
-        <form [formGroup]="Date" >
-            <div class="inputgroup">
-                <label for="">
-                    Select month
-                </label>
-                <input class="input-primary" type="month" formControlName="date" (change)="onSubmit()">
+    <div class="heading">
+        <h2>Client Based Monthly Revenue Report</h2>
+    </div>
 
-            </div>
-            <!-- <div class="inputgroup">
+
+    <form [formGroup]="Date">
+        <div class="inputgroup">
+            <label for="">
+                Select month
+            </label>
+            <input class="input-primary" type="month" formControlName="date" (change)="onSubmit()">
+        </div>
+        <div class="inputgroup">
+            <label for="name">Select Report</label>
+            <select class="input-primary" formControlName="sheetName" (change)="onSubmit()">
+                <!-- <option value="" [disabled]="true">--Select--</option> -->
+                <option *ngFor="let sheet of sheetList">
+                    {{sheet}}
+                </option>
+            </select>
+        </div>
+        <!-- <div class="inputgroup">
                 <label for="name">Search by keyword</label>
                 <input type="text" name="name" class="input-primary" [(ngModel)]="searchedKeyword">
             </div> -->
-            <!-- <div class="inputgroup">
+        <!-- <div class="inputgroup">
                 <button class="button">Filter</button>
             </div> -->
-        </form>
- 
+    </form>
+
 
 
     <div class="report-container" *ngIf="data.length != 0">
 
         <div class="tablecontainer">
-            <table>
+            <table class="table-excel">
+                <tr >
+                    <th colspan="40" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
+                </tr>
                 <tr>
                     <th style="position: sticky;left:0;z-index:10;">CLIENT</th>
                     <th *ngFor="let date of dates; let i=index;" class>{{date | date: 'MMM'}} {{i+1}}</th>
                     <th>Total</th>
+
                 </tr>
+
                 <tr *ngFor="let data of data | filter:searchedKeyword">
-                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">{{data.client}}</td>
+                    <td style="position: sticky;left:0;">{{data.client}}</td>
                     <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
-                        <span *ngIf="data[date]">${{data[date]}}</span> 
+                        <span *ngIf="data[date]">
+                            <span *ngIf="sheetName.value=='Revenue'">$</span>
+                        {{data[date]}}</span>
                     </td>
-                    <td><span *ngIf="data.total">${{data.total}}</span></td>
+                    <td><span *ngIf="data.total"><span *ngIf="sheetName.value=='Revenue'">$</span>
+                        {{data.total}}</span></td>
                 </tr>
                 <tr>
-                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;">Total</td>
-                    <td *ngFor="let date of dates" style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">
-                        <span *ngIf="columnSum[date]!=0">${{columnSum[date]| number}}</span>
+                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;font-weight: bolder;">Grand Total</td>
+                    <td *ngFor="let date of dates"
+                        style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">
+
+                        <span *ngIf="columnSum[date]!=0"><span *ngIf="sheetName.value=='Revenue'">$</span>
+                        
+                        {{columnSum[date]| number}}</span>
                     </td>
-                    <td style="background: rgb(42 67 125); color:white;">${{total|number}}</td>
+                    <td style="background: rgb(42 67 125); color:white;">
+                        <span *ngIf="sheetName.value=='Revenue'">$</span>
+                        {{total|number}}</td>
                 </tr>
 
             </table>
+           
         </div>
 
     </div>
-    <div class="statusmsg"  *ngIf="data.length == 0">
-        <span *ngIf="!flag"> <h2>Loading...</h2></span>
-        <span *ngIf="flag"> <h2>No reports available for the month</h2></span>
- </div>
+    <div class="statusmsg" *ngIf="data.length == 0">
+        <span *ngIf="!flag">
+            <h2>Loading...</h2>
+        </span>
+        <span *ngIf="flag">
+            <h2>No data available for the Month</h2>
+        </span>
+    </div>
 </div>

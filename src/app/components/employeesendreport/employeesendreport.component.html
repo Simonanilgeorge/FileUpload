@@ -3,13 +3,32 @@
 
 
     <app-toast [message]="message" [classBoolean]="toast"></app-toast>
+    <div class="modal" [class.display]="modalBoolean" #modalRef>
+
+      <div class="modal-content">
+          <div class="text">
+              <h2>Confirm Delete</h2>
+          </div>
+          <div class="text">
+              <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
+                      {{dataToBeDeleted.inputs.orderNumber}}</span>?</p>
+  
+          </div>
+  
+          <div class="buttoncontainer">
+              <button class="openbtn" (click)="deleteStatus()">Yes</button>
+              <button class="openbtn" (click)="closeModal()">No</button>
+          </div>
+      </div>
+  </div>
 
     <div class="cardcontainer">
       <div class="card">
-        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="userForm" >
           <div class="inputgroup">
-            <h2 *ngIf="!update">Enter Production Data</h2>
+            <h2 *ngIf="!update && !delete">Enter Production Data</h2>
             <h2 *ngIf="update">Edit Production Data</h2>
+            <h2 *ngIf="delete">Delete Production Data</h2>
           </div>
           <div class="formcontainer-primary" formGroupName="inputs">
             <div class="inputgroup">
@@ -50,7 +69,7 @@
             <div class="inputgroup">
               <label for="state">State</label>
               <ul>
-                <li class="parent" (click)=display()>
+                <li class="parent" (click)=display() [class.taskupdate]="delete">
                   <div class="dropdown-icon">
                     <p>{{state.value}} </p>
                     <p style="transform: rotate(90deg); font-size: 0.8rem;">&#x276F;</p>
@@ -82,8 +101,15 @@
             </div>
           </div>
           <div class="minicontainer">
-            <div class="inputgroup" style="padding:0.2em">
-              <button class="button" type="submit">Submit</button>
+            
+            <div class="inputgroup"  *ngIf="delete||update">
+              <button class="button" type="submit" (click)="goBack()">Cancel</button>
+            </div>
+            <div class="inputgroup" *ngIf="!delete">
+              <button class="button" (click)="onSubmit()">Submit</button>
+            </div>
+            <div class="inputgroup"  *ngIf="delete">
+              <button class="button" (click)="showModal()">Delete</button>
             </div>
           </div>
         </form>

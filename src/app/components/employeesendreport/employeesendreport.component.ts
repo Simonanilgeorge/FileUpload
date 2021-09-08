@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
-import { DatePipe } from '@angular/common';
+import { DatePipe,Location} from '@angular/common';
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
@@ -13,6 +13,9 @@ import { DatePipe } from '@angular/common';
 })
 export class EmployeesendreportComponent implements OnInit {
 
+  delete=false;
+  modalBoolean=false
+  dataToBeDeleted
   displayBoolean=false;
   update: Boolean=false;
   message = "Success";
@@ -32,7 +35,7 @@ export class EmployeesendreportComponent implements OnInit {
 
   myDate = new Date();
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe,private location:Location) { }
 
   ngOnInit(): void {
 
@@ -116,20 +119,16 @@ get status(){
     this.Processlist = this.dropDownList[this.final]
   }
 
-
-
   onSubmit() {
 
+    this.orderNumber.setValue(this.orderNumber.value.trim())
     if (this.Client.value == "NonProd") {
-      this.orderNumber.setValue("nil");
-      this.state.setValue("nil");
-      this.status.setValue("nil");
+      this.orderNumber.setValue(" ");
+      this.state.setValue(" ");
+      this.status.setValue(" ");
 
 
     }
-
-
-
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
 
@@ -140,9 +139,6 @@ get status(){
       this.showToastMessage("Please enter a value for Process")
       return;
     }
-
-
-
 
 
     // get the total time
@@ -163,6 +159,12 @@ get status(){
     this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
 
       this.showToastMessage("Success")
+      if(this.update){
+        setTimeout(() => {
+          this.location.back()
+        }, 1000);
+
+      }
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
@@ -178,7 +180,7 @@ get status(){
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
-    if (time1[0] > time2[0]) {
+    if (time1[0] > time2[0]||time1[0]==time2[0] && time1[1]>time2[1]) {
       time2[0] = time2[0] + 24;
 
     }
@@ -201,7 +203,7 @@ get status(){
       this.stateList=this.dropDownList.States;
       // get single status for update
       const id = sessionStorage.getItem('updateID');
-
+      const deleteID=sessionStorage.getItem('deleteID')
       if (id) {
         this.update = true;
 
@@ -209,8 +211,16 @@ get status(){
         this.getSingleStatus();
 
       }
+      else if (deleteID){
+        this.userForm.disable()
+        this.displayBoolean=false;
+        this.delete = true;
+        this.update_id = { id: deleteID }
+        this.getSingleStatus();
+      }
       else {
         this.update = false;
+        this.delete=false
       }
 
 
@@ -236,6 +246,7 @@ get status(){
     this.empReportService.getSingleReport(this.update_id).subscribe((res) => {
 
       sessionStorage.removeItem("updateID");
+      sessionStorage.removeItem("deleteID")
       res = JSON.parse(res);
 
 
@@ -255,8 +266,27 @@ get status(){
     })
   }
 
+
+
+  deleteStatus(){
+    this.modalBoolean = false;
+    this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res)=>{
+
+      this.showToastMessage(res.status)
+      setTimeout(()=>{
+        this.location.back()
+      },1000)
+    },(err)=>{
+      console.log(err.message)
+    })
+
+  }
   display(){
-    this.displayBoolean=!this.displayBoolean;
+
+    if(!this.delete){
+      this.displayBoolean=!this.displayBoolean;
+    }
+    
    
   }
 
@@ -266,5 +296,28 @@ get status(){
 
 
   }
+
+
+
+  // open on delete button click methods
+  showModal() {
+
+
+    // data.username = sessionStorage.getItem('user')
+
+  
+      this.modalBoolean = true;
+      this.dataToBeDeleted = this.userForm.getRawValue();
+    
+    }
+  
+    closeModal() {
+  
+      this.modalBoolean = false;
+      this.dataToBeDeleted = null;
+    }
+goBack(){
+  this.location.back()
+}
 
 }
