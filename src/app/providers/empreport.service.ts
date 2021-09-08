@@ -9,17 +9,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpreportService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url = "http://localhost:5000/api/empreport";
-  private statusUrl = "http://localhost:5000/api/mystatus"
-  private dropDownUrl = "http://localhost:5000/api/dropdown"
-  private monthlyReportUrl = "http://localhost:5000/api/revenue"
-  private clientReportUrl = "http://localhost:5000/api/clientrprt"
-  private singleReportUrl="http://localhost:5000/api/singlestatus"
-  private employeeUrl="http://localhost:5000/api/addemployee"
-  private editEmployeeUrl="http://localhost:5000/api/editemployee"
-  private yearlyClientUrl="http://localhost:5000/api/yearlyclientrprt"
-  private yearlyEmployeeReportUrl = "http://localhost:5000/api/yearlyemprprt"
-  private deleteEmployeeStatus="http://localhost:5000/api/delemprprt"
+  private url = "http://183.82.112.31:4200/api/empreport";
+  private statusUrl = "http://183.82.112.31:4200/api/mystatus"
+  private dropDownUrl = "http://183.82.112.31:4200/api/dropdown"
+  private monthlyReportUrl = "http://183.82.112.31:4200/api/revenue"
+  private clientReportUrl = "http://183.82.112.31:4200/api/clientrprt"
+  private singleReportUrl="http://183.82.112.31:4200/api/singlestatus"
+  private employeeUrl="http://183.82.112.31:4200/api/addemployee"
+  private editEmployeeUrl="http://183.82.112.31:4200/api/editemployee"
+  private yearlyClientUrl="http://183.82.112.31:4200/api/yearlyclientrprt"
+  private yearlyEmployeeReportUrl = "http://183.82.112.31:4200/api/yearlyemprprt"
+  private deleteEmployeeStatus="http://183.82.112.31:4200/api/delemprprt"
 
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)

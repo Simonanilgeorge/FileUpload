@@ -8,11 +8,11 @@ import { Observable, throwError } from 'rxjs';
 export class UploadService {
 
   constructor(private http: HttpClient) { }
-  private url="http://localhost:5000/api/getfile";
+  private url="http://183.82.112.31:4200/api/getfile";
   
-  private filterUrl="http://localhost:5000/api/filter"
+  private filterUrl="http://183.82.112.31:4200/api/filter"
   
-  private filterPivotTableUrl="http://localhost:5000/api/pivottables"
+  private filterPivotTableUrl="http://183.82.112.31:4200/api/pivottables"
   uploadFile(formData:any):Observable<any> {
     return this.http.post<any>(this.url,formData)
 
