@@ -170,6 +170,12 @@ export class AddEmployeeComponent implements OnInit {
       this.showToastMessage(res.response)
       if (res.response === "Success") {
         // enable form for add employee
+        if(this.update){
+          setTimeout(() => {
+            this.location.back()
+          }, 1000);
+  
+        }
         this.userForm.enable()
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
