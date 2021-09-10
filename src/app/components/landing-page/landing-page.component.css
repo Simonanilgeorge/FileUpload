@@ -26,7 +26,7 @@
 }
 
 .one {
-  grid-area: one;
+  /* grid-area: one; */
   padding: 2em 5em;
   white-space: nowrap;
   display: flex;
@@ -70,4 +70,11 @@ box-shadow: -1px 1px 20px 5px #243062;
   bottom: 0;
   background-image: linear-gradient(to right, #dc4a32, #3a1d18);
   clip-path: polygon(100% 63%, 51% 80%, 0 64%, 0 100%, 100% 100%);
+}
+
+@media screen and (max-width:50em) {
+  .one{
+    padding: 2em 1em;
+    white-space: normal;
+  }
 }

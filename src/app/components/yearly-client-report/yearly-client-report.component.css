@@ -15,7 +15,7 @@
   
   .tablecontainer{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
   }
   table{
     width:75%;
