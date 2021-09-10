@@ -13,6 +13,7 @@
   /* border: 2px solid red; */
   height: 100vh;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .loginbox {
@@ -107,7 +108,7 @@ h1 {
   color: rgb(216, 47, 47);
   background: #ffe3e6;
   text-align: center;
-  width: 21em;
+  width: 20em;
   padding: 0.6em;
   border-radius: 0.3em;
   border: rgba(158, 28, 35, 0.2) 1px solid;
@@ -127,10 +128,9 @@ h1 {
   padding: 0.3em;
   box-shadow: 0 3px 22px #243062;
 }
-
 /* child elements for mini container */
 .logincontainer {
-  flex: 1;
+  flex: 1 30em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,7 +140,7 @@ h1 {
 }
 
 .imagecontainer {
-  flex: 1;
+  flex: 1 30em;
   z-index: 2;
   background: url("../../../assets/images/NTC_Logo.png");
   background-repeat: no-repeat;
@@ -179,3 +179,10 @@ h1 {
 
   top: 0;
 }
+
+/* 
+@media screen and (max-width:50em) {
+  .imagecontainer{
+    display: none;
+  }
+} */

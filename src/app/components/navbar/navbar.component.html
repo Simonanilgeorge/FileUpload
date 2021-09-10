@@ -3,63 +3,122 @@
     <ul class="parent-ul">
 
         <div class="boxone">
-        <li routerLink="/home" class="links home" routerLinkActive="active-link" ></li>
+            <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
 
-        <li *ngIf="manager" class="links" routerLinkActive="active-link">
-           Production reports
+            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+                Production reports
+                <ul class="dropdown">
+                    <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
+                    <li routerLink="/viewyearlyreport" class="child-links">Yearly Report</li>
+                    <li routerLink="/viewreport" class="child-links">Daily Report</li>
+                </ul>
+            </li>
+            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+                Client Reports
+                <ul class="dropdown">
+                    <li routerLink="/clientreport" class="child-links">Monthly Report</li>
+                    <!-- <li routerLink="/viewyearlyreport" class="child-links">Yearly Employee Report</li> -->
+                    <li routerLink="/yearlyclientreport" class="child-links">Yearly Report</li>
+                    <li class="child-links dt">
+                        DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
+                        <ul class="dt-ul">
+                            <li routerLink="/upload" class="child-links">Generate DT queue report</li>
+                            <li routerLink="/report" class="child-links">View DT queue report</li>
+                        </ul>
+                    </li>
 
+                </ul>
+            </li>
 
-            <ul class="dropdown">
+            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+                Admin
+                <ul class="dropdown">
+                    <li routerLink="/addemployee" class="child-links">Add Employee</li>
+                    <li routerLink="/viewemployees" class="child-links">Edit Employee</li>
 
-                <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
-                <li routerLink="/viewyearlyreport" class="child-links">Yearly Report</li>
-          
-                <li routerLink="/viewreport" class="child-links">Daily Report</li>
-                <!-- <li class="child-links dt">
-                    DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
-                    <ul class="dt-ul">
-                        <li routerLink="/upload" class="child-links">Generate DT queue report</li>
-                        <li routerLink="/report" class="child-links">View DT queue report</li>
-                    </ul>
-                </li> -->
-            </ul>
-        </li>
- 
-        <li *ngIf="manager" class="links" routerLinkActive="active-link">
-            Client Reports
-            <ul class="dropdown">
-                <li routerLink="/clientreport" class="child-links">Monthly Report</li>
-                <!-- <li routerLink="/viewyearlyreport" class="child-links">Yearly Employee Report</li> -->
-                <li routerLink="/yearlyclientreport" class="child-links">Yearly Report</li>
-                <li class="child-links dt">
-                    DT queue Report&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
-                    <ul class="dt-ul">
-                        <li routerLink="/upload" class="child-links">Generate DT queue report</li>
-                        <li routerLink="/report" class="child-links">View DT queue report</li>
-                    </ul>
-                </li>
+                </ul>
+            </li>
+            <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
-            </ul>
-        </li>
-
-        <li *ngIf="manager" class="links" routerLinkActive="active-link">
-            Admin
-            <ul class="dropdown">
-                <li routerLink="/addemployee" class="child-links">Add Employee</li>
-                <li routerLink="/viewemployees" class="child-links">Edit Employee</li>
-
-            </ul>
-        </li>
-        <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
-
-        <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
-    </div>
+            <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
+        </div>
+        <div class="boxtwo">
+            <li class="links logout" (click)="logOut()">Logout</li>
+        </div>
 
 
 
- <div class="boxtwo">
-        <li class="links logout" (click)="logOut()">Logout</li>
-    </div>
+        <!-- responsive navbar -->
+        <div class="responsive-container">
+
+            <div class="responsive-boxone">
+                <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
+            </div>
+
+            <div class="responsive-boxtwo">
+
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+
+                    <div class="dropdown-container">
+                        <ul class="parent-ul-responsive">
+
+
+                            <li *ngIf="employee" routerLink="/sendreport" class="responsive-links"
+                                routerLinkActive="active-link">Order Entry</li>
+
+                            <li *ngIf="employee" routerLink="/viewmystatus" class="responsive-links"
+                                routerLinkActive="active-link">My Production Data</li>
+                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                                Production reports
+                                <ul class="responsive-dropdown">
+                                    <li routerLink="/monthlyreport" class="responsive-child-links">Monthly Report
+                                    </li>
+                                    <li routerLink="/viewyearlyreport" class="responsive-child-links">Yearly Report
+                                    </li>
+                                    <li routerLink="/viewreport" class="responsive-child-links">Daily Report</li>
+                                </ul>
+                            </li>
+
+                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                                Client Reports
+                                <ul class="responsive-dropdown">
+                                    <li routerLink="/clientreport" class="responsive-child-links">Monthly Report
+                                    </li>
+                                    <li routerLink="/yearlyclientreport" class="responsive-child-links">Yearly
+                                        Report
+                                    </li>
+                                    <li class="responsive-child-links dt-responsive">
+                                        DT queue Report&emsp;<span
+                                            style="font-size: 10px;color: gray;">&#9654;</span>
+                                        <ul class="dt-ul-responsive">
+                                            <li routerLink="/upload" class="responsive-child-links">Generate DT
+                                                queue
+                                                report</li>
+                                            <li routerLink="/report" class="responsive-child-links">View DT queue
+                                                report
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                                Admin
+                                <ul class="responsive-dropdown">
+                                    <li routerLink="/addemployee" class="responsive-child-links">Add Employee</li>
+                                    <li routerLink="/viewemployees" class="responsive-child-links">Edit Employee
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="responsive-links" (click)="logOut()">Logout</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </ul>
 </nav>
