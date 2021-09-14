@@ -1,0 +1,15 @@
+
+  .success{
+    color: #3c763d;
+    background-color: #dff0d8;
+  }
+
+  .warning{
+    color: #76583c;
+    background-color: #f0e5d8;
+  }
+
+  .error{
+    color: #763c3c;
+    background-color: #f0d8d8;
+  }

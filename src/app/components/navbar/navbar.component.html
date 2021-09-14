@@ -1,16 +1,16 @@
 <nav>
 
     <ul class="parent-ul">
-
         <div class="boxone">
             <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
 
             <li *ngIf="manager" class="links" routerLinkActive="active-link">
                 Production reports
                 <ul class="dropdown">
+                    <li routerLink="/viewreport" class="child-links">Daily Report</li>
                     <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
                     <li routerLink="/viewyearlyreport" class="child-links">Yearly Report</li>
-                    <li routerLink="/viewreport" class="child-links">Daily Report</li>
+                    
                 </ul>
             </li>
             <li *ngIf="manager" class="links" routerLinkActive="active-link">
@@ -74,14 +74,13 @@
                             <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
                                 Production reports
                                 <ul class="responsive-dropdown">
+                                    <li routerLink="/viewreport" class="responsive-child-links">Daily Report</li>
                                     <li routerLink="/monthlyreport" class="responsive-child-links">Monthly Report
                                     </li>
                                     <li routerLink="/viewyearlyreport" class="responsive-child-links">Yearly Report
-                                    </li>
-                                    <li routerLink="/viewreport" class="responsive-child-links">Daily Report</li>
+                                    </li>        
                                 </ul>
                             </li>
-
                             <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
                                 Client Reports
                                 <ul class="responsive-dropdown">
@@ -119,6 +118,5 @@
                 </div>
             </div>
         </div>
-
     </ul>
 </nav>

@@ -30,6 +30,7 @@ td {
   font-weight: bolder;
   position: sticky;
   left: 0;
+  text-align: start;
   background: rgb(42 67 125);
   color: white;
   z-index: 900;

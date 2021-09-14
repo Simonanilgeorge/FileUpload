@@ -33,6 +33,7 @@ export class AddEmployeeComponent implements OnInit {
   displayBoolean = false;
   ClientList: string[];
   Tasklist = []
+  toastClasses;
 
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef,private location:Location) { }
@@ -151,13 +152,13 @@ export class AddEmployeeComponent implements OnInit {
     this.empcode.setValue(this.empcode.value.trim())
 
     if (!this.valid) {
-      this.showToastMessage("actual out of review date cannot be before planned out of review date")
+      this.showToastMessage("actual out of review date cannot be before planned out of review date","warning")
       return
     }
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
-      this.showToastMessage("Please fill all the fields");
+      this.showToastMessage("Please fill all the fields","warning");
       return;
     }
 
@@ -167,7 +168,7 @@ export class AddEmployeeComponent implements OnInit {
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
-      this.showToastMessage(res.response)
+      this.showToastMessage(res.response,"success")
       if (res.response === "Success") {
         // enable form for add employee
         if(this.update){
@@ -187,14 +188,15 @@ export class AddEmployeeComponent implements OnInit {
 
     }, (err) => {
       console.log(err.message)
-      this.showToastMessage("Failed")
+      this.showToastMessage("Failed","error")
     })
 
   }
 
 
-  showToastMessage(message) {
+  showToastMessage(message,toastStatus) {
     this.message = message;
+    this.toastClasses=`toast ${toastStatus}` 
     this.toast = true;
     setTimeout(() => {
       this.toast = false;
@@ -369,7 +371,7 @@ export class AddEmployeeComponent implements OnInit {
     }
     else {
       this.valid = false;
-      this.showToastMessage("actual out of review date cannot be before planned out of review date")
+      this.showToastMessage("actual out of review date cannot be before planned out of review date","warning")
       return
     }
 
@@ -413,14 +415,14 @@ export class AddEmployeeComponent implements OnInit {
     this.empReportService.deleteEmployee(data).subscribe((res) => {
 
 
-      this.showToastMessage("Deleted successfully")
+      this.showToastMessage("Deleted successfully","success")
       setTimeout(()=>{
         this.location.back()
       },1000)
 
       this.ngOnInit();
     }, (err) => {
-      this.showToastMessage("Deletion failed")
+      this.showToastMessage("Deletion failed","error")
       console.log(err.message)
     })
 

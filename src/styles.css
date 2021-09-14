@@ -23,8 +23,7 @@
 
   top: 12.5em;
   right: 3.12em;
-  color: #3c763d;
-  background-color: #dff0d8;
+
   font-weight: bold;
   text-align: center;
   border-radius: 0.3em;
@@ -37,6 +36,7 @@
 .transform {
   animation: trans 3s ease-out;
 }
+
 
 @keyframes trans {
   0% {
@@ -51,6 +51,7 @@
     transform: translate(0em, -7.5em);
   }
 }
+
 
 .heading {
   padding: 1.25em;

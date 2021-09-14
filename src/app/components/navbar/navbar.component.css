@@ -374,7 +374,6 @@ nav {
       /* transform: translate(100px); */
       transition: 0.3s ease-in-out;
   }
-
   .dt-responsive:hover .dt-ul-responsive {
     display: block;
 
