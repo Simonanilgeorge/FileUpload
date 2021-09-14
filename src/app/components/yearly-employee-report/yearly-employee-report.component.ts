@@ -19,7 +19,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
   flag = 2;
   titleName;
   message;
-
+  toastStatus
   total: any = 0
   columnSum = {};
   toast: Boolean = false
@@ -71,7 +71,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
     if (this.date.status === "INVALID") {
       this.flag = 0;
-      this.showToastMessage("Select a year");
+      this.showToastMessage("Select a year","warning");
       return;
     }
 
@@ -121,9 +121,10 @@ export class YearlyEmployeeReportComponent implements OnInit {
     })
   }
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
     this.message = message;
     this.toast = true;
+    this.toastStatus=`${status}`
     setTimeout(() => {
       this.toast = false;
     }, 2000)

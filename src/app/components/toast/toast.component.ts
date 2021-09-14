@@ -8,15 +8,13 @@ import { Component, OnInit, Input,Output, EventEmitter,SimpleChanges} from '@ang
 export class ToastComponent implements OnInit {
   @Input() message
   @Input() classBoolean
-@Input() toastClasses
+@Input() toastStatus
   @Output() test=new EventEmitter();
 
 
   constructor() { }
 
   ngOnInit(): void {
-
-    console.log(this.classBoolean)
 
   }
 

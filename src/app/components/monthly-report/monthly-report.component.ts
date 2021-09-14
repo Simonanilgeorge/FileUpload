@@ -19,6 +19,7 @@ export class MonthlyReportComponent implements OnInit {
   flag: Boolean = false;
   titleName;
   message;
+  toastStatus
   total: any = 0
   columnSum = {};
   toast: Boolean = false
@@ -68,7 +69,7 @@ export class MonthlyReportComponent implements OnInit {
   filter() {
 
     if (this.Date.status === "INVALID") {
-      this.showToastMessage("Select month and sheet");
+      this.showToastMessage("Select month and sheet","warning");
       return;
     }
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
@@ -103,8 +104,9 @@ export class MonthlyReportComponent implements OnInit {
     })
   }
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
     this.message = message;
+    this.toastStatus=`${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;

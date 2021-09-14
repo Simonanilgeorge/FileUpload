@@ -19,6 +19,7 @@ export class EmployeesendreportComponent implements OnInit {
   displayBoolean=false;
   update: Boolean=false;
   message;
+  toastStatus
   toast: Boolean = false;
   public notValid: boolean = false;
   flag = true;
@@ -132,11 +133,11 @@ get status(){
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
 
-      this.showToastMessage("Please fill all the fields");
+      this.showToastMessage("Please fill all the fields","error");
       return;
     }
     if (this.Client.value != "NonProd" && this.Process.value == "") {
-      this.showToastMessage("Please enter a value for Process")
+      this.showToastMessage("Please enter a value for Process","warning")
       return;
     }
 
@@ -148,7 +149,7 @@ get status(){
     // check if start time and end time are same
     if (result === 0) {
 
-      this.showToastMessage("Please select the correct time");
+      this.showToastMessage("Please select the correct time","warning");
       return;
     }
     else {
@@ -158,7 +159,7 @@ get status(){
     // send the form
     this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
 
-      this.showToastMessage("Success")
+      this.showToastMessage("Success","success")
       if(this.update){
         setTimeout(() => {
           this.location.back()
@@ -168,7 +169,7 @@ get status(){
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
-      this.showToastMessage("Failed")
+      this.showToastMessage("Failed","error")
     })
 
   }
@@ -231,9 +232,10 @@ get status(){
 
   }
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
     this.message = message;
     this.toast = true;
+    this.toastStatus=`${status}`
     setTimeout(() => {
       this.toast = false;
     }, 2000)
@@ -272,7 +274,7 @@ get status(){
     this.modalBoolean = false;
     this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res)=>{
 
-      this.showToastMessage(res.status)
+      this.showToastMessage(res.status,"success")
       setTimeout(()=>{
         this.location.back()
       },1000)

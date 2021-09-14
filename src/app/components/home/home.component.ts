@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   sp2FileName = "Select sp2";
   flag = 0;
   message = "Success";
+  toastStatus
   toast: Boolean = false;
   fileUploadForm: FormGroup;
   fileInputLabel: string;
@@ -57,7 +58,7 @@ export class HomeComponent implements OnInit {
       this.toast = true;
       event.target.value = null
       
-      this.showToastMessage("Only Excel file allowed !")
+      this.showToastMessage("Only Excel file allowed !","error")
 
       return;
     }
@@ -80,7 +81,7 @@ export class HomeComponent implements OnInit {
 
     if (this.fileUploadForm.status == "INVALID") {
       this.toast = true;
-      this.showToastMessage("Select both the files")
+      this.showToastMessage("Select both the files","warning")
  
       return false;
     }
@@ -98,7 +99,7 @@ export class HomeComponent implements OnInit {
       }
 
       else {
-        this.showToastMessage(res.response);
+        this.showToastMessage(res.response,"error");
         this.flag=0;
       }
 
@@ -109,8 +110,9 @@ export class HomeComponent implements OnInit {
 
 
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
     this.message = message;
+    this.toastStatus=`${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;

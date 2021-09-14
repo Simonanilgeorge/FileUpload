@@ -25,8 +25,10 @@ export class YearlyClientReportComponent implements OnInit {
   columnSum = {};
   total: any = 0
   message
-  SheetList = ["Revenue", "Volume"];
+  toastStatus
   toast
+  SheetList = ["Revenue", "Volume"];
+
   filterForm = this.fb.group({
     date: [this.datePipe.transform(new Date(),"yyyy"), Validators.required],
     sheetName: ['Revenue', Validators.required]
@@ -60,7 +62,7 @@ export class YearlyClientReportComponent implements OnInit {
 
     if (this.date.status === "INVALID") {
       this.flag=0; 
-      this.showToastMessage("Select a year");
+      this.showToastMessage("Select a year","warning");
       return;
     }
 
@@ -112,8 +114,10 @@ export class YearlyClientReportComponent implements OnInit {
   }
 
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
+    
     this.message = message;
+    this.toastStatus=`${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;

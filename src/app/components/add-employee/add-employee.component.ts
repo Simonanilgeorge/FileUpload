@@ -33,7 +33,7 @@ export class AddEmployeeComponent implements OnInit {
   displayBoolean = false;
   ClientList: string[];
   Tasklist = []
-  toastClasses="toast";
+  toastStatus;
 
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef,private location:Location) { }
@@ -194,9 +194,9 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
-  showToastMessage(message,toastStatus) {
+  showToastMessage(message,status) {
     this.message = message;
-    this.toastClasses=`toast ${toastStatus}` 
+    this.toastStatus=`${status}` 
     this.toast = true;
     setTimeout(() => {
       this.toast = false;

@@ -24,6 +24,7 @@ export class OrderListComponent implements OnInit {
   headings;
   toast
   message
+  toastStatus
   final: any;
   myDate = new Date();
   user: FormGroup
@@ -99,7 +100,7 @@ export class OrderListComponent implements OnInit {
     let endDate = new Date(this.enddateFilter.value).getTime();
     let startDate = new Date(this.dateFilter.value).getTime();
     if (startDate > endDate) {
-      this.showToastMessage("start date cannot be after end date")
+      this.showToastMessage("start date cannot be after end date","warning")
 
     }
 
@@ -217,8 +218,9 @@ export class OrderListComponent implements OnInit {
 
   }
 
-  showToastMessage(message) {
+  showToastMessage(message,status) {
     this.message = message;
+    this.toastStatus=`${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;
