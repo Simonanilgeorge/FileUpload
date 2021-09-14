@@ -18,7 +18,7 @@ export class EmployeesendreportComponent implements OnInit {
   dataToBeDeleted
   displayBoolean=false;
   update: Boolean=false;
-  message = "Success";
+  message;
   toast: Boolean = false;
   public notValid: boolean = false;
   flag = true;

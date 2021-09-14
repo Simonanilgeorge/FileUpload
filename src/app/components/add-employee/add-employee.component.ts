@@ -33,7 +33,7 @@ export class AddEmployeeComponent implements OnInit {
   displayBoolean = false;
   ClientList: string[];
   Tasklist = []
-  toastClasses;
+  toastClasses="toast";
 
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef,private location:Location) { }
