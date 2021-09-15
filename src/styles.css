@@ -243,6 +243,12 @@ select {
   height: 3em;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
 
 
 /* common styles end */

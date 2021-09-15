@@ -21,6 +21,8 @@ export class ViewEmployeeComponent implements OnInit {
   fileName = "employee_details.xlsx"
   modalBoolean: Boolean = false
   titles = [];
+  ClientList=[]
+  dropDownList
   dataToBeDeleted;
   titleName;
   message = null;
@@ -70,7 +72,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
 
-    this.getEmployees();
+  this.getDropDown()
 
   }
 
@@ -140,5 +142,20 @@ export class ViewEmployeeComponent implements OnInit {
     this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
 
    return this.searchedItems;
+}
+
+getDropDown() {
+
+  this.empReportService.getDropDownList().subscribe((res) => {
+
+    this.dropDownList = res;
+
+    this.ClientList = this.dropDownList.Client;
+    
+    this.getEmployees();
+
+  }, (err) => {
+    console.log(err.message)
+  })
 }
 }

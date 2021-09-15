@@ -56,7 +56,51 @@
                         <th>Edit</th>
                         <th *ngFor="let title of titles">
                             <div class="inputgroup-columnsort" >
-                                <input type="text"  formControlName="{{title}}">
+                                <span *ngIf="title!='search' && title!='client' && title!='shift' && title!='production_status' && title!='delay_reason'">
+                                    <input type="text" formControlName="{{title}}" >
+                                </span>
+                                <span *ngIf="title=='search'" >
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option value="search">Search</option>
+                                        <option value="Non-search">Non-Search</option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='shift'" >
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option value="Morning Shift">Morning Shift</option>
+                                        <option value="Night Shift">Night Shift</option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='client'" >
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let client of ClientList" value="{{client}}">
+                                          {{client}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='delay_reason'" >
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option value="Productivity issue" > Productivity Issue</option>
+                                        <option value="Quality issue" >Quality Issue</option>
+                                        <option value="Planning issue" >Planning Issue</option>
+                                        <option value="Low volume impacting review process" >Low volume impacting review process &nbsp;&nbsp;</option>
+                                        <option value="No issue" >No Issue</option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='production_status'" >
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option value="Training" >Training</option>
+                                        <option value="100% Review" >100% Review</option>
+                                        <option value="Partial Review" >Partial Review</option>
+                                        <option value="100% Production" >100% Production</option>
+                                    </select>
+                                </span>
+           
                             </div>
                             <span style="cursor: pointer;" 
                                 (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>

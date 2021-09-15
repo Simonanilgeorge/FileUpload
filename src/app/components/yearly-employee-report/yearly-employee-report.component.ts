@@ -17,6 +17,8 @@ export class YearlyEmployeeReportComponent implements OnInit {
   searchedItems
   fileName = "yearly_employee_report.xlsx"
   flag = 2;
+  dropDownList
+  ClientList=[]
   titleName;
   message;
   toastStatus
@@ -57,7 +59,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.filter()
+    this.getDropDown()
   }
 
   get date() {
@@ -156,6 +158,21 @@ export class YearlyEmployeeReportComponent implements OnInit {
     this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
 
    return this.searchedItems;
+}
+
+
+getDropDown() {
+
+  this.empReportService.getDropDownList().subscribe((res) => {
+
+    this.dropDownList = res;
+
+    this.ClientList = this.dropDownList.Client;
+    this.filter()
+
+  }, (err) => {
+    console.log(err.message)
+  })
 }
 
 }

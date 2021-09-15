@@ -22,7 +22,8 @@ export class EmployeeReportComponent implements OnInit {
 
   datas: any;
   titleName;
-
+  dropDownList
+  ClientList=[]
   sheetName="Revenue";
   titles = ["empcode", "name", "doj", "search", "client", "task"];
   headings = {
@@ -57,8 +58,9 @@ export class EmployeeReportComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getReport();
+
     this.loginService.checkSessionStorage();
+    this.getDropDown()
     this.loginService.navigateByRole(this.constructor.name)
   
   }
@@ -134,5 +136,20 @@ export class EmployeeReportComponent implements OnInit {
     this.searchedItems = this.columnSortPipe.transform(this.datas,this.columnFilterForm.value);
 
    return this.searchedItems;
+}
+
+getDropDown() {
+
+  this.empreportService.getDropDownList().subscribe((res) => {
+
+    this.dropDownList = res;
+
+    this.ClientList = this.dropDownList.Client;
+    this.getReport();
+
+
+  }, (err) => {
+    console.log(err.message)
+  })
 }
 }

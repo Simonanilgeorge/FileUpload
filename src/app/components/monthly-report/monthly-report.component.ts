@@ -7,6 +7,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 
 
+
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
@@ -26,6 +27,8 @@ export class MonthlyReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
+  ClientList=[]
+  dropDownList: any;
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",
@@ -52,12 +55,14 @@ export class MonthlyReportComponent implements OnInit {
     sheetName: ['Revenue', Validators.required]
   })
 
+
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
-    this.filter()
+    this.getDropDown();
+
   }
 
   get date() {
@@ -149,5 +154,20 @@ export class MonthlyReportComponent implements OnInit {
      this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
 
     return this.searchedItems;
+}
+
+getDropDown() {
+
+  this.empReportService.getDropDownList().subscribe((res) => {
+
+    this.dropDownList = res;
+
+    this.ClientList = this.dropDownList.Client;
+    
+    this.filter()
+
+  }, (err) => {
+    console.log(err.message)
+  })
 }
 }
