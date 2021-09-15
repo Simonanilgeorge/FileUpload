@@ -78,3 +78,7 @@ td {
   position: sticky;
   left:0;
 }
+.inputgroup {
+  width: 14em;
+  padding: 0 1em;
+}
