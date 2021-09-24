@@ -45,7 +45,6 @@
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search">
                                 </div>
-
                             </form>
                         </th>
                         <th colspan="14" style="position:sticky;top:0;">
@@ -56,7 +55,7 @@
                         <th>Edit</th>
                         <th *ngFor="let title of titles">
                             <div class="inputgroup-columnsort" >
-                                <span *ngIf="title!='search' && title!='client' && title!='shift' && title!='production_status' && title!='delay_reason'">
+                                <span *ngIf="!dropDownFilters.includes(title)">
                                     <input type="text" formControlName="{{title}}" >
                                 </span>
                                 <span *ngIf="title=='search'" >

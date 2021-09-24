@@ -133,7 +133,7 @@ get status(){
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
 
-      this.showToastMessage("Please fill all the fields","error");
+      this.showToastMessage("Please fill all the fields","warning");
       return;
     }
     if (this.Client.value != "NonProd" && this.Process.value == "") {
@@ -181,6 +181,8 @@ get status(){
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
+   
+    // time taken to complete order is more than one day
     if (time1[0] > time2[0]||time1[0]==time2[0] && time1[1]>time2[1]) {
       time2[0] = time2[0] + 24;
 

@@ -112,6 +112,7 @@ export class FileReportComponent implements OnInit {
     this.uploadService.getFilteredData(this.filterDate).subscribe((res) => {
       this.titles = [];
 
+     
       this.datas = null;
    
       this.onResponse(res)

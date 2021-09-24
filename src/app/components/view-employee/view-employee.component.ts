@@ -50,6 +50,8 @@ export class ViewEmployeeComponent implements OnInit {
   })
 
 
+
+  dropDownFilters=["client","search","shift","production_status","delay_reason"];
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",

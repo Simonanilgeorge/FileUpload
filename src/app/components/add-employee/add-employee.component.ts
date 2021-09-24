@@ -168,22 +168,22 @@ export class AddEmployeeComponent implements OnInit {
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
-      this.showToastMessage(res.response,"success")
+   
       if (res.response === "Success") {
+        this.showToastMessage(res.response,"success")
         // enable form for add employee
         if(this.update){
           setTimeout(() => {
             this.location.back()
           }, 1000);
-  
         }
         this.userForm.enable()
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
         this.ngOnInit();
-
-
-
+      }
+      else{
+        this.showToastMessage(res.response,"warning")
       }
 
     }, (err) => {

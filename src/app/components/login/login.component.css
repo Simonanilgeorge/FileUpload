@@ -104,11 +104,13 @@ h1 {
 }
 
 .invalidcred {
+  position: relative;
+  /* width: 2em; */
   font-weight: lighter;
   color: rgb(216, 47, 47);
   background: #ffe3e6;
   text-align: center;
-  width: 20em;
+  width: 21em;
   padding: 0.6em;
   border-radius: 0.3em;
   border: rgba(158, 28, 35, 0.2) 1px solid;

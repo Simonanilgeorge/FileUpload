@@ -10,7 +10,7 @@ import { EmployeeReportComponent } from '../components/employee-report/employee-
 export class LoginService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url:string = "http://localhost:5000/api/login"
+  private url:string = "http://183.82.112.31:22543/api/login"
 
 
   login(data: any): Observable<any> {

@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
     this.uploadService.uploadFile(formData).subscribe((res) => {
 
 
-      if (res.response != "Invalid file") {
+      if (res.response != "Only RVSI and SP2 files allowed!") {
         this.router.navigate(['/report'])
       }
 
