@@ -3,10 +3,97 @@
     <app-navbar></app-navbar>
 
 
-    <div *ngIf="manager">
-        manager
+    <div class="cardcontainer">
+        <div class="card">
+            <div *ngIf="manager" class="help-list-container">
+<ol>
+    <li><h2>Production reports</h2>
+        <p>Production reports displays production data details with respect to employee information. 
+            Users can make use of two filters (Date,Select Report) to
+            select the date and type of report they want to see eg: Using . Users can also make use of filters present inside the table sort and view data 
+            accordingly. Click on the arrow symbol to sort data. eg: Clicking on the sort icon in the employee name column will sort the table in (asceding/descending) 
+            order of employee names. Users can click on the export button to export all data to an excel file.
+        </p>
+        <ol>
+            <li><h2>Daily report</h2>
+                <p>This page displays production data details over a period of one day</p>
+            </li>
+            <li><h2>Monthly report</h2>
+                <p>This page displays production data details over a period of one month</p>
+            </li>
+            <li><h2>Yearly report</h2>
+                <p>This page displays production data details over a period of one year</p>
+            </li>
+        </ol>
+    </li>
+    <li><h2>Client reports</h2>
+        <p>Client reports displays production data details with respect to client information. Users have the ability to select
+            two filters (Data,Select Report) to select the date and type of report they want to see. 
+        </p>
+        <ol>
+            <li><h2>Monthly report</h2>
+                <p>This page displays production data details over a period of one day</p>
+            </li>
+            <li><h2>Yearly report</h2>
+                <p>This page displays production data details over a period of one year</p>
+            </li>
+            <li><h2>DT queue report</h2>
+                <ol>
+                    <li><h2>Generate DT queue report</h2>
+                        <p>To Generate a DT queue report download rvsi and sp2 files from the website and upload it using the buttons
+                            present in the card. Once successfully uploaded the page will redirect to "View DT queue report page" 
+                        </p>
+                    </li>
+                    <li><h2>View DT queue report</h2>
+                        <p>This page by default will show the latest generated DT queue report. Users can use the time and date filters to 
+                            view previously generated reports.
+                        </p>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li><h2>Admin</h2>
+        <ol>
+            <li><h2>Add Employee</h2>
+                <p>This page is used to add new employees. Production data of employees that are not added will not be 
+                    included in the reports. 
+                </p>
+            </li>
+            <li><h2>Edit Employee</h2>
+                <p>This page is displays details of all employees added. Users can filter out employees based on their information by
+                    making use of the filters in the table header.
+                </p>
+            </li>
+      
+        </ol>
+    </li>
+</ol>
+            </div>
+
+
+            <div *ngIf="employee" class="help-list-container">
+               <ol>
+                   <li><h2>Order Entry</h2>
+                       <p>Use this page to enter your daily production data. Note: If you have selected Client as NonProd then 
+                           Order Number,Process,State and Status are not compulsory fields. These fields will default to empty values even if you
+                           have entered values for the above mentioned fields.
+                       </p>
+                   </li>
+                   <li><h2>My Production data</h2>
+                       <p>This page displays list of all production data you have entered. By default it displays all 
+                           production data you have entered from 26th of the previous month to 25th of current month. Users can change 
+                           the start date and end date to get the data entered within that time period. Users can edit or delete order entries by
+                           clicking on the respective icons. Users can make use of filters present inside the table to filter out data accordingly.
+                           To export the data to an excel sheet click on the export button
+
+
+                       </p>
+                   </li>
+               </ol>
+        </div>
     </div>
-    <div *ngIf="employee">
-        employee
+
+
     </div>
     </div>

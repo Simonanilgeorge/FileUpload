@@ -1,0 +1,17 @@
+ol,li{
+    padding:1em;
+}
+
+.help-list-container{
+
+    padding:1em;
+}
+
+li p{
+    padding:0.5em;
+    line-height: 1.8;
+}
+
+li h2:first-child{
+    text-align: start;
+}
