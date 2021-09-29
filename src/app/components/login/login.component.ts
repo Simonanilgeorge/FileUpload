@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   public notValid: boolean = false;
   noAccess: boolean = false;
   flag=0;
-
+loginFlag=false
   userForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
@@ -31,10 +31,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this.flag=1;
     this.username.setValue(this.username.value.trim())
+    this.loginFlag=true
+    if(this.userForm.invalid){
+
+      return
+    }
+    this.flag=1;
+
     this.loginService.login(this.userForm.value).subscribe((res) => {
+      this.loginFlag=false
+
       if (res.login == "success") {
 
         this.router.navigate(['home'])

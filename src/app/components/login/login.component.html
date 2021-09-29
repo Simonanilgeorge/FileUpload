@@ -17,20 +17,19 @@
                 <div class="inputarea">
                     <label for="username">Username</label><input id="username" type="text" class="input"
                         formControlName="username" autocomplete="off">
-                    <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                    <div *ngIf="(username.invalid && loginFlag) ||username.invalid && (username.dirty||username.touched)">
                         <small class="warning-message">username required</small>
                     </div>
                 </div>
-
                 <div class="inputarea">
                     <label for="password">Password</label><input id="password" type="password" class="input"
                         formControlName="password">
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                    <div *ngIf="(password.invalid && loginFlag ) || password.invalid && (password.dirty||password.touched)">
                         <small class="warning-message">Password required</small>
                     </div>
                 </div>
                 <div class="inputarea" style="align-items: center;justify-content: start;height:3em;">
-                    <button type="submit" [disabled]="!userForm.valid" class="button">Sign in</button>
+                    <button type="submit" class="button">Sign in</button>
                 </div>
             </form>
         </div>
