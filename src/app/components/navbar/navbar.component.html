@@ -41,6 +41,8 @@
             <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
             <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
+
+            <li class="links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
         </div>
         <div class="boxtwo">
             <li class="links logout" (click)="logOut()">Logout</li>
@@ -112,6 +114,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>
                         </ul>
                     </div>

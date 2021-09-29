@@ -65,6 +65,8 @@ export class LoginService {
       employee = true;
       manager = false;
     }
+
+console.log(employee,manager)
     return [employee, manager];
 
   }

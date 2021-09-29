@@ -26,6 +26,7 @@ import { MultifilterPipe } from './pipes/multifilter.pipe';
 import { ColumnsortPipe } from './pipes/columnsort.pipe';
 import { YearlyClientReportComponent } from './components/yearly-client-report/yearly-client-report.component';
 import { YearlyEmployeeReportComponent } from './components/yearly-employee-report/yearly-employee-report.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { YearlyEmployeeReportComponent } from './components/yearly-employee-repo
     ColumnsortPipe,
     YearlyClientReportComponent,
     YearlyEmployeeReportComponent,
+    HelpComponent,
 
 
   ],

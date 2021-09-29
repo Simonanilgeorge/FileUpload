@@ -14,6 +14,7 @@ import {AddEmployeeComponent} from './components/add-employee/add-employee.compo
 import {ViewEmployeeComponent} from './components/view-employee/view-employee.component';
 import {YearlyClientReportComponent} from './components/yearly-client-report/yearly-client-report.component'
 import {YearlyEmployeeReportComponent} from './components/yearly-employee-report/yearly-employee-report.component'
+import {HelpComponent} from './components/help/help.component'
 import { from } from 'rxjs';
 
 
@@ -32,7 +33,9 @@ const routes: Routes = [
 {path:'viewmystatus',component:OrderListComponent},
 {path:'viewreport',component:EmployeeReportComponent},
 {path:'viewyearlyreport',component:YearlyEmployeeReportComponent},
-{path:'yearlyclientreport',component:YearlyClientReportComponent}
+{path:'yearlyclientreport',component:YearlyClientReportComponent},
+{path:'help',component:HelpComponent}
+
 ];
 
 
