@@ -70,7 +70,7 @@
             <div class="inputgroup">
               <label for="state">State</label>
               <ul>
-                <li class="parent" (click)=display() [class.taskupdate]="delete">
+                <li class="parent" (click)=display() [class.taskupdate]="delete||NonProdDisabled">
                   <div class="dropdown-icon">
                     <p>{{state.value}} </p>
                     <p style="transform: rotate(90deg); font-size: 0.8rem;">&#x276F;</p>

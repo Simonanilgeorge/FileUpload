@@ -15,14 +15,14 @@
             </div>
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <div class="inputarea">
-                    <label for="username">Username</label><input id="username" type="text" class="input"
+                    <label for="username">Username</label><input id="username" type="text" class="input" maxlength="16"
                         formControlName="username" autocomplete="off">
                     <div *ngIf="(username.invalid && loginFlag) ||username.invalid && (username.dirty||username.touched)">
                         <small class="warning-message">username required</small>
                     </div>
                 </div>
                 <div class="inputarea">
-                    <label for="password">Password</label><input id="password" type="password" class="input"
+                    <label for="password">Password</label><input id="password" type="password" class="input" maxlength="16"
                         formControlName="password">
                     <div *ngIf="(password.invalid && loginFlag ) || password.invalid && (password.dirty||password.touched)">
                         <small class="warning-message">Password required</small>

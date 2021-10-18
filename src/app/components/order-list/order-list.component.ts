@@ -269,6 +269,7 @@ export class OrderListComponent implements OnInit {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
 
     ws['!rows'][1] = { hidden: true };
+    ws['!cols'][0] = { hidden: true };
 
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();

@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
-import { DatePipe,Location} from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
@@ -13,11 +13,11 @@ import { DatePipe,Location} from '@angular/common';
 })
 export class EmployeesendreportComponent implements OnInit {
 
-  delete=false;
-  modalBoolean=false
+  delete = false;
+  modalBoolean = false
   dataToBeDeleted
-  displayBoolean=false;
-  update: Boolean=false;
+  displayBoolean = false;
+  update: Boolean = false;
   message;
   toastStatus
   toast: Boolean = false;
@@ -33,17 +33,19 @@ export class EmployeesendreportComponent implements OnInit {
   statusList: string[];
   temp: any;
   final: any;
+  NonProdDisabled = false;
+
 
   myDate = new Date();
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe,private location:Location) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private location: Location) { }
 
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole(this.constructor.name)
     this.getDropDown();
-    
+
     this.userForm = this.fb.group({
       inputs: this.fb.group({
         date: [this.datePipe.transform(this.myDate, 'yyyy-MM-dd')],
@@ -65,13 +67,13 @@ export class EmployeesendreportComponent implements OnInit {
   }
 
 
-get state(){
-  return this.inputs.get("state");
-}
+  get state() {
+    return this.inputs.get("state");
+  }
 
-get status(){
-  return this.inputs.get("status");
-}
+  get status() {
+    return this.inputs.get("status");
+  }
 
   get orderNumber() {
     return this.inputs.get("orderNumber")
@@ -102,9 +104,12 @@ get status(){
   }
   changeClientOptions(event) {
 
+
     this.Task.setValue("");
     this.Process.setValue("");
 
+
+    this.checkNonProd();
 
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
     this.Processlist = null
@@ -113,7 +118,6 @@ get status(){
   }
 
   changeTaskOptions(event) {
-
     this.final = null
     this.Process.setValue("");
     this.final = this.inputs.value.Client + this.inputs.value.Task
@@ -122,45 +126,45 @@ get status(){
 
   onSubmit() {
 
+
+
     this.orderNumber.setValue(this.orderNumber.value.trim())
     if (this.Client.value == "NonProd") {
       this.orderNumber.setValue(" ");
-      this.state.setValue(" ");
-      this.status.setValue(" ");
-
-
+      this.state.setValue("");
+      this.status.setValue("");
     }
     // check if all compulsory fields are filled
-    if (this.userForm.status === "INVALID" || this.state.value=="--Select--") {
+    if (this.userForm.status === "INVALID" || this.state.value == "--Select--") {
 
-      this.showToastMessage("Please fill all the fields","warning");
+      this.showToastMessage("Please fill all the fields", "warning");
       return;
     }
     if (this.Client.value != "NonProd" && this.Process.value == "") {
-      this.showToastMessage("Please enter a value for Process","warning")
+      this.showToastMessage("Please enter a value for Process", "warning")
       return;
     }
-
-
     // get the total time
     let result = this.getTotalTime();
-
-
     // check if start time and end time are same
     if (result === 0) {
 
-      this.showToastMessage("Please select the correct time","warning");
+      this.showToastMessage("Please select the correct time", "warning");
       return;
     }
     else {
       this.totalTime.setValue(Math.abs(result));
     }
 
+    console.log(this.userForm.getRawValue())
+    console.log(this.userForm.value)
     // send the form
-    this.empReportService.sendReport(this.userForm.value).subscribe((res) => {
+    this.empReportService.sendReport(this.userForm.getRawValue()).subscribe((res) => {
 
-      this.showToastMessage("Success","success")
-      if(this.update){
+      this.showToastMessage("Success", "success")
+      this.userForm.enable()
+      this.NonProdDisabled = false
+      if (this.update) {
         setTimeout(() => {
           this.location.back()
         }, 1000);
@@ -169,7 +173,7 @@ get status(){
       this.ngOnInit();
     }, (err) => {
       console.log(err.message)
-      this.showToastMessage("Failed","error")
+      this.showToastMessage("Failed", "error")
     })
 
   }
@@ -181,9 +185,9 @@ get status(){
     let time2 = this.inputs.value.endTime;
     time1 = time1.split(":").map(Number)
     time2 = time2.split(":").map(Number)
-   
+
     // time taken to complete order is more than one day
-    if (time1[0] > time2[0]||time1[0]==time2[0] && time1[1]>time2[1]) {
+    if (time1[0] > time2[0] || time1[0] == time2[0] && time1[1] > time2[1]) {
       time2[0] = time2[0] + 24;
 
     }
@@ -200,13 +204,13 @@ get status(){
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      
+
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
-      this.stateList=this.dropDownList.States;
+      this.stateList = this.dropDownList.States;
       // get single status for update
       const id = sessionStorage.getItem('updateID');
-      const deleteID=sessionStorage.getItem('deleteID')
+      const deleteID = sessionStorage.getItem('deleteID')
       if (id) {
         this.update = true;
 
@@ -214,30 +218,26 @@ get status(){
         this.getSingleStatus();
 
       }
-      else if (deleteID){
+      else if (deleteID) {
         this.userForm.disable()
-        this.displayBoolean=false;
+        this.displayBoolean = false;
         this.delete = true;
         this.update_id = { id: deleteID }
         this.getSingleStatus();
       }
       else {
         this.update = false;
-        this.delete=false
+        this.delete = false
       }
-
-
     }, (err) => {
       console.log(err.message)
     })
-
-
   }
 
-  showToastMessage(message,status) {
+  showToastMessage(message, status) {
     this.message = message;
     this.toast = true;
-    this.toastStatus=`${status}`
+    this.toastStatus = `${status}`
     setTimeout(() => {
       this.toast = false;
     }, 2000)
@@ -252,8 +252,6 @@ get status(){
       sessionStorage.removeItem("updateID");
       sessionStorage.removeItem("deleteID")
       res = JSON.parse(res);
-
-
       this.Tasklist = this.dropDownList[res[0].Client];
 
       let temp = res[0].Client + res[0].Task
@@ -261,9 +259,9 @@ get status(){
       this.Processlist = this.dropDownList[temp]
 
       this.inputs.patchValue(res[0]);
-
-
-
+      if (res[0].Client == "NonProd") {
+        this.checkNonProd();
+      }
 
     }, (err) => {
       console.log(err.message);
@@ -272,33 +270,31 @@ get status(){
 
 
 
-  deleteStatus(){
+  deleteStatus() {
     this.modalBoolean = false;
-    this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res)=>{
+    this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res) => {
 
-      this.showToastMessage(res.status,"success")
-      setTimeout(()=>{
+      this.showToastMessage(res.status, "success")
+      setTimeout(() => {
         this.location.back()
-      },1000)
-    },(err)=>{
+      }, 1000)
+    }, (err) => {
       console.log(err.message)
     })
 
   }
-  display(){
+  display() {
 
-    if(!this.delete){
-      this.displayBoolean=!this.displayBoolean;
+    if (!this.delete && this.Client.value != "NonProd") {
+      this.displayBoolean = !this.displayBoolean;
     }
-    
-   
+
+
   }
 
-  getName(data){
+  getName(data) {
 
     this.state.setValue(data);
-
-
   }
 
 
@@ -309,19 +305,43 @@ get status(){
 
     // data.username = sessionStorage.getItem('user')
 
-  
-      this.modalBoolean = true;
-      this.dataToBeDeleted = this.userForm.getRawValue();
-    
+
+    this.modalBoolean = true;
+    this.dataToBeDeleted = this.userForm.getRawValue();
+
+  }
+
+  closeModal() {
+
+    this.modalBoolean = false;
+    this.dataToBeDeleted = null;
+    this.goBack()
+  }
+  goBack() {
+    this.location.back()
+  }
+
+  checkNonProd() {
+    if (this.Client.value == "NonProd") {
+
+      this.orderNumber.disable()
+      this.status.disable()
+      this.Process.disable()
+      this.state.disable()
+      this.displayBoolean = false;
+      this.NonProdDisabled = true
+      this.orderNumber.setValue(" ")
+      this.status.setValue("")
+      this.state.setValue("--Select--")
+
     }
-  
-    closeModal() {
-  
-      this.modalBoolean = false;
-      this.dataToBeDeleted = null;
+    else {
+      this.NonProdDisabled = false
+      this.userForm.enable()
+
+
     }
-goBack(){
-  this.location.back()
-}
+
+  }
 
 }
