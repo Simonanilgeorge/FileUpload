@@ -47,10 +47,19 @@ loginFlag=false
         this.router.navigate(['home'])
         this.notValid = false
         this.noAccess = false
+
+
+        // this.getRole(res.name,res.account_name)
         this.loginService.saveUsername(res.name, res.description, res.account_name)
       
 
 
+      }
+
+      else if (res.login == "Contact Manager")
+      {
+        this.flag=0;
+          console.log("Contact your manager")
       }
 
 
@@ -68,5 +77,16 @@ loginFlag=false
 
   }
 
+// get role for the current user
+  // getRole(name,accountName){
+  //   this.loginService.getRole(name).subscribe((res)=>{
+  //     console.log(res)
+
+  // response will return the role of the current user
+  // this.loginService.saveUsername(name,res.description,accountName)
+  //   },(err)=>{
+  //     console.log(err.message)
+  //   })
+  // }
 
 }

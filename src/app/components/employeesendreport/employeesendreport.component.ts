@@ -130,9 +130,9 @@ export class EmployeesendreportComponent implements OnInit {
 
     this.orderNumber.setValue(this.orderNumber.value.trim())
     if (this.Client.value == "NonProd") {
-      this.orderNumber.setValue(" ");
+      // this.orderNumber.setValue(" ");
       this.state.setValue("");
-      this.status.setValue("");
+      // this.status.setValue("");
     }
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID" || this.state.value == "--Select--") {
@@ -156,8 +156,7 @@ export class EmployeesendreportComponent implements OnInit {
       this.totalTime.setValue(Math.abs(result));
     }
 
-    console.log(this.userForm.getRawValue())
-    console.log(this.userForm.value)
+
     // send the form
     this.empReportService.sendReport(this.userForm.getRawValue()).subscribe((res) => {
 

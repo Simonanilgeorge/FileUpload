@@ -60,11 +60,16 @@ export class AddEmployeeComponent implements OnInit {
         actual_out_of_review_date: ["", Validators.required],
         delay_reason: ["No issue", Validators.required],
         delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
+        role:[{value:"",disabled:false},Validators.required],
         username: [sessionStorage.getItem('user')]
       })
     });
   }
 
+  get role(){
+    return this.inputs.get("role")
+  }
+  
   get delay_reason() {
     return this.inputs.get("delay_reason")
 

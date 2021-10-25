@@ -27,6 +27,11 @@ export class LoginService {
     }
   }
 
+// use this function to get role of user
+  // getRole(name):Observable<any>{
+  //   return this.http.get<any>(this.url,name)
+  // }
+
   onLogOut() {
 
     sessionStorage.clear();
