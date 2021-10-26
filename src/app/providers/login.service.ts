@@ -56,7 +56,7 @@ export class LoginService {
 
   checkRole() {
     let role: string = sessionStorage.getItem('role');
-    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin"]
+    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin","Manager"]
     let employeeRoles:string = "";
     let manager: boolean = false
     let employee: boolean = false;
@@ -80,8 +80,8 @@ export class LoginService {
 
     let managerAccess:string[]= ["HomeComponent", "EmployeeReportComponent", "FileReportComponent","MonthlyReportComponent","ClientReportComponent","AddEmployeeComponent","ViewEmployeeComponent","YearlyClientReportComponent","YearlyEmployeeReportComponent"];
     let employeeAccess:string[] = ["EmployeesendreportComponent","OrderListComponent"];
-    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE","Admin"]
-    let employeeRoles:string[] = ["","PROCESS ASSOCIATE"];
+    let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE","Admin","Manager"]
+    let employeeRoles:string[] = ["","PROCESS ASSOCIATE","Employee"];
     let role: string = sessionStorage.getItem('role');
     if (managerRoles.includes(role) && employeeAccess.includes(componentName)) {
       this.router.navigate(['home'])

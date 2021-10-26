@@ -11,8 +11,12 @@ export class LoginComponent implements OnInit {
 
   public notValid: boolean = false;
   noAccess: boolean = false;
-  flag=0;
-loginFlag=false
+
+  message = null;
+  toast: Boolean = false;
+  toastStatus
+  flag = 0;
+  loginFlag = false
   userForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
@@ -32,52 +36,55 @@ loginFlag=false
 
   onSubmit() {
     this.username.setValue(this.username.value.trim())
-    this.loginFlag=true
-    if(this.userForm.invalid){
+    this.loginFlag = true
+    if (this.userForm.invalid) {
 
       return
     }
-    this.flag=1;
+    // to display loading message
+    this.flag = 1;
 
     this.loginService.login(this.userForm.value).subscribe((res) => {
-      this.loginFlag=false
-
+      this.loginFlag = false
+      console.log(res)
       if (res.login == "success") {
 
         this.router.navigate(['home'])
+
+        // username and password are valid
         this.notValid = false
         this.noAccess = false
-
-
         // this.getRole(res.name,res.account_name)
         this.loginService.saveUsername(res.name, res.description, res.account_name)
-      
-
-
       }
 
-      else if (res.login == "Contact Manager")
-      {
-        this.flag=0;
-          console.log("Contact your manager")
+      else if (res.login == "Contact Manager") {
+        // remove loading message
+        this.flag = 0;
+        // this.noAccess = true
+        this.notValid = false
+        this.showToastMessage(res.login,"warning")
       }
 
 
       else {
+          // remove loading message
+        this.flag = 0;
         this.notValid = true
-        this.flag=0;
+        this.noAccess = false
+ 
       }
 
 
     }, (err) => {
-      this.flag=0;
+      this.flag = 0;
       console.log(err.message)
     })
 
 
   }
 
-// get role for the current user
+  // get role for the current user
   // getRole(name,accountName){
   //   this.loginService.getRole(name).subscribe((res)=>{
   //     console.log(res)
@@ -88,5 +95,16 @@ loginFlag=false
   //     console.log(err.message)
   //   })
   // }
+
+
+
+  showToastMessage(message,status) {
+    this.message = message;
+    this.toastStatus=`${status}`
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 2000)
+  }
 
 }

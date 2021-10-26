@@ -46,7 +46,8 @@ export class ViewEmployeeComponent implements OnInit {
     planned_out_of_review_date: [""],
     training_duration: [""],
     production_status: [""],
-    shift: [""]
+    shift: [""],
+    role:[""]
   })
 
 
@@ -65,7 +66,8 @@ export class ViewEmployeeComponent implements OnInit {
     "planned_out_of_review_date": "Planned Out of Review Date",
     "actual_out_of_review_date": "Actual Out of Review Date",
     "delay_reason": "Reason for Extension",
-    "delay_review_duration": "Review Extension"
+    "delay_review_duration": "Review Extension",
+    "role":"Role"
   }
 
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
