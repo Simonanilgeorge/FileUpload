@@ -55,6 +55,8 @@ export class LoginService {
   }
 
   checkRole() {
+
+
     let role: string = sessionStorage.getItem('role');
     let managerRoles:string[] = ["TEAM LEADER", "SENIOR ASSOCIATE", "PROCESS ASSOCIATE","Admin","Manager"]
     let employeeRoles:string = "";

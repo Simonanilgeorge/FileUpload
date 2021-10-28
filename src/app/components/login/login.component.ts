@@ -61,11 +61,10 @@ export class LoginComponent implements OnInit {
       else if (res.login == "Contact Manager") {
         // remove loading message
         this.flag = 0;
-        // this.noAccess = true
+        this.noAccess = true
         this.notValid = false
-        this.showToastMessage(res.login,"warning")
+        // this.showToastMessage(res.login,"warning")
       }
-
 
       else {
           // remove loading message
@@ -98,13 +97,13 @@ export class LoginComponent implements OnInit {
 
 
 
-  showToastMessage(message,status) {
-    this.message = message;
-    this.toastStatus=`${status}`
-    this.toast = true;
-    setTimeout(() => {
-      this.toast = false;
-    }, 2000)
-  }
+  // showToastMessage(message,status) {
+  //   this.message = message;
+  //   this.toastStatus=`${status}`
+  //   this.toast = true;
+  //   setTimeout(() => {
+  //     this.toast = false;
+  //   }, 2000)
+  // }
 
 }
