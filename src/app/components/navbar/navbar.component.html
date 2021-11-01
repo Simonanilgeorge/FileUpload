@@ -38,6 +38,9 @@
 
                 </ul>
             </li>
+
+            <li *ngIf="manager" routerLink="/addrole" class="links" routerLinkActive="active-link">Add Role</li>
+
             <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
             <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
@@ -114,6 +117,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li *ngIf="manager" routerLink="/addrole" class="responsive-links" routerLinkActive="active-link">Add Role</li>
                             <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>
                         </ul>

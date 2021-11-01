@@ -1,0 +1,111 @@
+<div class="container" (click)="clickOutside($event)">
+  <app-navbar></app-navbar>
+  <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
+
+
+  <div class="modal" [class.display]="modalBoolean" #modalRef>
+
+    <div class="modal-content">
+      <div class="text">
+        <h2 style="color: red;">Confirm Delete</h2>
+      </div>
+      <div class="text">
+        <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
+            {{dataToBeDeleted.role|titlecase}}</span>?</p>
+
+      </div>
+
+      <div class="buttoncontainer">
+        <button class="openbtn" (click)="deleteRole(dataToBeDeleted)">Yes</button>
+        <button class="openbtn" (click)="closeModal()">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="cardcontainer">
+    <div class="card">
+      <form [formGroup]="roleForm">
+        <div class="heading">
+          <h2>Add Role</h2>
+        </div>
+
+        <div class="formcontainer-primary" formGroupName="inputs">
+
+          <div class="inputgroup">
+            <label for="role">Role</label>
+            <input name="role" class="input-primary" formControlName="role" autocomplete="off">
+          </div>
+
+          <div class="inputgroup">
+            <label for="Resource">Resource</label>
+            <ul>
+              <li class="parent" (click)=display() [class.taskupdate]="delete">
+                <div class="dropdown-text">
+                  <p *ngIf="resource.value.length==0">--Select--</p>
+                  <p class="p-clickoutside"> {{resource.value.join() }}</p>
+                </div>
+                <p class="icon">&#x276F;</p>
+                <ul class="dropdown" [class.display]="displayBoolean">
+
+                  <div *ngFor="let input of resourceList;let i=index" class="checkbox">
+                    <label for="">
+                      <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive"
+                        [disabled]="delete" class="clickoutside">
+                      {{input}}
+                    </label>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="minicontainer">
+          <div class="inputgroup" *ngIf="editFlag==0">
+            <button class="button" type="submit" (click)="submit()">submit</button>
+          </div>
+          <div class="inputgroup" *ngIf="editFlag==1">
+            <button class="button" type="submit" (click)="editRole()">edit</button>
+          </div>
+
+        </div>
+      </form>
+
+
+      <!-- table -->
+
+      <div class="report-container" *ngIf="flag">
+        <div class="tablecontainer">
+
+          <table>
+
+            <tr>
+              <th>Edit</th>
+              <th *ngFor="let title of titles">
+
+                {{title}}
+
+              </th>
+
+
+            </tr>
+
+            <tr *ngFor="let data of data">
+              <td>
+                <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                &nbsp;&nbsp;&nbsp;
+                <span (click)="showModal(data)" style='cursor: pointer;font-size: 1.1em;'>
+                  <i class="fa fa-trash-o"></i> </span>
+
+
+              </td>
+              <td *ngFor="let title of titles" class="textleft">
+                {{data[title]}}
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
