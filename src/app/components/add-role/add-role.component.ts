@@ -13,30 +13,32 @@ export class AddRoleComponent implements OnInit {
   delete
 
   modalBoolean = false;
-  dataToBeDeleted
+  dataToBeDeleted = {
+    inputs: null
+  }
   editFlag = 0;
   message = null;
   toast: Boolean = false;
   toastStatus
   flag = true
   displayBoolean = false;
-  titles = ["role", "resource"]
+  titles = ["role", "resources"]
   data = []
   resourceList = ["production reports", "client reports", "admin", "add role", "order entry", "my production data"]
   roleForm: FormGroup = this.fb.group({
     inputs: this.fb.group({
-      id:[{value:"",disabled:true}],
+      id: [{ value: " ", disabled: true }],
       role: [{ value: "", disabled: false }, Validators.required],
-      resource: this.fb.array([], Validators.required),
+      resources: this.fb.array([], Validators.required),
       username: [sessionStorage.getItem('user')]
     })
   })
 
-  constructor(private fb: FormBuilder, private elem: ElementRef,private empReportService:EmpreportService,private loginService:LoginService) { }
+  constructor(private fb: FormBuilder, private elem: ElementRef, private empReportService: EmpreportService, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-
+    this.getAllRoles()
   }
 
   get inputs() {
@@ -45,11 +47,13 @@ export class AddRoleComponent implements OnInit {
   get role() {
     return this.inputs.get("role")
   }
-
   get resource() {
-    return this.inputs.get("resource") as FormArray
+    return this.inputs.get("resources") as FormArray
   }
 
+  get id() {
+    return this.inputs.get("id")
+  }
 
   display() {
 
@@ -59,7 +63,6 @@ export class AddRoleComponent implements OnInit {
 
   // add resources to array
   add(e, i) {
-
     // if(this.update){
     //   return;
     // }
@@ -76,28 +79,30 @@ export class AddRoleComponent implements OnInit {
     }
   }
 
-  getAllRoles(){
-    this.empReportService.getRoles(this.roleForm.getRawValue()).subscribe((res)=>{
-      this.data=JSON.parse(res)
-    },(err)=>{
+  getAllRoles() {
+
+    this.empReportService.getRoles().subscribe((res) => {
+      this.data = JSON.parse(res)
+    }, (err) => {
       console.log(err.message)
     })
   }
 
   // add new role
   submit() {
-    console.log(this.roleForm.getRawValue())
+
     if (!this.roleForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning")
       return
     }
 
-
-    this.empReportService.addRole(this.roleForm.getRawValue()).subscribe((res)=>{
+    this.empReportService.addRole(this.roleForm.getRawValue()).subscribe((res) => {
+      this.getAllRoles()
       this.showToastMessage("role added", "success")
       this.data.push(this.inputs.value)
+
       this.resetForm()
-    },(err)=>{
+    }, (err) => {
       console.log(err.message)
     })
 
@@ -106,14 +111,13 @@ export class AddRoleComponent implements OnInit {
 
   }
 
-
   uncheckAll() {
+
     let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
     checkbox.forEach((check) => {
       if (check.checked) {
         check.checked = false;
       }
-
     })
   }
 
@@ -127,7 +131,6 @@ export class AddRoleComponent implements OnInit {
   clickOutside(e) {
 
     if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent") || e.target.classList.contains("p-clickoutside")) {
-
       return
     } else {
 
@@ -148,79 +151,114 @@ export class AddRoleComponent implements OnInit {
 
   // on clicking edit icon
   edit(data) {
+    this.resetForm()
 
 
     this.editFlag = 1;
     this.role.setValue(data.role)
-    this.role.disable();
+    this.id.setValue(data.id)
 
+    this.role.disable();
     // console.log(this.roleForm.value)
     // console.log( data.resource.split(","));
-
     // get all checkboxes 
-
     let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
     checkbox.forEach((check) => {
-      data.resource.forEach((resource) => {
+      data.resources.forEach((resource) => {
         if (resource == check.value) {
           this.resource.push(this.fb.control(resource))
           check.checked = true
         }
       })
     })
-
+    console.log(data)
   }
 
 
   // submit edited form
   editRole() {
-    this.editFlag = 0;
 
-    this.data.push(this.roleForm.getRawValue().inputs)
-    this.resetForm()
+    if (!this.roleForm.valid) {
+      this.showToastMessage("Please fill all the fields", "warning")
+      return
+    }
+    // this.data.push(this.roleForm.getRawValue().inputs)
+    this.empReportService.editRole(this.roleForm.getRawValue()).subscribe((res) => {
+      this.getAllRoles()
+      this.showToastMessage("role updated", "success")
+      this.editFlag = 0;
+
+      this.resetForm()
+    }, (err) => {
+      console.log(err.message)
+    })
+
   }
 
   showModal(data) {
 
-    console.log("data", data)
+    console.log("data", data.resources)
     this.modalBoolean = true;
+    this.inputs.patchValue(data)
+    console.log(this.roleForm.getRawValue())
 
     // store data to be deleted to a variable
-    this.dataToBeDeleted = data
 
   }
 
   closeModal() {
 
     this.modalBoolean = false;
+    this.resetForm()
     // this.dataToBeDeleted = null;
   }
 
 
   // write request to delete role
-  deleteRole(data) {
+  deleteRole() {
 
-    console.log("delete role funciton")
-    this.modalBoolean = false;
-    console.log(data)
-    let roleNavigationObject = {
-      "production reports": ["MonthlyReportComponent","EmployeeReportComponent","YearlyEmployeeReportComponent"],
-      "client reports":["ClientReportComponent","YearlyClientReportComponent","HomeComponent","FileReportComponent"],
-      "admin":["AddEmployeeComponent","ViewEmployeeComponent"],
-      "add role":["AddRoleComponent"],
-      "order entry":["EmployeesendreportComponent"],
-      "my production data":["OrderListComponent"]
-    }
+    console.log("delete role function")
 
 
-    let nav = ["production reports", "my production data", "order entry"]
-    let output = []
-    nav.forEach((nav) => {
-        output = [...output, ...roleNavigationObject[nav]]
-
+    this.empReportService.deleteRole(this.roleForm.getRawValue()).subscribe((res) => {
+      console.log(res)
+      if (res.response == null) {
+        this.showToastMessage("deleted successfully", "success")
+      }
+      else {
+        this.showToastMessage(res.response, "warning")
+      }
+      this.resetForm()
+      this.getAllRoles()
+      this.modalBoolean = false;
+    }, (err) => {
+      console.log(err.message)
     })
+
+
+    // let roleNavigationObject = {
+    //   "production reports": ["MonthlyReportComponent","EmployeeReportComponent","YearlyEmployeeReportComponent"],
+    //   "client reports":["ClientReportComponent","YearlyClientReportComponent","HomeComponent","FileReportComponent"],
+    //   "admin":["AddEmployeeComponent","ViewEmployeeComponent"],
+    //   "add role":["AddRoleComponent"],
+    //   "order entry":["EmployeesendreportComponent"],
+    //   "my production data":["OrderListComponent"]
+    // }
+
+
+    // let nav = ["production reports", "my production data", "order entry"]
+    // let output = []
+    // nav.forEach((nav) => {
+    //     output = [...output, ...roleNavigationObject[nav]]
+
+    // })
   }
 
+
+  cancelEdit(){
+    this.editFlag=0;
+    this.resetForm()
+  }
 
 
 }

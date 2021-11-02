@@ -13,12 +13,15 @@ export class NavbarComponent implements OnInit {
   employee:boolean
   
   manager:boolean
-  nav = ["production reports", "my production data", "order entry"]
+  // nav = ["production reports", "my production data", "order entry"]
+  nav=[]
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
 
-    [this.employee,this.manager]=this.loginService.checkRole();
+    this.nav=this.loginService.checkRole()
+    // [this.employee,this.manager]=this.loginService.checkRole();
+
 
   }
 

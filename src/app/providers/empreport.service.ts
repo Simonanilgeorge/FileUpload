@@ -20,9 +20,8 @@ export class EmpreportService {
   private yearlyClientUrl="http://localhost:5000/api/yearlyclientrprt"
   private yearlyEmployeeReportUrl = "http://localhost:5000/api/yearlyemprprt"
   private deleteEmployeeStatus="http://localhost:5000/api/delemprprt"
-  private roleUrl="http://localhost:5000/api/addrole"
-
-
+  private editRoleUrl="http://localhost:5000/api/editrole"
+  private addRoleUrl="http://localhost:5000/api/addrole"
 
 
   sendReport(data: any): Observable<any> {
@@ -95,22 +94,21 @@ deleteEmployeeReport(data): Observable<any> {
   return this.http.post<any>(this.deleteEmployeeStatus, data);
 
 }
-
 // role 
 addRole(data):Observable<any>{
-  return this.http.post<any>(`${this.roleUrl}/${data.inputs.id}`,data)
+  return this.http.post<any>(`${this.addRoleUrl}`,data)
 }
 
-getRoles(data):Observable<any>{
-  return this.http.get<any>(`${this.roleUrl}/${data.inputs.id}`)
+getRoles():Observable<any>{
+  return this.http.get<any>(`${this.addRoleUrl}`)
 }
 
 deleteRole(data):Observable<any>{
-  return this.http.delete<any>(`${this.roleUrl}/${data.inputs.id}`)
+  return this.http.put<any>(`${this.addRoleUrl}`,data)
 }
 
 editRole(data):Observable<any>{
-  return this.http.put<any>(`${this.roleUrl}/${data.inputs.id}`,data)
+  return this.http.put<any>(`${this.editRoleUrl}/${data.inputs.id}`,data)
 }
 
 }

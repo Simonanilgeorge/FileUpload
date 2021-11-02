@@ -10,13 +10,13 @@
         <h2 style="color: red;">Confirm Delete</h2>
       </div>
       <div class="text">
-        <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
-            {{dataToBeDeleted.role|titlecase}}</span>?</p>
+        <p>Are you sure you want to delete <span *ngIf="role.value">
+            {{role.value|titlecase}}</span>?</p>
 
       </div>
 
       <div class="buttoncontainer">
-        <button class="openbtn" (click)="deleteRole(dataToBeDeleted)">Yes</button>
+        <button class="openbtn" (click)="deleteRole()">Yes</button>
         <button class="openbtn" (click)="closeModal()">No</button>
       </div>
     </div>
@@ -25,7 +25,8 @@
     <div class="card">
       <form [formGroup]="roleForm">
         <div class="heading">
-          <h2>Add Role</h2>
+          <h2 *ngIf="editFlag==0">Add Role</h2>
+          <h2 *ngIf="editFlag==1">Edit Role</h2>
         </div>
 
         <div class="formcontainer-primary" formGroupName="inputs">
@@ -60,10 +61,13 @@
         </div>
         <div class="minicontainer">
           <div class="inputgroup" *ngIf="editFlag==0">
-            <button class="button" type="submit" (click)="submit()">submit</button>
+            <button class="button" type="submit" (click)="submit()">Submit</button>
           </div>
-          <div class="inputgroup" *ngIf="editFlag==1">
-            <button class="button" type="submit" (click)="editRole()">edit</button>
+          <div class="inputgroup" *ngIf="editFlag==1" style="grid-auto-flow: column;gap:1em;">
+            <button class="button" type="submit" (click)="cancelEdit()">Cancel</button>
+
+            <button class="button" type="submit" (click)="editRole()">Edit</button>
+
           </div>
 
         </div>
