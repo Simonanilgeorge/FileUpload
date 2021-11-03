@@ -35,14 +35,13 @@
             <label for="role">Role</label>
             <input name="role" class="input-primary" formControlName="role" autocomplete="off">
           </div>
-
           <div class="inputgroup">
             <label for="Resource">Resource</label>
             <ul>
               <li class="parent" (click)=display() [class.taskupdate]="delete">
                 <div class="dropdown-text">
                   <p *ngIf="resource.value.length==0">--Select--</p>
-                  <p class="p-clickoutside"> {{resource.value.join() }}</p>
+                  <p class="p-clickoutside"> {{resource.value.join()}}</p>
                 </div>
                 <p class="icon">&#x276F;</p>
                 <ul class="dropdown" [class.display]="displayBoolean">
@@ -51,7 +50,7 @@
                     <label for="">
                       <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive"
                         [disabled]="delete" class="clickoutside">
-                      {{input}}
+                      {{input | titlecase}}
                     </label>
                   </div>
                 </ul>

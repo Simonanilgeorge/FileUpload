@@ -5,9 +5,9 @@
 
     <div class="cardcontainer">
         <div class="card">
-            <div *ngIf="manager" class="help-list-container">
+            <div class="help-list-container">
                 <ol>
-                    <li>
+                    <li *ngIf="nav.includes('Production Reports')" >
                         <h2>Production reports</h2>
                         <p>Production reports displays production data details with respect to employee information.
                             You can make use of the filters (Date, Select Report) to select the date and type of
@@ -32,7 +32,7 @@
                             </li>
                         </ol>
                     </li>
-                    <li>
+                    <li *ngIf="nav.includes('Client Reports')" >
                         <h2>Client reports</h2>
                         <p>Client reports displays production data details with respect to client information. You
                             can make use of the filters (Date, Select Report) to select the date and type of
@@ -68,7 +68,7 @@
                             </li>
                         </ol>
                     </li>
-                    <li>
+                    <li *ngIf="nav.includes('Admin')" >
                         <h2>Admin</h2>
                         <ol>
                             <li>
@@ -88,12 +88,12 @@
                         </ol>
                     </li>
                 </ol>
-            </div>
+       
 
 
-            <div *ngIf="employee" class="help-list-container">
+            
                 <ol>
-                    <li>
+                    <li *ngIf="nav.includes('Order Entry')" >
                         <h2>Order Entry</h2>
                         <p> Use this page to enter your daily production data. Note: If you have selected Client as
                             NonProd then Order Number, Process, State and Status are not compulsory fields. These fields
@@ -101,7 +101,7 @@
 
                         </p>
                     </li>
-                    <li>
+                    <li *ngIf="nav.includes('My Production Data')" >
                         <h2>My Production data</h2>
                         <p>
 

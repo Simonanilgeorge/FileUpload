@@ -190,9 +190,7 @@
   <label for="Delay Reason">Role</label>
   <select name="Delay Reason" class="input-primary option" formControlName="role">
     <option value="" [disabled]="true">--Select--</option>
-    <option value="Employee"> Employee</option>
-    <option value="Manager">Manager</option>
-
+    <option *ngFor="let role of roleList" value="{{role}}">{{role}}</option>
   </select>
 </div>
 

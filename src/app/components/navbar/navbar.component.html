@@ -3,8 +3,7 @@
     <ul class="parent-ul">
         <div class="boxone">
             <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
-
-            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            <li *ngIf="nav.includes('Production Reports')" class="links" routerLinkActive="active-link">
                 Production reports
                 <ul class="dropdown">
                     <li routerLink="/viewreport" class="child-links">Daily Report</li>
@@ -13,7 +12,7 @@
                     
                 </ul>
             </li>
-            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            <li *ngIf="nav.includes('Client Reports')" class="links" routerLinkActive="active-link">
                 Client Reports
                 <ul class="dropdown">
                     <li routerLink="/clientreport" class="child-links">Monthly Report</li>
@@ -30,7 +29,7 @@
                 </ul>
             </li>
 
-            <li *ngIf="manager" class="links" routerLinkActive="active-link">
+            <li *ngIf="nav.includes('Admin')" class="links" routerLinkActive="active-link">
                 Admin
                 <ul class="dropdown">
                     <li routerLink="/addemployee" class="child-links">Add Employee</li>
@@ -39,11 +38,11 @@
                 </ul>
             </li>
 
-            <li *ngIf="manager" routerLink="/addrole" class="links" routerLinkActive="active-link">Add Role</li>
+            <li *ngIf="nav.includes('Add Role')" routerLink="/addrole" class="links" routerLinkActive="active-link">Add Role</li>
 
-            <li *ngIf="employee" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
+            <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
-            <li *ngIf="employee" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
+            <li *ngIf="nav.includes('My Production Data')" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
 
             <li class="links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
         </div>
@@ -71,12 +70,12 @@
                         <ul class="parent-ul-responsive">
 
 
-                            <li *ngIf="employee" routerLink="/sendreport" class="responsive-links"
+                            <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="responsive-links"
                                 routerLinkActive="active-link">Order Entry</li>
 
-                            <li *ngIf="employee" routerLink="/viewmystatus" class="responsive-links"
+                            <li *ngIf="nav.includes('My Production Data')" routerLink="/viewmystatus" class="responsive-links"
                                 routerLinkActive="active-link">My Production Data</li>
-                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                            <li *ngIf="nav.includes('Production Reports')" class="responsive-links" routerLinkActive="active-link">
                                 Production reports
                                 <ul class="responsive-dropdown">
                                     <li routerLink="/viewreport" class="responsive-child-links">Daily Report</li>
@@ -86,7 +85,7 @@
                                     </li>        
                                 </ul>
                             </li>
-                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                            <li *ngIf="nav.includes('Client Reports')" class="responsive-links" routerLinkActive="active-link">
                                 Client Reports
                                 <ul class="responsive-dropdown">
                                     <li routerLink="/clientreport" class="responsive-child-links">Monthly Report
@@ -109,7 +108,7 @@
 
                                 </ul>
                             </li>
-                            <li *ngIf="manager" class="responsive-links" routerLinkActive="active-link">
+                            <li *ngIf="nav.includes('Admin')" class="responsive-links" routerLinkActive="active-link">
                                 Admin
                                 <ul class="responsive-dropdown">
                                     <li routerLink="/addemployee" class="responsive-child-links">Add Employee</li>
@@ -117,7 +116,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li *ngIf="manager" routerLink="/addrole" class="responsive-links" routerLinkActive="active-link">Add Role</li>
+                            <li *ngIf="nav.includes('Add Role')" routerLink="/addrole" class="responsive-links" routerLinkActive="active-link">Add Role</li>
                             <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>
                         </ul>

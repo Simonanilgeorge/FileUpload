@@ -24,7 +24,7 @@ export class AddRoleComponent implements OnInit {
   displayBoolean = false;
   titles = ["role", "resources"]
   data = []
-  resourceList = ["production reports", "client reports", "admin", "add role", "order entry", "my production data"]
+  resourceList = ["Production Reports", "Client Reports", "Admin", "Add Role", "Order Entry", "My Production Data"]
   roleForm: FormGroup = this.fb.group({
     inputs: this.fb.group({
       id: [{ value: " ", disabled: true }],
@@ -83,6 +83,7 @@ export class AddRoleComponent implements OnInit {
 
     this.empReportService.getRoles().subscribe((res) => {
       this.data = JSON.parse(res)
+
     }, (err) => {
       console.log(err.message)
     })
@@ -91,6 +92,8 @@ export class AddRoleComponent implements OnInit {
   // add new role
   submit() {
 
+    this.role.setValue(this.role.value.trim())
+    console.log(this.roleForm.getRawValue())
     if (!this.roleForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning")
       return
@@ -98,8 +101,13 @@ export class AddRoleComponent implements OnInit {
 
     this.empReportService.addRole(this.roleForm.getRawValue()).subscribe((res) => {
       this.getAllRoles()
-      this.showToastMessage("role added", "success")
-      this.data.push(this.inputs.value)
+      if (res.response == "Success") {
+        this.showToastMessage("Role added", "success")
+      }
+      else {
+        this.showToastMessage("Role already exists", "warning")
+      }
+
 
       this.resetForm()
     }, (err) => {
@@ -122,7 +130,9 @@ export class AddRoleComponent implements OnInit {
   }
 
   resetForm() {
-    this.roleForm.reset()
+
+    this.role.setValue("")
+    this.id.setValue("")
     this.resource.clear()
     this.roleForm.enable()
     this.uncheckAll()
@@ -185,7 +195,7 @@ export class AddRoleComponent implements OnInit {
     // this.data.push(this.roleForm.getRawValue().inputs)
     this.empReportService.editRole(this.roleForm.getRawValue()).subscribe((res) => {
       this.getAllRoles()
-      this.showToastMessage("role updated", "success")
+      this.showToastMessage("Role updated", "success")
       this.editFlag = 0;
 
       this.resetForm()
@@ -217,13 +227,13 @@ export class AddRoleComponent implements OnInit {
   // write request to delete role
   deleteRole() {
 
-    console.log("delete role function")
+    console.log("delete role function",this.roleForm.getRawValue())
 
 
     this.empReportService.deleteRole(this.roleForm.getRawValue()).subscribe((res) => {
       console.log(res)
-      if (res.response == null) {
-        this.showToastMessage("deleted successfully", "success")
+      if (res.response == "Success") {
+        this.showToastMessage("Deleted successfully", "success")
       }
       else {
         this.showToastMessage(res.response, "warning")
@@ -234,29 +244,11 @@ export class AddRoleComponent implements OnInit {
     }, (err) => {
       console.log(err.message)
     })
-
-
-    // let roleNavigationObject = {
-    //   "production reports": ["MonthlyReportComponent","EmployeeReportComponent","YearlyEmployeeReportComponent"],
-    //   "client reports":["ClientReportComponent","YearlyClientReportComponent","HomeComponent","FileReportComponent"],
-    //   "admin":["AddEmployeeComponent","ViewEmployeeComponent"],
-    //   "add role":["AddRoleComponent"],
-    //   "order entry":["EmployeesendreportComponent"],
-    //   "my production data":["OrderListComponent"]
-    // }
-
-
-    // let nav = ["production reports", "my production data", "order entry"]
-    // let output = []
-    // nav.forEach((nav) => {
-    //     output = [...output, ...roleNavigationObject[nav]]
-
-    // })
   }
 
 
-  cancelEdit(){
-    this.editFlag=0;
+  cancelEdit() {
+    this.editFlag = 0;
     this.resetForm()
   }
 

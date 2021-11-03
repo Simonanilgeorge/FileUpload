@@ -21,6 +21,7 @@ export class AddEmployeeComponent implements OnInit {
   modalBoolean: Boolean = false
   dataToBeDeleted;
   delete = false;
+  roleList
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
   isActive: boolean = false;
@@ -153,6 +154,7 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit() {
 
+    console.log(this.userForm.getRawValue())
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
 
@@ -287,9 +289,10 @@ export class AddEmployeeComponent implements OnInit {
 
   getDropDown() {
 
+
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-
+      this.roleList=res.role
       this.ClientList = this.dropDownList.Client;
       this.checkUpdate();
       // this.checkUpdate();

@@ -10,22 +10,17 @@ import { LoginService } from '../../providers/login.service'
 export class NavbarComponent implements OnInit {
   role: string;
   flag: boolean = false;
-  employee:boolean
-  
-  manager:boolean
-  // nav = ["production reports", "my production data", "order entry"]
   nav=[]
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
 
-    this.nav=this.loginService.checkRole()
+    this.nav=sessionStorage.getItem("role").split(",")
+    console.log(this.nav)
     // [this.employee,this.manager]=this.loginService.checkRole();
 
 
   }
-
-
   logOut() {
     this.loginService.onLogOut();
     this.router.navigate(['']);

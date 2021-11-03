@@ -8,20 +8,20 @@ import { LoginService } from '../../providers/login.service'
 })
 export class HelpComponent implements OnInit {
 
- manager:Boolean
- employee:Boolean 
+  manager: Boolean
+  employee: Boolean
+  nav = []
 
-
-  constructor(private loginService:LoginService) { 
+  constructor(private loginService: LoginService) {
 
 
   }
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    [this.employee,this.manager]=this.loginService.checkRole();
 
+    this.nav = sessionStorage.getItem("role").split(",")
   }
-  
+
 
 }
