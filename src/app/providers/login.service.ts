@@ -65,7 +65,7 @@ export class LoginService {
     // session storage
     let nav = sessionStorage.getItem("role").split(",")
     let validComponents=[]
-    console.log(nav)
+
     nav.forEach((description) => {
       validComponents = [...validComponents, ...this.roleNavigationObject[description]]
     })

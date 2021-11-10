@@ -54,10 +54,11 @@
 
       <div class="inputgroup">
         <label for="shift">Shift</label>
-        <select name="shift" class="input-primary" formControlName="shift">
+        <select name="shift" class="input-primary" formControlName="shift" (change)="changeShiftOptions($event)">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Morning Shift" >Morning Shift</option>
           <option value="Night Shift" >Night Shift</option>
+          <option value="General Shift" >General Shift</option>
         </select>
       </div>
       <div class="inputgroup">
@@ -65,6 +66,7 @@
 
         <select name="search" class="input-primary" formControlName="search">
           <option value="" [disabled]="true">--Select--</option>
+          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
           <option value="Search">Search</option>
           <option value="Non-Search">Non-Search</option>
         </select>
@@ -74,6 +76,7 @@
         <label for="client">Client</label>
         <select name="client" class="input-primary" (change)="changeClientOptions($event)" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
+          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
           <option *ngFor="let client of ClientList" value="{{client}}">
             {{client}}
           </option>
@@ -99,6 +102,10 @@
                     <input type="checkbox" [value]="input" (change)="add($event,i)" [checked]="isActive" [disabled]="delete" class="clickoutside">
                     {{input}}
                 </label>
+                <!-- <label for="Not Applicable" *ngIf="selectGeneralShift">
+                  <input type="checkbox" [value]="input"  [checked]="isActive" [disabled]="delete" class="clickoutside" >
+                  Not Applicable
+              </label> -->
             </div>
             </ul>
           </li>
@@ -116,6 +123,7 @@
         <label for="Production status">Production Status</label>
         <select name="Production status" class="input-primary" formControlName="production_status">
           <option value="" [disabled]="true">--Select--</option>
+          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
           <option value="Training" >Training</option>
           <option value="100% Review" >100% Review</option>
           <option value="Partial Review" >Partial Review</option>
@@ -151,6 +159,7 @@
 <div class="inputgroup">
   <label for="Training Duration">Training Duration</label>
   <select name="Training Duration" class="input-primary"  formControlName="training_duration" (change)="calculatePlannedDate()">
+    <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
     <option value="" [disabled]="true">--Select--</option>
     <option *ngFor="let week of counter(24)" [value]="week">
       {{week}}
@@ -177,6 +186,7 @@
   <label for="Delay Reason">Reason for Extension</label>
   <select name="Delay Reason" class="input-primary option" formControlName="delay_reason">
     <!-- <option value="" [disabled]="true">--Select--</option> -->
+    <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
     <option value="Productivity issue" > Productivity Issue</option>
     <option value="Quality issue" >Quality Issue</option>
     <option value="Planning issue" >Planning Issue</option>

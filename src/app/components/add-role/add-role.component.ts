@@ -12,6 +12,7 @@ export class AddRoleComponent implements OnInit {
   // remove later
   delete
 
+
   modalBoolean = false;
   dataToBeDeleted = {
     inputs: null

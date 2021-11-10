@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
-import { DatePipe,Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 
 
@@ -21,6 +21,7 @@ export class AddEmployeeComponent implements OnInit {
   modalBoolean: Boolean = false
   dataToBeDeleted;
   delete = false;
+  selectGeneralShift=false;
   roleList
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
@@ -37,7 +38,7 @@ export class AddEmployeeComponent implements OnInit {
   toastStatus;
 
 
-  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef,private location:Location) { }
+  constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
 
   ngOnInit(): void {
 
@@ -46,6 +47,7 @@ export class AddEmployeeComponent implements OnInit {
     this.getDropDown();
 
     this.userForm = this.fb.group({
+
       inputs: this.fb.group({
         doj: [{ value: '', disabled: false }, Validators.required],
         empcode: [{ value: '', disabled: false }, Validators.required],
@@ -61,16 +63,16 @@ export class AddEmployeeComponent implements OnInit {
         actual_out_of_review_date: ["", Validators.required],
         delay_reason: ["No issue", Validators.required],
         delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
-        role:[{value:"",disabled:false},Validators.required],
+        role: [{ value: "", disabled: false }, Validators.required],
         username: [sessionStorage.getItem('user')]
       })
     });
   }
 
-  get role(){
+  get role() {
     return this.inputs.get("role")
   }
-  
+
   get delay_reason() {
     return this.inputs.get("delay_reason")
 
@@ -131,6 +133,9 @@ export class AddEmployeeComponent implements OnInit {
     // doj empcode name training duration to be disabled on update
     const id = sessionStorage.getItem("employeeID")
     if (id) {
+
+      // if update is true and shift is general shift;populate with not applicable
+
       this.update = true;
       this.empcode.disable()
       this.name.disable()
@@ -145,6 +150,7 @@ export class AddEmployeeComponent implements OnInit {
       this.getSingleEmployee();
 
     }
+
     else {
       this.update = false;
 
@@ -159,51 +165,51 @@ export class AddEmployeeComponent implements OnInit {
     this.empcode.setValue(this.empcode.value.trim())
 
     if (!this.valid) {
-      this.showToastMessage("actual out of review date cannot be before planned out of review date","warning")
+      this.showToastMessage("actual out of review date cannot be before planned out of review date", "warning")
       return
     }
     // check if all compulsory fields are filled
     if (this.userForm.status === "INVALID") {
 
-      this.showToastMessage("Please fill all the fields","warning");
+      this.showToastMessage("Please fill all the fields", "warning");
       return;
     }
 
-
-
+    console.log(this.userForm.getRawValue())
 
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
-   
+
       if (res.response === "Success") {
-        this.showToastMessage(res.response,"success")
+        this.showToastMessage(res.response, "success")
+   
         // enable form for add employee
-        if(this.update){
+        if (this.update) {
           setTimeout(() => {
             this.location.back()
           }, 1000);
         }
         this.userForm.enable()
+        this.selectGeneralShift=true
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
         this.ngOnInit();
       }
-      else{
-        this.showToastMessage(res.response,"warning")
+      else {
+        this.showToastMessage(res.response, "warning")
       }
-
     }, (err) => {
       console.log(err.message)
-      this.showToastMessage("Failed","error")
+      this.showToastMessage("Failed", "error")
     })
 
   }
 
 
-  showToastMessage(message,status) {
+  showToastMessage(message, status) {
     this.message = message;
-    this.toastStatus=`${status}` 
+    this.toastStatus = `${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;
@@ -221,17 +227,12 @@ export class AddEmployeeComponent implements OnInit {
 
       // this.Tasklist = this.dropDownList[res[0].client];
       this.inputs.patchValue(res[0]);
-
       res[0].task.forEach((task) => {
         this.task.push(this.fb.control(task))
+        
       })
-
-
       // to do => values inside task should be checked 
-
-
       this.Tasklist = this.dropDownList[this.inputs.value.client];
-
       setTimeout(() => {
         let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
         checkbox.forEach((check) => {
@@ -241,6 +242,12 @@ export class AddEmployeeComponent implements OnInit {
         })
 
       }, 1000)
+
+
+      if(this.shift.value=="General Shift"){
+        console.log("update",this.shift.value)
+        this.selectGeneralShift=true
+      }
 
     }, (err) => {
       console.log(err.message);
@@ -287,12 +294,38 @@ export class AddEmployeeComponent implements OnInit {
     this.Tasklist = this.dropDownList[this.inputs.value.client];
   }
 
+
+  // function called on selecting shift
+  changeShiftOptions(event) {
+    if (this.shift.value == "General Shift" ) {
+      this.inputs.patchValue({
+        doj:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        planned_out_of_review_date:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        actual_out_of_review_date:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        search: "Not Applicable",
+        client: "Not Applicable",
+        production_status: "Not Applicable",
+        training_duration: "Not Applicable",
+        delay_reason: "Not Applicable",
+      })
+      this.task.push(this.fb.control("Not Applicable"))
+      this.selectGeneralShift = true
+    }
+    else {
+      this.selectGeneralShift = false
+      // remove not applicable from array
+      
+    }
+    console.log(this.userForm.getRawValue())
+
+  }
+
   getDropDown() {
 
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      this.roleList=res.role
+      this.roleList = res.role
       this.ClientList = this.dropDownList.Client;
       this.checkUpdate();
       // this.checkUpdate();
@@ -379,7 +412,7 @@ export class AddEmployeeComponent implements OnInit {
     }
     else {
       this.valid = false;
-      this.showToastMessage("actual out of review date cannot be before planned out of review date","warning")
+      this.showToastMessage("actual out of review date cannot be before planned out of review date", "warning")
       return
     }
 
@@ -393,13 +426,13 @@ export class AddEmployeeComponent implements OnInit {
 
       return
     } else {
- 
+
       this.displayBoolean = false
-    
+
     }
   }
 
-// open on delete button click methods
+  // open on delete button click methods
   showModal() {
 
 
@@ -407,7 +440,7 @@ export class AddEmployeeComponent implements OnInit {
 
     this.modalBoolean = true;
     this.dataToBeDeleted = this.userForm.getRawValue();
-  
+
   }
 
   closeModal() {
@@ -423,20 +456,20 @@ export class AddEmployeeComponent implements OnInit {
     this.empReportService.deleteEmployee(data).subscribe((res) => {
 
 
-      this.showToastMessage("Deleted successfully","success")
-      setTimeout(()=>{
+      this.showToastMessage("Deleted successfully", "success")
+      setTimeout(() => {
         this.location.back()
-      },1000)
+      }, 1000)
 
       this.ngOnInit();
     }, (err) => {
-      this.showToastMessage("Deletion failed","error")
+      this.showToastMessage("Deletion failed", "error")
       console.log(err.message)
     })
 
   }
 
-  goBack(){
+  goBack() {
     this.location.back()
   }
 }
