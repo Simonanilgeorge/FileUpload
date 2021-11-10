@@ -64,9 +64,7 @@ export class AddRoleComponent implements OnInit {
 
   // add resources to array
   add(e, i) {
-    // if(this.update){
-    //   return;
-    // }
+
     this.displayBoolean = !this.displayBoolean;
 
     if (e.target.checked) {
@@ -94,7 +92,7 @@ export class AddRoleComponent implements OnInit {
   submit() {
 
     this.role.setValue(this.role.value.trim())
-    console.log(this.roleForm.getRawValue())
+
     if (!this.roleForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning")
       return
@@ -170,8 +168,7 @@ export class AddRoleComponent implements OnInit {
     this.id.setValue(data.id)
 
     this.role.disable();
-    // console.log(this.roleForm.value)
-    // console.log( data.resource.split(","));
+
     // get all checkboxes 
     let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
     checkbox.forEach((check) => {
@@ -182,7 +179,7 @@ export class AddRoleComponent implements OnInit {
         }
       })
     })
-    console.log(data)
+
   }
 
 
@@ -208,10 +205,10 @@ export class AddRoleComponent implements OnInit {
 
   showModal(data) {
 
-    console.log("data", data.resources)
+
     this.modalBoolean = true;
     this.inputs.patchValue(data)
-    console.log(this.roleForm.getRawValue())
+
 
     // store data to be deleted to a variable
 
@@ -228,11 +225,11 @@ export class AddRoleComponent implements OnInit {
   // write request to delete role
   deleteRole() {
 
-    console.log("delete role function",this.roleForm.getRawValue())
+
 
 
     this.empReportService.deleteRole(this.roleForm.getRawValue()).subscribe((res) => {
-      console.log(res)
+
       if (res.response == "Success") {
         this.showToastMessage("Deleted successfully", "success")
       }

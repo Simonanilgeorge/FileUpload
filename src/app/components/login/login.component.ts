@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.userForm.value).subscribe((res) => {
       this.loginFlag = false
-      console.log(res)
+
       if (res.login == "success") {
 
         this.router.navigate(['home'])
@@ -82,28 +82,5 @@ export class LoginComponent implements OnInit {
 
 
   }
-
-  // get role for the current user
-  // getRole(name,accountName){
-  //   this.loginService.getRole(name).subscribe((res)=>{
-  //     console.log(res)
-
-  // response will return the role of the current user
-  // this.loginService.saveUsername(name,res.description,accountName)
-  //   },(err)=>{
-  //     console.log(err.message)
-  //   })
-  // }
-
-
-
-  // showToastMessage(message,status) {
-  //   this.message = message;
-  //   this.toastStatus=`${status}`
-  //   this.toast = true;
-  //   setTimeout(() => {
-  //     this.toast = false;
-  //   }, 2000)
-  // }
 
 }

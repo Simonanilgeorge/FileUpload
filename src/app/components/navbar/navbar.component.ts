@@ -14,12 +14,7 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
-
     this.nav=sessionStorage.getItem("role").split(",")
-    console.log(this.nav)
-    // [this.employee,this.manager]=this.loginService.checkRole();
-
-
   }
   logOut() {
     this.loginService.onLogOut();

@@ -127,15 +127,13 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
+  // check if operation is update or delete
   checkUpdate() {
 
     const deleteEmployee = sessionStorage.getItem("deleteEmployee")
     // doj empcode name training duration to be disabled on update
     const id = sessionStorage.getItem("employeeID")
     if (id) {
-
-      // if update is true and shift is general shift;populate with not applicable
-
       this.update = true;
       this.empcode.disable()
       this.name.disable()
@@ -150,7 +148,6 @@ export class AddEmployeeComponent implements OnInit {
       this.getSingleEmployee();
 
     }
-
     else {
       this.update = false;
 
@@ -158,9 +155,11 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
+
+  // submit function for add and update
   onSubmit() {
 
-    console.log(this.userForm.getRawValue())
+
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
 
@@ -175,7 +174,7 @@ export class AddEmployeeComponent implements OnInit {
       return;
     }
 
-    console.log(this.userForm.getRawValue())
+
 
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
@@ -207,6 +206,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
 
+  // toast message
   showToastMessage(message, status) {
     this.message = message;
     this.toastStatus = `${status}`
@@ -244,8 +244,8 @@ export class AddEmployeeComponent implements OnInit {
       }, 1000)
 
 
-      if(this.shift.value=="General Shift"){
-        console.log("update",this.shift.value)
+      // if shift is not applicable populate fields with not applicable
+      if(this.shift.value=="Not Applicable"){
         this.selectGeneralShift=true
       }
 
@@ -255,16 +255,17 @@ export class AddEmployeeComponent implements OnInit {
 
 
   }
+
+  // toggle dropdown on click
   display() {
 
     this.displayBoolean = !this.displayBoolean;
 
   }
+
+  // add values to task array (checkbox)
   add(e, i) {
 
-    // if(this.update){
-    //   return;
-    // }
     this.displayBoolean = !this.displayBoolean;
 
     if (e.target.checked) {
@@ -283,6 +284,8 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
+
+  // function called when client value changed
   changeClientOptions(event) {
 
 
@@ -297,7 +300,7 @@ export class AddEmployeeComponent implements OnInit {
 
   // function called on selecting shift
   changeShiftOptions(event) {
-    if (this.shift.value == "General Shift" ) {
+    if (this.shift.value == "Not Applicable" ) {
       this.inputs.patchValue({
         doj:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
         planned_out_of_review_date:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
@@ -313,13 +316,19 @@ export class AddEmployeeComponent implements OnInit {
     }
     else {
       this.selectGeneralShift = false
-      // remove not applicable from array
-      
+
+      this.task.getRawValue().forEach((task,index)=>{
+        if(task=="Not Applicable"){
+          this.task.removeAt(index)
+        }
+      })      
     }
-    console.log(this.userForm.getRawValue())
+
 
   }
 
+
+  // get dropdown array
   getDropDown() {
 
 
@@ -328,8 +337,6 @@ export class AddEmployeeComponent implements OnInit {
       this.roleList = res.role
       this.ClientList = this.dropDownList.Client;
       this.checkUpdate();
-      // this.checkUpdate();
-
     }, (err) => {
       console.log(err.message)
     })
@@ -338,7 +345,6 @@ export class AddEmployeeComponent implements OnInit {
 
 
   getName(data) {
-
 
     this.training_duration.setValue(data);
   }
@@ -435,20 +441,20 @@ export class AddEmployeeComponent implements OnInit {
   // open on delete button click methods
   showModal() {
 
-
-
-
     this.modalBoolean = true;
     this.dataToBeDeleted = this.userForm.getRawValue();
 
   }
 
+  // function to close modal box
   closeModal() {
 
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
   }
 
+
+  // function called on delete
   deleteEmployee(data) {
 
 
