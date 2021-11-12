@@ -242,11 +242,10 @@ export class AddEmployeeComponent implements OnInit {
         })
 
       }, 1000)
-
-
       // if shift is not applicable populate fields with not applicable
       if(this.shift.value=="Not Applicable"){
         this.selectGeneralShift=true
+        // this.changeShiftOptions()
       }
 
     }, (err) => {
@@ -295,11 +294,16 @@ export class AddEmployeeComponent implements OnInit {
     }, 5)
     this.task.clear()
     this.Tasklist = this.dropDownList[this.inputs.value.client];
+
+    if(this.client.value=="Not Applicable"){
+      this.task.clear()
+      this.task.push(this.fb.control("Not Applicable"))
+    }
   }
 
 
   // function called on selecting shift
-  changeShiftOptions(event) {
+  changeShiftOptions() {
     if (this.shift.value == "Not Applicable" ) {
       this.inputs.patchValue({
         doj:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
@@ -311,10 +315,18 @@ export class AddEmployeeComponent implements OnInit {
         training_duration: "Not Applicable",
         delay_reason: "Not Applicable",
       })
+
+      console.log(this.task.getRawValue())
+      this.task.clear()
+      this.uncheckAll()
+      this.Tasklist=[]
       this.task.push(this.fb.control("Not Applicable"))
+
+      console.log(this.task.getRawValue())
       this.selectGeneralShift = true
     }
     else {
+
       this.selectGeneralShift = false
 
       this.task.getRawValue().forEach((task,index)=>{
@@ -361,11 +373,12 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   calculatePlannedDate() {
-    if (this.training_duration.value != "" && this.doj.value != "") {
+
+    if (this.training_duration.value != "" && this.doj.value != "" && this.training_duration.value!="Not Applicable") {
       // calculate planned date
+      console.log(this.training_duration.value,this.doj.value)
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
-
       result.setDate(result.getDate() + days);
 
 
@@ -477,6 +490,17 @@ export class AddEmployeeComponent implements OnInit {
 
   goBack() {
     this.location.back()
+  }
+
+
+  uncheckAll() {
+
+    let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
+    checkbox.forEach((check) => {
+      if (check.checked) {
+        check.checked = false;
+      }
+    })
   }
 }
 

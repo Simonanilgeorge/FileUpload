@@ -54,7 +54,7 @@
 
       <div class="inputgroup">
         <label for="shift">Shift</label>
-        <select name="shift" class="input-primary" formControlName="shift" (change)="changeShiftOptions($event)">
+        <select name="shift" class="input-primary" formControlName="shift" (change)="changeShiftOptions()">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Morning Shift" >Morning Shift</option>
           <option value="Night Shift" >Night Shift</option>

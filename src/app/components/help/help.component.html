@@ -87,12 +87,14 @@
 
                         </ol>
                     </li>
-                </ol>
-       
 
-
-            
-                <ol>
+                    <li *ngIf="nav.includes('Add Role')" >
+                        <h2>Add Role</h2>
+                        <p>
+                            Add Role page will help you add custom roles to the application. Once added you cannot edit the role name.
+                        </p>
+                    </li>            
+        
                     <li *ngIf="nav.includes('Order Entry')" >
                         <h2>Order Entry</h2>
                         <p> Use this page to enter your daily production data. Note: If you have selected Client as
