@@ -185,7 +185,7 @@
 <div class="inputgroup">
   <label for="Delay Reason">Reason for Extension</label>
   <select name="Delay Reason" class="input-primary option" formControlName="delay_reason">
-    <!-- <option value="" [disabled]="true">--Select--</option> -->
+    <option value="" [disabled]="true">--Select--</option>
     <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
     <option value="Productivity issue" > Productivity Issue</option>
     <option value="Quality issue" >Quality Issue</option>

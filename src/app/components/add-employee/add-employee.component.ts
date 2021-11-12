@@ -21,7 +21,7 @@ export class AddEmployeeComponent implements OnInit {
   modalBoolean: Boolean = false
   dataToBeDeleted;
   delete = false;
-  selectGeneralShift=false;
+  selectGeneralShift = false;
   roleList
   // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
@@ -126,6 +126,10 @@ export class AddEmployeeComponent implements OnInit {
     return this.userForm.get("inputs")
   }
 
+  get keys() {
+    return [this.search, this.client,this.delay_reason,this.production_status]
+
+  }
 
   // check if operation is update or delete
   checkUpdate() {
@@ -159,7 +163,6 @@ export class AddEmployeeComponent implements OnInit {
   // submit function for add and update
   onSubmit() {
 
-
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
 
@@ -174,15 +177,13 @@ export class AddEmployeeComponent implements OnInit {
       return;
     }
 
-
-
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
 
       if (res.response === "Success") {
         this.showToastMessage(res.response, "success")
-   
+
         // enable form for add employee
         if (this.update) {
           setTimeout(() => {
@@ -190,7 +191,7 @@ export class AddEmployeeComponent implements OnInit {
           }, 1000);
         }
         this.userForm.enable()
-        this.selectGeneralShift=true
+        this.selectGeneralShift = true
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
         this.ngOnInit();
@@ -205,7 +206,6 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
-
   // toast message
   showToastMessage(message, status) {
     this.message = message;
@@ -215,7 +215,6 @@ export class AddEmployeeComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
-
 
   // call singleReport for update
   getSingleEmployee() {
@@ -229,7 +228,7 @@ export class AddEmployeeComponent implements OnInit {
       this.inputs.patchValue(res[0]);
       res[0].task.forEach((task) => {
         this.task.push(this.fb.control(task))
-        
+
       })
       // to do => values inside task should be checked 
       this.Tasklist = this.dropDownList[this.inputs.value.client];
@@ -243,8 +242,8 @@ export class AddEmployeeComponent implements OnInit {
 
       }, 1000)
       // if shift is not applicable populate fields with not applicable
-      if(this.shift.value=="Not Applicable"){
-        this.selectGeneralShift=true
+      if (this.shift.value == "Not Applicable") {
+        this.selectGeneralShift = true
         // this.changeShiftOptions()
       }
 
@@ -254,14 +253,10 @@ export class AddEmployeeComponent implements OnInit {
 
 
   }
-
   // toggle dropdown on click
   display() {
-
     this.displayBoolean = !this.displayBoolean;
-
   }
-
   // add values to task array (checkbox)
   add(e, i) {
 
@@ -270,23 +265,17 @@ export class AddEmployeeComponent implements OnInit {
     if (e.target.checked) {
       this.task.push(this.fb.control(e.target.value))
 
-
     }
     else if (!e.target.checked && this.task.getRawValue().includes(e.target.value)) {
       let index = this.task.getRawValue().findIndex((check) => {
         return e.target.value === check;
-
       })
       this.task.removeAt(index);
-
     }
-
   }
-
 
   // function called when client value changed
   changeClientOptions(event) {
-
 
     this.isActive = true
     setTimeout(() => {
@@ -295,7 +284,7 @@ export class AddEmployeeComponent implements OnInit {
     this.task.clear()
     this.Tasklist = this.dropDownList[this.inputs.value.client];
 
-    if(this.client.value=="Not Applicable"){
+    if (this.client.value == "Not Applicable") {
       this.task.clear()
       this.task.push(this.fb.control("Not Applicable"))
     }
@@ -304,11 +293,11 @@ export class AddEmployeeComponent implements OnInit {
 
   // function called on selecting shift
   changeShiftOptions() {
-    if (this.shift.value == "Not Applicable" ) {
+    if (this.shift.value == "Not Applicable") {
       this.inputs.patchValue({
-        doj:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
-        planned_out_of_review_date:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
-        actual_out_of_review_date:this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        doj: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        planned_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        actual_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
         search: "Not Applicable",
         client: "Not Applicable",
         production_status: "Not Applicable",
@@ -319,23 +308,47 @@ export class AddEmployeeComponent implements OnInit {
       console.log(this.task.getRawValue())
       this.task.clear()
       this.uncheckAll()
-      this.Tasklist=[]
+      this.Tasklist = []
       this.task.push(this.fb.control("Not Applicable"))
 
       console.log(this.task.getRawValue())
       this.selectGeneralShift = true
     }
     else {
+      console.log("keys:",this.keys)
 
+      this.keys.forEach((key)=>{
+        if(key.value=="Not Applicable"){
+          key.setValue("")
+        }
+      })
+      // if (this.search.value == "Not Applicable") {
+      //   this.search.setValue("")
+      // }
+      // if (this.client.value == "Not Applicable") {
+      //   this.client.setValue("")
+      // }
+      // if (this.production_status.value == "Not Applicable") {
+      //   this.production_status.setValue("")
+      // }
+
+      // if (this.delay_reason.value == "Not Applicable") {
+      //   this.delay_reason.setValue("")
+      // }
+
+
+
+
+      // this.delay_reason.patchValue("No issue")
       this.selectGeneralShift = false
-
-      this.task.getRawValue().forEach((task,index)=>{
-        if(task=="Not Applicable"){
+      this.task.getRawValue().forEach((task, index) => {
+        if (task == "Not Applicable") {
           this.task.removeAt(index)
         }
-      })      
+      })
     }
 
+    console.log(this.userForm.getRawValue())
 
   }
 
@@ -374,9 +387,9 @@ export class AddEmployeeComponent implements OnInit {
 
   calculatePlannedDate() {
 
-    if (this.training_duration.value != "" && this.doj.value != "" && this.training_duration.value!="Not Applicable") {
+    if (this.training_duration.value != "" && this.doj.value != "" && this.training_duration.value != "Not Applicable") {
       // calculate planned date
-      console.log(this.training_duration.value,this.doj.value)
+      console.log(this.training_duration.value, this.doj.value)
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
       result.setDate(result.getDate() + days);
