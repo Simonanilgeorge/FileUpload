@@ -16,6 +16,7 @@ import {YearlyClientReportComponent} from './components/yearly-client-report/yea
 import {YearlyEmployeeReportComponent} from './components/yearly-employee-report/yearly-employee-report.component'
 import {HelpComponent} from './components/help/help.component'
 import {AddRoleComponent} from './components/add-role/add-role.component'
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component'
 import { from } from 'rxjs';
 
 
@@ -36,7 +37,8 @@ const routes: Routes = [
 {path:'viewyearlyreport',component:YearlyEmployeeReportComponent},
 {path:'yearlyclientreport',component:YearlyClientReportComponent},
 {path:'help',component:HelpComponent},
-{path:'addrole',component:AddRoleComponent}
+{path:'addrole',component:AddRoleComponent},
+{path:'reset',component:ResetPasswordComponent},
 
 ];
 

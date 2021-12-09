@@ -142,7 +142,7 @@ export class AddEmployeeComponent implements OnInit {
       this.empcode.disable()
       this.name.disable()
       this.doj.disable()
-      this.training_duration.disable()
+      // this.training_duration.disable()
       this.getSingleEmployee();
     }
     else if (deleteEmployee) {
@@ -295,7 +295,7 @@ export class AddEmployeeComponent implements OnInit {
   changeShiftOptions() {
     if (this.shift.value == "Not Applicable") {
       this.inputs.patchValue({
-        doj: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
+        // doj: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
         planned_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
         actual_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
         search: "Not Applicable",
@@ -305,18 +305,16 @@ export class AddEmployeeComponent implements OnInit {
         delay_reason: "Not Applicable",
       })
 
-      console.log(this.task.getRawValue())
+
       this.task.clear()
       this.uncheckAll()
       this.Tasklist = []
       this.task.push(this.fb.control("Not Applicable"))
 
-      console.log(this.task.getRawValue())
+
       this.selectGeneralShift = true
     }
     else {
-      console.log("keys:",this.keys)
-
       this.keys.forEach((key)=>{
         if(key.value=="Not Applicable"){
           key.setValue("")
@@ -348,7 +346,7 @@ export class AddEmployeeComponent implements OnInit {
       })
     }
 
-    console.log(this.userForm.getRawValue())
+
 
   }
 
@@ -389,7 +387,7 @@ export class AddEmployeeComponent implements OnInit {
 
     if (this.training_duration.value != "" && this.doj.value != "" && this.training_duration.value != "Not Applicable") {
       // calculate planned date
-      console.log(this.training_duration.value, this.doj.value)
+
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
       result.setDate(result.getDate() + days);

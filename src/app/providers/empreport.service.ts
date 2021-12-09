@@ -22,6 +22,7 @@ export class EmpreportService {
   private deleteEmployeeStatus="http://localhost:5000/api/delemprprt"
   private editRoleUrl="http://localhost:5000/api/editrole"
   private addRoleUrl="http://localhost:5000/api/addrole"
+  private resetUrl="http://localhost:5000/api/resetpassword"
 
 
   sendReport(data: any): Observable<any> {
@@ -111,4 +112,8 @@ editRole(data):Observable<any>{
   return this.http.put<any>(`${this.editRoleUrl}/${data.inputs.id}`,data)
 }
 
+
+resetPassword(data):Observable<any>{
+  return this.http.post<any>(this.resetUrl,data)
+}
 }

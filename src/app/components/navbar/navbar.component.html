@@ -43,9 +43,10 @@
             <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
             <li *ngIf="nav.includes('My Production Data')" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
-
+            <li class="links" routerLink="/reset"  routerLinkActive="active-link" >Reset Password</li>
             <li class="links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
         </div>
+        
         <div class="boxtwo">
             <li class="links logout" (click)="logOut()">Logout</li>
         </div>
