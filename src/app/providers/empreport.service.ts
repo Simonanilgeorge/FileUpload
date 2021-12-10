@@ -23,8 +23,8 @@ export class EmpreportService {
   private editRoleUrl="http://localhost:5000/api/editrole"
   private addRoleUrl="http://localhost:5000/api/addrole"
   private resetUrl="http://localhost:5000/api/resetpassword"
-
-
+   
+  
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
   }
