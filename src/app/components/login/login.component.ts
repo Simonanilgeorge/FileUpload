@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.notValid = false
         this.noAccess = false
         // this.getRole(res.name,res.account_name)
-        this.loginService.saveUsername(res.name, res.description, res.account_name)
+        this.loginService.saveUsername(res.name, res.description, res.account_name,res.token)
       }
 
       else if (res.login == "Contact Manager") {

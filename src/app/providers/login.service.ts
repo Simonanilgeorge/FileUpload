@@ -27,10 +27,11 @@ export class LoginService {
     return this.http.post<any>(this.url, data)
   }
 
-  saveUsername(user, description, account_name) {
+  saveUsername(user, description, account_name,token) {
     sessionStorage.setItem('user', user)
     sessionStorage.setItem('role', description)
     sessionStorage.setItem('account_name', account_name)
+    sessionStorage.setItem('token', token)
 
 
 
