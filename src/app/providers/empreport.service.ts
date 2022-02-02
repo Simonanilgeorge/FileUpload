@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +10,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmpreportService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url = "http://localhost:5000/api/empreport";
-  private statusUrl = "http://localhost:5000/api/mystatus"
-  private dropDownUrl = "http://localhost:5000/api/dropdown"
-  private monthlyReportUrl = "http://localhost:5000/api/revenue"
-  private clientReportUrl = "http://localhost:5000/api/clientrprt"
-  private singleReportUrl="http://localhost:5000/api/singlestatus"
-  private employeeUrl="http://localhost:5000/api/addemployee"
-  private editEmployeeUrl="http://localhost:5000/api/editemployee"
-  private yearlyClientUrl="http://localhost:5000/api/yearlyclientrprt"
-  private yearlyEmployeeReportUrl = "http://localhost:5000/api/yearlyemprprt"
-  private deleteEmployeeStatus="http://localhost:5000/api/delemprprt"
-  private editRoleUrl="http://localhost:5000/api/editrole"
-  private addRoleUrl="http://localhost:5000/api/addrole"
-  private resetUrl="http://localhost:5000/api/resetpassword"
+  private url = `${environment.url}/api/empreport`;
+  private statusUrl = `${environment.url}/api/mystatus`
+  private dropDownUrl = `${environment.url}/api/dropdown`
+  private monthlyReportUrl = `${environment.url}/api/revenue`
+  private clientReportUrl = `${environment.url}/api/clientrprt`
+  private singleReportUrl=`${environment.url}/api/singlestatus`
+  private employeeUrl=`${environment.url}/api/addemployee`
+  private editEmployeeUrl=`${environment.url}/api/editemployee`
+  private yearlyClientUrl=`${environment.url}/api/yearlyclientrprt`
+  private yearlyEmployeeReportUrl = `${environment.url}/api/yearlyemprprt`
+  private deleteEmployeeStatus=`${environment.url}/api/delemprprt`
+  private editRoleUrl=`${environment.url}/api/editrole`
+  private addRoleUrl=`${environment.url}/api/addrole`
+  private resetUrl=`${environment.url}/api/resetpassword`
    
   
   sendReport(data: any): Observable<any> {

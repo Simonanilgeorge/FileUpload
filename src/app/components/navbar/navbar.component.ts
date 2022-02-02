@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.nav=sessionStorage.getItem("role").split(",")
+
   }
   logOut() {
     this.loginService.onLogOut();

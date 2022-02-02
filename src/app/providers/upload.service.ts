@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,11 @@ import { Observable, throwError } from 'rxjs';
 export class UploadService {
 
   constructor(private http: HttpClient) { }
-  private url="http://localhost:5000/api/getfile";
+  private url=`${environment.url}/api/getfile`;
   
-  private filterUrl="http://localhost:5000/api/filter"
+  private filterUrl=`${environment.url}/api/filter`
   
-  private filterPivotTableUrl="http://localhost:5000/api/pivottables"
+  private filterPivotTableUrl=`${environment.url}/api/pivottables`
   uploadFile(formData:any):Observable<any> {
     return this.http.post<any>(this.url,formData)
 

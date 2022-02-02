@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmployeeReportComponent } from '../components/employee-report/employee-report.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { EmployeeReportComponent } from '../components/employee-report/employee-
 export class LoginService {
 
   constructor(private http: HttpClient, private router: Router) { }
-  private url: string = "http://localhost:5000/api/login"
+  private url: string = `${environment.url}/api/login`
   private roleNavigationObject = {
     "Production Reports": ["MonthlyReportComponent", "EmployeeReportComponent", "YearlyEmployeeReportComponent"],
     "Client Reports": ["ClientReportComponent", "YearlyClientReportComponent", "HomeComponent", "FileReportComponent"],

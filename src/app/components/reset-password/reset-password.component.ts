@@ -45,15 +45,16 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.form.getRawValue())
-    this.empReportService.resetPassword(this.form.getRawValue()).subscribe((res)=>{
 
-      if(res.response=="success"){
-        this.showToastMessage("Password updated","Success")
+    this.empReportService.resetPassword(this.form.getRawValue()).subscribe((res)=>{
+      console.log(res)
+      if(res.response=="Success"){
+        this.showToastMessage("Password updated","success")
         this.form.reset()
       }
       else{
-      this.showToastMessage("Invalid password","error")
+
+      this.showToastMessage("Invalid current password","error")
       }
 
     },(err)=>{
