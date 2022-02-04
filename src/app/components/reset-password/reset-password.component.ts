@@ -51,6 +51,9 @@ export class ResetPasswordComponent implements OnInit {
       if(res.response=="Success"){
         this.showToastMessage("Password updated","success")
         this.form.reset()
+        this.form.patchValue({
+          username : sessionStorage.getItem('account_name')
+        })
       }
       else{
 

@@ -65,14 +65,20 @@ export class LoginService {
 
   navigateByRole(componentName) {
 
+    console.log("navigate by role function")
     // session storage
     let nav = sessionStorage.getItem("role").split(",")
     let validComponents=[]
 
+
     nav.forEach((description) => {
       validComponents = [...validComponents, ...this.roleNavigationObject[description]]
     })
+
+    console.log("valid components")
+    console.log(validComponents)
     if(!validComponents.includes(componentName)){
+      console.log("redirecting to home component")
       this.router.navigate(['home'])
     }
 

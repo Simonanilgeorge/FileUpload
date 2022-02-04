@@ -1,4 +1,4 @@
 export const environment = {
-  url:"https://tasktracker.servegame.com",
+  url:"http://159.65.148.231:22543",
   production: true
 };
