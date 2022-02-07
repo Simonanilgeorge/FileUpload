@@ -41,7 +41,7 @@ export class YearlyClientReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.loginService.navigateByRole(this.constructor.name)
+    this.loginService.navigateByRole("YearlyClientReportComponent")
     this.onSubmit()
 
   }

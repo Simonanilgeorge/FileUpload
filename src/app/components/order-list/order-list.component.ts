@@ -54,7 +54,7 @@ export class OrderListComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
-    this.loginService.navigateByRole(this.constructor.name)
+    this.loginService.navigateByRole("OrderListComponent")
     this.getDropDown();
     this.initializeDates()
     this.user = this.fb.group({

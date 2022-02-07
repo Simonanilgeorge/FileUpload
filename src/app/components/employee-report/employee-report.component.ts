@@ -61,7 +61,7 @@ export class EmployeeReportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.getDropDown()
-    this.loginService.navigateByRole(this.constructor.name)
+    this.loginService.navigateByRole("EmployeeReportComponent")
   
   }
 

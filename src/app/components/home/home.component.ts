@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage()
-    this.loginService.navigateByRole(this.constructor.name)
+    this.loginService.navigateByRole("HomeComponent")
     this.fileUploadForm = this.formBuilder.group({
       rvsi: ['', Validators.required],
       sp2: ['', Validators.required]

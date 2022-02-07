@@ -39,6 +39,7 @@ export class AddRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.loginService.navigateByRole("AddRoleComponent")
     this.getAllRoles()
   }
 

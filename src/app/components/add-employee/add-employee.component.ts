@@ -43,7 +43,7 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
-    this.loginService.navigateByRole(this.constructor.name)
+    this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
 
     this.userForm = this.fb.group({
