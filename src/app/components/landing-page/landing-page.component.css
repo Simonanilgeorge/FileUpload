@@ -7,11 +7,12 @@
         } */
 
         .contentcontainer {
-          height: 80vh;
           position: relative;
           flex: 1;
           /* background: rgb(161, 161, 192); */
           overflow: hidden;
+          display:flex;
+          align-items:center;
           /* background: linear-gradient(45deg,white,skyblue); */
           background: url("../../../assets/images/bg.png");
           background-size: cover;
