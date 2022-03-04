@@ -50,7 +50,7 @@ export class EmployeeReportComponent implements OnInit {
 
 
   filterForm = this.fb.group({
-    dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd')],
+    dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'),Validators.required],
     startDate: [""],
     endDate: [""]
   });
@@ -77,6 +77,11 @@ export class EmployeeReportComponent implements OnInit {
 
   //call this function with filter form values
   onSubmit() {
+
+    if (this.filterForm.status === "INVALID") {
+      this.flag=0;
+      return;
+    }
     this.flag = 2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
 

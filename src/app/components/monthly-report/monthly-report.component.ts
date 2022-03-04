@@ -74,7 +74,8 @@ export class MonthlyReportComponent implements OnInit {
   filter() {
 
     if (this.Date.status === "INVALID") {
-      this.showToastMessage("Select month and sheet","warning");
+      // this.showToastMessage("Select month and sheet","warning");
+      this.total=0;
       return;
     }
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {

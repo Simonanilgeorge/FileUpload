@@ -90,11 +90,12 @@ export class OrderListComponent implements OnInit {
 
   getStatus() {
 
-
-    this.flag=2
     if (this.user.status == "INVALID") {
+      this.flag=0;
       return;
     }
+    this.flag=2
+
 
     this.endDate
     let endDate = new Date(this.enddateFilter.value).getTime();

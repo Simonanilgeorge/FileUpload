@@ -40,7 +40,11 @@ get sheetName(){
   // function called when filter is changed
   onSubmit() {
 
-
+    if (this.Date.status === "INVALID") {
+      this.flag=true;
+      this.data=[];
+      return;
+    }
     this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
