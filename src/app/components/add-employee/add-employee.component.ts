@@ -177,6 +177,7 @@ export class AddEmployeeComponent implements OnInit {
       return;
     }
 
+
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
 
@@ -303,6 +304,8 @@ export class AddEmployeeComponent implements OnInit {
         production_status: "Not Applicable",
         training_duration: "Not Applicable",
         delay_reason: "Not Applicable",
+        delay_review_duration:"0 days"
+
       })
 
 
@@ -310,8 +313,6 @@ export class AddEmployeeComponent implements OnInit {
       this.uncheckAll()
       this.Tasklist = []
       this.task.push(this.fb.control("Not Applicable"))
-
-
       this.selectGeneralShift = true
     }
     else {

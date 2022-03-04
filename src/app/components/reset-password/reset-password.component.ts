@@ -16,7 +16,7 @@ export class ResetPasswordComponent implements OnInit {
   form=this.fb.group({
     username:[sessionStorage.getItem('account_name')],
     currentPassword:[{value:"",disabled:false},Validators.required],
-    newPassword:[{value:"",disabled:false},[Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}') ] ],
+    newPassword:[{value:"",disabled:false},[Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!#^%*?&])[A-Za-z\d$@$!#^%*?&].{7,}') ] ],
 
     confirmPassword:[{value:"",disabled:false},Validators.required]
   })

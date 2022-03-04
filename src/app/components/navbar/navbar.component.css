@@ -6,16 +6,16 @@ ul {
   background-image: url("../../../assets/images/logo.png");
   background-color: white;
   background-repeat: no-repeat;
-  background-size: 70% 70%;
-  background-position: left;
+  background-size: 78%;
+  background-position: 13%;
   position: relative;
-  width:12em;
+  width: 10em;
 }
 
 
 .home:after {
   content: "";
-  padding: 0.9em;
+  padding: 0.6em;
   /* border:2px solid green; */
   position: absolute;
   right: 0;
@@ -40,6 +40,7 @@ nav {
   display: flex;
 
   justify-content: space-between;
+  height:4em;
   /* padding: 10px; */
   /* border: 1px solid green; */
   /* flex-wrap: wrap; */
@@ -64,6 +65,8 @@ nav {
   color: white;
   /* flex: 0 1; */
   white-space: nowrap;
+  display: flex;
+  align-items: center;
   /* width:12em; */
   /* flex: 1; */
   /* text-align: center; */
@@ -220,11 +223,12 @@ nav {
   }
   .home {
     background-image: url("../../../assets/images/logo.png");
-      background-color: white;
-      background-repeat: no-repeat;
-      background-position: center;
-      /* position: relative; */
-      width:7em;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: contain;
+    background-position: center;
+    background-size: 71%;
+    width: 11em;
   }
   .home:after {
       content: "";

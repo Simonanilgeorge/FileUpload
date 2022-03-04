@@ -144,7 +144,7 @@ h1 {
 .imagecontainer {
   flex: 1 30em;
   z-index: 2;
-  background: url("../../../assets/images/NTC_Logo.png");
+  background: url("../../../assets/images/log.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
