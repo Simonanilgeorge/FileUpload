@@ -160,6 +160,7 @@ export class EmployeesendreportComponent implements OnInit {
     // send the form
     this.empReportService.sendReport(this.userForm.getRawValue()).subscribe((res) => {
 
+
       this.showToastMessage("Success", "success")
       this.userForm.enable()
       this.NonProdDisabled = false
@@ -213,7 +214,8 @@ export class EmployeesendreportComponent implements OnInit {
       if (id) {
         this.update = true;
 
-
+        this.orderNumber.disable()
+        // call singlestatus function to populate fields for update
         this.getSingleStatus();
 
       }
@@ -329,14 +331,22 @@ export class EmployeesendreportComponent implements OnInit {
       this.state.disable()
       this.displayBoolean = false;
       this.NonProdDisabled = true
-      this.orderNumber.setValue(" ")
+      // test
+      if(!this.update){
+        this.orderNumber.setValue(" ")
+      }
       this.status.setValue("")
       this.state.setValue("--Select--")
 
     }
     else {
       this.NonProdDisabled = false
+
       this.userForm.enable()
+      // if client is not non prod and update is enabled disable order number
+      if(this.update){
+        this.orderNumber.disable()
+      }
 
 
     }
