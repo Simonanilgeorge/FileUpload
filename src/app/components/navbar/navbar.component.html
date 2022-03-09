@@ -34,11 +34,12 @@
                 <ul class="dropdown">
                     <li routerLink="/addemployee" class="child-links">Add Employee</li>
                     <li routerLink="/viewemployees" class="child-links">Edit Employee</li>
+                    <li routerLink="/addrole" class="child-links">Add Role</li>
 
                 </ul>
             </li>
 
-            <li *ngIf="nav.includes('Add Role')" routerLink="/addrole" class="links" routerLinkActive="active-link">Add Role</li>
+
 
             <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
 
@@ -113,11 +114,11 @@
                                 Admin
                                 <ul class="responsive-dropdown">
                                     <li routerLink="/addemployee" class="responsive-child-links">Add Employee</li>
-                                    <li routerLink="/viewemployees" class="responsive-child-links">Edit Employee
-                                    </li>
+                                    <li routerLink="/viewemployees" class="responsive-child-links">Edit Employee</li>
+                                    <li routerLink="/addrole" class="responsive-child-links">Add Role</li>
                                 </ul>
                             </li>
-                            <li *ngIf="nav.includes('Add Role')" routerLink="/addrole" class="responsive-links" routerLinkActive="active-link">Add Role</li>
+                           
                             <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>
                         </ul>

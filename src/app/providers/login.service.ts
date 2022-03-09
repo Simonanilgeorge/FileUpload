@@ -15,8 +15,8 @@ export class LoginService {
   private roleNavigationObject = {
     "Production Reports": ["MonthlyReportComponent", "EmployeeReportComponent", "YearlyEmployeeReportComponent"],
     "Client Reports": ["ClientReportComponent", "YearlyClientReportComponent", "HomeComponent", "FileReportComponent"],
-    "Admin": ["AddEmployeeComponent", "ViewEmployeeComponent"],
-    "Add Role": ["AddRoleComponent"],
+    "Admin": ["AddEmployeeComponent", "ViewEmployeeComponent","AddRoleComponent"],
+    // "Add Role": ["AddRoleComponent"],
     "Order Entry": ["EmployeesendreportComponent"],
     "My Production Data": ["OrderListComponent"]
   }

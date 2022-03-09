@@ -25,7 +25,7 @@ export class AddRoleComponent implements OnInit {
   displayBoolean = false;
   titles = ["role", "resources"]
   data = []
-  resourceList = ["Production Reports", "Client Reports", "Admin", "Add Role", "Order Entry", "My Production Data"]
+  resourceList = ["Production Reports", "Client Reports", "Admin","Order Entry", "My Production Data"]
   roleForm: FormGroup = this.fb.group({
     inputs: this.fb.group({
       id: [{ value: " ", disabled: true }],
