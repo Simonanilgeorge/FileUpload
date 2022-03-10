@@ -6,22 +6,23 @@ import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import * as XLSX from 'xlsx';
-import {MultifilterPipe} from '../../pipes/multifilter.pipe'
+import { MultifilterPipe } from '../../pipes/multifilter.pipe'
 
 
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css'],
-  providers: [DatePipe,MultifilterPipe]
+  providers: [DatePipe, MultifilterPipe]
 })
 export class OrderListComponent implements OnInit {
 
   searchedItems;
+  titleName;
   flag = 2;
   fileName = "My_production_data.xlsx"
   titles;
-  headings;
+  // headings;
   toast
   message
   toastStatus
@@ -48,7 +49,20 @@ export class OrderListComponent implements OnInit {
     status: [""],
   })
 
-  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService,private multiFilterPipe:MultifilterPipe) {
+  headings = {
+    "date": "Date",
+    "order_number": "Order Number",
+    "Client": "Client",
+    "Task": "Task",
+    "Process": "Process",
+    "state": "State",
+    "start_Time": "Start Time",
+    "end_Time": "End Time",
+    "status": "Status",
+    "last_updated_time": "Last Updated Time"
+  }
+
+  constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService, private multiFilterPipe: MultifilterPipe) {
 
   }
   ngOnInit(): void {
@@ -91,22 +105,22 @@ export class OrderListComponent implements OnInit {
   getStatus() {
 
     if (this.user.status == "INVALID") {
-      this.flag=0;
+      this.flag = 0;
       return;
     }
-    this.flag=2
+    this.flag = 2
 
 
     this.endDate
     let endDate = new Date(this.enddateFilter.value).getTime();
     let startDate = new Date(this.dateFilter.value).getTime();
     if (startDate > endDate) {
-      this.showToastMessage("start date cannot be after end date","warning")
+      this.showToastMessage("start date cannot be after end date", "warning")
 
     }
 
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
-      
+
       this.onResponse(res);
       this.getTitles()
     }, (err) => {
@@ -179,6 +193,16 @@ export class OrderListComponent implements OnInit {
     })
   }
 
+  getTitleName(title) {
+
+    this.titleName = null;
+    setTimeout(() => {
+      this.titleName = title;
+    }, 100)
+
+
+  }
+
   changeClientOptions(event) {
 
     this.Task.setValue("");
@@ -219,9 +243,9 @@ export class OrderListComponent implements OnInit {
 
   }
 
-  showToastMessage(message,status) {
+  showToastMessage(message, status) {
     this.message = message;
-    this.toastStatus=`${status}`
+    this.toastStatus = `${status}`
     this.toast = true;
     setTimeout(() => {
       this.toast = false;
@@ -241,14 +265,15 @@ export class OrderListComponent implements OnInit {
     })[0];
 
     this.titles.pop();
-    this.headings = this.titles.map((title) => {
-      if (title.includes("_")) {
-        return title.replace(/_/g, " ")
-      }
-      else {
-        return title
-      }
-    })
+    // this.headings = this.titles;
+    // this.headings = this.titles.map((title) => {
+    //   if (title.includes("_")) {
+    //     return title.replace(/_/g, " ")
+    //   }
+    //   else {
+    //     return title
+    //   }
+    // })
 
 
   }
@@ -288,13 +313,11 @@ export class OrderListComponent implements OnInit {
   }
 
 
-   public searchItems() {
+  public searchItems() {
 
-
-     this.searchedItems = this.multiFilterPipe.transform(this.datas,this.filterForm.value);
-
+    this.searchedItems = this.multiFilterPipe.transform(this.datas, this.filterForm.value);
     return this.searchedItems;
-}
+  }
 
 
 }

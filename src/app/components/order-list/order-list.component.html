@@ -36,6 +36,7 @@
             <tr >
               <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton"
                   (click)="export()"></th>
+                  
             </tr>
             <tr>
               <th>
@@ -49,6 +50,7 @@
                 <!-- <div class="inputgroup"> -->
                 <!-- <label for="date"> Date</label> -->
                 <input style="width:10em;" type="date" name="date"  formControlName="date">
+                
                 <!-- </div> -->
               </th>
 
@@ -109,11 +111,13 @@
             </tr>
             <tr>
               <th>Edit</th>
-              <th *ngFor="let heading of headings">
-                {{ heading}}
+
+              <th *ngFor="let title of titles">
+                {{ headings[title]}}
+                <span style="cursor: pointer;" (click)="getTitleName(title)">&uarr;&darr;</span>
               </th>
             </tr>
-            <tr *ngFor="let data of datas |multifilter:filterForm.value">
+            <tr *ngFor="let data of datas |multifilter:filterForm.value| sort:titleName ">
               <td style="text-align: center;">
 
                 <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
@@ -132,6 +136,7 @@
         </form>
       </div>
     <!-- </div> -->
+    
   </div>
   <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
     <h2>Loading...</h2>
