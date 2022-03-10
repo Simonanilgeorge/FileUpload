@@ -28,7 +28,7 @@
         <form [formGroup]="userForm" >
           <div class="inputgroup">
             <h2 *ngIf="!update && !delete">Enter Production Data</h2>
-            <h2 *ngIf="update">Edit Production Data</h2>
+            <h2 *ngIf="update">Update Production Data</h2>
             <h2 *ngIf="delete">Delete Production Data</h2>
           </div>
           <div class="formcontainer-primary" formGroupName="inputs">

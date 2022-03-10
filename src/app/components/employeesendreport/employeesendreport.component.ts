@@ -104,17 +104,17 @@ export class EmployeesendreportComponent implements OnInit {
   }
   changeClientOptions(event) {
 
-
+    // if(this.update){
+    //   // if (res[0].Client == "NonProd") {
+    //   //   this.checkNonProd();
+    //   // }
+    // }
     this.Task.setValue("");
     this.Process.setValue("");
-
-
-    this.checkNonProd();
-
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
     this.Processlist = null
-
-
+    // test
+    this.checkNonProd();
   }
 
   changeTaskOptions(event) {
@@ -258,10 +258,14 @@ export class EmployeesendreportComponent implements OnInit {
       let temp = res[0].Client + res[0].Task
 
       this.Processlist = this.dropDownList[temp]
-
       this.inputs.patchValue(res[0]);
       if (res[0].Client == "NonProd") {
         this.checkNonProd();
+        // test
+        if(res[0].orderNumber==""){
+          this.Client.disable();
+        }
+  
       }
 
     }, (err) => {
@@ -299,14 +303,9 @@ export class EmployeesendreportComponent implements OnInit {
   }
 
 
-
   // open on delete button click methods
   showModal() {
-
-
     // data.username = sessionStorage.getItem('user')
-
-
     this.modalBoolean = true;
     this.dataToBeDeleted = this.userForm.getRawValue();
 
@@ -337,7 +336,6 @@ export class EmployeesendreportComponent implements OnInit {
       }
       this.status.setValue("")
       this.state.setValue("--Select--")
-
     }
     else {
       this.NonProdDisabled = false
