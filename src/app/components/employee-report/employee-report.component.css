@@ -45,8 +45,9 @@ padding:1em;
 
 /* table styles for employee-report component */
 th {
-  position: sticky;
-  top: 3.2em;
+  /* test */
+  /* position: sticky; */
+  /* top: 3.2em; */
   z-index: 11;
 }
 td {

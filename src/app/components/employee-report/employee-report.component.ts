@@ -6,6 +6,7 @@ import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -131,10 +132,22 @@ export class EmployeeReportComponent implements OnInit {
     // export to excel file
   export() {
     /* table id is passed over here */
+
     let element = document.querySelector(".table-excel");
-    this.exportExcelService.exportToExcel(element, this.fileName)
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
+
+    ws['!rows'][1] = { hidden: true };
+    ws['!cols'][0] = { hidden: true };
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
 
   }
+
   public searchItems() {
 
 
