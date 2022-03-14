@@ -5,7 +5,8 @@ import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
-
+import * as XLSX from 'xlsx';
+import * as moment from 'moment'
 
 
 @Component({
@@ -16,7 +17,7 @@ import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 })
 export class MonthlyReportComponent implements OnInit {
   searchedItems
-  fileName="monthly_production_report.xlsx"
+  fileName="Monthly_Production_Report.xlsx"
   flag: Boolean = false;
   titleName;
   message;
@@ -141,11 +142,45 @@ export class MonthlyReportComponent implements OnInit {
       return false
     }
   }
+
+  titleCase(str) {
+    return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
+  }
+
       // export to excel file
       export() {
-        /* table id is passed over here */
+        // / table id is passed over here /
         let element = document.querySelector(".table-excel");
-        this.exportExcelService.exportToExcel(element, this.fileName)
+        
+        var Heading = [];  
+        this.titles.forEach(element => {
+          Heading.push(this.titleCase(this.headings[element]))
+        });
+        let i = 1;
+        this.dates.forEach(date => {
+    
+          Heading.push(`${moment(date).format("MMM")} ${i}`)
+          i+=1;
+
+        });
+
+        if(this.sheetNameRes=='Revenue'||this.sheetNameRes=='Orders'){
+          Heading.push("Total")
+        }
+      
+        const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
+        
+        // / generate workbook and add the worksheet /
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+        XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
+    
+    
+        
+        // / save to file /
+        XLSX.writeFile(wb, this.fileName);
+
     
       }
 

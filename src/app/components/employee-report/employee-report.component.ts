@@ -19,7 +19,7 @@ export class EmployeeReportComponent implements OnInit {
 
   searchedItems
   // Daily Production report
-  fileName="daily_production_report.xlsx"
+  fileName="Daily_Production_Report.xlsx"
 
   datas: any;
   titleName;
@@ -122,6 +122,11 @@ export class EmployeeReportComponent implements OnInit {
 
   }
 
+
+   titleCase(str) {
+    return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
+  }
+
   // column filter on double click
   // showInput() {
   //   this.showColumnInput = !this.showColumnInput
@@ -131,23 +136,25 @@ export class EmployeeReportComponent implements OnInit {
 
     // export to excel file
   export() {
-    /* table id is passed over here */
-
+    // / table id is passed over here /
     let element = document.querySelector(".table-excel");
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
-
-    ws['!rows'][1] = { hidden: true };
-    ws['!cols'][0] = { hidden: true };
-
-    /* generate workbook and add the worksheet */
+    // this.exportExcelService.exportToExcel(element, this.fileName)
+    let Heading = [];  
+    this.titles.forEach(element => {
+      Heading.push(this.titleCase(this.headings[element]))
+      
+    });
+    Heading.push(this.sheetName)
+  
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
+    
+    // / generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
+    XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
+    // / save to file /
     XLSX.writeFile(wb, this.fileName);
-
   }
-
   public searchItems() {
 
 

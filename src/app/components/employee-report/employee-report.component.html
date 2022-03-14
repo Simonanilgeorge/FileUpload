@@ -1,10 +1,10 @@
 <div class="container">
     <app-navbar></app-navbar>
 
-    <!-- 
+<!-- 
     <input type="text" [(ngModel)]="sheetName"> -->
     <div class="heading">
-        <h2>Daily Production Report</h2>
+        <h2 >Daily Production Report</h2>
 
     </div>
     <!-- Yearly Prodution Report -->
@@ -16,7 +16,7 @@
             <label for="date">Date</label>
             <input type="date" name="date" class="input-primary" (change)="onSubmit()" formControlName="dateFilter">
         </div>
-
+        
         <div class="inputgroup">
             <label for="name">Select Report</label>
             <select class="input-primary" [(ngModel)]="sheetName" [ngModelOptions]="{standalone: true}">
@@ -35,7 +35,7 @@
             <form [formGroup]="columnFilterForm">
                 <table class="table-excel">
                     <tr>
-                        <th style="position:sticky;top:0em;">
+                        <th style="position:sticky;top:0;">
                             <form class="tablesearch">
                                 <div class="inputgroup">
 
@@ -44,58 +44,53 @@
                                 </div>
                             </form>
                         </th>
-                        <th colspan="9" style="position:sticky;top:0em;">
+                        <th colspan="9" style="position:sticky;top:0;">
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
                         </th>
                     </tr>
 
                     <tr>
-                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'" style="position:sticky;top:3em;"> 
-                            <div class="inputgroup-columnsort">
+                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
+                            <div class="inputgroup-columnsort" >
                                 <span *ngIf="title!='search' && title!='client'">
-                                    <input type="text" formControlName="{{title}}">
+                                    <input type="text" formControlName="{{title}}" >
                                 </span>
-                                <span *ngIf="title=='search'">
+                                <span *ngIf="title=='search'" >
                                     <select formControlName="{{title}}" style="width: 12em;">
                                         <option value="">All</option>
                                         <option value="search">Search</option>
                                         <option value="Non-search">Non-Search</option>
                                     </select>
                                 </span>
-
-                                <span *ngIf="title=='client'">
+                            
+                                <span *ngIf="title=='client'" >
                                     <select formControlName="{{title}}" style="width: 12em;">
                                         <option value="">All</option>
                                         <option *ngFor="let client of ClientList" value="{{client}}">
-                                            {{client}}
+                                          {{client}}
                                         </option>
                                     </select>
                                 </span>
                             </div>
-                        </th>
-                        <th style="position:sticky;top:3em;"></th>
-                    </tr>
-                    <tr>
-                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'" style="position:sticky;top:6.5em;">
-
-                            <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}} &uarr;&darr;</span>
-
+                            <span style="cursor: pointer;" (click)="getTitleName(title)"
+                                >{{headings[title]}} &uarr;&darr;</span>
+  
                         </th>
 
                         <th *ngIf="sheetName=='Orders'">
-                            <span style="cursor: pointer;" (click)="getTitleName('order_count')"> Order Count
+                            <span style="cursor: pointer;" (click)="getTitleName('order_count')"> ORDER COUNT
                                 &uarr;&darr;</span>
                         </th>
                         <th *ngIf="sheetName=='Productivity'">
-                            <span style="cursor: pointer;" (click)="getTitleName('productivity')"> Productivity
+                            <span style="cursor: pointer;" (click)="getTitleName('productivity')"> PRODUCTIVITY
                                 &uarr;&darr;</span>
                         </th>
                         <th *ngIf="sheetName=='Utilization'">
-                            <span style="cursor: pointer;" (click)="getTitleName('utilization')"> Utilization
+                            <span style="cursor: pointer;" (click)="getTitleName('utilization')"> UTILIZATION
                                 &uarr;&darr;</span>
                         </th>
                         <th *ngIf="sheetName=='Revenue'">
-                            <span style="cursor: pointer;" (click)="getTitleName('revenue')"> Revenue
+                            <span style="cursor: pointer;" (click)="getTitleName('revenue')"> REVENUE
                                 &uarr;&darr;</span>
                         </th>
                     </tr>
@@ -103,20 +98,16 @@
                     <tr
                         *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
 
-                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'" class="textleft">
-                            {{status[title]}}</td>
-                        <td *ngIf="sheetName=='Orders'"><span
-                                *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
-                        <td *ngIf="sheetName=='Productivity'"><span
-                                *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
-                        <td *ngIf="sheetName=='Utilization'"><span
-                                *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
-                        <td *ngIf="sheetName=='Revenue'"><span *ngIf="status['revenue'] != 0">$ {{status.revenue}}
-                            </span></td>
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
+                            class="textleft">{{status[title]}}</td>
+                        <td *ngIf="sheetName=='Orders'"><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
+                        <td *ngIf="sheetName=='Productivity'"><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
+                        <td *ngIf="sheetName=='Utilization'"><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
+                        <td *ngIf="sheetName=='Revenue'"><span *ngIf="status['revenue'] != 0">$ {{status.revenue}} </span></td>
                     </tr>
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
-                    </tr>
+                      </tr>
 
                 </table>
             </form>

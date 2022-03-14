@@ -15,7 +15,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 })
 export class YearlyClientReportComponent implements OnInit {
   
-  fileName="yearly_client_report.xlsx"
+  fileName="Yearly_Client_Report.xlsx"
   data=[]
   flag=2;
   dates = [];

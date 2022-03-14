@@ -6,6 +6,9 @@ import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
+import * as XLSX from 'xlsx';
+
+
 @Component({
   selector: 'app-yearly-employee-report',
   templateUrl: './yearly-employee-report.component.html',
@@ -15,7 +18,7 @@ import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 export class YearlyEmployeeReportComponent implements OnInit {
 
   searchedItems
-  fileName = "yearly_employee_report.xlsx"
+  fileName = "Yearly_Employee_Report.xlsx"
   flag = 2;
   dropDownList
   ClientList=[]
@@ -64,6 +67,10 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   get date() {
     return this.Date.get("date");
+  }
+
+  titleCase(str) {
+    return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
   }
 
 
@@ -147,9 +154,30 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   // export to excel file
   export() {
-    /* table id is passed over here */
+    // / table id is passed over here /
     let element = document.querySelector(".table-excel");
-    this.exportExcelService.exportToExcel(element, this.fileName)
+    var Heading = [];  
+        this.titles.forEach(element => {
+          Heading.push(this.titleCase(this.headings[element]))
+        });
+        
+        this.dates.forEach(date => {
+          Heading.push(date)
+        });
+
+        if(this.sheetNameRes=='Revenue'||this.sheetNameRes=='Orders'){
+          Heading.push("Total")
+        }
+      
+        const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
+        
+        // / generate workbook and add the worksheet /
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+        XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"}); 
+        // / save to file /
+        XLSX.writeFile(wb, this.fileName);
 
   }
   public searchItems() {

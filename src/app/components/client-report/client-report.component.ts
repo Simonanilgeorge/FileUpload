@@ -13,7 +13,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 export class ClientReportComponent implements OnInit {
   sheetList=["Revenue","Volume"]
 
-  fileName="client_based_monthly_report.xlsx"
+  fileName="Client_Based_Monthly_Report.xlsx"
   data = [];
   flag: boolean = false;
   dates = [];

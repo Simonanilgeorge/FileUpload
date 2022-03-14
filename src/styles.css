@@ -197,6 +197,7 @@ tr:nth-of-type(odd) td {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+
 }
 
 
