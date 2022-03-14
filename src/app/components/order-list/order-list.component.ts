@@ -290,18 +290,26 @@ export class OrderListComponent implements OnInit {
   // export to excel file
   export() {
     // 
-    /* table id is passed over here */
+    // / table id is passed over here /
     let element = document.querySelector(".table-excel");
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
 
-    ws['!rows'][1] = { hidden: true };
+    // ws['!rows'][1] = { hidden: true };
+    // ws['!cols'][0] = { hidden: true };
     ws['!cols'][0] = { hidden: true };
+    let nul = [""];
+    let Heading = [""];
+    for (var property in this.headings) {
+      nul.push("")
+      Heading.push(this.headings[property])
+    }
 
-    /* generate workbook and add the worksheet */
+    // / generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
+    XLSX.utils.sheet_add_aoa(ws, [nul], {origin:"A2"});
+    XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A3"});
+    // / save to file /
     XLSX.writeFile(wb, this.fileName);
     // this.exportExcelService.exportToExcel(element, this.fileName)
 

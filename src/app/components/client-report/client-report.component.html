@@ -38,11 +38,12 @@
 
         <div class="tablecontainer">
             <table class="table-excel">
-                <tr >
-                    <th colspan="40" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
+                <tr>
+                    <th colspan="40" style="position:sticky;top:0;"> <input type="button" value="Export"
+                            class="exportbutton" (click)="export()"></th>
                 </tr>
                 <tr>
-                    <th style="position: sticky;left:0;z-index:10;">CLIENT</th>
+                    <th style="position: sticky;left:0;z-index:10;">Client</th>
                     <th *ngFor="let date of dates; let i=index;" class>{{date | date: 'MMM'}} {{i+1}}</th>
                     <th>Total</th>
 
@@ -53,27 +54,30 @@
                     <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
                         <span *ngIf="data[date]">
                             <span *ngIf="sheetName.value=='Revenue'">$</span>
-                        {{data[date]}}</span>
+                            {{data[date]}}</span>
                     </td>
                     <td><span *ngIf="data.total"><span *ngIf="sheetName.value=='Revenue'">$</span>
-                        {{data.total}}</span></td>
+                            {{data.total}}</span></td>
                 </tr>
                 <tr>
-                    <td style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;font-weight: bolder;">Grand Total</td>
+                    <td
+                        style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;z-index:11;font-weight: bolder;">
+                        Grand Total</td>
                     <td *ngFor="let date of dates"
                         style="position: sticky;left:0; background: rgb(42, 67, 125);color:white;">
 
                         <span *ngIf="columnSum[date]!=0"><span *ngIf="sheetName.value=='Revenue'">$</span>
-                        
-                        {{columnSum[date]| number}}</span>
+
+                            {{columnSum[date]| number}}</span>
                     </td>
                     <td style="background: rgb(42 67 125); color:white;">
                         <span *ngIf="sheetName.value=='Revenue'">$</span>
-                        {{total|number}}</td>
+                        {{total|number}}
+                    </td>
                 </tr>
 
             </table>
-           
+
         </div>
 
     </div>
