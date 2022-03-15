@@ -20,6 +20,8 @@ export class ExportExcelService {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
     /* save to file */
+    ws['!rows'][0] = { hidden: true };
+    
     XLSX.writeFile(wb, fileName);
   }
   

@@ -142,17 +142,17 @@ export class EmployeeReportComponent implements OnInit {
     let Heading = [];  
     this.titles.forEach(element => {
       Heading.push(this.titleCase(this.headings[element]))
-      
     });
+
     Heading.push(this.sheetName)
   
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
-    
     // / generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
     // / save to file /
+    ws['!rows'][0] = { hidden: true };
     XLSX.writeFile(wb, this.fileName);
   }
   public searchItems() {

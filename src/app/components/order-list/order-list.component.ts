@@ -310,6 +310,8 @@ export class OrderListComponent implements OnInit {
     XLSX.utils.sheet_add_aoa(ws, [nul], {origin:"A2"});
     XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A3"});
     // / save to file /
+    ws['!rows'][0] = { hidden: true };
+    ws['!rows'][1] = { hidden: true };
     XLSX.writeFile(wb, this.fileName);
     // this.exportExcelService.exportToExcel(element, this.fileName)
 
@@ -320,9 +322,7 @@ export class OrderListComponent implements OnInit {
     this.router.navigate(['/sendreport'])
   }
 
-
   public searchItems() {
-
     this.searchedItems = this.multiFilterPipe.transform(this.datas, this.filterForm.value);
     return this.searchedItems;
   }

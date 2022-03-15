@@ -176,8 +176,7 @@ export class MonthlyReportComponent implements OnInit {
     
         XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
     
-    
-        
+        ws['!rows'][0] = { hidden: true };
         // / save to file /
         XLSX.writeFile(wb, this.fileName);
 

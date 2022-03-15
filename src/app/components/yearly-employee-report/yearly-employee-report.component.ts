@@ -177,6 +177,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
     
         XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"}); 
         // / save to file /
+        ws['!rows'][0] = { hidden: true };
         XLSX.writeFile(wb, this.fileName);
 
   }
