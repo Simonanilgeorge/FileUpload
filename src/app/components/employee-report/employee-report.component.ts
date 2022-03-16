@@ -166,6 +166,8 @@ export class EmployeeReportComponent implements OnInit {
 getDropDown() {
 
   this.empreportService.getDropDownList().subscribe((res) => {
+    // test
+    console.log(res)
 
     this.dropDownList = res;
 

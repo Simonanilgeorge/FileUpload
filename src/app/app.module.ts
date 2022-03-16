@@ -31,6 +31,7 @@ import { YearlyEmployeeReportComponent } from './components/yearly-employee-repo
 import { HelpComponent } from './components/help/help.component';
 import { AddRoleComponent } from './components/add-role/add-role.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     HelpComponent,
     AddRoleComponent,
     ResetPasswordComponent,
+    DropdownComponent,
 
 
   ],
