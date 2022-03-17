@@ -1,0 +1,122 @@
+/* 
+  .parent{
+    position: relative;
+  width:14em;
+    padding: 0.5em;
+    border-radius: 0.3em;
+    background: white;
+    cursor: pointer;
+    border: 1px solid grey;
+    color: black;
+    font-size: 0.9rem;
+    height: 3em;
+
+  
+  }
+  
+  .dropdown{
+    border:1px solid black;
+    display: none;
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    transform: translate(0,100%);
+  max-height:10rem;
+  overflow: auto;
+  background:white;
+  }
+  
+  .display{
+    display:block;
+  }
+  
+  
+  
+  li{
+    list-style: none;
+  }
+  
+  .dropdown li{
+    padding:0.3rem;
+  
+  
+  
+  }
+  
+  .dropdown li:hover{
+    background: rgb(207, 204, 204);
+  }
+  
+  
+  .dropdown-text{
+    display: flex;
+    gap: 0.1em;
+    margin: 0.2em 0em;
+    text-overflow: ellipsis;
+white-space: nowrap;
+    overflow: hidden;
+    width: 90%;
+
+  }
+  
+
+  .icon{
+    position: absolute;
+    right: 0.3em;
+    top: 40%;
+
+    transform: rotate(90deg);
+    font-size: 0.8rem;
+  }
+
+
+  .checkbox{
+    
+    display: flex;
+    gap:0.2em;
+  padding:0.2em;
+  } */
+
+  .checkbox-dropdown {
+    border: 1px solid grey;
+    color:rgb(78, 77, 77);
+    padding: 0.8em;
+    font-size: 0.9em;
+    border-radius: 0.3em;
+    width:14em;
+    position: relative;
+    cursor: pointer;
+  }
+.checkbox-dropdown:focus-within{
+    box-shadow: 0 0 0 0.2rem #c1c2f9;
+}
+
+  
+  .dropdown {
+    overflow: hidden;
+    position: absolute;
+    background: white;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(80%);
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    border: 1px solid grey;
+    border-top: none;
+    border-radius: 0.3em;
+  
+    transition: 350ms ease-in-out;
+  }
+  
+  .display {
+      pointer-events: all;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(102%);
+  transition: 350ms ease-in-out;
+  }
+  

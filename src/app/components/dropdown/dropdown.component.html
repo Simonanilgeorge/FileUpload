@@ -1,1 +1,14 @@
-<p>dropdown works!</p>
+<div class="checkbox-dropdown" (click)="displayDropDown($event)" tabindex="0">
+    --Select--
+    <div class="dropdown" [class.display]="display" >
+
+    <div style="display: flex;gap:0.3em;padding:0.2em;align-items: center;">
+        <input type="checkbox" value="select all" (click)="checkAll($event)" [checked]="array.value.length==localArray.length">
+        Select All
+    </div>
+    <div *ngFor="let element of localArray;index as i" style="display: flex;gap:0.3em;padding:0.2em;align-items: center;">
+        <input type="checkbox" value="element" (click)="test(element,$event)" [checked]="array.value.includes(element)">
+        {{element}}
+    </div>
+</div>
+</div>
