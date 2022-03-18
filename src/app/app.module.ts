@@ -32,6 +32,7 @@ import { HelpComponent } from './components/help/help.component';
 import { AddRoleComponent } from './components/add-role/add-role.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { IncentiveReportComponent } from './components/incentive-report/incentive-report.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     AddRoleComponent,
     ResetPasswordComponent,
     DropdownComponent,
+    IncentiveReportComponent,
 
 
   ],
