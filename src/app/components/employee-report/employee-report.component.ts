@@ -69,6 +69,7 @@ export class EmployeeReportComponent implements OnInit {
 // get daily production report(called initially with no date)
   getReport() {
     this.empreportService.getReport().subscribe((res) => {
+
       this.onResponse(res);
     }, (err) => {
       console.log(err.message)
@@ -143,6 +144,8 @@ export class EmployeeReportComponent implements OnInit {
     this.titles.forEach(element => {
       Heading.push(this.titleCase(this.headings[element]))
     });
+
+    // note
 
     Heading.push(this.sheetName)
   

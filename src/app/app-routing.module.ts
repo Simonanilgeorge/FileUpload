@@ -17,6 +17,7 @@ import {YearlyEmployeeReportComponent} from './components/yearly-employee-report
 import {HelpComponent} from './components/help/help.component'
 import {AddRoleComponent} from './components/add-role/add-role.component'
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component'
+import {IncentiveReportComponent} from './components/incentive-report/incentive-report.component'
 import { from } from 'rxjs';
 
 
@@ -39,6 +40,7 @@ const routes: Routes = [
 {path:'help',component:HelpComponent},
 {path:'addrole',component:AddRoleComponent},
 {path:'reset',component:ResetPasswordComponent},
+{path:'incentivereport',component:IncentiveReportComponent},
 
 ];
 

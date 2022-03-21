@@ -85,9 +85,10 @@
               <label for="start_time">Start Time</label>
               <input type="time" name="start_time" class="input-primary" formControlName="startTime">
             </div>
-            <div class="inputgroup">
+            <div class="inputgroup" style="position:relative;">
               <label for="end_time">End Time</label>
               <input type="time" name="end_time" class="input-primary" formControlName="endTime">
+              <small *ngIf="startTime.valid && endTime.valid" style="color: rgb(187, 184, 184);position: absolute; bottom: 0;left:7%;">(Total time taken {{getTotalTime()}} min)</small>
             </div>
             <div class="inputgroup">
               <label for="status">Status</label>

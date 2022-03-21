@@ -1,1 +1,93 @@
-<p>incentive-report works!</p>
+<div class="container">
+    <app-navbar></app-navbar>
+    <div class="heading">
+        <h2>Incentive Report</h2>
+    </div>
+    <div *ngIf="flag==1" class="report-container">
+
+        <div class="tablecontainer">
+            <form [formGroup]="columnFilterForm">
+                <table class="table-excel">
+                    <tr>
+                        <th style="position:sticky;top:0;">
+                            <form class="tablesearch">
+                                <div class="inputgroup">
+
+                                    <input type="text" placeholder="Search" name="name" class="search"
+                                        [(ngModel)]="searchedKeyword">
+                                </div>
+                            </form>
+                        </th>
+                        <th colspan="16" style="position:sticky;top:0;">
+                            <input type="button" value="Export" class="exportbutton" (click)="export()">
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
+                            <div class="inputgroup-columnsort">
+                                <span *ngIf="title!='search' && title!='client'">
+                                    <input type="text" formControlName="{{title}}">
+                                </span>
+                                <span *ngIf="title=='search'">
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option value="search">Search</option>
+                                        <option value="Non-search">Non-Search</option>
+                                    </select>
+                                </span>
+
+                                <span *ngIf="title=='client'">
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let client of ClientList" value="{{client}}">
+                                            {{client}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                            <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}}
+                                &uarr;&darr;</span>
+                        </th>
+                        <th>Band 1</th>
+                        <th>Band 2</th>
+                        <th>Band 3</th>
+                        <th>Completed orders</th>
+                        <th>Productivity band</th>
+                        <th>Quality band</th>
+                        <th>Final band</th>
+                    </tr>
+                    <tr
+                        *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'" class="textleft">
+                            {{status[title]}}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngIf='searchItems().length==0'>
+                        <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+
+    </div>
+    <div class="statusmsg" *ngIf="flag==0">
+        <h2>No data available for the Day</h2>
+
+    </div>
+
+    <div class="statusmsg" *ngIf="flag==2">
+        <h2>Loading...</h2>
+
+    </div>
+
+
+</div>

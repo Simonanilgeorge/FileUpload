@@ -181,23 +181,29 @@ export class EmployeesendreportComponent implements OnInit {
 
   getTotalTime() {
 
-    let time1 = this.inputs.value.startTime;
-    let time2 = this.inputs.value.endTime;
-    time1 = time1.split(":").map(Number)
-    time2 = time2.split(":").map(Number)
-
-    // time taken to complete order is more than one day
-    if (time1[0] > time2[0] || time1[0] == time2[0] && time1[1] > time2[1]) {
-      time2[0] = time2[0] + 24;
-
+    if(this.startTime.valid&&this.endTime.valid){
+      let time1 = this.inputs.value.startTime;
+      let time2 = this.inputs.value.endTime;
+      time1 = time1.split(":").map(Number)
+      time2 = time2.split(":").map(Number)
+  
+      // time taken to complete order is more than one day
+      if (time1[0] > time2[0] || time1[0] == time2[0] && time1[1] > time2[1]) {
+        time2[0] = time2[0] + 24;
+  
+      }
+      let hour = Math.abs(time2[0]) - time1[0];
+      let minute = time2[1] - time1[1];
+  
+      let result = hour * 60 + minute
+  
+  
+      return result;
     }
-    let hour = Math.abs(time2[0]) - time1[0];
-    let minute = time2[1] - time1[1];
+    else{
+      return
+    }
 
-    let result = hour * 60 + minute
-
-
-    return result;
   }
 
   getDropDown() {
@@ -350,5 +356,7 @@ export class EmployeesendreportComponent implements OnInit {
     }
 
   }
+
+  
 
 }

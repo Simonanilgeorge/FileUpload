@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) { }
   private url: string = `${environment.url}/api/login`
   private roleNavigationObject = {
-    "Production Reports": ["MonthlyReportComponent", "EmployeeReportComponent", "YearlyEmployeeReportComponent"],
+    "Production Reports": ["MonthlyReportComponent", "EmployeeReportComponent", "YearlyEmployeeReportComponent","IncentiveReportComponent"],
     "Client Reports": ["ClientReportComponent", "YearlyClientReportComponent", "HomeComponent", "FileReportComponent"],
     "Admin": ["AddEmployeeComponent", "ViewEmployeeComponent","AddRoleComponent"],
     // "Add Role": ["AddRoleComponent"],
