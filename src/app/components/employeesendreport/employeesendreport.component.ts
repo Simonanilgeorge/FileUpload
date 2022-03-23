@@ -181,26 +181,38 @@ export class EmployeesendreportComponent implements OnInit {
 
   getTotalTime() {
 
-    if(this.startTime.valid&&this.endTime.valid){
+    if (this.startTime.valid && this.endTime.valid) {
+      let startTimeMin, endTimeMin, totalTime
       let time1 = this.inputs.value.startTime;
       let time2 = this.inputs.value.endTime;
       time1 = time1.split(":").map(Number)
       time2 = time2.split(":").map(Number)
-  
+
+
+      startTimeMin = time1[0] * 60 + time1[1]
+      endTimeMin = time2[0] * 60 + time2[1]
+      totalTime = endTimeMin - startTimeMin
+      if (totalTime < 0) {
+
+        if (!(time1[0] >= 12 && time2[0] < 12)) {
+          this.showToastMessage("Start time must be less than end time", "warning")
+          this.startTime.setValue("")
+          this.endTime.setValue("")
+        }
+
+      }
       // time taken to complete order is more than one day
       if (time1[0] > time2[0] || time1[0] == time2[0] && time1[1] > time2[1]) {
         time2[0] = time2[0] + 24;
-  
+
       }
       let hour = Math.abs(time2[0]) - time1[0];
       let minute = time2[1] - time1[1];
-  
+
       let result = hour * 60 + minute
-  
-  
       return result;
     }
-    else{
+    else {
       return
     }
 
@@ -268,10 +280,10 @@ export class EmployeesendreportComponent implements OnInit {
       if (res[0].Client == "NonProd") {
         this.checkNonProd();
         // test
-        if(res[0].orderNumber==""){
+        if (res[0].orderNumber == "") {
           this.Client.disable();
         }
-  
+
       }
 
     }, (err) => {
@@ -337,7 +349,7 @@ export class EmployeesendreportComponent implements OnInit {
       this.displayBoolean = false;
       this.NonProdDisabled = true
       // test
-      if(!this.update){
+      if (!this.update) {
         this.orderNumber.setValue(" ")
       }
       this.status.setValue("")
@@ -348,7 +360,7 @@ export class EmployeesendreportComponent implements OnInit {
 
       this.userForm.enable()
       // if client is not non prod and update is enabled disable order number
-      if(this.update){
+      if (this.update) {
         this.orderNumber.disable()
       }
 
@@ -357,6 +369,6 @@ export class EmployeesendreportComponent implements OnInit {
 
   }
 
-  
+
 
 }
