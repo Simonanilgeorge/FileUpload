@@ -195,7 +195,8 @@ export class EmployeesendreportComponent implements OnInit {
       if (totalTime < 0) {
 
         if (!(time1[0] >= 12 && time2[0] < 12)) {
-          this.showToastMessage("Start time must be less than end time", "warning")
+          
+          this.showToastMessage("start time must be less than end time", "warning")
           this.startTime.setValue("")
           this.endTime.setValue("")
         }

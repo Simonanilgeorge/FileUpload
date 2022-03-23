@@ -13,3 +13,7 @@
     color: #763c3c;
     background-color: #f0d8d8;
   }
+
+  p::first-letter{
+    text-transform: capitalize;
+  }
