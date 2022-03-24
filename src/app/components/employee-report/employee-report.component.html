@@ -1,17 +1,13 @@
 <div class="container">
     <app-navbar></app-navbar>
-
 <!-- 
     <input type="text" [(ngModel)]="sheetName"> -->
     <div class="heading">
         <h2 >Daily Production Report</h2>
-
     </div>
     <!-- Yearly Prodution Report -->
-
     <!-- Daily Production Report -->
     <form [formGroup]="filterForm" class="formcontainer">
-
         <div class="inputgroup">
             <label for="date">Date</label>
             <input type="date" name="date" class="input-primary" (change)="onSubmit()" formControlName="dateFilter">
@@ -27,10 +23,7 @@
         </div>
     </form>
 
-
-
     <div *ngIf="flag==1" class="report-container">
-
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
                 <table class="table-excel">
@@ -38,7 +31,6 @@
                         <th style="position:sticky;top:0;">
                             <form class="tablesearch">
                                 <div class="inputgroup">
-
                                     <input type="text" placeholder="Search" name="name" class="search"
                                         [(ngModel)]="searchedKeyword">
                                 </div>
@@ -48,7 +40,6 @@
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
                         </th>
                     </tr>
-
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                             <div class="inputgroup-columnsort" >
@@ -76,7 +67,6 @@
                                 >{{headings[title]}} &uarr;&darr;</span>
   
                         </th>
-
                         <th *ngIf="sheetName=='Orders'">
                             <span style="cursor: pointer;" (click)="getTitleName('order_count')"> ORDER COUNT
                                 &uarr;&darr;</span>
@@ -94,10 +84,8 @@
                                 &uarr;&darr;</span>
                         </th>
                     </tr>
-
                     <tr
                         *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
-
                         <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
                             class="textleft">{{status[title]}}</td>
                         <td *ngIf="sheetName=='Orders'"><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
@@ -108,21 +96,15 @@
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                       </tr>
-
                 </table>
             </form>
         </div>
-
     </div>
     <div class="statusmsg" *ngIf="flag==0">
         <h2>No data available for the Day</h2>
-
     </div>
-
     <div class="statusmsg" *ngIf="flag==2">
         <h2>Loading...</h2>
-
     </div>
-
 
 </div>
