@@ -61,7 +61,7 @@
       </div>
       <div class="inputgroup">
         <label for="client">Client</label>
-        <select name="client" class="input-primary" (change)="changeClientOptions($event)" formControlName="client">
+        <select name="client" class="input-primary" (change)="changeClientOptions()" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
           <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
           <option *ngFor="let client of ClientList" value="{{client}}">
@@ -69,11 +69,11 @@
           </option>
         </select>
       </div>
-      <!-- change start -->
+
       <div class="inputgroup">
         <!-- get styles from state -->
-        <label for="Task">Task</label>
-        <select name="Task" class="input-primary"  formControlName="task">
+        <label for="State">Task</label>
+        <select name="Task" (change)="changeTaskOptions()"class="input-primary"  formControlName="task">
           <option value="" [disabled]="true">--Select--</option>
           <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
           <option *ngFor="let task of Tasklist" value="{{task}}">
@@ -82,8 +82,32 @@
         </select>
       </div>
 
-      <!-- change end -->
+
       <!-- new Drop downs start -->
+      <div class="inputgroup">
+        <!-- get styles from state -->
+        <label for="Process">Process</label>
+        <select name="Process" class="input-primary"  formControlName="process">
+          <option value="" [disabled]="true">--Select--</option>
+          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+          <option *ngFor="let process of Processlist" value="{{process}}">
+            {{process}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="inputgroup">
+        <!-- get styles from state -->
+        <label for="State">State</label>
+        <select name="State" class="input-primary"  formControlName="state">
+          <option value="" [disabled]="true">--Select--</option>
+          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+          <option *ngFor="let state of StateList" value="{{state}}">
+            {{state}}
+          </option>
+        </select>
+      </div>
 
       <div class="inputgroup">
         <label for="Production status">Production Status</label>

@@ -1,11 +1,8 @@
 <div class="container">
   <app-navbar></app-navbar>
 
-
-
   <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
     <div class="modal" [class.display]="modalBoolean" #modalRef>
-
       <div class="modal-content">
           <div class="text">
               <h2 style="color:red;">Confirm Delete</h2>
@@ -22,7 +19,6 @@
           </div>
       </div>
   </div>
-
     <div class="cardcontainer">
       <div class="card">
         <form [formGroup]="userForm" >
@@ -42,7 +38,7 @@
             </div>
             <div class="inputgroup">
               <label for="client">Client</label>
-              <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions($event)">
+              <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions()">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let client of ClientList" value="{{client}}">
                   {{client}}
@@ -51,7 +47,7 @@
             </div>
             <div class="inputgroup">
               <label for="task">Task</label>
-              <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions($event)">
+              <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions()">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let task of Tasklist" value="{{task}}">
                   {{task}}
@@ -92,9 +88,7 @@
             </div>
             <div class="inputgroup">
               <label for="status">Status</label>
-
               <select name="status" class="input-primary" formControlName="status">
-
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let status of statusList">
                   {{status}}
@@ -117,6 +111,5 @@
         </form>
       </div>
     </div>
-
 
   </div>

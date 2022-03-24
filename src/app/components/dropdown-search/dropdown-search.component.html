@@ -1,1 +1,8 @@
-<p>dropdown-search works!</p>
+<div class="checkbox-dropdown" (click)="displayDropDown($event)" tabindex="0">
+    --Select--
+    <div class="dropdown" [class.display]="display" >
+    <div *ngFor="let element of localArray;index as i" style="display: flex;gap:0.3em;padding:0.2em;align-items: center;">
+        <p (click)="populateField(element)">{{element}}</p>
+    </div>
+</div>
+</div>
