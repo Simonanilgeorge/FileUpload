@@ -24,6 +24,7 @@ export class EmpreportService {
   private editRoleUrl=`${environment.url}/api/editrole`
   private addRoleUrl=`${environment.url}/api/addrole`
   private resetUrl=`${environment.url}/api/resetpassword`
+  private targetTableUrl=`${environment.url}/api/target`
    
   
   sendReport(data: any): Observable<any> {
@@ -116,5 +117,9 @@ editRole(data):Observable<any>{
 
 resetPassword(data):Observable<any>{
   return this.http.post<any>(this.resetUrl,data)
+}
+
+getTargetTable(client:string){
+  return this.http.get<any>(`${this.targetTableUrl}/${client}`)
 }
 }

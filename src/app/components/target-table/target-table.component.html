@@ -1,1 +1,33 @@
-<p>target-table works!</p>
+<div class="container">
+    <app-navbar></app-navbar>
+    <div class="heading">
+        <h2>Target Table</h2>
+    </div>
+    <div *ngIf="flag==1" class="report-container">
+        <div class="tablecontainer">
+            <table>
+                <tr>
+                    <th>Edit</th>
+                    <th *ngFor="let title of titles">{{headings[title]}}</th>
+                </tr>
+                
+                <tr *ngFor="let data of data">
+                    <td>
+                        <span (click)="edit(data)" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span (click)="showModal(data)" style='cursor: pointer;font-size: 1.1em;'>
+                          <i class="fa fa-trash-o"></i> </span>
+                    </td>
+                    <td *ngFor="let title of titles">{{data[title]}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="statusmsg" *ngIf="flag==2">
+        <h2>Loading...</h2>
+    </div>
+
+</div>
+
+

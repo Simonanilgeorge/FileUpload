@@ -35,6 +35,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { IncentiveReportComponent } from './components/incentive-report/incentive-report.component';
 import { DropdownSearchComponent } from './components/dropdown-search/dropdown-search.component';
 import { TargetTableComponent } from './components/target-table/target-table.component';
+import { AddTargetComponent } from './components/add-target/add-target.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { TargetTableComponent } from './components/target-table/target-table.com
     IncentiveReportComponent,
     DropdownSearchComponent,
     TargetTableComponent,
+    AddTargetComponent,
 
 
   ],

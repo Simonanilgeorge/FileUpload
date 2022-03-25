@@ -18,6 +18,7 @@ import {HelpComponent} from './components/help/help.component'
 import {AddRoleComponent} from './components/add-role/add-role.component'
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component'
 import {IncentiveReportComponent} from './components/incentive-report/incentive-report.component'
+import {TargetTableComponent} from './components/target-table/target-table.component'
 import { from } from 'rxjs';
 
 
@@ -25,7 +26,6 @@ const routes: Routes = [
 {path:'',pathMatch:'full',component: LoginComponent},
 {path:'addemployee',component: AddEmployeeComponent},
 {path:'viewemployees',component: ViewEmployeeComponent},
-
 {path:'clientreport',component: ClientReportComponent},
 {path:'monthlyreport',component:MonthlyReportComponent},
 {path:'home',component:LandingPageComponent},
@@ -41,6 +41,9 @@ const routes: Routes = [
 {path:'addrole',component:AddRoleComponent},
 {path:'reset',component:ResetPasswordComponent},
 {path:'incentivereport',component:IncentiveReportComponent},
+{path:'targettable/:client',component:TargetTableComponent},
+// {path:'edittargettable/:id'},
+// {path:'deletetargettable/:id'},
 
 ];
 
