@@ -43,7 +43,7 @@
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                             <div class="inputgroup-columnsort" >
-                                <span *ngIf="title!='search' && title!='client'">
+                                <span *ngIf="!dropDownFilters.includes(title)">
                                     <input type="text" formControlName="{{title}}" >
                                 </span>
                                 <span *ngIf="title=='search'" >
@@ -55,13 +55,32 @@
                                 </span>
                             
                                 <span *ngIf="title=='client'" >
-                                    <select formControlName="{{title}}" style="width: 12em;">
+                                    <select formControlName="{{title}}" (change)="changeClientOptions()"style="width: 12em;">
                                         <option value="">All</option>
                                         <option *ngFor="let client of ClientList" value="{{client}}">
                                           {{client}}
                                         </option>
                                     </select>
                                 </span>
+
+                                <!--  -->
+                                <span *ngIf="title=='task'">
+                                    <select formControlName="{{title}}"  (change)="changeTaskOptions()"style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let task of Tasklist" value="{{task}}">
+                                            {{task}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='process'">
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let process of Processlist" value="{{process}}">
+                                            {{process}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <!--  -->
                             </div>
                             <span style="cursor: pointer;" (click)="getTitleName(title)"
                                 >{{headings[title]}} &uarr;&darr;</span>

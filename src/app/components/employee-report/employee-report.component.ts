@@ -8,7 +8,6 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 import * as XLSX from 'xlsx';
 
-
 @Component({
   selector: 'app-employee-report',
   templateUrl: './employee-report.component.html',
@@ -16,24 +15,28 @@ import * as XLSX from 'xlsx';
   providers: [DatePipe,ColumnsortPipe]
 })
 export class EmployeeReportComponent implements OnInit {
-
   searchedItems
   // Daily Production report
   fileName="Daily_Production_Report.xlsx"
-
   datas: any;
   titleName;
   dropDownList
   ClientList=[]
+  Tasklist=[]
+  Processlist=[]
+  final
   sheetName="Revenue";
-  titles = ["empcode", "name", "doj", "search", "client", "task"];
+  titles = ["empcode", "name", "doj", "search", "client", "task","process","state"];
+  dropDownFilters=["client","search","task","process"];
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",
     "doj": "Date of Joining",
     "search": "Search/Non-Search",
     "client":"Client",
-    "task": "Task"
+    "task": "Task",
+    "process":"Process",
+    "state":"State"
   }
   
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
@@ -46,9 +49,10 @@ export class EmployeeReportComponent implements OnInit {
     doj: [""],
     search: [""],
     client: [""],
-    task: [""]
+    task: [""],
+    process:[""],
+    state:[""]
   })
-
 
   filterForm = this.fb.group({
     dateFilter: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'),Validators.required],
@@ -56,9 +60,7 @@ export class EmployeeReportComponent implements OnInit {
     endDate: [""]
   });
   constructor(private empreportService: EmpreportService, private fb: FormBuilder, private loginService: LoginService, private datePipe: DatePipe,private route: ActivatedRoute,private router: Router,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
-
   ngOnInit(): void {
-
 
     this.loginService.checkSessionStorage();
     this.getDropDown()
@@ -66,39 +68,70 @@ export class EmployeeReportComponent implements OnInit {
   
   }
 
+
+  get task(){
+    return this.columnFilterForm.get("task")
+  }
+
+  get process(){
+    return this.columnFilterForm.get("process")
+  }
+
+  get client(){
+    return this.columnFilterForm.get("client")
+  }
+
+  changeClientOptions() {
+
+    this.task.setValue("")
+    this.process.setValue("")
+
+    this.Tasklist = this.dropDownList[this.client.value];
+
+    this.Processlist = []
+  }
+  // function called when task value is changed
+  changeTaskOptions() {
+    if(this.task.value==""){
+      this.Processlist=[]   
+    }
+    else{
+      this.final = null
+      this.process.setValue("");
+      this.final = this.client.value + this.task.value
+      this.Processlist = this.dropDownList[this.final]
+    }
+
+  }
+
 // get daily production report(called initially with no date)
   getReport() {
     this.empreportService.getReport().subscribe((res) => {
-
+      console.log(res)
       this.onResponse(res);
     }, (err) => {
       console.log(err.message)
     })
   }
 
-
   //call this function with filter form values
   onSubmit() {
-
     if (this.filterForm.status === "INVALID") {
       this.flag=0;
       return;
     }
     this.flag = 2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
-
+      
       this.onResponse(res);
     }, (err) => {
       console.log(err.message);
     })
-
   }
-
 
 
   // function called on response 
   onResponse(res) {
-
     res = JSON.parse(res);
     this.datas = res;
     if (this.datas.length == 0) {
@@ -109,31 +142,23 @@ export class EmployeeReportComponent implements OnInit {
       this.flag = 1;
     }
 
-
   }
-
   // reset titlename for sort(ascending descending)
   getTitleName(title) {
-
     this.titleName = null;
     setTimeout(() => {
       this.titleName = title;
     }, 100)
 
-
   }
-
 
    titleCase(str) {
     return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
   }
-
   // column filter on double click
   // showInput() {
   //   this.showColumnInput = !this.showColumnInput
-
   // }
-
 
     // export to excel file
   export() {
@@ -144,9 +169,7 @@ export class EmployeeReportComponent implements OnInit {
     this.titles.forEach(element => {
       Heading.push(this.titleCase(this.headings[element]))
     });
-
     // note
-
     Heading.push(this.sheetName)
   
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
@@ -160,23 +183,17 @@ export class EmployeeReportComponent implements OnInit {
   }
   public searchItems() {
 
-
     this.searchedItems = this.columnSortPipe.transform(this.datas,this.columnFilterForm.value);
-
    return this.searchedItems;
 }
-
 getDropDown() {
-
   this.empreportService.getDropDownList().subscribe((res) => {
     // test
-    console.log(res)
 
     this.dropDownList = res;
-
     this.ClientList = this.dropDownList.Client;
-    this.getReport();
-
+    // this.getReport();
+    this.onSubmit()
 
   }, (err) => {
     console.log(err.message)

@@ -49,7 +49,7 @@
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
-                            
+
                         </th>
                     </tr>
                     <tr>
@@ -57,41 +57,60 @@
 
                             <!--  use below for dbclick *ngIf="showColumnInput"  -->
                             <!-- styles class="search"  -->
-                            <div class="inputgroup-columnsort" >
-                                <span *ngIf="title!='search' && title!='client'">
-                                    <input type="text" formControlName="{{title}}" >
+                            <div class="inputgroup-columnsort">
+                                <span *ngIf="!dropDownFilters.includes(title)">
+                                    <input type="text" formControlName="{{title}}">
                                 </span>
-                                <span *ngIf="title=='search'" >
+                                <span *ngIf="title=='search'">
                                     <select formControlName="{{title}}" style="width: 12em;">
                                         <option value="">All</option>
                                         <option value="search">Search</option>
                                         <option value="Non-search">Non-Search</option>
                                     </select>
                                 </span>
-                            
-                                <span *ngIf="title=='client'" >
-                                    <select formControlName="{{title}}" style="width: 12em;">
+
+                                <span *ngIf="title=='client'">
+                                    <select formControlName="{{title}}" (change)="changeClientOptions()"style="width: 12em;">
                                         <option value="">All</option>
                                         <option *ngFor="let client of ClientList" value="{{client}}">
-                                          {{client}}
+                                            {{client}}
                                         </option>
                                     </select>
                                 </span>
+                                <!--  -->
+                                <span *ngIf="title=='task'">
+                                    <select formControlName="{{title}}" (change)="changeTaskOptions()"
+                                        style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let task of Tasklist" value="{{task}}">
+                                            {{task}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='process'">
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let process of Processlist" value="{{process}}">
+                                            {{process}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <!--  -->
                             </div>
-                                
+
                             <!-- use for span (dblclick)="showInput()" -->
                             <span style="cursor: pointer;" (click)="getTitleName(title)">
                                 {{headings[title]}} &uarr;&darr;
                             </span>
-       
+
                         </th>
                         <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
                     </tr>
                     <tr
                         *ngFor="let data of data | filter:searchedKeyword | columnsort:columnFilterForm.value| sort:titleName">
-                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
-                            class="textleft">{{data[title]}}</td>
+                        <td *ngFor="let title of titles" [class.stickydata]="title=='name'" class="textleft">
+                            {{data[title]}}</td>
                         <td *ngFor="let date of dates" [class.weekend]="checkDay(date)">
                             <span *ngIf="data[date]">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
@@ -109,7 +128,7 @@
                         <td
                             style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
                             Grand Total</td>
-                        <td colspan="5" style="background: rgb(42 67 125); color:white;"></td>
+                        <td colspan="7" style="background: rgb(42 67 125); color:white;"></td>
                         <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
 
                             <span *ngIf="columnSum[date]!=0">
@@ -124,7 +143,7 @@
                     </tr>
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="40" style="text-align: center;background: #dee2e6;">No Reports Available</td>
-                      </tr>
+                    </tr>
 
                 </table>
             </form>

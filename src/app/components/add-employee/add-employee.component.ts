@@ -115,7 +115,7 @@ export class AddEmployeeComponent implements OnInit {
     return this.userForm.get("inputs")
   }
   get keys() {
-    return [this.task, this.search, this.client, this.delay_reason, this.production_status]
+    return [this.process,this.state,this.task, this.search, this.client, this.delay_reason, this.production_status]
   }
   // check if operation is update or delete
   checkUpdate() {
@@ -127,7 +127,7 @@ export class AddEmployeeComponent implements OnInit {
       this.empcode.disable()
       this.name.disable()
       this.doj.disable()
-      // this.training_duration.disable()
+      this.training_duration.disable()
       this.getSingleEmployee();
     }
     else if (deleteEmployee) {
@@ -195,9 +195,8 @@ export class AddEmployeeComponent implements OnInit {
       sessionStorage.removeItem("employeeID");
       sessionStorage.removeItem("deleteEmployee")
       res = JSON.parse(res);
-      // this.Tasklist = this.dropDownList[res[0].client];
-      this.Tasklist = this.dropDownList[res[0].Client];
-      let temp = res[0].Client + res[0].Task
+      this.Tasklist = this.dropDownList[res[0].client];
+      let temp = res[0].client + res[0].task
       this.Processlist = this.dropDownList[temp]
       this.inputs.patchValue(res[0]);
       // if shift is not applicable populate fields with not applicable
@@ -249,6 +248,8 @@ export class AddEmployeeComponent implements OnInit {
         search: "Not Applicable",
         client: "Not Applicable",
         task: "Not Applicable",
+        process:"Not Applicable",
+        state:"Not Applicable",
         production_status: "Not Applicable",
         training_duration: "Not Applicable",
         delay_reason: "Not Applicable",
@@ -258,6 +259,8 @@ export class AddEmployeeComponent implements OnInit {
       // this.Tasklist = []
       this.selectGeneralShift = true
     }
+
+    // when switched from not applicable to any other value
     else {
       this.keys.forEach((key) => {
         if (key.value == "Not Applicable") {
@@ -280,7 +283,6 @@ export class AddEmployeeComponent implements OnInit {
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      console.log(this.dropDownList)
       this.StateList = this.dropDownList.States
       this.roleList = res.role
       this.ClientList = this.dropDownList.Client;

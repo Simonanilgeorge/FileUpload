@@ -7,19 +7,21 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 })
 export class DropdownSearchComponent implements OnInit {
   @Input() array
-  @Input() field
+  @Input() localArray
   @Input() display
   @Output() displayChange=new EventEmitter()
   constructor(private fb: FormBuilder) { }
+
   ngOnInit(): void {
   }
   // dropdown checkbox
-  populateField(element){
-    this.field.setValue(element)
-  }
+
   displayDropDown(event) {
+
     event.stopPropagation()
     this.display = !this.display
     this.displayChange.emit(this.display)
+
   }
+
 }

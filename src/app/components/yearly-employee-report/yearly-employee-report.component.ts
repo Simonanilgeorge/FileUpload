@@ -22,6 +22,10 @@ export class YearlyEmployeeReportComponent implements OnInit {
   flag = 2;
   dropDownList
   ClientList=[]
+  Tasklist=[]
+  Processlist=[]
+  final
+  dropDownFilters=["client","search","task","process"];
   titleName;
   message;
   toastStatus
@@ -31,14 +35,16 @@ export class YearlyEmployeeReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
-  titles = ["empcode", "name", "doj", "search", "client", "task"];
+  titles = ["empcode", "name", "doj", "search", "client", "task","process","state"];
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",
     "doj": "Date of Joining",
     "search": "Search/Non-Search",
     "client": "Client",
-    "task": "Task"
+    "task": "Task",
+    "process":"Process",
+    "state":"State"
   }
 
   sheetNameRes;
@@ -50,7 +56,9 @@ export class YearlyEmployeeReportComponent implements OnInit {
     doj: [""],
     search: [""],
     client: [""],
-    task: [""]
+    task: [""],
+    process:[""],
+    state:[""]
   })
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(), "yyyy"), Validators.required],
@@ -65,6 +73,17 @@ export class YearlyEmployeeReportComponent implements OnInit {
     this.getDropDown()
   }
 
+  get task(){
+    return this.columnFilterForm.get("task")
+  }
+
+  get process(){
+    return this.columnFilterForm.get("process")
+  }
+
+  get client(){
+    return this.columnFilterForm.get("client")
+  }
   get date() {
     return this.Date.get("date");
   }
@@ -74,6 +93,28 @@ export class YearlyEmployeeReportComponent implements OnInit {
   }
 
 
+  changeClientOptions() {
+
+    this.task.setValue("")
+    this.process.setValue("")
+
+    this.Tasklist = this.dropDownList[this.client.value];
+
+    this.Processlist = []
+  }
+  // function called when task value is changed
+  changeTaskOptions() {
+    if(this.task.value==""){
+      this.Processlist=[]   
+    }
+    else{
+      this.final = null
+      this.process.setValue("");
+      this.final = this.client.value + this.task.value
+      this.Processlist = this.dropDownList[this.final]
+    }
+
+  }
   // function called on ngOnInit()
   filter() {
     this.flag = 2;

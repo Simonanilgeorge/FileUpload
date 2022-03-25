@@ -29,6 +29,10 @@ export class MonthlyReportComponent implements OnInit {
   data = [];
   dates = [];
   ClientList=[]
+  Tasklist=[]
+  Processlist=[]
+  final
+  dropDownFilters=["client","search","task","process"];
   dropDownList: any;
   headings = {
     "empcode": "Employee code",
@@ -36,10 +40,12 @@ export class MonthlyReportComponent implements OnInit {
     "doj": "Date of Joining",
     "search": "Search/Non-Search",
     "client": "Client",
-    "task": "Task"
+    "task": "Task",
+    "process":"Process",
+    "state":"State"
   }
 
-  titles=["empcode","name","doj","search","client","task"];
+  titles=["empcode","name","doj","search","client","task","process","state"];
   sheetNameRes;
   SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   showColumnInput;
@@ -49,7 +55,9 @@ export class MonthlyReportComponent implements OnInit {
     doj: [""],
     search: [""],
     client: [""],
-    task: [""]
+    task: [""],
+    process:[""],
+    state:[""]
   })
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],
@@ -65,11 +73,43 @@ export class MonthlyReportComponent implements OnInit {
     this.getDropDown();
 
   }
+  get task(){
+    return this.columnFilterForm.get("task")
+  }
 
+  get process(){
+    return this.columnFilterForm.get("process")
+  }
+
+  get client(){
+    return this.columnFilterForm.get("client")
+  }
   get date() {
     return this.Date.get("date");
   }
 
+  changeClientOptions() {
+
+    this.task.setValue("")
+    this.process.setValue("")
+
+    this.Tasklist = this.dropDownList[this.client.value];
+
+    this.Processlist = []
+  }
+  // function called when task value is changed
+  changeTaskOptions() {
+    if(this.task.value==""){
+      this.Processlist=[]   
+    }
+    else{
+      this.final = null
+      this.process.setValue("");
+      this.final = this.client.value + this.task.value
+      this.Processlist = this.dropDownList[this.final]
+    }
+
+  }
 
   // function called on ngOnInit()
   filter() {
@@ -82,7 +122,6 @@ export class MonthlyReportComponent implements OnInit {
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-
       this.data = res.data;
       this.dates = res.dates;
        
