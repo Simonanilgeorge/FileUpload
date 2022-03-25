@@ -1,15 +1,10 @@
 <div class="container">
   <app-navbar></app-navbar>
   <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
-
   <div class="heading">
     <h2>My Production Data</h2>
   </div>
-
-
-
   <form [formGroup]="user" class="filter">
-
     <div class="inputgroup">
       <label for="date">Start Date</label>
       <input type="date" name="date" class="input-primary" formControlName="dateFilter" (change)="getStatus()">
@@ -23,13 +18,8 @@
             </div> -->
   </form>
 
-
-
-
-
   <div *ngIf="flag==1" class="report-container">
     <!-- <div *ngIf="datas" class="report"> -->
-
       <div class="tablecontainer">
         <form [formGroup]="filterForm">
           <table class="table-excel">
@@ -41,10 +31,8 @@
             <tr>
               <th>
                 <!-- <div class="inputgroup"> -->
-
                 <button  class="exportbutton" (click)="clearFields()">Clear</button>
                 <!-- </div> -->
-
               </th>
               <th>
                 <!-- <div class="inputgroup"> -->
@@ -53,7 +41,6 @@
                 
                 <!-- </div> -->
               </th>
-
               <th>
                 <!-- <div class="inputgroup"> -->
                 <!-- <label for="orderNumber">Order Number</label> -->
@@ -72,7 +59,6 @@
                 </select>
                 <!-- </div> -->
               </th>
-
               <th>
                 <!-- <div class="inputgroup"> -->
                 <!-- <label for="task">Task</label> -->
@@ -95,7 +81,7 @@
                 </select>
                 <!-- </div> -->
               </th>
-              <th colspan="3"></th>
+              <th colspan="4"></th>
               <th>
                 <!-- <div class="inputgroup"> -->
                 <!-- <label for="status">Status</label> -->
@@ -111,7 +97,6 @@
             </tr>
             <tr>
               <th>Edit</th>
-
               <th *ngFor="let title of titles">
                 {{ headings[title]}}
                 <span style="cursor: pointer;" (click)="getTitleName(title)">&uarr;&darr;</span>
@@ -119,7 +104,6 @@
             </tr>
             <tr *ngFor="let data of datas |multifilter:filterForm.value| sort:titleName ">
               <td style="text-align: center;">
-
                 <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
               &nbsp;&nbsp;
                 <span (click)="delete(data)" style='cursor: pointer;font-size: 1.1em;'> 
@@ -127,7 +111,6 @@
               </td>
               <td *ngFor="let title of titles">{{data[title]}}</td>
            
-
             </tr>
             <tr *ngIf='searchItems().length==0'>
               <td colspan="13" style="text-align: center;">No Reports Available</td>
@@ -144,5 +127,4 @@
 <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
     <h2>No data available for the Date Range </h2>
 </div>
-
 </div>

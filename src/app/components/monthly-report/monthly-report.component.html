@@ -70,7 +70,8 @@
                                 </span>
 
                                 <span *ngIf="title=='client'">
-                                    <select formControlName="{{title}}" (change)="changeClientOptions()"style="width: 12em;">
+                                    <select formControlName="{{title}}" (change)="changeClientOptions()"
+                                        style="width: 12em;">
                                         <option value="">All</option>
                                         <option *ngFor="let client of ClientList" value="{{client}}">
                                             {{client}}
@@ -128,9 +129,8 @@
                         <td
                             style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
                             Grand Total</td>
-                        <td colspan="7" style="background: rgb(42 67 125); color:white;"></td>
+                        <td *ngFor="let title of titles|slice:1" style="background: rgb(42 67 125); color:white;"></td>
                         <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
-
                             <span *ngIf="columnSum[date]!=0">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
                                  {{columnSum[date]| number}}
