@@ -24,6 +24,7 @@ export class AddEmployeeComponent implements OnInit {
   update: Boolean = false;
   message = null;
   toast: Boolean = false;
+  toastStatus;
   userForm: FormGroup;
   employeeID = { id: sessionStorage.getItem("employeeID") }
   dropDownList: any;
@@ -33,7 +34,7 @@ export class AddEmployeeComponent implements OnInit {
   Tasklist = []
   final: any
   displayBoolean = false;
-  toastStatus;
+
 
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {

@@ -1,1 +1,90 @@
-<p>add-target works!</p>
+<div class="container">
+    <app-navbar></app-navbar>
+    <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
+    <div class="modal" [class.display]="modalBoolean" #modalRef>
+      <div class="modal-content">
+          <div class="text">
+              <h2 style="color:red;">Confirm Delete</h2>
+          </div>
+          <div class="text">
+              <p>Are you sure you want to delete?</p>
+  
+          </div>
+  
+          <div class="buttoncontainer">
+              <button class="openbtn" (click)="deleteTarget()">Yes</button>
+              <button class="openbtn" (click)="closeModal()">No</button>
+          </div>
+      </div>
+  </div>
+    <div class="cardcontainer">
+        <div class="card">
+          <form [formGroup]="form" >
+            <div class="inputgroup">
+
+              <h2 *ngIf="!update && !delete">Add Target Data</h2>
+              <h2 *ngIf="update">Update Target Data</h2>
+              <h2 *ngIf="delete">Delete Target Data</h2>
+            </div>
+            <div class="formcontainer-primary" [formGroup]="form">
+
+              <div class="inputgroup">
+                <label for="Client">Client</label>
+                <input name="Client" class="input-primary" formControlName="Client" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="Task">Task</label>
+                <input name="Task" class="input-primary" formControlName="Task" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="Process">Process</label>
+                <input name="Process" class="input-primary" formControlName="Process" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="Time">Time</label>
+                <input name="Time" type="number" class="input-primary" formControlName="Time" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="band1">Band 1</label>
+                <input name="band1" type="number" class="input-primary" formControlName="band1" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="band2">Band 2</label>
+                <input name="band2" type="number" class="input-primary" formControlName="band2" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="band3">Band 3</label>
+                <input name="band3" type="number" class="input-primary" formControlName="band3" autocomplete="off">
+              </div>
+
+              <div class="inputgroup">
+                <label for="price">Price</label>
+                <input name="price" type="number" class="input-primary" formControlName="price" autocomplete="off">
+              </div>
+              
+            </div>
+            <div class="minicontainer">
+              <div class="inputgroup"  *ngIf="delete||update">
+                <button class="button" type="submit" (click)="goBack()">Cancel</button>
+              </div>
+              <div class="inputgroup" *ngIf="!delete && !update">
+                <button class="button" (click)="submit()">Submit</button>
+              </div>
+              <div class="inputgroup" *ngIf="update">
+                <button class="button" (click)="edit()">Submit</button>
+              </div>
+              <div class="inputgroup"  *ngIf="delete">
+                <button class="button" (click)="showModal()">Delete</button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+</div>

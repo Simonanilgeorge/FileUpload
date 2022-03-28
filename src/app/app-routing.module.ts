@@ -19,6 +19,7 @@ import {AddRoleComponent} from './components/add-role/add-role.component'
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component'
 import {IncentiveReportComponent} from './components/incentive-report/incentive-report.component'
 import {TargetTableComponent} from './components/target-table/target-table.component'
+import {AddTargetComponent} from './components/add-target/add-target.component'
 import { from } from 'rxjs';
 
 
@@ -42,9 +43,9 @@ const routes: Routes = [
 {path:'reset',component:ResetPasswordComponent},
 {path:'incentivereport',component:IncentiveReportComponent},
 {path:'targettable/:client',component:TargetTableComponent},
-// {path:'edittargettable/:id'},
-// {path:'deletetargettable/:id'},
-
+{path:'edittargettable/:editid',component:AddTargetComponent},
+{path:'deletetargettable/:deleteid',component:AddTargetComponent},
+{path:'addtarget',component:AddTargetComponent}
 ];
 
 

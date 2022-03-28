@@ -17,10 +17,10 @@ data=[]
 titles:string[]=[]
 
 headings={
-  "client":"Client",
-  "task":"Task",
-  "process":"Process",
-  "time":"Time",
+  "Client":"Client",
+  "Task":"Task",
+  "Process":"Process",
+  "Time":"Time",
   "band1":"Band 1",
   "band2":"Band 2",
   "band3":"Band 3",
@@ -43,9 +43,7 @@ headings={
 
   }
 
-  edit(data){
-    console.log(data)
-  }
+
   getTargetTable(client){
     this.empReportService.getTargetTable(client).subscribe((res)=>{
 
@@ -55,7 +53,7 @@ headings={
       this.titles=Object.keys(res[0]).filter((element)=>{
         return element!="id"
       })
-      console.log(this.titles)
+
     },(err)=>{
       console.log(err.message)
     })
