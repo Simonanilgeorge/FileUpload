@@ -38,12 +38,6 @@ headings={
 
   }
 
-  showModal(data){
-    console.log(data)
-
-  }
-
-
   getTargetTable(client){
     this.empReportService.getTargetTable(client).subscribe((res)=>{
 

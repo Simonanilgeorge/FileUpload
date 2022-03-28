@@ -109,8 +109,17 @@ export class AddTargetComponent implements OnInit {
       this.showToastMessage("Please fill all fields", "warning")
       return;
     }
+    this.empReportService.addTarget(this.form.value).subscribe((res)=>{
+      if(res.response=="Success"){
+        this.showToastMessage("New target added","success")
+      }
+      else{
+        this.showToastMessage("Target already exists","warning")
+      }
+    },(err)=>{
+      console.log(err.message)
+    })
 
-    console.log(this.form.value)
 
   }
 
@@ -137,9 +146,13 @@ export class AddTargetComponent implements OnInit {
 
 
     this.empReportService.deleteTarget(this.dataToBeDeleted).subscribe((res) => {
+
+      this.closeModal()
       if (res.response == "Success") {
         this.showToastMessage("Deleted successfully", "success")
+
         setTimeout(() => {
+
           this.location.back()
         }, 1000);
       }
@@ -163,7 +176,7 @@ export class AddTargetComponent implements OnInit {
   closeModal() {
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
-    this.goBack()
+
   }
   // toast message
   showToastMessage(message, status) {

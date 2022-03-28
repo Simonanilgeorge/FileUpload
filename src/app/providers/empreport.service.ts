@@ -124,15 +124,18 @@ getTargetTable(client:string){
   return this.http.get<any>(`${this.targetTableUrl}/${client}`)
 }
 
-getSingleTarget(id){
+addTarget(data):Observable<any>{
+return this.http.post<any>(`${this.singleTargetUrl}`,data)
+}
+getSingleTarget(id):Observable<any>{
   return this.http.get<any>(`${this.singleTargetUrl}/${id}`)
 }
 
-updateTarget(data,id){
+updateTarget(data,id):Observable<any>{
   return this.http.put<any>(`${this.singleTargetUrl}/${id}`,data)
 }
 
-deleteTarget(id){
+deleteTarget(id):Observable<any>{
   return this.http.delete<any>(`${this.singleTargetUrl}/${id}`)
 }
 }
