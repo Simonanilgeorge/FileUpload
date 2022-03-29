@@ -39,9 +39,9 @@
     padding: 30px;
     flex: 1;
   }
-  
   .inputgroup {
-    padding-left: 1em;
+    width: 14em;
+    padding: 0 1em;
   }
   .report-container {
     display: flex;

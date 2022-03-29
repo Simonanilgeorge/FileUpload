@@ -2,15 +2,18 @@
   .success{
     color: #3c763d;
     background-color: #dff0d8;
+    border-left: 1em solid rgb(89, 158, 89);
   }
 
   .warning{
     color: #76583c;
+    border-left: 1em solid #644425;
     background: #FFECB3;
   }
 
   .error{
     color: #763c3c;
+    border-left: 1em solid rgb(158, 89, 89);
     background-color: #f0d8d8;
   }
 

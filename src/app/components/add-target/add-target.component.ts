@@ -62,6 +62,9 @@ export class AddTargetComponent implements OnInit {
       }
     });
   }
+  get username(){
+    return this.form.get("username")
+  }
 
   get Client() {
     return this.form.get("Client")
@@ -112,6 +115,8 @@ export class AddTargetComponent implements OnInit {
     this.empReportService.addTarget(this.form.value).subscribe((res)=>{
       if(res.response=="Success"){
         this.showToastMessage("New target added","success")
+        this.form.reset()
+        this.username.setValue(sessionStorage.getItem("user"))
       }
       else{
         this.showToastMessage("Target already exists","warning")

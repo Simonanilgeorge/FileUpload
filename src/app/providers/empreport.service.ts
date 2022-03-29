@@ -26,6 +26,7 @@ export class EmpreportService {
   private resetUrl=`${environment.url}/api/resetpassword`
   private targetTableUrl=`${environment.url}/api/target`
   private singleTargetUrl=`${environment.url}/api/singletarget`
+  private incentiveReportUrl=`${environment.url}/api/incentiverprt`
    
   
   sendReport(data: any): Observable<any> {
@@ -137,5 +138,9 @@ updateTarget(data,id):Observable<any>{
 
 deleteTarget(id):Observable<any>{
   return this.http.delete<any>(`${this.singleTargetUrl}/${id}`)
+}
+
+getIncentiveReport(data):Observable<any>{
+  return this.http.post<any>(this.incentiveReportUrl,data)
 }
 }

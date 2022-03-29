@@ -4,12 +4,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import { ColumnsortPipe } from '../../pipes/columnsort.pipe'
+import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-incentive-report',
   templateUrl: './incentive-report.component.html',
   styleUrls: ['./incentive-report.component.css'],
-  providers: [ColumnsortPipe]
+  providers: [DatePipe, ColumnsortPipe]
 })
 export class IncentiveReportComponent implements OnInit {
   searchedItems
@@ -19,53 +20,143 @@ export class IncentiveReportComponent implements OnInit {
   datas: any;
   titleName;
   dropDownList
+  Tasklist = []
   ClientList = []
-
-  titles = ["empcode", "name", "doj", "search", "client", "task"];
+  Processlist = []
+  final
+  textFilters = ["empcode", "name", "doj"];
+  titles = ['empcode', 'name', 'doj', 'production_status', 'shift', 'search', 'client', 'task', 'process', 'state', 'band1', 'band2', 'band3', 'order_count', 'productivity_band', 'quality_band', 'final_band']
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",
     "doj": "Date of Joining",
+    "production_status": "Production Status",
+    "shift": "Shift",
     "search": "Search/Non-Search",
     "client": "Client",
-    "task": "Task"
+    "task": "Task",
+    "process": "Process",
+    "state": "State",
+    "band1": "Band 1",
+    "band2": "Band 2",
+    "band3": "Band 3",
+    "order_count": "Completed Orders",
+    "productivity_band": "Productivity Band",
+    "quality_band": "Quality Band",
+    "final_band": "Final Band"
   }
+  // titles=Object.keys(this.headings)
 
   // SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
+
   columnFilterForm = this.fb.group({
     empcode: [""],
     name: [""],
     doj: [""],
     search: [""],
     client: [""],
-    task: [""]
+    task: [""],
+    process: [""],
+    shift: [""],
+    production_status: [""],
+    productivity_band: [""]
   })
 
+  form = this.fb.group({
+    startDate: [""],
+    endDate: [""],
+    date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required]
 
-  constructor(private columnSortPipe: ColumnsortPipe, exportExcelService: ExportExcelService, private empreportService: EmpreportService, private loginService: LoginService, private fb: FormBuilder) { }
+  })
+
+  constructor(private datePipe: DatePipe, private columnSortPipe: ColumnsortPipe, exportExcelService: ExportExcelService, private empreportService: EmpreportService, private loginService: LoginService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
     this.getDropDown()
+    this.filter()
     this.loginService.navigateByRole("IncentiveReportComponent")
 
+
+
+  }
+  get task() {
+    return this.columnFilterForm.get("task")
   }
 
+  get process() {
+    return this.columnFilterForm.get("process")
+  }
+
+  get client() {
+    return this.columnFilterForm.get("client")
+  }
+
+  get date() {
+    return this.form.get("date")
+  }
+  get startDate() {
+    return this.form.get("startDate")
+  }
+  get endDate() {
+    return this.form.get("endDate")
+  }
+
+
+  filter() {
+
+    let month, year, start, end
+    [year, month] = this.date.value.split("-")
+    console.log(month, year)
+    end = `${+month}/${25}/${+year}`
+    if (month === "01") {
+      start = `12/${26}/${+year - 1}`
+    }
+    else {
+      start = `${+month-1}/${26}/${+year}`
+    }
+
+    this.startDate.setValue( this.datePipe.transform(start, 'yyyy-MM-dd'))
+    this.endDate.setValue(this.datePipe.transform(end, 'yyyy-MM-dd'))
+
+
+  }
   // get daily production report(called initially with no date)
   getReport() {
-    this.empreportService.getReport().subscribe((res) => {
-
-      this.onResponse(res);
-    }, (err) => {
+    this.empreportService.getIncentiveReport(this.form.value).subscribe((res)=>{
+      console.log(res[0])
+      this.onResponse(res)
+    },(err)=>{
       console.log(err.message)
     })
   }
 
 
+
+  changeClientOptions() {
+
+    this.task.setValue("")
+    this.process.setValue("")
+    this.Tasklist = this.dropDownList[this.columnFilterForm.value.client];
+    this.Processlist = []
+  }
+  // function called when task value is changed
+  changeTaskOptions() {
+    if (this.task.value == "") {
+      this.Processlist = []
+    }
+    else {
+      this.final = null
+      this.process.setValue("");
+      this.final = this.client.value + this.task.value
+      this.Processlist = this.dropDownList[this.final]
+    }
+
+  }
   //call this function with filter form values
   // onSubmit() {
 
@@ -88,7 +179,6 @@ export class IncentiveReportComponent implements OnInit {
   // function called on response 
   onResponse(res) {
 
-    res = JSON.parse(res);
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = 0;

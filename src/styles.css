@@ -18,16 +18,16 @@
 }
 
 .toast {
-  padding: 2.5em;
+  padding: 1em 3.5em;
   pointer-events: none;
   position: fixed;
 
-  top: 12.5em;
-  right: 3.12em;
+  right: 1em;
+  top: 30%;
 
   font-weight: bold;
   text-align: center;
-  border-radius: 0.3em;
+  /* border-radius: 0.3em; */
   width: fit-content;
   white-space: nowrap;
   opacity: 0;
@@ -35,21 +35,21 @@
 }
 
 .transform {
-  animation: trans 3s ease-out;
+  animation: trans 2s ease-in-out;
 }
 
 
 @keyframes trans {
   0% {
-    opacity: 0.5;
+    opacity: 0;
   }
-
-  50% {
+  10%,
+  90% {
     opacity: 1;
+    transform: translateY(-200%);
   }
   100% {
-    opacity: 0;
-    transform: translate(0em, -7.5em);
+    transform: translate(120%, -200%);
   }
 }
 
