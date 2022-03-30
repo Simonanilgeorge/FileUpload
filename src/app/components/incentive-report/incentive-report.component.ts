@@ -78,7 +78,7 @@ export class IncentiveReportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.getDropDown()
-    this.filter()
+    this.getReport()
     this.loginService.navigateByRole("IncentiveReportComponent")
 
 
@@ -111,7 +111,6 @@ export class IncentiveReportComponent implements OnInit {
 
     let month, year, start, end
     [year, month] = this.date.value.split("-")
-    console.log(month, year)
     end = `${+month}/${25}/${+year}`
     if (month === "01") {
       start = `12/${26}/${+year - 1}`
@@ -127,9 +126,12 @@ export class IncentiveReportComponent implements OnInit {
   }
   // get daily production report(called initially with no date)
   getReport() {
+    this.flag=2
+    this.filter()
     this.empreportService.getIncentiveReport(this.form.value).subscribe((res)=>{
-      console.log(res[0])
+
       this.onResponse(res)
+
     },(err)=>{
       console.log(err.message)
     })

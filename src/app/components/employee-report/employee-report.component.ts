@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx';
   providers: [DatePipe,ColumnsortPipe]
 })
 export class EmployeeReportComponent implements OnInit {
+  // account_name
   searchedItems
   // Daily Production report
   fileName="Daily_Production_Report.xlsx"
@@ -64,6 +65,7 @@ export class EmployeeReportComponent implements OnInit {
 
     this.loginService.checkSessionStorage();
     this.getDropDown()
+    // this.account_name=sessionStorage.getItem("account_name")
     this.loginService.navigateByRole("EmployeeReportComponent")
   
   }

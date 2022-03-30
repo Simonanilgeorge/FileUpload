@@ -4,12 +4,12 @@
         <h2>Incentive Report</h2>
     </div>
     <form [formGroup]="form" class="formcontainer">
-        
+
         <div class="inputgroup">
             <label for="">
                 Select Month
             </label>
-            <input type="month" formControlName="date" class="input-primary" (change)="filter()">
+            <input type="month" formControlName="date" class="input-primary" (change)="getReport()">
 
         </div>
 
@@ -125,7 +125,7 @@
 
     </div>
     <div class="statusmsg" *ngIf="flag==0">
-        <h2>No data available for the Day</h2>
+        <h2>No data available for the Month</h2>
 
     </div>
 
