@@ -17,6 +17,7 @@ import * as XLSX from 'xlsx';
 export class EmployeeReportComponent implements OnInit {
   // account_name
   searchedItems
+  role;
   // Daily Production report
   fileName="Daily_Production_Report.xlsx"
   datas: any;
@@ -26,7 +27,7 @@ export class EmployeeReportComponent implements OnInit {
   Tasklist=[]
   Processlist=[]
   final
-  sheetName="Revenue";
+  sheetName="Productivity";
   titles = ["empcode", "name", "doj", "search", "client", "task","process","state"];
   dropDownFilters=["client","search","task","process"];
   headings = {
@@ -40,7 +41,7 @@ export class EmployeeReportComponent implements OnInit {
     "state":"State"
   }
   
-  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+  SheetList = ["Productivity", "Utilization", "Orders"];
   flag = 2;
   searchedKeyword: string;
   showColumnInput;
@@ -64,6 +65,7 @@ export class EmployeeReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
+    this.role=sessionStorage.getItem("role").split(",")
     this.getDropDown()
     // this.account_name=sessionStorage.getItem("account_name")
     this.loginService.navigateByRole("EmployeeReportComponent")

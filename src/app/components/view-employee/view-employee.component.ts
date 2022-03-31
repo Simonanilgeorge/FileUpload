@@ -32,6 +32,7 @@ export class ViewEmployeeComponent implements OnInit {
   ClientList=[]
   Processlist=[]
   final
+  roles
   columnFilterForm: FormGroup = this.fb.group({
     empcode: [""],
     name: [""],
@@ -69,9 +70,11 @@ export class ViewEmployeeComponent implements OnInit {
     "delay_review_duration": "Review Extension",
     "role":"Role"
   }
+
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.roles=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("ViewEmployeeComponent")
   this.getDropDown()
   }
@@ -126,8 +129,15 @@ export class ViewEmployeeComponent implements OnInit {
 
   edit(data) {
     // edit an employee
-    sessionStorage.setItem("employeeID", data.empcode);
-    this.router.navigate(['/addemployee'])
+    if (data.role == "Super Admin" && !this.roles.includes('Super Admin')){
+      console.log("Super Admin cannot be Edited")
+      return
+    }
+    else{
+    // sessionStorage.setItem("employeeID", data.empcode);
+    this.router.navigate([`/editemployee/${data.empcode}`])
+    }
+    
   }
   showToastMessage(message) {
     this.message = message;
@@ -144,8 +154,14 @@ export class ViewEmployeeComponent implements OnInit {
   }
   // called on delete 
   showModal(data) {
-    sessionStorage.setItem("deleteEmployee",data.empcode)
-    this.router.navigate(['/addemployee'])
+    if (data.role == "Super Admin" && !this.roles.includes('Super Admin')){
+      console.log("Super Admin cannot be Deleted")
+      return
+    }
+    else{
+    // sessionStorage.setItem("deleteEmployee",data.empcode)
+    this.router.navigate([`/deleteemployee/${data.empcode}`])
+    }
   }
   public searchItems() {
     this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);

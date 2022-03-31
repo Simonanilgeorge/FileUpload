@@ -25,44 +25,52 @@ export class AddEmployeeComponent implements OnInit {
   message = null;
   toast: Boolean = false;
   toastStatus;
-  userForm: FormGroup;
-  employeeID = { id: sessionStorage.getItem("employeeID") }
+  // userForm: FormGroup;
+  // test
+  employeeID = { id: null }
   dropDownList: any;
   StateList;
   Processlist
   ClientList: string[];
   Tasklist = []
+  roles=[]
   final: any
   displayBoolean = false;
 
 
+  userForm = this.fb.group({
+    inputs: this.fb.group({
+      doj: [{ value: '', disabled: false }, Validators.required],
+      empcode: [{ value: '', disabled: false }, Validators.required],
+      name: [{ value: '', disabled: false }, Validators.required],
+      task: [{ value: '', disabled: false }, Validators.required],
+      process: [{ value: '', disabled: false }, Validators.required],
+      state: [{ value: '', disabled: false }, Validators.required],
+      client: [{ value: '', disabled: false }, Validators.required],
+      search: [{ value: '', disabled: false }, Validators.required],
+      id: [""],
+      shift: ["", Validators.required],
+      production_status: ["", Validators.required],
+      training_duration: [{ value: '', disabled: false }, Validators.required],
+      planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
+      actual_out_of_review_date: ["", Validators.required],
+      delay_reason: ["No issue", Validators.required],
+      delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
+      role: [{ value: "", disabled: false }, Validators.required],
+      username: [sessionStorage.getItem('user')]
+    })
+  });
+
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.roles=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
-    this.userForm = this.fb.group({
-      inputs: this.fb.group({
-        doj: [{ value: '', disabled: false }, Validators.required],
-        empcode: [{ value: '', disabled: false }, Validators.required],
-        name: [{ value: '', disabled: false }, Validators.required],
-        task: [{ value: '', disabled: false }, Validators.required],
-        process: [{ value: '', disabled: false }, Validators.required],
-        state: [{ value: '', disabled: false }, Validators.required],
-        client: [{ value: '', disabled: false }, Validators.required],
-        search: [{ value: '', disabled: false }, Validators.required],
-        id: [""],
-        shift: ["", Validators.required],
-        production_status: ["", Validators.required],
-        training_duration: [{ value: '', disabled: false }, Validators.required],
-        planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-        actual_out_of_review_date: ["", Validators.required],
-        delay_reason: ["No issue", Validators.required],
-        delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
-        role: [{ value: "", disabled: false }, Validators.required],
-        username: [sessionStorage.getItem('user')]
-      })
-    });
+
+  }
+  get id(){
+    return this.inputs.get("id")
   }
   get process() {
     return this.inputs.get("process")
@@ -116,34 +124,72 @@ export class AddEmployeeComponent implements OnInit {
     return this.userForm.get("inputs")
   }
   get keys() {
-    return [this.process,this.state,this.task, this.search, this.client, this.delay_reason, this.production_status]
+    return [this.process, this.state, this.task, this.search, this.client, this.delay_reason, this.production_status]
+  }
+
+  get username(){
+    return this.inputs.get("username")
   }
   // check if operation is update or delete
   checkUpdate() {
-    const deleteEmployee = sessionStorage.getItem("deleteEmployee")
-    // doj empcode name training duration to be disabled on update
-    const id = sessionStorage.getItem("employeeID")
-    if (id) {
-      this.update = true;
-      this.empcode.disable()
-      this.name.disable()
-      this.doj.disable()
-      this.training_duration.disable()
-      this.getSingleEmployee();
-    }
-    else if (deleteEmployee) {
-      this.userForm.disable()
-      this.employeeID.id = deleteEmployee;
-      this.delete = true
-      this.getSingleEmployee();
-    }
-    else {
-      this.update = false;
-    }
+    this.route.params.subscribe((params) => {
+
+
+      switch (Object.keys(params)[0]) {
+        case "editid":
+          this.update = true;
+          this.delete=false
+          this.employeeID.id = params.editid
+          this.empcode.disable()
+          this.name.disable()
+          this.doj.disable()
+          this.training_duration.disable()
+          this.getSingleEmployee();
+          break;
+        case "deleteid":
+          this.userForm.disable()
+          this.employeeID.id = params.deleteid;
+          this.delete = true
+          this.update=false
+          this.getSingleEmployee();
+          break
+        default:
+          this.update = false;
+          this.delete=false
+          break;
+
+      }
+    })
+
+    // const deleteEmployee = sessionStorage.getItem("deleteEmployee")
+    // // doj empcode name training duration to be disabled on update
+    // const id = sessionStorage.getItem("employeeID")
+    // if (id) {
+    //   this.update = true;
+    //   this.empcode.disable()
+    //   this.name.disable()
+    //   this.doj.disable()
+    //   this.training_duration.disable()
+    //   this.getSingleEmployee();
+    // }
+    // else if (deleteEmployee) {
+    //   this.userForm.disable()
+    //   this.employeeID.id = deleteEmployee;
+    //   this.delete = true
+    //   this.getSingleEmployee();
+    // }
+    // else {
+    //   this.update = false;
+    // }
+
+
   }
 
   // submit function for add and update
   onSubmit() {
+
+    console.log("inside on submit",this.valid)
+     console.log(this.userForm.getRawValue())
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
     if (!this.valid) {
@@ -168,10 +214,14 @@ export class AddEmployeeComponent implements OnInit {
           }, 1000);
         }
         this.userForm.enable()
-        this.selectGeneralShift = true
+        // this.selectGeneralShift = true
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
-        this.ngOnInit();
+        // test
+        this.selectGeneralShift=false
+        this.resetForm()
+        // this.ngOnInit();
+        
       }
       else {
         this.showToastMessage(res.response, "warning")
@@ -192,9 +242,12 @@ export class AddEmployeeComponent implements OnInit {
   }
   // call singleReport for update
   getSingleEmployee() {
+
+    console.log("get single employee function")
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
-      sessionStorage.removeItem("employeeID");
-      sessionStorage.removeItem("deleteEmployee")
+      // test
+      // sessionStorage.removeItem("employeeID");
+      // sessionStorage.removeItem("deleteEmployee")
       res = JSON.parse(res);
       this.Tasklist = this.dropDownList[res[0].client];
       let temp = res[0].client + res[0].task
@@ -249,8 +302,8 @@ export class AddEmployeeComponent implements OnInit {
         search: "Not Applicable",
         client: "Not Applicable",
         task: "Not Applicable",
-        process:"Not Applicable",
-        state:"Not Applicable",
+        process: "Not Applicable",
+        state: "Not Applicable",
         production_status: "Not Applicable",
         training_duration: "Not Applicable",
         delay_reason: "Not Applicable",
@@ -279,13 +332,22 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
+
   // get dropdown array
   getDropDown() {
 
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
       this.StateList = this.dropDownList.States
-      this.roleList = res.role
+      if (this.roles.includes('Super Admin')){
+        this.roleList = res.role
+      }
+      else{
+        // this.roleList = this.removeItem(res.role, 'Super Admin');
+        this.roleList-res.role.filter((role)=>{
+          return role!="Super Admin"
+        })
+      }
       this.ClientList = this.dropDownList.Client;
       this.checkUpdate();
     }, (err) => {
@@ -310,7 +372,7 @@ export class AddEmployeeComponent implements OnInit {
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
       result.setDate(result.getDate() + days);
-
+      this.valid=true
       this.planned_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
       this.actual_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
     }
@@ -323,8 +385,11 @@ export class AddEmployeeComponent implements OnInit {
     let endDate = new Date(this.actual_out_of_review_date.value).getTime();
     let startDate = new Date(this.planned_out_of_review_date.value).getTime();
     let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
+
+    console.log(resultDate)
     if (resultDate >= 0) {
       // to display in months and days
+      console.log("inside calc delay review",this.valid)
       this.valid = true
       let result = Math.floor(resultDate / 30);
       if (result == 0) {
@@ -384,7 +449,10 @@ export class AddEmployeeComponent implements OnInit {
       setTimeout(() => {
         this.location.back()
       }, 1000)
-      this.ngOnInit();
+      // test
+      this.resetForm()
+
+      // this.ngOnInit();
     }, (err) => {
       this.showToastMessage("Deletion failed", "error")
       console.log(err.message)
@@ -394,6 +462,49 @@ export class AddEmployeeComponent implements OnInit {
     this.location.back()
   }
 
+
+  resetForm(){
+    // doj: [{ value: '', disabled: false }, Validators.required],
+    // empcode: [{ value: '', disabled: false }, Validators.required],
+    // name: [{ value: '', disabled: false }, Validators.required],
+    // task: [{ value: '', disabled: false }, Validators.required],
+    // process: [{ value: '', disabled: false }, Validators.required],
+    // state: [{ value: '', disabled: false }, Validators.required],
+    // client: [{ value: '', disabled: false }, Validators.required],
+    // search: [{ value: '', disabled: false }, Validators.required],
+    // id: [""],
+    // shift: ["", Validators.required],
+    // production_status: ["", Validators.required],
+    // training_duration: [{ value: '', disabled: false }, Validators.required],
+    // planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
+    // actual_out_of_review_date: ["", Validators.required],
+    // delay_reason: ["No issue", Validators.required],
+    // delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
+    // role: [{ value: "", disabled: false }, Validators.required],
+    // username: [sessionStorage.getItem('user')]
+  this.doj.setValue("")
+  this.empcode.setValue("")
+  this.name.setValue("")
+  this.task.setValue("")
+  this.process.setValue("")
+  this.state.setValue("")
+  this.client.setValue("")
+  this.search.setValue("")
+  this.id.setValue("")
+  this.shift.setValue("")
+  this.production_status.setValue("")
+  this.training_duration.setValue("")
+  this.planned_out_of_review_date.setValue("")
+  this.actual_out_of_review_date.setValue("")
+  this.delay_reason.setValue("No issue")
+  this.delay_review_duration.setValue("0 days")
+  this.role.setValue("")
+  this.username.setValue(sessionStorage.getItem("user"))
+  this.Tasklist=[]
+  this.Processlist=[]
+
+
+  }
 }
 
 

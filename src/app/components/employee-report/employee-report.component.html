@@ -16,12 +16,13 @@
         <div class="inputgroup">
             <label for="name">Select Report</label>
             <select class="input-primary" [(ngModel)]="sheetName" [ngModelOptions]="{standalone: true}">
+                <option *ngIf="role.includes('Super Admin')" value="Revenue">
+                    Revenue
+                </option>
                 <option *ngFor="let sheet of SheetList">
                     {{sheet}}
                 </option>
-                <!-- <option *ngIf="account_name==='CH20005'"value="Revenue Test">
-                    Revenue Test
-                </option> -->
+                
             </select>
         </div>
     </form>
@@ -110,10 +111,10 @@
                         *ngFor="let status of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
                         <td *ngFor="let title of titles" [class.stickydata]="title=='name'"
                             class="textleft">{{status[title]}}</td>
-                        <td *ngIf="sheetName=='Orders'"><span *ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
-                        <td *ngIf="sheetName=='Productivity'"><span *ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
-                        <td *ngIf="sheetName=='Utilization'"><span *ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
-                        <td *ngIf="sheetName=='Revenue'"><span *ngIf="status['revenue'] != 0">$ {{status.revenue}} </span></td>
+                        <td ngIf="sheetName=='Orders'"><span ngIf="status['order_count'] != 0">{{status.order_count}}</span></td>
+                        <td ngIf="sheetName=='Productivity'"><span ngIf="status['productivity'] != 0">{{status.productivity}}%</span></td>
+                        <td ngIf="sheetName=='Utilization'"><span ngIf="status['utilization'] != 0">{{status.utilization}}%</span></td>
+                        <td ngIf="sheetName=='Revenue'"><span ngIf="status['revenue'] != 0">$ {{status.revenue}} </span></td>
                     </tr>
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>

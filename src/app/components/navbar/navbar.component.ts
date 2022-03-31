@@ -14,8 +14,11 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
+    
     this.nav=sessionStorage.getItem("role").split(",")
-
+    if(this.nav.includes("Super Admin")){
+      this.nav = ["Production Reports","Client Reports","Admin","Super Admin"]
+    } 
   }
   logOut() {
     this.loginService.onLogOut();
@@ -23,4 +26,3 @@ export class NavbarComponent implements OnInit {
   }
 
 }
-

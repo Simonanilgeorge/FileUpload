@@ -122,7 +122,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items:start;
+  align-items:flex-start;
   padding: 1em;
   gap: 1rem;
   white-space: nowrap;

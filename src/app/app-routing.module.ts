@@ -26,6 +26,8 @@ import { from } from 'rxjs';
 const routes: Routes = [
 {path:'',pathMatch:'full',component: LoginComponent},
 {path:'addemployee',component: AddEmployeeComponent},
+{path:'editemployee/:editid',component: AddEmployeeComponent},
+{path:'deleteemployee/:deleteid',component: AddEmployeeComponent},
 {path:'viewemployees',component: ViewEmployeeComponent},
 {path:'clientreport',component: ClientReportComponent},
 {path:'monthlyreport',component:MonthlyReportComponent},
