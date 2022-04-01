@@ -16,6 +16,7 @@ import * as moment from 'moment'
   providers:[DatePipe,ColumnsortPipe]
 })
 export class MonthlyReportComponent implements OnInit {
+  role
   searchedItems
   fileName="Monthly_Production_Report.xlsx"
   flag: Boolean = false;
@@ -47,7 +48,7 @@ export class MonthlyReportComponent implements OnInit {
 
   titles=["empcode","name","doj","search","client","task","process","state"];
   sheetNameRes;
-  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+  SheetList = ["Productivity", "Utilization", "Orders"];
   showColumnInput;
   columnFilterForm:FormGroup=this.fb.group({
     empcode:[""],
@@ -69,6 +70,7 @@ export class MonthlyReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.role=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("MonthlyReportComponent")
     this.getDropDown();
 

@@ -188,8 +188,8 @@ export class AddEmployeeComponent implements OnInit {
   // submit function for add and update
   onSubmit() {
 
-    console.log("inside on submit",this.valid)
-     console.log(this.userForm.getRawValue())
+
+
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
     if (!this.valid) {
@@ -243,12 +243,19 @@ export class AddEmployeeComponent implements OnInit {
   // call singleReport for update
   getSingleEmployee() {
 
-    console.log("get single employee function")
+
     this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
       // test
       // sessionStorage.removeItem("employeeID");
       // sessionStorage.removeItem("deleteEmployee")
+    
+
       res = JSON.parse(res);
+
+      if(!this.roles.includes('Super Admin') && res[0].role=="Super Admin"){
+        this.goBack()
+        return
+      }
       this.Tasklist = this.dropDownList[res[0].client];
       let temp = res[0].client + res[0].task
       this.Processlist = this.dropDownList[temp]
@@ -386,10 +393,10 @@ export class AddEmployeeComponent implements OnInit {
     let startDate = new Date(this.planned_out_of_review_date.value).getTime();
     let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
 
-    console.log(resultDate)
+
     if (resultDate >= 0) {
       // to display in months and days
-      console.log("inside calc delay review",this.valid)
+
       this.valid = true
       let result = Math.floor(resultDate / 30);
       if (result == 0) {

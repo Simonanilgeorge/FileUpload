@@ -16,6 +16,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 export class YearlyClientReportComponent implements OnInit {
   
   fileName="Yearly_Client_Report.xlsx"
+  role
   data=[]
   flag=2;
   dates = [];
@@ -27,11 +28,11 @@ export class YearlyClientReportComponent implements OnInit {
   message
   toastStatus
   toast
-  SheetList = ["Revenue", "Volume"];
+  SheetList = ["Volume"];
 
   filterForm = this.fb.group({
     date: [this.datePipe.transform(new Date(),"yyyy"), Validators.required],
-    sheetName: ['Revenue', Validators.required]
+    sheetName: ['Volume', Validators.required]
 
   });
 
@@ -41,6 +42,7 @@ export class YearlyClientReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.role=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("YearlyClientReportComponent")
     this.onSubmit()
 

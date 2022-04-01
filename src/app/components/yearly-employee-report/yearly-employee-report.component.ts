@@ -17,6 +17,7 @@ import * as XLSX from 'xlsx';
 })
 export class YearlyEmployeeReportComponent implements OnInit {
 
+  role
   searchedItems
   fileName = "Yearly_Employee_Report.xlsx"
   flag = 2;
@@ -48,7 +49,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
   }
 
   sheetNameRes;
-  SheetList = ["Revenue", "Productivity", "Utilization", "Orders"];
+  SheetList = ["Productivity", "Utilization", "Orders"];
   showColumnInput;
   columnFilterForm: FormGroup = this.fb.group({
     empcode: [""],
@@ -69,6 +70,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
+    this.role=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("YearlyEmployeeReportComponent")
     this.getDropDown()
   }

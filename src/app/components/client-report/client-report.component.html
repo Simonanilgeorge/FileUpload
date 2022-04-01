@@ -21,6 +21,9 @@
                 <option *ngFor="let sheet of sheetList">
                     {{sheet}}
                 </option>
+                <option *ngIf="role.includes('Super Admin')" value="Revenue">
+                    Revenue
+                </option>
             </select>
         </div>
         <!-- <div class="inputgroup">
