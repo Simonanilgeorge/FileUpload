@@ -1,26 +1,16 @@
 <div class="container">
     <app-navbar></app-navbar>
-
     <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
-
-
-
-
     <div class="heading">
         <h2>Yearly {{sheetNameRes}} Report</h2>
     </div>
-
-
     <form [formGroup]="Date" class="formcontainer">
         <div class="inputgroup">
             <label for="">
                 Select Year
             </label>
-
             <input type="number" class="input-primary" maxlength="4" min="1980" max="2099" step="1"
                 formControlName="date" (input)="filter()" />
-
-
         </div>
         <div class="inputgroup">
             <label for="name">Select Report</label>
@@ -38,13 +28,8 @@
                 <button class="button" (click)="filter()">Filter</button>
             </div> -->
     </form>
-
-
-
     <div class="report-container" *ngIf="flag==1">
-
         <div class="tablecontainer">
-
             <form [formGroup]="columnFilterForm">
                 <table class="table-excel">
                     <tr>
@@ -54,7 +39,6 @@
                                     <input type="text" placeholder="Search" name="name" [(ngModel)]="searchedKeyword"
                                         class="search" autocomplete="off">
                                 </div>
-
                             </form>
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
@@ -74,7 +58,6 @@
                                         <option value="Non-search">Non-Search</option>
                                     </select>
                                 </span>
-
                                 <span *ngIf="title=='client'">
                                     <select formControlName="{{title}}" (change)="changeClientOptions()"style="width: 12em;">
                                         <option value="">All</option>
@@ -105,7 +88,6 @@
                             </div>
                             <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}}
                                 &uarr;&darr;</span>
-
                         </th>
                         <th *ngFor="let date of dates; let i=index;">{{date}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
@@ -121,19 +103,16 @@
                                 <span *ngIf="sheetNameRes=='Productivity'||sheetNameRes=='Utilization'">%</span>
                             </span>
                         </td>
-
                         <td *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'"><span *ngIf="data.total"><span
                                     *ngIf="sheetNameRes=='Revenue'">$</span>
                                 {{data.total}}</span></td>
                     </tr>
-
                     <tr *ngIf="(sheetNameRes=='Revenue'||sheetNameRes=='Orders') && searchItems().length!=0">
                         <td
                             style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
                             Grand Total</td>
                         <td *ngFor="let title of titles|slice:1" style="background: rgb(42 67 125); color:white;"></td>
                         <td *ngFor="let date of dates" style="background: rgb(42 67 125); color:white;">
-
                             <span *ngIf="columnSum[date]!=0">
                                 <span *ngIf="sheetNameRes=='Revenue'">$</span>
                                  {{columnSum[date]| number}}
@@ -147,11 +126,9 @@
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                     </tr>
-
                 </table>
             </form>
         </div>
-
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
         <h2>Loading...</h2>

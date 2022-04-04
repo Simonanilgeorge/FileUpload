@@ -162,7 +162,7 @@ export class AddTargetComponent implements OnInit {
         }, 1000);
       }
       else {
-        this.showToastMessage("failed", "error")
+        this.showToastMessage(res.response, "error")
       }
     }, (err) => {
       console.log(err.message)

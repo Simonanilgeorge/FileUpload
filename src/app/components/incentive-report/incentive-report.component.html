@@ -4,22 +4,17 @@
         <h2>Incentive Report</h2>
     </div>
     <form [formGroup]="form" class="formcontainer">
-
         <div class="inputgroup">
             <label for="">
                 Select Month
             </label>
             <input type="month" formControlName="date" class="input-primary" (change)="getReport()">
-
         </div>
-
         <!-- <div class="inputgroup">
                 <button class="button" (click)="filter()">Filter</button>
             </div> -->
     </form>
-
     <div *ngIf="flag==1" class="report-container">
-
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
                 <table class="table-excel">
@@ -27,7 +22,6 @@
                         <th style="position:sticky;top:0;">
                             <form class="tablesearch">
                                 <div class="inputgroup">
-
                                     <input type="text" placeholder="Search" name="name" class="search"
                                         [(ngModel)]="searchedKeyword">
                                 </div>
@@ -37,7 +31,6 @@
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
                         </th>
                     </tr>
-
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
                             <div class="inputgroup-columnsort">
@@ -51,7 +44,6 @@
                                         <option value="Non-search">Non-Search</option>
                                     </select>
                                 </span>
-
                                 <span *ngIf="title=='client'">
                                     <select formControlName="{{title}}" (change)="changeClientOptions()" style="width: 12em;">
                                         <option value="">All</option>
@@ -107,7 +99,6 @@
                             <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}}
                                 &uarr;&darr;</span>
                         </th>
-
                     </tr>
                     <tr
                         *ngFor="let data of datas | filter:searchedKeyword  | columnsort:columnFilterForm.value| sort:titleName">
@@ -118,21 +109,15 @@
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="50" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                     </tr>
-
                 </table>
             </form>
         </div>
-
     </div>
     <div class="statusmsg" *ngIf="flag==0">
         <h2>No data available for the Month</h2>
-
     </div>
-
     <div class="statusmsg" *ngIf="flag==2">
         <h2>Loading...</h2>
-
     </div>
-
 
 </div>

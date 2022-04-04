@@ -1,5 +1,4 @@
 <nav>
-
     <ul class="parent-ul">
         <div class="boxone">
             <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
@@ -26,10 +25,8 @@
                             <li routerLink="/report" class="child-links">View DT queue report</li>
                         </ul>
                     </li>
-
                 </ul>
             </li>
-
             <li *ngIf="nav.includes('Admin')" class="links" routerLinkActive="active-link">
                 Admin
                 <ul class="dropdown">
@@ -46,14 +43,10 @@
                             <li routerLink="/targettable/TW" class="child-links">TW</li>
                         </ul>
                     </li>
-
                 </ul>
             </li>
 
-
-
             <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="links" routerLinkActive="active-link">Order Entry</li>
-
             <li *ngIf="nav.includes('My Production Data')" routerLink="/viewmystatus" class="links" routerLinkActive="active-link">My Production Data</li>
             <li class="links" routerLink="/reset"  routerLinkActive="active-link" >Reset Password</li>
             <li class="links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
@@ -63,29 +56,21 @@
             <li class="links logout" (click)="logOut()">Logout</li>
         </div>
 
-
-
         <!-- responsive navbar -->
         <div class="responsive-container">
-
             <div class="responsive-boxone">
                 <li routerLink="/home" class="links home" routerLinkActive="active-link"></li>
             </div>
-
             <div class="responsive-boxtwo">
-
                 <div class="hamburger">
                     <div class="line"></div>
                     <div class="line"></div>
                     <div class="line"></div>
-
                     <div class="dropdown-container">
                         <ul class="parent-ul-responsive">
 
-
                             <li *ngIf="nav.includes('Order Entry')" routerLink="/sendreport" class="responsive-links"
                                 routerLinkActive="active-link">Order Entry</li>
-
                             <li *ngIf="nav.includes('My Production Data')" routerLink="/viewmystatus" class="responsive-links"
                                 routerLinkActive="active-link">My Production Data</li>
                             <li *ngIf="nav.includes('Production Reports')" class="responsive-links" routerLinkActive="active-link">
@@ -96,7 +81,7 @@
                                     </li>
                                     <li routerLink="/viewyearlyreport" class="responsive-child-links">Yearly Report
                                     </li>        
-                                    <li routerLink="/incentivereport" class="responsive-child-links">Incentive Report</li>
+                                    <li  *ngIf="nav.includes('Super Admin')" routerLink="/incentivereport" class="responsive-child-links">Incentive Report</li>
                                 </ul>
                             </li>
                             <li *ngIf="nav.includes('Client Reports')" class="responsive-links" routerLinkActive="active-link">
@@ -119,7 +104,6 @@
                                             </li>
                                         </ul>
                                     </li>
-
                                 </ul>
                             </li>
                             <li *ngIf="nav.includes('Admin')" class="responsive-links" routerLinkActive="active-link">
@@ -128,9 +112,20 @@
                                     <!-- <li routerLink="/addemployee" class="responsive-child-links">Add Employee</li> -->
                                     <li routerLink="/viewemployees" class="responsive-child-links">Employee</li>
                                     <!-- <li routerLink="/viewemployees" class="responsive-child-links">Edit Employee</li> -->
-                                    <li routerLink="/addrole" class="responsive-child-links">Add Role</li>
+                                    <li *ngIf="nav.includes('Super Admin')" routerLink="/addrole" class="responsive-child-links">Add Role</li>
+
+                                    <li *ngIf="nav.includes('Super Admin')" class="responsive-child-links dt-responsive">
+                                        Target&emsp;<span
+                                            style="font-size: 10px;color: gray;">&#9654;</span>
+                                        <ul class="dt-ul-responsive">
+                                            <li routerLink="/targettable/ASK" class="responsive-child-links">ASK</li>
+                                            <li routerLink="/targettable/DT" class="responsive-child-links">DT</li>
+                                            <li routerLink="/targettable/TW" class="responsive-child-links">TW</li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
+                            
                            
                             <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>

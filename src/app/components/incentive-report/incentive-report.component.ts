@@ -77,9 +77,9 @@ export class IncentiveReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
+    this.loginService.navigateByRole("IncentiveReportComponent")
     this.getDropDown()
     this.getReport()
-    this.loginService.navigateByRole("IncentiveReportComponent")
 
 
 

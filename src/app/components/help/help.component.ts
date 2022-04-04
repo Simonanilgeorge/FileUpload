@@ -21,6 +21,9 @@ export class HelpComponent implements OnInit {
     this.loginService.checkSessionStorage();
 
     this.nav = sessionStorage.getItem("role").split(",")
+    if(this.nav.includes("Super Admin")){
+      this.nav = ["Production Reports","Client Reports","Admin","Super Admin"]
+    } 
   }
 
 

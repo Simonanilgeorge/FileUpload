@@ -1,13 +1,10 @@
 <div class="container">
-
     <app-navbar></app-navbar>
-
-
     <div class="cardcontainer">
         <div class="card">
             <div class="help-list-container">
                 <ol>
-                    <li *ngIf="nav.includes('Production Reports')" >
+                    <li *ngIf="nav.includes('Production Reports')">
                         <h2>Production reports</h2>
                         <p>Production reports displays production data details with respect to employee information.
                             You can make use of the filters (Date, Select Report) to select the date and type of
@@ -30,9 +27,15 @@
                                 <h2>Yearly report</h2>
                                 <p>This page displays production data details over a period of one year.</p>
                             </li>
+
+                            <li *ngIf="nav.includes('Super Admin')">
+                                <h2>Incentive report</h2>
+                                <p>This page displays the incentive report for the month.</p>
+                            </li>
                         </ol>
+                        
                     </li>
-                    <li *ngIf="nav.includes('Client Reports')" >
+                    <li *ngIf="nav.includes('Client Reports')">
                         <h2>Client reports</h2>
                         <p>Client reports displays production data details with respect to client information. You
                             can make use of the filters (Date, Select Report) to select the date and type of
@@ -68,44 +71,43 @@
                             </li>
                         </ol>
                     </li>
-                    <li *ngIf="nav.includes('Admin')" >
+                    <li *ngIf="nav.includes('Admin')">
                         <h2>Admin</h2>
                         <ol>
                             <li>
-                                <h2>Add Employee</h2>
-                                
-                                <p>This page is used to add new employees to the application. Production report of a specific employee can only be viewed if he/she is added to the application.
-                                </p>
-                            </li>
-                            <li>
-                                <h2>Edit Employee</h2>
+                                <h2>Employee</h2>
                                 <p>This page displays details of all employees. You can filter out employees
                                     based on their information by
                                     making use of the filters in the table header.
                                 </p>
+                                <p>Add employee button will redirect to a page where the user can add new employees to the application.
+                                </p>
                             </li>
-                            <li >
+                            <li *ngIf="nav.includes('Super Admin')">
                                 <h2>Add Role</h2>
                                 <p>
-                                    Add Role page will help you add custom roles to the application. Once added you cannot edit the role name.
+                                    Add Role page will help you add custom roles to the application. Once added you
+                                    cannot edit the role name.
                                 </p>
-                            </li>     
+                            </li>
+                            <li *ngIf="nav.includes('Super Admin')">
+                                <h2>Target</h2>
+                                <p>
+                                    This page is used to edit,delete and add new values to the target table.
+                                </p>
+                            </li>
                         </ol>
-                    </li>       
-        
-                    <li *ngIf="nav.includes('Order Entry')" >
+                    </li>
+                    <li *ngIf="nav.includes('Order Entry')">
                         <h2>Order Entry</h2>
                         <p> Use this page to enter your daily production data. Note: If you have selected Client as
                             NonProd then Order Number, Process, State and Status are not compulsory fields. These fields
                             will default to empty values even if you have entered values for the above mentioned fields.
-
                         </p>
                     </li>
-                    <li *ngIf="nav.includes('My Production Data')" >
+                    <li *ngIf="nav.includes('My Production Data')">
                         <h2>My Production data</h2>
                         <p>
-
-
                             This page displays list of all production data you have entered. By default it displays
                             production data for the current month (26th of previous month to 25th of current month). You
                             can change the
@@ -113,14 +115,10 @@
                             either edit or delete the order entries by clicking the respective icons. You can also make
                             use of filters present inside the table to filter out data accordingly. The production data
                             can be exported to an excel sheet by clicking the export button.
-
-
                         </p>
                     </li>
                 </ol>
             </div>
         </div>
-
-
     </div>
 </div>

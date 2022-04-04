@@ -1,21 +1,15 @@
 <div class="container">
     <app-navbar></app-navbar>
-
     <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
-
-
     <div class="heading">
         <h2>Monthly {{sheetNameRes}} Report</h2>
     </div>
-
-
     <form [formGroup]="Date" class="formcontainer">
         <div class="inputgroup">
             <label for="">
                 Select Month
             </label>
             <input type="month" formControlName="date" class="input-primary" (change)="filter()">
-
         </div>
         <div class="inputgroup">
             <label for="name">Select Report</label>
@@ -33,11 +27,7 @@
                 <button class="button" (click)="filter()">Filter</button>
             </div> -->
     </form>
-
-
-
     <div class="report-container" *ngIf="total != 0">
-
         <div class="tablecontainer">
             <form [formGroup]="columnFilterForm">
                 <table class="table-excel">
@@ -52,12 +42,10 @@
                         </th>
                         <th colspan="39" style="position:sticky;top:0;">
                             <input type="button" value="Export" class="exportbutton" (click)="export()">
-
                         </th>
                     </tr>
                     <tr>
                         <th *ngFor="let title of titles" [class.stickyheading]="title=='name'">
-
                             <!--  use below for dbclick *ngIf="showColumnInput"  -->
                             <!-- styles class="search"  -->
                             <div class="inputgroup-columnsort">
@@ -71,7 +59,6 @@
                                         <option value="Non-search">Non-Search</option>
                                     </select>
                                 </span>
-
                                 <span *ngIf="title=='client'">
                                     <select formControlName="{{title}}" (change)="changeClientOptions()"
                                         style="width: 12em;">
@@ -101,12 +88,10 @@
                                 </span>
                                 <!--  -->
                             </div>
-
                             <!-- use for span (dblclick)="showInput()" -->
                             <span style="cursor: pointer;" (click)="getTitleName(title)">
                                 {{headings[title]}} &uarr;&darr;
                             </span>
-
                         </th>
                         <th *ngFor="let date of dates; let i=index;">{{date | date: 'MMM'}} {{i+1}}</th>
                         <th *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'">Total</th>
@@ -122,12 +107,10 @@
                                 <span *ngIf="sheetNameRes=='Productivity'||sheetNameRes=='Utilization'">%</span>
                             </span>
                         </td>
-
                         <td *ngIf="sheetNameRes=='Revenue'||sheetNameRes=='Orders'"><span *ngIf="data.total"><span
                                     *ngIf="sheetNameRes=='Revenue'">$</span>
                                 {{data.total}}</span></td>
                     </tr>
-
                     <tr *ngIf="(sheetNameRes=='Revenue'||sheetNameRes=='Orders') && searchItems().length!=0">
                         <td
                             style="position: sticky;left:0;background: rgb(42 67 125); color:white; font-weight: bolder;">
@@ -147,11 +130,9 @@
                     <tr *ngIf='searchItems().length==0'>
                         <td colspan="40" style="text-align: center;background: #dee2e6;">No Reports Available</td>
                     </tr>
-
                 </table>
             </form>
         </div>
-
     </div>
     <div class="report-container" style="margin: 0 auto;color:steelblue;" *ngIf="data.length == 0">
         <h2>Loading...</h2>
