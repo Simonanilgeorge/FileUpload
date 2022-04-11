@@ -127,7 +127,7 @@
 <div class="inputgroup">
   <label for="Training Duration">Training Duration</label>
   <select name="Training Duration" class="input-primary"  formControlName="training_duration" (change)="calculatePlannedDate()">
-    <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+    <option *ngIf="training_duration.value=='Not Applicable'" value="Not Applicable">Not Applicable</option>
     <option value="" [disabled]="true">--Select--</option>
     <option *ngFor="let week of counter(24)" [value]="week">
       {{week}}

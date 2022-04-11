@@ -19,7 +19,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   role
   searchedItems
-  fileName = "Yearly_Employee_Report.xlsx"
+  fileName = "Yearly_Production_Report.xlsx"
   flag = 2;
   dropDownList
   ClientList=[]
@@ -63,7 +63,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
   })
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(), "yyyy"), Validators.required],
-    sheetName: ['Revenue', Validators.required]
+    sheetName: ['Productivity', Validators.required]
   })
 
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe, private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }

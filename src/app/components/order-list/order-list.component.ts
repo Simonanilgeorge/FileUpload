@@ -58,9 +58,10 @@ export class OrderListComponent implements OnInit {
     "state": "State",
     "start_Time": "Start Time",
     "end_Time": "End Time",
+    "total_Time":"Total Time",
     "status": "Status",
-    "last_updated_time": "Last Updated Time",
-    "total_Time":"Total Time"
+    "last_updated_time": "Last Updated Time"
+    
   }
 
   constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService, private multiFilterPipe: MultifilterPipe) {

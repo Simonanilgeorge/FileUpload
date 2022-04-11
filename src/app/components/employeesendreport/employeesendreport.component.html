@@ -65,7 +65,13 @@
             </div>
             <div class="inputgroup">
               <label for="state">State</label>
-              <ul>
+              <select name="state" class="input-primary" formControlName="state">
+                <option value="" [disabled]="true">--Select--</option>
+                <option *ngFor="let state of stateList" value="{{state}}">
+                  {{state}}
+                </option>
+              </select>
+              <!-- <ul>
                 <li class="parent" (click)=display() [class.taskupdate]="delete||NonProdDisabled">
                   <div class="dropdown-icon">
                     <p>{{state.value}} </p>
@@ -75,7 +81,42 @@
                     <li *ngFor="let data of stateList" (click)="getName(data)">{{data}}</li>
                   </ul>
                 </li>
-              </ul>
+              </ul> -->
+            </div>
+
+            <div class="inputgroup">
+              <label for="county">County</label>
+              <select name="county" class="input-primary" formControlName="county">
+                <option value="" [disabled]="true">--Select--</option>
+                <option *ngFor="let county of countyList" value="{{county}}">
+                  {{county}}
+                </option>
+              </select>
+            </div>
+            <div class="inputgroup">
+              <label for="mode">Mode</label>
+              <select name="mode" class="input-primary" formControlName="mode">
+                <option value="">--Select--</option>
+                <option *ngFor="let mode of modeList" value="{{mode}}">
+                  {{mode}}
+                </option>
+              </select>
+            </div>
+            <div class="inputgroup">
+              <label for="exception">Exception</label>
+              <select name="exception" class="input-primary" formControlName="exception">
+                <option value="" [disabled]="true">--Select--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="inputgroup">
+              <label for="parcels">Parcels</label>
+              <input name="parcels" type="number" min="1" max="99" pattern="[0-9]" step="1" (input)="setParcelValue()" class="input-primary" formControlName="parcels" autocomplete="off">
+            </div>
+            <div class="inputgroup">
+              <label for="comments">Comments</label>
+              <input name="comments" class="input-primary" formControlName="comments" autocomplete="off">
             </div>
             <div class="inputgroup">
               <label for="start_time">Start Time</label>

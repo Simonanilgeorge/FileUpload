@@ -161,26 +161,6 @@ export class AddEmployeeComponent implements OnInit {
       }
     })
 
-    // const deleteEmployee = sessionStorage.getItem("deleteEmployee")
-    // // doj empcode name training duration to be disabled on update
-    // const id = sessionStorage.getItem("employeeID")
-    // if (id) {
-    //   this.update = true;
-    //   this.empcode.disable()
-    //   this.name.disable()
-    //   this.doj.disable()
-    //   this.training_duration.disable()
-    //   this.getSingleEmployee();
-    // }
-    // else if (deleteEmployee) {
-    //   this.userForm.disable()
-    //   this.employeeID.id = deleteEmployee;
-    //   this.delete = true
-    //   this.getSingleEmployee();
-    // }
-    // else {
-    //   this.update = false;
-    // }
 
 
   }
@@ -328,15 +308,12 @@ export class AddEmployeeComponent implements OnInit {
           key.setValue("")
         }
       })
-      // this.delay_reason.patchValue("No issue")
-      this.selectGeneralShift = false
-      // this.task.getRawValue().forEach((task, index) => {
-      //   if (task == "Not Applicable") {
-      //     this.task.removeAt(index)
-      //   }
-      // })
-    }
+      if(this.training_duration.value=="Not Applicable" && !this.update){
+        this.training_duration.setValue("")
+      }
 
+      this.selectGeneralShift = false
+    }
   }
 
 
@@ -471,24 +448,6 @@ export class AddEmployeeComponent implements OnInit {
 
 
   resetForm(){
-    // doj: [{ value: '', disabled: false }, Validators.required],
-    // empcode: [{ value: '', disabled: false }, Validators.required],
-    // name: [{ value: '', disabled: false }, Validators.required],
-    // task: [{ value: '', disabled: false }, Validators.required],
-    // process: [{ value: '', disabled: false }, Validators.required],
-    // state: [{ value: '', disabled: false }, Validators.required],
-    // client: [{ value: '', disabled: false }, Validators.required],
-    // search: [{ value: '', disabled: false }, Validators.required],
-    // id: [""],
-    // shift: ["", Validators.required],
-    // production_status: ["", Validators.required],
-    // training_duration: [{ value: '', disabled: false }, Validators.required],
-    // planned_out_of_review_date: [{ value: '', disabled: true }, Validators.required],
-    // actual_out_of_review_date: ["", Validators.required],
-    // delay_reason: ["No issue", Validators.required],
-    // delay_review_duration: [{ value: '0 days', disabled: true }, Validators.required],
-    // role: [{ value: "", disabled: false }, Validators.required],
-    // username: [sessionStorage.getItem('user')]
   this.doj.setValue("")
   this.empcode.setValue("")
   this.name.setValue("")
@@ -513,5 +472,3 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 }
-
-

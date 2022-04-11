@@ -22,12 +22,17 @@ export class AddTargetComponent implements OnInit {
   modalBoolean = false
   dataToBeDeleted
   displayBoolean = false;
+  dropDownList:any
+  stateList=[]
+  countyList=[]
 
 
   form = this.fb.group({
     Client: ["", Validators.required],
     Task: ["", Validators.required],
     Process: ["", Validators.required],
+    State: ["ALL", Validators.required],
+    County: ["ALL", Validators.required],
     Time: ["", Validators.required],
     band1: ["", Validators.required],
     band2: ["", Validators.required],
@@ -41,7 +46,7 @@ export class AddTargetComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole("AddTargetComponent")
-
+    this.getDropDown()
     this.route.params.subscribe(params => {
 
       switch (Object.keys(params)[0]) {
@@ -68,6 +73,12 @@ export class AddTargetComponent implements OnInit {
 
   get Client() {
     return this.form.get("Client")
+  }
+  get County() {
+    return this.form.get("County")
+  }
+  get State() {
+    return this.form.get("State")
   }
   get Task() {
     return this.form.get("Task")
@@ -192,4 +203,15 @@ export class AddTargetComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
+
+  getDropDown() {
+    this.empReportService.getDropDownList().subscribe((res) => {
+      this.dropDownList = res;
+      this.stateList = this.dropDownList.States;
+      this.countyList = this.dropDownList.County;
+    }, (err) => {
+      console.log(err.message)
+    })
+  }
+
 }

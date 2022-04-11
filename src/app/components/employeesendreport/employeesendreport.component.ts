@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe, Location } from '@angular/common';
+import { identifierModuleUrl } from '@angular/compiler';
+
+
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
@@ -29,6 +32,8 @@ export class EmployeesendreportComponent implements OnInit {
   Processlist: string[];
   stateList: string[];
   statusList: string[];
+  countyList = []
+  modeList = ["Call", "Email", "Fax"]
   temp: any;
   final: any;
   NonProdDisabled = false;
@@ -45,8 +50,13 @@ export class EmployeesendreportComponent implements OnInit {
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
-        Process: [""],
-        state: ["--Select--", Validators.required],
+        Process: ["",Validators.required],
+        state: ["ALL", Validators.required],
+        mode: [""],
+        parcels: [1, Validators.required],
+        exception: ["No", Validators.required],
+        comments: [""],
+        county: ["ALL", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
         totalTime: [""],
@@ -58,6 +68,21 @@ export class EmployeesendreportComponent implements OnInit {
     });
   }
 
+  get mode() {
+    return this.inputs.get("mode")
+  }
+  get parcels() {
+    return this.inputs.get("parcels")
+  }
+  get exception() {
+    return this.inputs.get("exception")
+  }
+  get comments() {
+    return this.inputs.get("comments")
+  }
+  get county() {
+    return this.inputs.get("county")
+  }
   get state() {
     return this.inputs.get("state");
   }
@@ -88,18 +113,39 @@ export class EmployeesendreportComponent implements OnInit {
   get Process() {
     return this.inputs.get("Process")
   }
+
+
   changeClientOptions() {
-    // if(this.update){
-    //   // if (res[0].Client == "NonProd") {
-    //   //   this.checkNonProd();
-    //   // }
-    // }
+
     this.Task.setValue("");
     this.Process.setValue("");
+    this.mode.setValue("")
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
+
+    // for mode 
+    if (this.Client.value == "ASK") {
+      this.mode.enable()
+      this.parcels.enable()
+    }
+    else {
+      this.mode.setValue("")
+      this.parcels.disable()
+      this.mode.disable()
+      this.parcels.setValue(1)
+    }
+
+    // for county
+    if (this.Client.value == "TW") {
+      this.county.setValue("ALL")
+      this.county.enable()
+    }
+    else {
+      this.county.setValue("ALL")
+      this.county.disable()
+    }
     this.Processlist = null
     // test
-    this.checkNonProd();
+    // this.checkNonProd();
   }
   changeTaskOptions() {
     this.final = null
@@ -107,23 +153,28 @@ export class EmployeesendreportComponent implements OnInit {
     this.final = this.inputs.value.Client + this.inputs.value.Task
     this.Processlist = this.dropDownList[this.final]
   }
+
+  setParcelValue() {
+
+    if (this.parcels.value > 99 || this.parcels.value < 0 || this.parcels.value == 0) {
+      this.parcels.setValue(1)
+    }
+    else {
+      return
+    }
+  }
+
   onSubmit() {
+    console.log(this.userForm.valid,this.userForm.getRawValue())
 
     this.orderNumber.setValue(this.orderNumber.value.trim())
-    if (this.Client.value == "NonProd") {
-      // this.orderNumber.setValue(" ");
-      this.state.setValue("");
-      // this.status.setValue("");
-    }
+
     // check if all compulsory fields are filled
-    if (this.userForm.status === "INVALID" || this.state.value == "--Select--") {
+    if (!this.userForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning");
       return;
     }
-    if (this.Client.value != "NonProd" && this.Process.value == "") {
-      this.showToastMessage("Please enter a value for Process", "warning")
-      return;
-    }
+
     // get the total time
     let result = this.getTotalTime();
     // check if start time and end time are same
@@ -140,7 +191,7 @@ export class EmployeesendreportComponent implements OnInit {
 
       this.showToastMessage("Success", "success")
       this.userForm.enable()
-      this.NonProdDisabled = false
+      // this.NonProdDisabled = false
       if (this.update) {
         setTimeout(() => {
           this.location.back()
@@ -166,7 +217,7 @@ export class EmployeesendreportComponent implements OnInit {
       totalTime = endTimeMin - startTimeMin
       if (totalTime < 0) {
         if (!(time1[0] >= 12 && time2[0] < 12)) {
-          
+
           this.showToastMessage("start time must be less than end time", "warning")
           this.startTime.setValue("")
           this.endTime.setValue("")
@@ -191,6 +242,7 @@ export class EmployeesendreportComponent implements OnInit {
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
       this.stateList = this.dropDownList.States;
+      this.countyList = this.dropDownList.County;
       // get single status for update
       const id = sessionStorage.getItem('updateID');
       const deleteID = sessionStorage.getItem('deleteID')
@@ -234,13 +286,6 @@ export class EmployeesendreportComponent implements OnInit {
       let temp = res[0].Client + res[0].Task
       this.Processlist = this.dropDownList[temp]
       this.inputs.patchValue(res[0]);
-      if (res[0].Client == "NonProd") {
-        this.checkNonProd();
-        // test
-        if (res[0].orderNumber == "") {
-          this.Client.disable();
-        }
-      }
     }, (err) => {
       console.log(err.message);
     })
@@ -257,15 +302,7 @@ export class EmployeesendreportComponent implements OnInit {
       console.log(err.message)
     })
   }
-  display() {
-    if (!this.delete && this.Client.value != "NonProd") {
-      this.displayBoolean = !this.displayBoolean;
-    }
 
-  }
-  getName(data) {
-    this.state.setValue(data);
-  }
 
   // open on delete button click methods
   showModal() {
@@ -280,31 +317,6 @@ export class EmployeesendreportComponent implements OnInit {
   }
   goBack() {
     this.location.back()
-  }
-  checkNonProd() {
-    if (this.Client.value == "NonProd") {
-      this.orderNumber.disable()
-      this.status.disable()
-      this.Process.disable()
-      this.state.disable()
-      this.displayBoolean = false;
-      this.NonProdDisabled = true
-      // test
-      if (!this.update) {
-        this.orderNumber.setValue(" ")
-      }
-      this.status.setValue("")
-      this.state.setValue("--Select--")
-    }
-    else {
-      this.NonProdDisabled = false
-      this.userForm.enable()
-      // if client is not non prod and update is enabled disable order number
-      if (this.update) {
-        this.orderNumber.disable()
-      }
-
-    }
   }
 
 }

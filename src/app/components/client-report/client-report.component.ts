@@ -51,7 +51,6 @@ get sheetName(){
     this.empReportService.getClientReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-      console.log(res)
       this.dates = res.dates;
       this.data = res.data;
 
