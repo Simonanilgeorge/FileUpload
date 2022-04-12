@@ -1,25 +1,6 @@
 <div class="container">
     <app-navbar></app-navbar>
     <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
-
-    <!-- modal box start -->
-    <!-- <div class="modal" [class.display]="modalBoolean" #modalRef>
-        <div class="modal-content">
-            <div class="text">
-                <h2>Confirm</h2>
-            </div>
-            <div class="text">
-                <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
-                        {{dataToBeDeleted.name|titlecase}}</span>?</p>
-
-            </div>
-            <div class="buttoncontainer">
-                <button class="openbtn" (click)="delete(dataToBeDeleted)">Yes</button>
-                <button class="openbtn" (click)="closeModal()">No</button>
-            </div>
-        </div>
-    </div> -->
-    <!-- modal box end -->
     <div class="heading">
         <h2>Employee Details</h2>
     </div>
@@ -36,7 +17,7 @@
                                 </div>
                             </form>
                         </th>
-                        <th colspan="16" style="position:sticky;top:0;">
+                        <th colspan="17" style="position:sticky;top:0;">
                             <input type="button" value="Add Employee" class="exportbutton" routerLink="/addemployee">
                         </th>
                     </tr>

@@ -13,118 +13,96 @@
       <label for="date">End Date</label>
       <input type="date" name="date" class="input-primary" formControlName="enddateFilter" (change)="getStatus()">
     </div>
-    <!-- <div class="inputgroup">
-                <button type="submit" class="button">Filter</button>
-            </div> -->
   </form>
-
   <div *ngIf="flag==1" class="report-container">
     <!-- <div *ngIf="datas" class="report"> -->
-      <div class="tablecontainer">
-        <form [formGroup]="filterForm">
-          <table class="table-excel">
-            <tr >
-              <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton"
-                  (click)="export()"></th>
-                  
-            </tr>
-            <tr>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <button  class="exportbutton" (click)="clearFields()">Clear</button>
-                <!-- </div> -->
-              </th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="date"> Date</label> -->
-                <input style="width:10em;" type="date" name="date"  formControlName="date">
-                
-                <!-- </div> -->
-              </th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="orderNumber">Order Number</label> -->
-                <input style="width:9em;" type="text" name="orderNumber"  formControlName="orderNumber" autocomplete="off" >
-                <!-- </div> -->
-              </th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="client">Client</label> -->
-                <select name="client"  formControlName="Client"
-                  (change)="changeClientOptions($event)">
-                  <option value="">All</option>
-                  <option *ngFor="let client of ClientList" value="{{client}}">
-                    {{client}}
-                  </option>
-                </select>
-                <!-- </div> -->
-              </th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="task">Task</label> -->
-                <select name="task"  formControlName="Task" (change)="changeTaskOptions($event)">
-                  <option value="">All</option>
-                  <option *ngFor="let task of Tasklist" value="{{task}}">
-                    {{task}}
-                  </option>
-                </select>
-                <!-- </div> -->
-              </th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="process">Process</label> -->
-                <select name="process"  formControlName="Process">
-                  <option value="">All</option>
-                  <option *ngFor="let process of Processlist" value="{{process}}">
-                    {{process}}
-                  </option>
-                </select>
-                <!-- </div> -->
-              </th>
-              <th colspan="4"></th>
-              <th>
-                <!-- <div class="inputgroup"> -->
-                <!-- <label for="status">Status</label> -->
-                <select name="status"  formControlName="status">
-                  <option value="">All</option>
-                  <option *ngFor="let status of statusList">
-                    {{status}}
-                  </option>
-                </select>
-                <!-- </div> -->
-              </th>
-              <th></th>
-            </tr>
-            <tr>
-              <th>Edit</th>
-              <th *ngFor="let title of titles">
-                {{ headings[title]}}
-                <span style="cursor: pointer;" (click)="getTitleName(title)">&uarr;&darr;</span>
-              </th>
-            </tr>
-            <tr *ngFor="let data of datas |multifilter:filterForm.value| sort:titleName ">
-              <td style="text-align: center;">
-                <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
+    <div class="tablecontainer">
+      <form [formGroup]="filterForm">
+        <table class="table-excel">
+          <tr>
+            <th colspan="60" style="position:sticky;top:0;"> <input type="button" value="Export" class="exportbutton"
+                (click)="export()"></th>
+          </tr>
+          <tr>
+            <th>
+              <button class="exportbutton" (click)="clearFields()">Clear</button>
+            </th>
+            <th>
+              <input style="width:10em;" type="date" name="date" formControlName="date">
+            </th>
+            <th>
+              <input style="width:9em;" type="text" name="orderNumber" formControlName="orderNumber" autocomplete="off">
+            </th>
+            <th>
+              <select name="client" formControlName="Client" (change)="changeClientOptions($event)">
+                <option value="">All</option>
+                <option *ngFor="let client of ClientList" value="{{client}}">
+                  {{client}}
+                </option>
+              </select>
+            </th>
+            <th>
+              <select name="task" formControlName="Task" (change)="changeTaskOptions($event)">
+                <option value="">All</option>
+                <option *ngFor="let task of Tasklist" value="{{task}}">
+                  {{task}}
+                </option>
+              </select>
+            </th>
+            <th>
+              <select name="process" formControlName="Process">
+                <option value="">All</option>
+                <option *ngFor="let process of Processlist" value="{{process}}">
+                  {{process}}
+                </option>
+              </select>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>
+              <select name="status" formControlName="status">
+                <option value="">All</option>
+                <option *ngFor="let status of statusList">
+                  {{status}}
+                </option>
+              </select>
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th>Edit</th>
+            <th *ngFor="let title of titles">
+              {{ headings[title]}}
+              <span style="cursor: pointer;" (click)="getTitleName(title)">&uarr;&darr;</span>
+            </th>
+          </tr>
+          <tr *ngFor="let data of datas |multifilter:filterForm.value| sort:titleName ">
+            <td style="text-align: center;">
+              <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
               &nbsp;&nbsp;
-                <span (click)="delete(data)" style='cursor: pointer;font-size: 1.1em;'> 
-                  <i class="fa fa-trash-o"></i> </span>
-              </td>
-              <td *ngFor="let title of titles">{{data[title]}}</td>
-           
-            </tr>
-            <tr *ngIf='searchItems().length==0'>
-              <td colspan="13" style="text-align: center;">No Reports Available</td>
-            </tr>
-          </table>
-        </form>
-      </div>
-    <!-- </div> -->
-    
+              <span (click)="delete(data)" style='cursor: pointer;font-size: 1.1em;'>
+                <i class="fa fa-trash-o"></i> </span>
+            </td>
+            <td *ngFor="let title of titles">{{data[title]}}</td>
+          </tr>
+          <tr *ngIf='searchItems().length==0'>
+            <td colspan="13" style="text-align: center;">No Reports Available</td>
+          </tr>
+        </table>
+      </form>
+    </div>
   </div>
   <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==2">
     <h2>Loading...</h2>
-</div>
-<div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
+  </div>
+  <div class="statusmsg" style="margin: 0 auto;color:steelblue;" *ngIf="flag==0">
     <h2>No data available for the Date Range </h2>
-</div>
+  </div>
 </div>

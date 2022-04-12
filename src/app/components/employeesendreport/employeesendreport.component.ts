@@ -5,8 +5,6 @@ import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe, Location } from '@angular/common';
 import { identifierModuleUrl } from '@angular/compiler';
-
-
 @Component({
   selector: 'app-employeesendreport',
   templateUrl: './employeesendreport.component.html',
@@ -37,7 +35,6 @@ export class EmployeesendreportComponent implements OnInit {
   temp: any;
   final: any;
   NonProdDisabled = false;
-
   myDate = new Date();
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private location: Location) { }
   ngOnInit(): void {
@@ -67,7 +64,6 @@ export class EmployeesendreportComponent implements OnInit {
       })
     });
   }
-
   get mode() {
     return this.inputs.get("mode")
   }
@@ -113,16 +109,16 @@ export class EmployeesendreportComponent implements OnInit {
   get Process() {
     return this.inputs.get("Process")
   }
-
-
   changeClientOptions() {
-
     this.Task.setValue("");
     this.Process.setValue("");
     this.mode.setValue("")
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
-
-    // for mode 
+    this.disableOnClientValues()
+    this.Processlist = null
+  }
+  // disable or enable fields based on client value
+  disableOnClientValues(){
     if (this.Client.value == "ASK") {
       this.mode.enable()
       this.parcels.enable()
@@ -133,7 +129,6 @@ export class EmployeesendreportComponent implements OnInit {
       this.mode.disable()
       this.parcels.setValue(1)
     }
-
     // for county
     if (this.Client.value == "TW") {
       this.county.setValue("ALL")
@@ -143,9 +138,6 @@ export class EmployeesendreportComponent implements OnInit {
       this.county.setValue("ALL")
       this.county.disable()
     }
-    this.Processlist = null
-    // test
-    // this.checkNonProd();
   }
   changeTaskOptions() {
     this.final = null
@@ -153,9 +145,7 @@ export class EmployeesendreportComponent implements OnInit {
     this.final = this.inputs.value.Client + this.inputs.value.Task
     this.Processlist = this.dropDownList[this.final]
   }
-
   setParcelValue() {
-
     if (this.parcels.value > 99 || this.parcels.value < 0 || this.parcels.value == 0) {
       this.parcels.setValue(1)
     }
@@ -163,18 +153,13 @@ export class EmployeesendreportComponent implements OnInit {
       return
     }
   }
-
   onSubmit() {
-    console.log(this.userForm.valid,this.userForm.getRawValue())
-
     this.orderNumber.setValue(this.orderNumber.value.trim())
-
     // check if all compulsory fields are filled
     if (!this.userForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning");
       return;
     }
-
     // get the total time
     let result = this.getTotalTime();
     // check if start time and end time are same
@@ -185,10 +170,8 @@ export class EmployeesendreportComponent implements OnInit {
     else {
       this.totalTime.setValue(Math.abs(result));
     }
-
     // send the form
     this.empReportService.sendReport(this.userForm.getRawValue()).subscribe((res) => {
-
       this.showToastMessage("Success", "success")
       this.userForm.enable()
       // this.NonProdDisabled = false
@@ -203,7 +186,6 @@ export class EmployeesendreportComponent implements OnInit {
       this.showToastMessage("Failed", "error")
     })
   }
-
   getTotalTime() {
     if (this.startTime.valid && this.endTime.valid) {
       let startTimeMin, endTimeMin, totalTime
@@ -211,13 +193,11 @@ export class EmployeesendreportComponent implements OnInit {
       let time2 = this.inputs.value.endTime;
       time1 = time1.split(":").map(Number)
       time2 = time2.split(":").map(Number)
-
       startTimeMin = time1[0] * 60 + time1[1]
       endTimeMin = time2[0] * 60 + time2[1]
       totalTime = endTimeMin - startTimeMin
       if (totalTime < 0) {
         if (!(time1[0] >= 12 && time2[0] < 12)) {
-
           this.showToastMessage("start time must be less than end time", "warning")
           this.startTime.setValue("")
           this.endTime.setValue("")
@@ -275,7 +255,6 @@ export class EmployeesendreportComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
-
   // call singleReport for update
   getSingleStatus() {
     this.empReportService.getSingleReport(this.update_id).subscribe((res) => {
@@ -286,11 +265,11 @@ export class EmployeesendreportComponent implements OnInit {
       let temp = res[0].Client + res[0].Task
       this.Processlist = this.dropDownList[temp]
       this.inputs.patchValue(res[0]);
+      this.disableOnClientValues()
     }, (err) => {
       console.log(err.message);
     })
   }
-
   deleteStatus() {
     this.modalBoolean = false;
     this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res) => {
@@ -302,8 +281,6 @@ export class EmployeesendreportComponent implements OnInit {
       console.log(err.message)
     })
   }
-
-
   // open on delete button click methods
   showModal() {
     // data.username = sessionStorage.getItem('user')
@@ -318,5 +295,4 @@ export class EmployeesendreportComponent implements OnInit {
   goBack() {
     this.location.back()
   }
-
 }

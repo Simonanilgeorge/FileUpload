@@ -7,8 +7,6 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 import * as XLSX from 'xlsx';
 import * as moment from 'moment'
-
-
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
@@ -45,7 +43,6 @@ export class MonthlyReportComponent implements OnInit {
     "process":"Process",
     "state":"State"
   }
-
   titles=["empcode","name","doj","search","client","task","process","state"];
   sheetNameRes;
   SheetList = ["Productivity", "Utilization", "Orders"];
@@ -64,39 +61,29 @@ export class MonthlyReportComponent implements OnInit {
     date: [this.datePipe.transform(new Date(),"yyyy-MM"), Validators.required],
     sheetName: ['Productivity', Validators.required]
   })
-
-
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService,private datePipe:DatePipe,private exportExcelService: ExportExcelService,private columnSortPipe:ColumnsortPipe) { }
-
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.role=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("MonthlyReportComponent")
     this.getDropDown();
-
   }
   get task(){
     return this.columnFilterForm.get("task")
   }
-
   get process(){
     return this.columnFilterForm.get("process")
   }
-
   get client(){
     return this.columnFilterForm.get("client")
   }
   get date() {
     return this.Date.get("date");
   }
-
   changeClientOptions() {
-
     this.task.setValue("")
     this.process.setValue("")
-
     this.Tasklist = this.dropDownList[this.client.value];
-
     this.Processlist = []
   }
   // function called when task value is changed
@@ -110,19 +97,15 @@ export class MonthlyReportComponent implements OnInit {
       this.final = this.client.value + this.task.value
       this.Processlist = this.dropDownList[this.final]
     }
-
   }
-
   // function called on ngOnInit()
   filter() {
-
     if (this.Date.status === "INVALID") {
       // this.showToastMessage("Select month and sheet","warning");
       this.total=0;
       return;
     }
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
-
       res = JSON.parse(res);
       this.data = res.data;
       this.dates = res.dates;
@@ -145,13 +128,11 @@ export class MonthlyReportComponent implements OnInit {
         }) 
         
       });
-
       this.flag = true
     }, (err) => {
       console.log(err.message)
     })
   }
-
   showToastMessage(message,status) {
     this.message = message;
     this.toastStatus=`${status}`
@@ -160,20 +141,15 @@ export class MonthlyReportComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
-
   getTitleName(title){
-
     this.titleName=null;
     setTimeout(()=>{
       this.titleName=title;
     },100)
   }
-
   // showInput(){
   //   this.showColumnInput = !this.showColumnInput
-
   // }
-
   checkDay(date){
     if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)
     {
@@ -183,11 +159,9 @@ export class MonthlyReportComponent implements OnInit {
       return false
     }
   }
-
   titleCase(str) {
     return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
   }
-
       // export to excel file
       export() {
         // / table id is passed over here /
@@ -202,9 +176,7 @@ export class MonthlyReportComponent implements OnInit {
     
           Heading.push(`${moment(date).format("MMM")} ${i}`)
           i+=1;
-
         });
-
         if(this.sheetNameRes=='Revenue'||this.sheetNameRes=='Orders'){
           Heading.push("Total")
         }
@@ -220,28 +192,18 @@ export class MonthlyReportComponent implements OnInit {
         ws['!rows'][0] = { hidden: true };
         // / save to file /
         XLSX.writeFile(wb, this.fileName);
-
     
       }
-
    public searchItems() {
-
-
      this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
-
     return this.searchedItems;
 }
-
 getDropDown() {
-
   this.empReportService.getDropDownList().subscribe((res) => {
-
     this.dropDownList = res;
-
     this.ClientList = this.dropDownList.Client;
     
     this.filter()
-
   }, (err) => {
     console.log(err.message)
   })

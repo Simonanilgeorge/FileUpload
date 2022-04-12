@@ -7,8 +7,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import * as XLSX from 'xlsx';
 import { MultifilterPipe } from '../../pipes/multifilter.pipe'
-
-
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -16,7 +14,6 @@ import { MultifilterPipe } from '../../pipes/multifilter.pipe'
   providers: [DatePipe, MultifilterPipe]
 })
 export class OrderListComponent implements OnInit {
-
   searchedItems;
   titleName;
   flag = 2;
@@ -39,7 +36,6 @@ export class OrderListComponent implements OnInit {
   Processlist: string[];
   searchedKeyword
   statusList: string[];
-
   filterForm: FormGroup = this.fb.group({
     date: [""],
     orderNumber: [""],
@@ -48,7 +44,6 @@ export class OrderListComponent implements OnInit {
     Process: [""],
     status: [""],
   })
-
   headings = {
     "date": "Date",
     "order_number": "Order Number",
@@ -56,19 +51,21 @@ export class OrderListComponent implements OnInit {
     "Task": "Task",
     "Process": "Process",
     "state": "State",
+    "county":"County",
+    "mode":"Mode",
+    "parcels":"Parcels",
+    "exception":"Exception",
     "start_Time": "Start Time",
     "end_Time": "End Time",
     "total_Time":"Total Time",
     "status": "Status",
-    "last_updated_time": "Last Updated Time"
+    "last_updated_time": "Last Updated Time",
+    "comments":"Comments"
     
   }
-
   constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService, private multiFilterPipe: MultifilterPipe) {
-
   }
   ngOnInit(): void {
-
     this.loginService.checkSessionStorage();
     this.loginService.navigateByRole("OrderListComponent")
     this.getDropDown();
@@ -79,18 +76,13 @@ export class OrderListComponent implements OnInit {
       enddateFilter: [this.endDate, Validators.required]
     })
     this.getStatus();
-
   }
-
-
   get dateFilter() {
     return this.user.get("dateFilter")
   }
-
   get enddateFilter() {
     return this.user.get("enddateFilter")
   }
-
   get date() {
     return this.filterForm.get("date")
   }
@@ -103,36 +95,28 @@ export class OrderListComponent implements OnInit {
   get Client() {
     return this.filterForm.get("Client")
   }
-
   getStatus() {
-
     if (this.user.status == "INVALID") {
       this.flag = 0;
       return;
     }
     this.flag = 2
-
-
     this.endDate
     let endDate = new Date(this.enddateFilter.value).getTime();
     let startDate = new Date(this.dateFilter.value).getTime();
     if (startDate > endDate) {
       this.showToastMessage("start date cannot be after end date", "warning")
-
     }
-
     this.empreportService.getMyStatus(this.user.value).subscribe((res) => {
+
       this.onResponse(res);
       this.getTitles()
     }, (err) => {
       console.log(err.message);
     })
   }
-
-
   onResponse(res) {
     res = JSON.parse(res);
-
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = 0;
@@ -144,16 +128,11 @@ export class OrderListComponent implements OnInit {
     }
     return;
   }
-
-
   initializeDates() {
-
     let year, month, day;
     [year, month, day] = this.datePipe.transform(this.myDate, 'yyyy-MM-dd').split('-');
     let startDate, endDate
-
     if (day <= "25") {
-
       endDate = `${month}/${25}/${year}`
       if (month === "01") {
         month = 12;
@@ -165,7 +144,6 @@ export class OrderListComponent implements OnInit {
       }
     }
     else {
-
       startDate = `${month}/${26}/${year}`
       if (month == "12") {
         month = 1;
@@ -179,45 +157,28 @@ export class OrderListComponent implements OnInit {
     this.startDate = this.datePipe.transform(startDate, 'yyyy-MM-dd');
     this.endDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
   }
-
   getDropDown() {
-
     this.empreportService.getDropDownList().subscribe((res) => {
-
       this.dropDownList = res;
-
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
-
     }, (err) => {
       console.log(err.message)
     })
   }
-
   getTitleName(title) {
-
     this.titleName = null;
     setTimeout(() => {
       this.titleName = title;
     }, 100)
-
-
   }
-
   changeClientOptions(event) {
-
     this.Task.setValue("");
     this.Process.setValue("");
-
-
     this.Tasklist = this.dropDownList[this.filterForm.value.Client];
     this.Processlist = null
-
-
   }
-
   changeTaskOptions(event) {
-
     this.final = null
     this.Process.setValue("");
     if (this.filterForm.value.Task != "") {
@@ -225,11 +186,7 @@ export class OrderListComponent implements OnInit {
     }
     this.Processlist = this.dropDownList[this.final]
   }
-
-
   clearFields() {
-
-
     this.filterForm.reset({
       date: [""],
       orderNumber: [""],
@@ -237,13 +194,10 @@ export class OrderListComponent implements OnInit {
       Task: [""],
       Process: [""],
       status: [""],
-
     })
     this.Tasklist = null
     this.Processlist = null
-
   }
-
   showToastMessage(message, status) {
     this.message = message;
     this.toastStatus = `${status}`
@@ -252,49 +206,23 @@ export class OrderListComponent implements OnInit {
       this.toast = false;
     }, 2000)
   }
-
-
   getTitles() {
-
-
     if (this.datas.length == 0) {
       return;
     }
-
-    this.titles = this.datas.map((data) => {
-      return Object.keys(data);
-    })[0];
-
+    this.titles=Object.keys(this.datas[0])
     this.titles.pop();
-    // this.headings = this.titles;
-    // this.headings = this.titles.map((title) => {
-    //   if (title.includes("_")) {
-    //     return title.replace(/_/g, " ")
-    //   }
-    //   else {
-    //     return title
-    //   }
-    // })
-
-
   }
-
-
-
   edit(data) {
-
     sessionStorage.setItem("updateID", data.id);
     this.router.navigate(['/sendreport'])
-
   }
-
   // export to excel file
   export() {
     // 
     // / table id is passed over here /
     let element = document.querySelector(".table-excel");
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
-
     // ws['!rows'][1] = { hidden: true };
     // ws['!cols'][0] = { hidden: true };
     ws['!cols'][0] = { hidden: true };
@@ -304,7 +232,6 @@ export class OrderListComponent implements OnInit {
       nul.push("")
       Heading.push(this.headings[property])
     }
-
     // / generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
@@ -315,18 +242,13 @@ export class OrderListComponent implements OnInit {
     ws['!rows'][1] = { hidden: true };
     XLSX.writeFile(wb, this.fileName);
     // this.exportExcelService.exportToExcel(element, this.fileName)
-
   }
-
   delete(data) {
     sessionStorage.setItem("deleteID", data.id);
     this.router.navigate(['/sendreport'])
   }
-
   public searchItems() {
     this.searchedItems = this.multiFilterPipe.transform(this.datas, this.filterForm.value);
     return this.searchedItems;
   }
-
-
 }

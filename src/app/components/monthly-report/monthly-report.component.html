@@ -14,7 +14,6 @@
         <div class="inputgroup">
             <label for="name">Select Report</label>
             <select class="input-primary" formControlName="sheetName" (change)="filter()">
-                <!-- <option value="" [disabled]="true">--Select--</option> -->
                 <option *ngFor="let sheet of SheetList">
                     {{sheet}}
                 </option>
@@ -23,9 +22,7 @@
                 </option>
             </select>
         </div>
-        <!-- <div class="inputgroup">
-                <button class="button" (click)="filter()">Filter</button>
-            </div> -->
+
     </form>
     <div class="report-container" *ngIf="total != 0">
         <div class="tablecontainer">

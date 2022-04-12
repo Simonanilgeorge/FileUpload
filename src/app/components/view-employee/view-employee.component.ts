@@ -42,6 +42,7 @@ export class ViewEmployeeComponent implements OnInit {
     task: [""],
     process: [""],
     state: [""],
+    county:[""],
     delay_review_duration: [""],
     delay_reason: [""],
     actual_out_of_review_date: [""],
@@ -62,6 +63,7 @@ export class ViewEmployeeComponent implements OnInit {
     "shift": "Shift",
     "process": "Process",
     "state": "State",
+    "county":"County",
     "production_status": "Production Status",
     "training_duration": "Training Duration",
     "planned_out_of_review_date": "Planned Out of Review Date",
@@ -95,9 +97,7 @@ export class ViewEmployeeComponent implements OnInit {
     this.empReportService.getEmployees().subscribe((res) => {
       res = JSON.parse(res);
       this.data = res;
-      this.titles = this.data.map((data) => {
-        return Object.keys(data);
-      })[0];
+      this.titles=Object.keys(this.data[0])
       this.titles.pop()
       this.flag = true
     }, (err) => {
