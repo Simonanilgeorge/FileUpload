@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe, Location } from '@angular/common';
-
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -12,31 +11,25 @@ import { DatePipe, Location } from '@angular/common';
   providers: [DatePipe]
 })
 export class AddEmployeeComponent implements OnInit {
-  @ViewChild('myDiv') myDiv: ElementRef;
   modalBoolean: Boolean = false
   dataToBeDeleted;
   delete = false;
-  selectGeneralShift = false;
   roleList
-  // nonWhitespaceRegExp: RegExp = new RegExp("\\S");
   valid: boolean = true;
-  isActive: boolean = false;
+
   update: Boolean = false;
   message = null;
   toast: Boolean = false;
   toastStatus;
-  // userForm: FormGroup;
-  // test
   employeeID = { id: null }
   dropDownList: any;
   StateList;
   Processlist
   ClientList: string[];
+  countyList=[]
   Tasklist = []
   roles=[]
   final: any
-  displayBoolean = false;
-
 
   userForm = this.fb.group({
     inputs: this.fb.group({
@@ -46,6 +39,7 @@ export class AddEmployeeComponent implements OnInit {
       task: [{ value: '', disabled: false }, Validators.required],
       process: [{ value: '', disabled: false }, Validators.required],
       state: [{ value: '', disabled: false }, Validators.required],
+      county: [{ value: 'ALL', disabled: false }, Validators.required],
       client: [{ value: '', disabled: false }, Validators.required],
       search: [{ value: '', disabled: false }, Validators.required],
       id: [""],
@@ -60,14 +54,13 @@ export class AddEmployeeComponent implements OnInit {
       username: [sessionStorage.getItem('user')]
     })
   });
-
+  
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
     this.roles=sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
-
   }
   get id(){
     return this.inputs.get("id")
@@ -77,6 +70,10 @@ export class AddEmployeeComponent implements OnInit {
   }
   get state() {
     return this.inputs.get("state")
+  }
+
+  get county() {
+    return this.inputs.get("county")
   }
   get role() {
     return this.inputs.get("role")
@@ -123,18 +120,15 @@ export class AddEmployeeComponent implements OnInit {
   get inputs() {
     return this.userForm.get("inputs")
   }
-  get keys() {
-    return [this.process, this.state, this.task, this.search, this.client, this.delay_reason, this.production_status]
-  }
-
+  // get keys() {
+  //   return [this.process, this.state, this.task, this.search, this.client, this.delay_reason, this.production_status]
+  // }
   get username(){
     return this.inputs.get("username")
   }
   // check if operation is update or delete
   checkUpdate() {
     this.route.params.subscribe((params) => {
-
-
       switch (Object.keys(params)[0]) {
         case "editid":
           this.update = true;
@@ -157,19 +151,11 @@ export class AddEmployeeComponent implements OnInit {
           this.update = false;
           this.delete=false
           break;
-
       }
     })
-
-
-
   }
-
   // submit function for add and update
   onSubmit() {
-
-
-
     this.name.setValue(this.name.value.trim())
     this.empcode.setValue(this.empcode.value.trim())
     if (!this.valid) {
@@ -177,14 +163,12 @@ export class AddEmployeeComponent implements OnInit {
       return
     }
     // check if all compulsory fields are filled
-    if (this.userForm.status === "INVALID") {
+    if (!this.userForm.valid) {
       this.showToastMessage("Please fill all the fields", "warning");
       return;
     }
-
     // send the form
     this.empReportService.addEmployee(this.userForm.getRawValue()).subscribe((res) => {
-
       if (res.response === "Success") {
         this.showToastMessage(res.response, "success")
         // enable form for add employee
@@ -194,13 +178,9 @@ export class AddEmployeeComponent implements OnInit {
           }, 1000);
         }
         this.userForm.enable()
-        // this.selectGeneralShift = true
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
-        // test
-        this.selectGeneralShift=false
         this.resetForm()
-        // this.ngOnInit();
         
       }
       else {
@@ -222,16 +202,8 @@ export class AddEmployeeComponent implements OnInit {
   }
   // call singleReport for update
   getSingleEmployee() {
-
-
-    this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
-      // test
-      // sessionStorage.removeItem("employeeID");
-      // sessionStorage.removeItem("deleteEmployee")
-    
-
+    this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {    
       res = JSON.parse(res);
-
       if(!this.roles.includes('Super Admin') && res[0].role=="Super Admin"){
         this.goBack()
         return
@@ -240,36 +212,18 @@ export class AddEmployeeComponent implements OnInit {
       let temp = res[0].client + res[0].task
       this.Processlist = this.dropDownList[temp]
       this.inputs.patchValue(res[0]);
-      // if shift is not applicable populate fields with not applicable
-      if (this.shift.value == "Not Applicable") {
-        this.selectGeneralShift = true
-        // this.changeShiftOptions()
-      }
     }, (err) => {
       console.log(err.message);
     })
-
-  }
-  // toggle dropdown on click
-  display() {
-    this.displayBoolean = !this.displayBoolean;
   }
 
   // function called when client value changed
   changeClientOptions() {
-    this.isActive = true
-    setTimeout(() => {
-      this.isActive = false
-    }, 5)
+
     this.task.setValue("")
     this.process.setValue("")
     this.Tasklist = this.dropDownList[this.inputs.value.client];
     this.Processlist = []
-    if (this.client.value == "Not Applicable") {
-      this.task.setValue("Not Applicable")
-      this.process.setValue("Not Applicable")
-
-    }
   }
   // function called when task value is changed
   changeTaskOptions() {
@@ -278,51 +232,14 @@ export class AddEmployeeComponent implements OnInit {
     this.final = this.client.value + this.task.value
     this.Processlist = this.dropDownList[this.final]
   }
-
-  // function called on selecting shift
-  changeShiftOptions() {
-    if (this.shift.value == "Not Applicable") {
-      this.inputs.patchValue({
-        // doj: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
-        planned_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
-        actual_out_of_review_date: this.datePipe.transform("2000-01-01", "yyyy-MM-dd"),
-        search: "Not Applicable",
-        client: "Not Applicable",
-        task: "Not Applicable",
-        process: "Not Applicable",
-        state: "Not Applicable",
-        production_status: "Not Applicable",
-        training_duration: "Not Applicable",
-        delay_reason: "Not Applicable",
-        delay_review_duration: "0 days"
-      })
-      // this.uncheckAll()
-      // this.Tasklist = []
-      this.selectGeneralShift = true
-    }
-
-    // when switched from not applicable to any other value
-    else {
-      this.keys.forEach((key) => {
-        if (key.value == "Not Applicable") {
-          key.setValue("")
-        }
-      })
-      if(this.training_duration.value=="Not Applicable" && !this.update){
-        this.training_duration.setValue("")
-      }
-
-      this.selectGeneralShift = false
-    }
-  }
-
-
   // get dropdown array
   getDropDown() {
-
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
+
       this.StateList = this.dropDownList.States
+      this.countyList=this.dropDownList.County
+      this.ClientList = this.dropDownList.Client;
       if (this.roles.includes('Super Admin')){
         this.roleList = res.role
       }
@@ -332,16 +249,14 @@ export class AddEmployeeComponent implements OnInit {
           return role!="Super Admin"
         })
       }
-      this.ClientList = this.dropDownList.Client;
+
       this.checkUpdate();
     }, (err) => {
       console.log(err.message)
     })
   }
 
-  getName(data) {
-    this.training_duration.setValue(data);
-  }
+  // set number of weeks
   counter(number: number) {
     let array = [];
     array.push(`${1} Week`)
@@ -351,7 +266,7 @@ export class AddEmployeeComponent implements OnInit {
     return array;
   }
   calculatePlannedDate() {
-    if (this.training_duration.value != "" && this.doj.value != "" && this.training_duration.value != "Not Applicable") {
+    if (this.training_duration.value != "" && this.doj.value != "") {
       // calculate planned date
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
@@ -364,16 +279,12 @@ export class AddEmployeeComponent implements OnInit {
       return;
     }
   }
-
   calculatedelay_review_duration() {
     let endDate = new Date(this.actual_out_of_review_date.value).getTime();
     let startDate = new Date(this.planned_out_of_review_date.value).getTime();
     let resultDate = (endDate - startDate) / (1000 * 24 * 60 * 60)
-
-
     if (resultDate >= 0) {
       // to display in months and days
-
       this.valid = true
       let result = Math.floor(resultDate / 30);
       if (result == 0) {
@@ -392,10 +303,8 @@ export class AddEmployeeComponent implements OnInit {
         else {
           this.delay_review_duration.setValue(`${result} Month ${days} days`)
         }
-
       }
-      // number of days only
-      // this.delay_review_duration.setValue(`${result} days`)
+
     }
     else {
       this.valid = false;
@@ -404,14 +313,6 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
-  // @HostListener('document:click', ['$event']) 
-  clickOutside(e) {
-    if (e.target.classList.contains("clickoutside") || e.target.classList.contains("checkbox") || e.target.classList.contains("dropdown") || e.target.classList.contains("dropdown-text") || e.target.classList.contains("parent") || e.target.classList.contains("p-clickoutside")) {
-      return
-    } else {
-      this.displayBoolean = false
-    }
-  }
   // open on delete button click methods
   showModal() {
     this.modalBoolean = true;
@@ -422,20 +323,16 @@ export class AddEmployeeComponent implements OnInit {
     this.modalBoolean = false;
     this.dataToBeDeleted = null;
   }
-
   // function called on delete
   deleteEmployee(data) {
-
     this.modalBoolean = false;
     this.empReportService.deleteEmployee(data).subscribe((res) => {
-
       this.showToastMessage("Deleted successfully", "success")
       setTimeout(() => {
         this.location.back()
       }, 1000)
       // test
       this.resetForm()
-
       // this.ngOnInit();
     }, (err) => {
       this.showToastMessage("Deletion failed", "error")
@@ -445,8 +342,6 @@ export class AddEmployeeComponent implements OnInit {
   goBack() {
     this.location.back()
   }
-
-
   resetForm(){
   this.doj.setValue("")
   this.empcode.setValue("")
@@ -468,7 +363,5 @@ export class AddEmployeeComponent implements OnInit {
   this.username.setValue(sessionStorage.getItem("user"))
   this.Tasklist=[]
   this.Processlist=[]
-
-
   }
 }

@@ -43,18 +43,18 @@
       </div>
       <div class="inputgroup">
         <label for="shift">Shift</label>
-        <select name="shift" class="input-primary" formControlName="shift" (change)="changeShiftOptions()">
+        <select name="shift" class="input-primary" formControlName="shift">
           <option value="" [disabled]="true">--Select--</option>
           <option value="Morning Shift" >Morning Shift</option>
           <option value="Night Shift" >Night Shift</option>
-          <option value="Not Applicable" >Not Applicable</option>
+
         </select>
       </div>
       <div class="inputgroup">
         <label for="search">Search/Non-Search</label>
         <select name="search" class="input-primary" formControlName="search">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option value="Search">Search</option>
           <option value="Non-Search">Non-Search</option>
         </select>
@@ -63,7 +63,7 @@
         <label for="client">Client</label>
         <select name="client" class="input-primary" (change)="changeClientOptions()" formControlName="client">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option *ngFor="let client of ClientList" value="{{client}}">
             {{client}}
           </option>
@@ -71,11 +71,11 @@
       </div>
 
       <div class="inputgroup">
-        <!-- get styles from state -->
-        <label for="State">Task</label>
+
+        <label for="Task">Task</label>
         <select name="Task" (change)="changeTaskOptions()"class="input-primary"  formControlName="task">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option *ngFor="let task of Tasklist" value="{{task}}">
             {{task}}
           </option>
@@ -83,13 +83,15 @@
       </div>
 
 
+
+
       <!-- new Drop downs start -->
       <div class="inputgroup">
-        <!-- get styles from state -->
+
         <label for="Process">Process</label>
         <select name="Process" class="input-primary"  formControlName="process">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option *ngFor="let process of Processlist" value="{{process}}">
             {{process}}
           </option>
@@ -98,13 +100,26 @@
 
 
       <div class="inputgroup">
-        <!-- get styles from state -->
+
         <label for="State">State</label>
         <select name="State" class="input-primary"  formControlName="state">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option *ngFor="let state of StateList" value="{{state}}">
             {{state}}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="inputgroup">
+
+        <label for="county">County</label>
+        <select name="county" class="input-primary"  formControlName="county">
+          <option value="" [disabled]="true">--Select--</option>
+
+          <option *ngFor="let county of countyList" value="{{county}}">
+            {{county}}
           </option>
         </select>
       </div>
@@ -113,7 +128,7 @@
         <label for="Production status">Production Status</label>
         <select name="Production status" class="input-primary" formControlName="production_status">
           <option value="" [disabled]="true">--Select--</option>
-          <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
           <option value="Training" >Training</option>
           <option value="100% Review" >100% Review</option>
           <option value="Partial Review" >Partial Review</option>
@@ -127,7 +142,7 @@
 <div class="inputgroup">
   <label for="Training Duration">Training Duration</label>
   <select name="Training Duration" class="input-primary"  formControlName="training_duration" (change)="calculatePlannedDate()">
-    <option *ngIf="training_duration.value=='Not Applicable'" value="Not Applicable">Not Applicable</option>
+
     <option value="" [disabled]="true">--Select--</option>
     <option *ngFor="let week of counter(24)" [value]="week">
       {{week}}
@@ -151,7 +166,7 @@
   <label for="Delay Reason">Reason for Extension</label>
   <select name="Delay Reason" class="input-primary option" formControlName="delay_reason">
     <option value="" [disabled]="true">--Select--</option>
-    <option *ngIf="selectGeneralShift" value="Not Applicable">Not Applicable</option>
+
     <option value="Productivity issue" > Productivity Issue</option>
     <option value="Quality issue" >Quality Issue</option>
     <option value="Planning issue" >Planning Issue</option>
