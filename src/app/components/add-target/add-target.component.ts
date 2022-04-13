@@ -107,7 +107,13 @@ export class AddTargetComponent implements OnInit {
 
   getSingleTarget(id) {
     this.empReportService.getSingleTarget(id).subscribe((res) => {
-      this.form.patchValue(res[0])
+      try{
+        this.form.patchValue(res[0])
+      }
+      catch{
+        this.location.back()
+      }
+
     }, (err) => {
       console.log(err.message)
     })

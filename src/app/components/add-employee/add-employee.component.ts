@@ -26,9 +26,9 @@ export class AddEmployeeComponent implements OnInit {
   StateList;
   Processlist
   ClientList: string[];
-  countyList=[]
+  countyList = []
   Tasklist = []
-  roles=[]
+  roles = []
   final: any
 
   userForm = this.fb.group({
@@ -54,15 +54,15 @@ export class AddEmployeeComponent implements OnInit {
       username: [sessionStorage.getItem('user')]
     })
   });
-  
+
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.roles=sessionStorage.getItem("role").split(",")
+    this.roles = sessionStorage.getItem("role").split(",")
     this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
   }
-  get id(){
+  get id() {
     return this.inputs.get("id")
   }
   get process() {
@@ -123,7 +123,7 @@ export class AddEmployeeComponent implements OnInit {
   // get keys() {
   //   return [this.process, this.state, this.task, this.search, this.client, this.delay_reason, this.production_status]
   // }
-  get username(){
+  get username() {
     return this.inputs.get("username")
   }
   // check if operation is update or delete
@@ -132,7 +132,7 @@ export class AddEmployeeComponent implements OnInit {
       switch (Object.keys(params)[0]) {
         case "editid":
           this.update = true;
-          this.delete=false
+          this.delete = false
           this.employeeID.id = params.editid
           this.empcode.disable()
           this.name.disable()
@@ -144,12 +144,12 @@ export class AddEmployeeComponent implements OnInit {
           this.userForm.disable()
           this.employeeID.id = params.deleteid;
           this.delete = true
-          this.update=false
+          this.update = false
           this.getSingleEmployee();
           break
         default:
           this.update = false;
-          this.delete=false
+          this.delete = false
           break;
       }
     })
@@ -181,7 +181,7 @@ export class AddEmployeeComponent implements OnInit {
         this.delay_review_duration.disable()
         this.planned_out_of_review_date.disable()
         this.resetForm()
-        
+
       }
       else {
         this.showToastMessage(res.response, "warning")
@@ -202,16 +202,22 @@ export class AddEmployeeComponent implements OnInit {
   }
   // call singleReport for update
   getSingleEmployee() {
-    this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {    
-      res = JSON.parse(res);
-      if(!this.roles.includes('Super Admin') && res[0].role=="Super Admin"){
-        this.goBack()
-        return
+    this.empReportService.getSingleEmployee(this.employeeID.id).subscribe((res) => {
+      try {
+        res = JSON.parse(res);
+        if (!this.roles.includes('Super Admin') && res[0].role == "Super Admin") {
+          this.goBack()
+          return
+        }
+        this.Tasklist = this.dropDownList[res[0].client];
+        let temp = res[0].client + res[0].task
+        this.Processlist = this.dropDownList[temp]
+        this.inputs.patchValue(res[0]);
       }
-      this.Tasklist = this.dropDownList[res[0].client];
-      let temp = res[0].client + res[0].task
-      this.Processlist = this.dropDownList[temp]
-      this.inputs.patchValue(res[0]);
+      catch {
+        this.location.back()
+      }
+
     }, (err) => {
       console.log(err.message);
     })
@@ -238,15 +244,15 @@ export class AddEmployeeComponent implements OnInit {
       this.dropDownList = res;
 
       this.StateList = this.dropDownList.States
-      this.countyList=this.dropDownList.County
+      this.countyList = this.dropDownList.County
       this.ClientList = this.dropDownList.Client;
-      if (this.roles.includes('Super Admin')){
+      if (this.roles.includes('Super Admin')) {
         this.roleList = res.role
       }
-      else{
+      else {
         // this.roleList = this.removeItem(res.role, 'Super Admin');
-        this.roleList-res.role.filter((role)=>{
-          return role!="Super Admin"
+        this.roleList = res.role.filter((role) => {
+          return role != "Super Admin"
         })
       }
 
@@ -271,7 +277,7 @@ export class AddEmployeeComponent implements OnInit {
       let days = this.training_duration.value.split(" ")[0] * 7;
       let result = new Date(this.doj.value);
       result.setDate(result.getDate() + days);
-      this.valid=true
+      this.valid = true
       this.planned_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
       this.actual_out_of_review_date.setValue(this.datePipe.transform(result, "yyyy-MM-dd"))
     }
@@ -342,26 +348,26 @@ export class AddEmployeeComponent implements OnInit {
   goBack() {
     this.location.back()
   }
-  resetForm(){
-  this.doj.setValue("")
-  this.empcode.setValue("")
-  this.name.setValue("")
-  this.task.setValue("")
-  this.process.setValue("")
-  this.state.setValue("")
-  this.client.setValue("")
-  this.search.setValue("")
-  this.id.setValue("")
-  this.shift.setValue("")
-  this.production_status.setValue("")
-  this.training_duration.setValue("")
-  this.planned_out_of_review_date.setValue("")
-  this.actual_out_of_review_date.setValue("")
-  this.delay_reason.setValue("No issue")
-  this.delay_review_duration.setValue("0 days")
-  this.role.setValue("")
-  this.username.setValue(sessionStorage.getItem("user"))
-  this.Tasklist=[]
-  this.Processlist=[]
+  resetForm() {
+    this.doj.setValue("")
+    this.empcode.setValue("")
+    this.name.setValue("")
+    this.task.setValue("")
+    this.process.setValue("")
+    this.state.setValue("")
+    this.client.setValue("")
+    this.search.setValue("")
+    this.id.setValue("")
+    this.shift.setValue("")
+    this.production_status.setValue("")
+    this.training_duration.setValue("")
+    this.planned_out_of_review_date.setValue("")
+    this.actual_out_of_review_date.setValue("")
+    this.delay_reason.setValue("No issue")
+    this.delay_review_duration.setValue("0 days")
+    this.role.setValue("")
+    this.username.setValue(sessionStorage.getItem("user"))
+    this.Tasklist = []
+    this.Processlist = []
   }
 }

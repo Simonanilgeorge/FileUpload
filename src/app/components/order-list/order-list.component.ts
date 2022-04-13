@@ -117,6 +117,7 @@ export class OrderListComponent implements OnInit {
   }
   onResponse(res) {
     res = JSON.parse(res);
+
     this.datas = res;
     if (this.datas.length == 0) {
       this.flag = 0;

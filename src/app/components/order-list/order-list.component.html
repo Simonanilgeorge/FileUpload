@@ -85,9 +85,9 @@
           </tr>
           <tr *ngFor="let data of datas |multifilter:filterForm.value| sort:titleName ">
             <td style="text-align: center;">
-              <span (click)="edit(data)" style="cursor: pointer;">&#9998;</span>
+              <span routerLink="/editreport/{{data.id}}" style="cursor: pointer;">&#9998;</span>
               &nbsp;&nbsp;
-              <span (click)="delete(data)" style='cursor: pointer;font-size: 1.1em;'>
+              <span routerLink="/deletereport/{{data.id}}" style='cursor: pointer;font-size: 1.1em;'>
                 <i class="fa fa-trash-o"></i> </span>
             </td>
             <td *ngFor="let title of titles">{{data[title]}}</td>

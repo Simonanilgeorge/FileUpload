@@ -35,6 +35,8 @@ const routes: Routes = [
 {path:'upload',component:HomeComponent},
 {path:'report',component:FileReportComponent},
 {path:'sendreport',component:EmployeesendreportComponent},
+{path:'editreport/:editid',component:EmployeesendreportComponent},
+{path:'deletereport/:deleteid',component:EmployeesendreportComponent},
 // {path:'sendreport/:id',component:EmployeesendreportComponent},
 {path:'viewmystatus',component:OrderListComponent},
 {path:'viewreport',component:EmployeeReportComponent},

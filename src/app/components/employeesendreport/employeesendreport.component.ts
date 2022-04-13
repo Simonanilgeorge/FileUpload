@@ -23,7 +23,7 @@ export class EmployeesendreportComponent implements OnInit {
   public notValid: boolean = false;
   flag = true;
   userForm: FormGroup;
-  update_id = { id: sessionStorage.getItem("updateID") }
+  order_id = { id: null }
   dropDownList: any;
   ClientList: string[];
   Tasklist: string[];
@@ -47,7 +47,7 @@ export class EmployeesendreportComponent implements OnInit {
         orderNumber: ["", Validators.required],
         Client: ["", Validators.required],
         Task: ["", Validators.required],
-        Process: ["",Validators.required],
+        Process: ["", Validators.required],
         state: ["ALL", Validators.required],
         mode: [""],
         parcels: [1, Validators.required],
@@ -118,7 +118,7 @@ export class EmployeesendreportComponent implements OnInit {
     this.Processlist = null
   }
   // disable or enable fields based on client value
-  disableOnClientValues(){
+  disableOnClientValues() {
     if (this.Client.value == "ASK") {
       this.mode.enable()
       this.parcels.enable()
@@ -154,6 +154,7 @@ export class EmployeesendreportComponent implements OnInit {
     }
   }
   onSubmit() {
+
     this.orderNumber.setValue(this.orderNumber.value.trim())
     // check if all compulsory fields are filled
     if (!this.userForm.valid) {
@@ -224,25 +225,50 @@ export class EmployeesendreportComponent implements OnInit {
       this.stateList = this.dropDownList.States;
       this.countyList = this.dropDownList.County;
       // get single status for update
-      const id = sessionStorage.getItem('updateID');
-      const deleteID = sessionStorage.getItem('deleteID')
-      if (id) {
-        this.update = true;
-        this.orderNumber.disable()
-        // call singlestatus function to populate fields for update
-        this.getSingleStatus();
-      }
-      else if (deleteID) {
-        this.userForm.disable()
-        this.displayBoolean = false;
-        this.delete = true;
-        this.update_id = { id: deleteID }
-        this.getSingleStatus();
-      }
-      else {
-        this.update = false;
-        this.delete = false
-      }
+      this.route.params.subscribe(params => {
+
+        switch (Object.keys(params)[0]) {
+          // call singlestatus function to populate fields for update
+          case "editid":
+            this.update = true;
+            this.order_id.id = params.editid
+            this.orderNumber.disable()
+            this.getSingleStatus();
+            break;
+          case "deleteid":
+            this.displayBoolean = false;
+            this.delete = true;
+            this.order_id.id = params.deleteid
+            this.getSingleStatus();
+            this.userForm.disable()
+            break;
+          default: this.update = false;
+            this.delete = false
+
+
+
+        }
+      });
+
+      // const id = sessionStorage.getItem('updateID');
+      // const deleteID = sessionStorage.getItem('deleteID')
+      // if (id) {
+      //   this.update = true;
+      //   this.orderNumber.disable()
+      //   // call singlestatus function to populate fields for update
+      //   this.getSingleStatus();
+      // }
+      // else if (deleteID) {
+      //   this.userForm.disable()
+      //   this.displayBoolean = false;
+      //   this.delete = true;
+      //   this.order_id = { id: deleteID }
+      //   this.getSingleStatus();
+      // }
+      // else {
+      //   this.update = false;
+      //   this.delete = false
+      // }
     }, (err) => {
       console.log(err.message)
     })
@@ -257,22 +283,30 @@ export class EmployeesendreportComponent implements OnInit {
   }
   // call singleReport for update
   getSingleStatus() {
-    this.empReportService.getSingleReport(this.update_id).subscribe((res) => {
-      sessionStorage.removeItem("updateID");
-      sessionStorage.removeItem("deleteID")
-      res = JSON.parse(res);
-      this.Tasklist = this.dropDownList[res[0].Client];
-      let temp = res[0].Client + res[0].Task
-      this.Processlist = this.dropDownList[temp]
-      this.inputs.patchValue(res[0]);
-      this.disableOnClientValues()
+    this.empReportService.getSingleReport(this.order_id).subscribe((res) => {
+      try {
+        res = JSON.parse(res);
+        this.Tasklist = this.dropDownList[res[0].Client];
+        let temp = res[0].Client + res[0].Task
+        this.Processlist = this.dropDownList[temp]
+        this.inputs.patchValue(res[0]);
+        if (this.update) {
+          this.disableOnClientValues()
+        }
+      }
+      catch {
+        this.location.back()
+      }
+
     }, (err) => {
+
       console.log(err.message);
     })
   }
   deleteStatus() {
+
     this.modalBoolean = false;
-    this.empReportService.deleteEmployeeReport(this.userForm.value).subscribe((res) => {
+    this.empReportService.deleteEmployeeReport(this.userForm.getRawValue()).subscribe((res) => {
       this.showToastMessage(res.status, "success")
       setTimeout(() => {
         this.location.back()
