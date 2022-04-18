@@ -8,9 +8,9 @@
           </div>
           <div class="text">
               <p>Are you sure you want to delete?</p>
-  
+
           </div>
-  
+
           <div class="buttoncontainer">
               <button class="openbtn" (click)="deleteTarget()">Yes</button>
               <button class="openbtn" (click)="closeModal()">No</button>
@@ -44,6 +44,26 @@
               </div>
 
               <div class="inputgroup">
+                <label for="state">State</label>
+                <select name="state" class="input-primary" formControlName="State">
+                  <option value="" [disabled]="true">--Select--</option>
+                  <option *ngFor="let state of stateList" value="{{state}}">
+                    {{state}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="inputgroup">
+                <label for="county">County</label>
+                <select name="county" class="input-primary" formControlName="County">
+                  <option value="" [disabled]="true">--Select--</option>
+                  <option *ngFor="let county of countyList" value="{{county}}">
+                    {{county}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="inputgroup">
                 <label for="Time">Time</label>
                 <input name="Time" type="number" class="input-primary" formControlName="Time" autocomplete="off">
               </div>
@@ -67,26 +87,8 @@
                 <label for="price">Price</label>
                 <input name="price" type="number" class="input-primary" formControlName="price" autocomplete="off">
               </div>
-              
-              <div class="inputgroup">
-                <label for="state">State</label>
-                <select name="state" class="input-primary" formControlName="State">
-                  <option value="" [disabled]="true">--Select--</option>
-                  <option *ngFor="let state of stateList" value="{{state}}">
-                    {{state}}
-                  </option>
-                </select>
-              </div>
-  
-              <div class="inputgroup">
-                <label for="county">County</label>
-                <select name="county" class="input-primary" formControlName="County">
-                  <option value="" [disabled]="true">--Select--</option>
-                  <option *ngFor="let county of countyList" value="{{county}}">
-                    {{county}}
-                  </option>
-                </select>
-              </div>
+
+
             </div>
             <div class="minicontainer">
               <div class="inputgroup"  *ngIf="delete||update">
