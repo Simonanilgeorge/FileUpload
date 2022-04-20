@@ -114,12 +114,12 @@ export class ViewEmployeeComponent implements OnInit {
   }
   // function called when task value is changed
   changeTaskOptions() {
+    this.process.setValue("");
     if (this.task.value == "") {
       this.Processlist = []
     }
     else {
       this.final = null
-      this.process.setValue("");
       this.final = this.client.value + this.task.value
       this.Processlist = this.dropDownList[this.final]
     }
@@ -153,7 +153,7 @@ export class ViewEmployeeComponent implements OnInit {
       this.titleName = title;
     }, 100)
   }
-  // called on delete 
+  // called on delete
   showModal(data) {
     if (data.role == "Super Admin" && !this.roles.includes('Super Admin')) {
       this.showToastMessage("Super Admin cannot be deleted","warning")

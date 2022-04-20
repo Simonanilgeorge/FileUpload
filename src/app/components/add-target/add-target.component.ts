@@ -55,6 +55,8 @@ export class AddTargetComponent implements OnInit {
           this.Client.disable()
           this.Process.disable()
           this.Task.disable()
+          this.State.disable()
+          this.County.disable()
           this.getSingleTarget(params.editid)
           break;
         case "deleteid": this.delete = true;

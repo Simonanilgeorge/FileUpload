@@ -106,12 +106,13 @@ export class YearlyEmployeeReportComponent implements OnInit {
   }
   // function called when task value is changed
   changeTaskOptions() {
+    this.process.setValue("");
     if(this.task.value==""){
-      this.Processlist=[]   
+      this.Processlist=[]
     }
     else{
       this.final = null
-      this.process.setValue("");
+
       this.final = this.client.value + this.task.value
       this.Processlist = this.dropDownList[this.final]
     }
@@ -138,7 +139,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
     this.empReportService.getYearlyEmployeeReport(this.Date.value).subscribe((res) => {
 
       res = JSON.parse(res);
-  
+
       this.data = res.data;
       this.dates = res.dates;
 
@@ -199,11 +200,11 @@ export class YearlyEmployeeReportComponent implements OnInit {
   export() {
     // / table id is passed over here /
     let element = document.querySelector(".table-excel");
-    var Heading = [];  
+    var Heading = [];
         this.titles.forEach(element => {
           Heading.push(this.titleCase(this.headings[element]))
         });
-        
+
         this.dates.forEach(date => {
           Heading.push(date)
         });
@@ -211,14 +212,14 @@ export class YearlyEmployeeReportComponent implements OnInit {
         if(this.sheetNameRes=='Revenue'||this.sheetNameRes=='Orders'){
           Heading.push("Total")
         }
-      
+
         const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
-        
+
         // / generate workbook and add the worksheet /
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
-        XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"}); 
+
+        XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
         // / save to file /
         ws['!rows'][0] = { hidden: true };
         XLSX.writeFile(wb, this.fileName);

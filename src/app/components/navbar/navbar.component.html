@@ -9,7 +9,7 @@
                     <li routerLink="/monthlyreport" class="child-links">Monthly Report</li>
                     <li routerLink="/viewyearlyreport" class="child-links">Yearly Report</li>
                     <li *ngIf="nav.includes('Super Admin')" routerLink="/incentivereport" class="child-links">Incentive Report</li>
-                    
+
                 </ul>
             </li>
             <li *ngIf="nav.includes('Client Reports')" class="links" routerLinkActive="active-link">
@@ -36,11 +36,10 @@
                     <li *ngIf="nav.includes('Super Admin')" routerLink="/addrole" class="child-links">Add Role</li>
                     <!-- <li routerLink="/targettable" class="child-links">Target</li> -->
                     <li *ngIf="nav.includes('Super Admin')" class="child-links dt">
+
                         Target&emsp;<span style="font-size: 10px;color: gray;">&#9654;</span>
                         <ul class="dt-ul">
-                            <li routerLink="/targettable/ASK" class="child-links">ASK</li>
-                            <li routerLink="/targettable/DT" class="child-links">DT</li>
-                            <li routerLink="/targettable/TW" class="child-links">TW</li>
+                            <li *ngFor="let client of ClientList" routerLink="/targettable/{{client}}" class="child-links">{{client}}</li>
                         </ul>
                     </li>
                 </ul>
@@ -51,7 +50,7 @@
             <li class="links" routerLink="/reset"  routerLinkActive="active-link" >Reset Password</li>
             <li class="links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
         </div>
-        
+
         <div class="boxtwo">
             <li class="links logout" (click)="logOut()">Logout</li>
         </div>
@@ -80,7 +79,7 @@
                                     <li routerLink="/monthlyreport" class="responsive-child-links">Monthly Report
                                     </li>
                                     <li routerLink="/viewyearlyreport" class="responsive-child-links">Yearly Report
-                                    </li>        
+                                    </li>
                                     <li  *ngIf="nav.includes('Super Admin')" routerLink="/incentivereport" class="responsive-child-links">Incentive Report</li>
                                 </ul>
                             </li>
@@ -125,8 +124,8 @@
                                     </li>
                                 </ul>
                             </li>
-                            
-                           
+
+
                             <li class="responsive-links" routerLink="/help"  routerLinkActive="active-link" >Help</li>
                             <li class="responsive-links" (click)="logOut()">Logout</li>
                         </ul>

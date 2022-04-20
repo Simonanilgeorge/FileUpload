@@ -88,12 +88,13 @@ export class MonthlyReportComponent implements OnInit {
   }
   // function called when task value is changed
   changeTaskOptions() {
+    this.process.setValue("");
     if(this.task.value==""){
-      this.Processlist=[]   
+      this.Processlist=[]
     }
     else{
       this.final = null
-      this.process.setValue("");
+
       this.final = this.client.value + this.task.value
       this.Processlist = this.dropDownList[this.final]
     }
@@ -109,15 +110,15 @@ export class MonthlyReportComponent implements OnInit {
       res = JSON.parse(res);
       this.data = res.data;
       this.dates = res.dates;
-       
+
       this.sheetNameRes=res.sheet;
-      
+
       this.total = 0
       // initialize columnsum keys to 0
       this.dates.forEach((date)=>{
         this.columnSum[date]=0;
       })
-     
+
       // check if value exist in data
       this.data.forEach(datas => {
         this.total = this.total + datas.total
@@ -125,8 +126,8 @@ export class MonthlyReportComponent implements OnInit {
           if(datas[date]){
             this.columnSum[date]=this.columnSum[date]+datas[date]
           }
-        }) 
-        
+        })
+
       });
       this.flag = true
     }, (err) => {
@@ -166,33 +167,33 @@ export class MonthlyReportComponent implements OnInit {
       export() {
         // / table id is passed over here /
         let element = document.querySelector(".table-excel");
-        
-        var Heading = [];  
+
+        var Heading = [];
         this.titles.forEach(element => {
           Heading.push(this.titleCase(this.headings[element]))
         });
         let i = 1;
         this.dates.forEach(date => {
-    
+
           Heading.push(`${moment(date).format("MMM")} ${i}`)
           i+=1;
         });
         if(this.sheetNameRes=='Revenue'||this.sheetNameRes=='Orders'){
           Heading.push("Total")
         }
-      
+
         const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
-        
+
         // / generate workbook and add the worksheet /
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
+
         XLSX.utils.sheet_add_aoa(ws, [Heading], {origin:"A2"});
-    
+
         ws['!rows'][0] = { hidden: true };
         // / save to file /
         XLSX.writeFile(wb, this.fileName);
-    
+
       }
    public searchItems() {
      this.searchedItems = this.columnSortPipe.transform(this.data,this.columnFilterForm.value);
@@ -202,7 +203,7 @@ getDropDown() {
   this.empReportService.getDropDownList().subscribe((res) => {
     this.dropDownList = res;
     this.ClientList = this.dropDownList.Client;
-    
+
     this.filter()
   }, (err) => {
     console.log(err.message)

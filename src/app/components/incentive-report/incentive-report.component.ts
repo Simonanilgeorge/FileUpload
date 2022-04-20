@@ -148,12 +148,13 @@ export class IncentiveReportComponent implements OnInit {
   }
   // function called when task value is changed
   changeTaskOptions() {
+    this.process.setValue("");
     if (this.task.value == "") {
       this.Processlist = []
     }
     else {
       this.final = null
-      this.process.setValue("");
+
       this.final = this.client.value + this.task.value
       this.Processlist = this.dropDownList[this.final]
     }
@@ -178,7 +179,7 @@ export class IncentiveReportComponent implements OnInit {
 
 
 
-  // function called on response 
+  // function called on response
   onResponse(res) {
 
     this.datas = res;

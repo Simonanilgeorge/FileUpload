@@ -5,34 +5,60 @@
     </div>
     <div *ngIf="flag==1" class="report-container">
         <div class="tablecontainer">
-            <table>
-                <tr>
-                    <th>
-                        <input type="button" value="Add Target" class="exportbutton" routerLink="/addtarget">
-                    </th>
-                    <th *ngFor="let title of titles"></th>
-                </tr>
-                <tr>
-                    <th>Edit</th>
-                    <th *ngFor="let title of titles">{{headings[title]}}</th>
-                </tr>
-
-                <tr *ngFor="let data of data">
-                    <td>
-                        <span routerLink="/edittargettable/{{data.id}}" style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
-
-                        &nbsp;&nbsp;&nbsp;
-                        <span routerLink="/deletetargettable/{{data.id}}"  style='cursor: pointer;font-size: 1.1em;'>
-                            <i class="fa fa-trash-o"></i> </span>
-                    </td>
-                    <td *ngFor="let title of titles">{{data[title]}}</td>
-                </tr>
-            </table>
+            <form [formGroup]="columnFilterForm">
+                <table class="table-excel">
+                    <tr>
+                        <th>
+                            <input type="button" value="Add Target" class="exportbutton" routerLink="/addtarget">
+                        </th>
+                        <th> <input type="button" value="Export" class="exportbutton" (click)="export()"></th>
+                        <th *ngFor="let title of titles|slice:1"></th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="inputgroup-columnsort">
+                            </div>
+                            Edit
+                        </th>
+                        <th *ngFor="let title of titles">
+                            <div class="inputgroup-columnsort">
+                                <span *ngIf="title=='Task'">
+                                    <select formControlName="{{title}}" (change)="changeTaskOptions()"
+                                        style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let task of Tasklist" value="{{task}}">
+                                            {{task}}
+                                        </option>
+                                    </select>
+                                </span>
+                                <span *ngIf="title=='Process'">
+                                    <select formControlName="{{title}}" style="width: 12em;">
+                                        <option value="">All</option>
+                                        <option *ngFor="let process of Processlist" value="{{process}}">
+                                            {{process}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                            <span style="cursor: pointer;" (click)="getTitleName(title)">{{headings[title]}}
+                                &uarr;&darr;</span>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let data of data | sort:titleName |columnsort:columnFilterForm.value">
+                        <td>
+                            <span routerLink="/edittargettable/{{data.id}}"
+                                style="cursor:pointer;font-size: 1.1em;">&#9998;</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <span routerLink="/deletetargettable/{{data.id}}" style='cursor: pointer;font-size: 1.1em;'>
+                                <i class="fa fa-trash-o"></i> </span>
+                        </td>
+                        <td *ngFor="let title of titles">{{data[title]}}</td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
-
     <div class="statusmsg" *ngIf="flag==2">
         <h2>Loading...</h2>
     </div>
-
 </div>
