@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
   providers: [DatePipe]
 })
 export class YearlyClientReportComponent implements OnInit {
-  
+
   fileName="Yearly_Client_Report.xlsx"
   role
   data=[]
@@ -42,7 +43,7 @@ export class YearlyClientReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.role=sessionStorage.getItem("role").split(",")
+    this.role=CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("YearlyClientReportComponent")
     this.onSubmit()
 
@@ -59,39 +60,39 @@ export class YearlyClientReportComponent implements OnInit {
   }
 
   onSubmit() {
-    
+
     this.flag=2;
 
     if (this.date.status === "INVALID") {
-      this.flag=0; 
+      this.flag=0;
       this.showToastMessage("Select a year","warning");
       return;
     }
 
     // check date input length
-    if(this.date.value.toString().length!=4){ 
+    if(this.date.value.toString().length!=4){
       // this.showToastMessage("Select a valid year");
-      this.flag=0;  
+      this.flag=0;
       return
     }
-    
+
 
     this.empreportService.getYearlyClientReport(this.filterForm.value).subscribe((res) => {
 
 
       res = JSON.parse(res);
-  
+
       this.data = res.data;
       this.dates = res.dates;
-       
+
       this.sheetNameRes=res.sheet;
-      
+
       this.total = 0
       // initialize columnsum keys to 0
       this.dates.forEach((date)=>{
         this.columnSum[date]=0;
       })
-     
+
       // check if value exist in data
       this.data.forEach(datas => {
         this.total = this.total + datas.total
@@ -99,8 +100,8 @@ export class YearlyClientReportComponent implements OnInit {
           if(datas[date]){
             this.columnSum[date]=this.columnSum[date]+datas[date]
           }
-        }) 
-        
+        })
+
       });
       if(this.data.length!=0){
         this.flag=1;
@@ -117,7 +118,7 @@ export class YearlyClientReportComponent implements OnInit {
 
 
   showToastMessage(message,status) {
-    
+
     this.message = message;
     this.toastStatus=`${status}`
     this.toast = true;

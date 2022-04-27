@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { EmpreportService } from '../../providers/empreport.service'
 import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-client-report',
   templateUrl: './client-report.component.html',
@@ -29,7 +30,7 @@ export class ClientReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.role=sessionStorage.getItem("role").split(",")
+    this.role=CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("ClientReportComponent")
     this.onSubmit()
   }
@@ -69,13 +70,13 @@ get sheetName(){
         })
 
       });
-    
+
       this.flag = true;
     }, (err) => {
       console.log(err.message);
     })
   }
-  
+
   checkDay(date){
     if(new Date(date).getDay() == 0 || new Date(date).getDay() == 6)
     {
@@ -92,6 +93,6 @@ get sheetName(){
         /* table id is passed over here */
         let element = document.querySelector(".table-excel");
         this.exportExcelService.exportToExcel(element, this.fileName)
-    
+
       }
 }

@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 import * as XLSX from 'xlsx';
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -70,7 +71,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.role=sessionStorage.getItem("role").split(",")
+    this.role=CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("YearlyEmployeeReportComponent")
     this.getDropDown()
   }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EmpreportService } from '../../providers/empreport.service';
 import { LoginService } from '../../providers/login.service'
 import { DatePipe, Location } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -58,7 +59,7 @@ export class AddEmployeeComponent implements OnInit {
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.roles = sessionStorage.getItem("role").split(",")
+    this.roles = CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../providers/login.service'
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-help',
@@ -20,10 +21,10 @@ export class HelpComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
 
-    this.nav = sessionStorage.getItem("role").split(",")
+    this.nav = CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     if(this.nav.includes("Super Admin")){
       this.nav = ["Production Reports","Client Reports","Admin","Super Admin"]
-    } 
+    }
   }
 
 

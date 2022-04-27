@@ -7,6 +7,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 import { ColumnsortPipe } from '../../pipes/columnsort.pipe'
 import * as XLSX from 'xlsx';
 import * as moment from 'moment'
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-monthly-report',
   templateUrl: './monthly-report.component.html',
@@ -64,7 +65,7 @@ export class MonthlyReportComponent implements OnInit {
   constructor(private loginService: LoginService, private fb: FormBuilder, private empReportService: EmpreportService, private datePipe: DatePipe, private exportExcelService: ExportExcelService, private columnSortPipe: ColumnsortPipe) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.role = sessionStorage.getItem("role").split(",")
+    this.role = CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("MonthlyReportComponent")
     this.getDropDown();
   }

@@ -6,6 +6,7 @@ import { ExportExcelService } from '../../providers/export-excel.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { ColumnsortPipe } from '../../pipes/columnsort.pipe'
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-view-employee',
   templateUrl: './view-employee.component.html',
@@ -76,7 +77,7 @@ export class ViewEmployeeComponent implements OnInit {
   constructor(private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private fb: FormBuilder, private exportExcelService: ExportExcelService, private columnSortPipe: ColumnsortPipe) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.roles = sessionStorage.getItem("role").split(",")
+    this.roles = CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("ViewEmployeeComponent")
     this.getDropDown()
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../providers/login.service'
 import { EmpreportService } from '../../providers/empreport.service';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.nav=sessionStorage.getItem("role").split(",")
+    this.nav=CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.getDropDown()
 
     if(this.nav.includes("Super Admin")){

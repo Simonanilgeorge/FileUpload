@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ExportExcelService } from '../../providers/export-excel.service'
 import {ColumnsortPipe} from '../../pipes/columnsort.pipe'
 import * as XLSX from 'xlsx';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-employee-report',
@@ -40,7 +41,7 @@ export class EmployeeReportComponent implements OnInit {
     "process":"Process",
     "state":"State"
   }
-  
+
   SheetList = ["Productivity", "Utilization", "Orders"];
   flag = 2;
   searchedKeyword: string;
@@ -65,11 +66,11 @@ export class EmployeeReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.loginService.checkSessionStorage();
-    this.role=sessionStorage.getItem("role").split(",")
+    this.role=CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.getDropDown()
     // this.account_name=sessionStorage.getItem("account_name")
     this.loginService.navigateByRole("EmployeeReportComponent")
-  
+
   }
 
 
@@ -97,7 +98,7 @@ export class EmployeeReportComponent implements OnInit {
   // function called when task value is changed
   changeTaskOptions() {
     if(this.task.value==""){
-      this.Processlist=[]   
+      this.Processlist=[]
     }
     else{
       this.final = null
@@ -126,7 +127,7 @@ export class EmployeeReportComponent implements OnInit {
     }
     this.flag = 2;
     this.empreportService.getReportByFilter(this.filterForm.value).subscribe((res) => {
-      
+
       this.onResponse(res);
     }, (err) => {
       console.log(err.message);
@@ -134,7 +135,7 @@ export class EmployeeReportComponent implements OnInit {
   }
 
 
-  // function called on response 
+  // function called on response
   onResponse(res) {
     res = JSON.parse(res);
     this.datas = res;
@@ -169,13 +170,13 @@ export class EmployeeReportComponent implements OnInit {
     // / table id is passed over here /
     let element = document.querySelector(".table-excel");
     // this.exportExcelService.exportToExcel(element, this.fileName)
-    let Heading = [];  
+    let Heading = [];
     this.titles.forEach(element => {
       Heading.push(this.titleCase(this.headings[element]))
     });
     // note
     Heading.push(this.sheetName)
-  
+
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element,{dateNF:'mm/dd/yyyy;@',cellDates:true, raw: true});
     // / generate workbook and add the worksheet /
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
