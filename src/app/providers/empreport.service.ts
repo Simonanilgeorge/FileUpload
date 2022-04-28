@@ -27,8 +27,8 @@ export class EmpreportService {
   private targetTableUrl=`${environment.url}/api/target`
   private singleTargetUrl=`${environment.url}/api/singletarget`
   private incentiveReportUrl=`${environment.url}/api/incentiverprt`
-   
-  
+
+
   sendReport(data: any): Observable<any> {
     return this.http.post<any>(this.url, data)
   }
@@ -72,7 +72,7 @@ export class EmpreportService {
   getEmployees():Observable<any>{
     return this.http.get<any>(this.employeeUrl);
   }
-  
+
   getSingleEmployee(id):Observable<any>{
     return this.http.get<any>(`${this.editEmployeeUrl}/${id}`)
   }
@@ -99,7 +99,7 @@ deleteEmployeeReport(data): Observable<any> {
   return this.http.post<any>(this.deleteEmployeeStatus, data);
 
 }
-// role 
+// role
 addRole(data):Observable<any>{
   return this.http.post<any>(`${this.addRoleUrl}`,data)
 }
@@ -121,8 +121,12 @@ resetPassword(data):Observable<any>{
   return this.http.post<any>(this.resetUrl,data)
 }
 
-getTargetTable(client:string){
+getTargetTable(client:string):Observable<any>{
   return this.http.get<any>(`${this.targetTableUrl}/${client}`)
+}
+
+getStateAndCounty(data):Observable<any>{
+  return this.http.post<any>(`${this.targetTableUrl}`,data)
 }
 
 addTarget(data):Observable<any>{

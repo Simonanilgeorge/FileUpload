@@ -10,9 +10,9 @@
           <div class="text">
               <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
                       {{dataToBeDeleted.inputs.orderNumber}}</span>?</p>
-  
+
           </div>
-  
+
           <div class="buttoncontainer">
               <button class="openbtn" (click)="deleteStatus()">Yes</button>
               <button class="openbtn" (click)="closeModal()">No</button>
@@ -56,7 +56,8 @@
             </div>
             <div class="inputgroup">
               <label for="process">Process</label>
-              <select name="process" class="input-primary" formControlName="Process">
+              <select name="process" class="input-primary" (change)="getStateAndCounty()"
+              formControlName="Process">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let process of Processlist" value="{{process}}">
                   {{process}}
@@ -127,7 +128,7 @@
             </div>
           </div>
           <div class="minicontainer">
-            
+
             <div class="inputgroup"  *ngIf="delete||update">
               <button class="button" type="submit" (click)="goBack()">Cancel</button>
             </div>

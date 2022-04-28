@@ -10,7 +10,7 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class LoginService {
-  encryptSecretKey = "test"
+
 
   constructor(private http: HttpClient, private router: Router) { }
   private url: string = `${environment.url}/api/login`

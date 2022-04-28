@@ -42,9 +42,10 @@ export class MonthlyReportComponent implements OnInit {
     "client": "Client",
     "task": "Task",
     "process": "Process",
-    "state": "State"
+    "state": "State",
+    "county":"County"
   }
-  titles = ["empcode", "name", "doj", "search", "client", "task", "process", "state"];
+  titles = ["empcode", "name", "doj", "search", "client", "task", "process", "state","county"];
   sheetNameRes;
   SheetList = ["Productivity", "Utilization", "Orders"];
   showColumnInput;
@@ -56,7 +57,8 @@ export class MonthlyReportComponent implements OnInit {
     client: [""],
     task: [""],
     process: [""],
-    state: [""]
+    state: [""],
+    county:[""]
   })
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(), "yyyy-MM"), Validators.required],
@@ -110,6 +112,7 @@ export class MonthlyReportComponent implements OnInit {
     this.flag = 2
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
       res = JSON.parse(res);
+      console.log(res)
       this.data = res.data;
       this.dates = res.dates;
 

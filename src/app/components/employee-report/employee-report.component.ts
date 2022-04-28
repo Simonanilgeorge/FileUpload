@@ -29,7 +29,7 @@ export class EmployeeReportComponent implements OnInit {
   Processlist=[]
   final
   sheetName="Productivity";
-  titles = ["empcode", "name", "doj", "search", "client", "task","process","state"];
+  titles = ["empcode", "name", "doj", "search", "client", "task","process","state","county"];
   dropDownFilters=["client","search","task","process"];
   headings = {
     "empcode": "Employee code",
@@ -39,7 +39,8 @@ export class EmployeeReportComponent implements OnInit {
     "client":"Client",
     "task": "Task",
     "process":"Process",
-    "state":"State"
+    "state":"State",
+    "county":"County"
   }
 
   SheetList = ["Productivity", "Utilization", "Orders"];
@@ -54,7 +55,8 @@ export class EmployeeReportComponent implements OnInit {
     client: [""],
     task: [""],
     process:[""],
-    state:[""]
+    state:[""],
+    county:[""]
   })
 
   filterForm = this.fb.group({

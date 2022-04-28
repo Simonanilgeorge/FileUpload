@@ -37,7 +37,7 @@ export class YearlyEmployeeReportComponent implements OnInit {
   searchedKeyword: string;
   data = [];
   dates = [];
-  titles = ["empcode", "name", "doj", "search", "client", "task","process","state"];
+  titles = ["empcode", "name", "doj", "search", "client", "task","process","state","county"];
   headings = {
     "empcode": "Employee code",
     "name": "Employee name",
@@ -46,7 +46,8 @@ export class YearlyEmployeeReportComponent implements OnInit {
     "client": "Client",
     "task": "Task",
     "process":"Process",
-    "state":"State"
+    "state":"State",
+    "county":"County"
   }
 
   sheetNameRes;
@@ -60,7 +61,8 @@ export class YearlyEmployeeReportComponent implements OnInit {
     client: [""],
     task: [""],
     process:[""],
-    state:[""]
+    state:[""],
+    county:[""]
   })
   Date = this.fb.group({
     date: [this.datePipe.transform(new Date(), "yyyy"), Validators.required],

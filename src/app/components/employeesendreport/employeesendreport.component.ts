@@ -110,12 +110,41 @@ export class EmployeesendreportComponent implements OnInit {
     return this.inputs.get("Process")
   }
   changeClientOptions() {
+
     this.Task.setValue("");
     this.Process.setValue("");
     this.mode.setValue("")
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
     this.disableOnClientValues()
     this.Processlist = null
+    this.getStateAndCounty()
+  }
+
+  changeTaskOptions() {
+    this.final = null
+    this.Process.setValue("");
+    this.final = this.inputs.value.Client + this.inputs.value.Task
+    this.Processlist = this.dropDownList[this.final]
+    this.getStateAndCounty()
+  }
+
+  getStateAndCounty() {
+    console.log(this.Client.valid,this.Task.valid,this.Process.valid)
+    this.stateList=[]
+    this.countyList=[]
+    if (this.Client.valid && this.Task.valid && this.Process.valid) {
+      console.log("get county and state")
+      this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+        console.log(res)
+        // assign to stateList and countyList
+        this.stateList=res.state
+        this.countyList=res.county
+      }, (err) => {
+        console.log(err.message)
+      })
+    }
+
+
   }
   // disable or enable fields based on client value
   disableOnClientValues() {
@@ -139,12 +168,7 @@ export class EmployeesendreportComponent implements OnInit {
       this.county.disable()
     }
   }
-  changeTaskOptions() {
-    this.final = null
-    this.Process.setValue("");
-    this.final = this.inputs.value.Client + this.inputs.value.Task
-    this.Processlist = this.dropDownList[this.final]
-  }
+
   setParcelValue() {
     if (this.parcels.value > 99 || this.parcels.value < 0 || this.parcels.value == 0) {
       this.parcels.setValue(1)
