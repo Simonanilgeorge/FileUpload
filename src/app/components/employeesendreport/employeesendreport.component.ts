@@ -48,12 +48,12 @@ export class EmployeesendreportComponent implements OnInit {
         Client: ["", Validators.required],
         Task: ["", Validators.required],
         Process: ["", Validators.required],
-        state: ["ALL", Validators.required],
+        state: ["", Validators.required],
         mode: [""],
         parcels: [1, Validators.required],
         exception: ["No", Validators.required],
         comments: [""],
-        county: ["ALL", Validators.required],
+        county: ["", Validators.required],
         startTime: ["", Validators.required],
         endTime: ["", Validators.required],
         totalTime: [""],
@@ -117,28 +117,41 @@ export class EmployeesendreportComponent implements OnInit {
     this.Tasklist = this.dropDownList[this.inputs.value.Client];
     this.disableOnClientValues()
     this.Processlist = null
-    this.getStateAndCounty()
+    this.getState()
   }
 
   changeTaskOptions() {
     this.final = null
     this.Process.setValue("");
+    // test
+
     this.final = this.inputs.value.Client + this.inputs.value.Task
     this.Processlist = this.dropDownList[this.final]
-    this.getStateAndCounty()
+    this.getState()
   }
 
-  getStateAndCounty() {
-    console.log(this.Client.valid,this.Task.valid,this.Process.valid)
-    this.stateList=[]
-    this.countyList=[]
+  getState() {
+
+    // reset all value of state list and county list so that previous values wont get populated
+    // state needs to be reset everytime
+    this.stateList = []
+    this.state.setValue("")
+
+    // note only if client is TW county list is set to null
+    // warning previous values can exist in county list (but all is set in disable on client value function , if client is TW value gets overrided from previous function)
+    if (this.Client.value == "TW") {
+      this.county.setValue("")
+      this.countyList = []
+    }
+
+
     if (this.Client.valid && this.Task.valid && this.Process.valid) {
-      console.log("get county and state")
+      console.log("get state")
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
         console.log(res)
         // assign to stateList and countyList
-        this.stateList=res.state
-        this.countyList=res.county
+        this.stateList = res.state
+        // this.countyList=res.county
       }, (err) => {
         console.log(err.message)
       })
@@ -146,8 +159,32 @@ export class EmployeesendreportComponent implements OnInit {
 
 
   }
+
+  getCounty() {
+
+    // for all other client values county should be disabled and value should be ALL (the value is set in disableOnClientValues() function)
+    if (this.Client.value == "TW") {
+      this.county.setValue("")
+      this.countyList = []
+    }
+    if (this.Client.valid && this.Task.valid && this.Process.valid && this.state.valid) {
+      console.log("get county")
+      this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+        console.log(res)
+        // assign to stateList and countyList
+        this.countyList = res.county
+      }, (err) => {
+        console.log(err.message)
+      })
+    }
+  }
   // disable or enable fields based on client value
   disableOnClientValues() {
+
+    // county will be set to all for any value of client
+
+
+
     if (this.Client.value == "ASK") {
       this.mode.enable()
       this.parcels.enable()
@@ -160,11 +197,13 @@ export class EmployeesendreportComponent implements OnInit {
     }
     // for county
     if (this.Client.value == "TW") {
-      this.county.setValue("ALL")
+
       this.county.enable()
+
     }
     else {
       this.county.setValue("ALL")
+      this.countyList = ["ALL"]
       this.county.disable()
     }
   }
@@ -246,11 +285,8 @@ export class EmployeesendreportComponent implements OnInit {
       this.dropDownList = res;
       this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
-      this.stateList = this.dropDownList.States;
-      this.countyList = this.dropDownList.County;
       // get single status for update
       this.route.params.subscribe(params => {
-
         switch (Object.keys(params)[0]) {
           // call singlestatus function to populate fields for update
           case "editid":

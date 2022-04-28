@@ -56,7 +56,7 @@
             </div>
             <div class="inputgroup">
               <label for="process">Process</label>
-              <select name="process" class="input-primary" (change)="getStateAndCounty()"
+              <select name="process" class="input-primary" (change)="getState()"
               formControlName="Process">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let process of Processlist" value="{{process}}">
@@ -66,7 +66,7 @@
             </div>
             <div class="inputgroup">
               <label for="state">State</label>
-              <select name="state" class="input-primary" formControlName="state">
+              <select name="state" class="input-primary" (change)="getCounty()"formControlName="state">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let state of stateList" value="{{state}}">
                   {{state}}
