@@ -38,7 +38,7 @@
             </div>
             <div class="inputgroup">
               <label for="client">Client</label>
-              <select name="client" class="input-primary" formControlName="Client" (change)="changeClientOptions()">
+              <select name="client" class="input-primary" formControlName="client" (change)="changeClientOptions()">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let client of ClientList" value="{{client}}">
                   {{client}}
@@ -47,7 +47,7 @@
             </div>
             <div class="inputgroup">
               <label for="task">Task</label>
-              <select name="task" class="input-primary" formControlName="Task" (change)="changeTaskOptions()">
+              <select name="task" class="input-primary" formControlName="task" (change)="changeTaskOptions()">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let task of Tasklist" value="{{task}}">
                   {{task}}
@@ -57,13 +57,14 @@
             <div class="inputgroup">
               <label for="process">Process</label>
               <select name="process" class="input-primary" (change)="getState()"
-              formControlName="Process">
+              formControlName="process">
                 <option value="" [disabled]="true">--Select--</option>
                 <option *ngFor="let process of Processlist" value="{{process}}">
                   {{process}}
                 </option>
               </select>
             </div>
+
             <div class="inputgroup">
               <label for="state">State</label>
               <select name="state" class="input-primary" (change)="getCounty()"formControlName="state">

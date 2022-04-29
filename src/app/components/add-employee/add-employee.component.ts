@@ -155,6 +155,56 @@ export class AddEmployeeComponent implements OnInit {
       }
     })
   }
+
+  getState() {
+
+    // reset all value of state list and county list so that previous values wont get populated
+    // state needs to be reset everytime
+    this.StateList = []
+    this.state.setValue("")
+
+    // note only if client is TW county list is set to null
+    // warning previous values can exist in county list (but all is set in disable on client value function , if client is TW value gets overrided from previous function)
+    if (this.client.value == "TW") {
+      this.county.setValue("")
+      this.countyList = []
+    }
+
+
+    if (this.client.valid && this.task.valid && this.process.valid) {
+      console.log("get state")
+      this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+        console.log(res)
+        // assign to StateList and countyList
+        this.StateList = res.state
+        // this.countyList=res.county
+      }, (err) => {
+        console.log(err.message)
+      })
+    }
+
+
+  }
+
+  getCounty() {
+
+    // for all other client values county should be disabled and value should be ALL (the value is set in disableOnClientValues() function)
+    if (this.client.value == "TW") {
+      this.county.setValue("")
+      this.countyList = []
+    }
+    if (this.client.valid && this.task.valid && this.process.valid && this.state.valid) {
+      console.log("get county")
+      this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+        console.log(res)
+        // assign to stateList and countyList
+        this.countyList = res.county
+      }, (err) => {
+        console.log(err.message)
+      })
+    }
+  }
+
   // submit function for add and update
   onSubmit() {
     this.name.setValue(this.name.value.trim())

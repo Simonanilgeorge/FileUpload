@@ -45,9 +45,9 @@ export class EmployeesendreportComponent implements OnInit {
       inputs: this.fb.group({
         date: [this.datePipe.transform(this.myDate, 'yyyy-MM-dd')],
         orderNumber: ["", Validators.required],
-        Client: ["", Validators.required],
-        Task: ["", Validators.required],
-        Process: ["", Validators.required],
+        client: ["", Validators.required],
+        task: ["", Validators.required],
+        process: ["", Validators.required],
         state: ["", Validators.required],
         mode: [""],
         parcels: [1, Validators.required],
@@ -94,8 +94,8 @@ export class EmployeesendreportComponent implements OnInit {
   get endTime() {
     return this.inputs.get("endTime");
   }
-  get Client() {
-    return this.inputs.get("Client");
+  get client() {
+    return this.inputs.get("client");
   }
   get totalTime() {
     return this.inputs.get("totalTime")
@@ -103,29 +103,30 @@ export class EmployeesendreportComponent implements OnInit {
   get inputs() {
     return this.userForm.get("inputs");
   }
-  get Task() {
-    return this.inputs.get("Task")
+  get task() {
+    return this.inputs.get("task")
   }
-  get Process() {
-    return this.inputs.get("Process")
+  get process() {
+    return this.inputs.get("process")
   }
   changeClientOptions() {
 
-    this.Task.setValue("");
-    this.Process.setValue("");
+    this.task.setValue("");
+    this.process.setValue("");
     this.mode.setValue("")
-    this.Tasklist = this.dropDownList[this.inputs.value.Client];
+    this.Tasklist = this.dropDownList[this.inputs.value.client];
     this.disableOnClientValues()
     this.Processlist = null
     this.getState()
   }
 
+
   changeTaskOptions() {
     this.final = null
-    this.Process.setValue("");
+    this.process.setValue("");
     // test
 
-    this.final = this.inputs.value.Client + this.inputs.value.Task
+    this.final = this.inputs.value.client + this.inputs.value.task
     this.Processlist = this.dropDownList[this.final]
     this.getState()
   }
@@ -134,23 +135,23 @@ export class EmployeesendreportComponent implements OnInit {
 
     // reset all value of state list and county list so that previous values wont get populated
     // state needs to be reset everytime
-    this.stateList = []
+    this.stateList=[]
     this.state.setValue("")
 
     // note only if client is TW county list is set to null
     // warning previous values can exist in county list (but all is set in disable on client value function , if client is TW value gets overrided from previous function)
-    if (this.Client.value == "TW") {
+    if(this.client.value=="TW"){
       this.county.setValue("")
-      this.countyList = []
+      this.countyList=[]
     }
 
 
-    if (this.Client.valid && this.Task.valid && this.Process.valid) {
+    if (this.client.valid && this.task.valid && this.process.valid) {
       console.log("get state")
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
         console.log(res)
         // assign to stateList and countyList
-        this.stateList = res.state
+        this.stateList=res.state
         // this.countyList=res.county
       }, (err) => {
         console.log(err.message)
@@ -160,19 +161,22 @@ export class EmployeesendreportComponent implements OnInit {
 
   }
 
-  getCounty() {
+  getCounty(){
 
-    // for all other client values county should be disabled and value should be ALL (the value is set in disableOnClientValues() function)
-    if (this.Client.value == "TW") {
-      this.county.setValue("")
-      this.countyList = []
-    }
-    if (this.Client.valid && this.Task.valid && this.Process.valid && this.state.valid) {
+          // for all other client values county should be disabled and value should be ALL (the value is set in disableOnclientValues() function)
+          if(this.client.value=="TW"){
+            this.county.setValue("")
+            this.countyList=[]
+          }
+    if (this.client.valid && this.task.valid && this.process.valid && this.state.valid) {
       console.log("get county")
+
+
+
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
         console.log(res)
         // assign to stateList and countyList
-        this.countyList = res.county
+        this.countyList=res.county
       }, (err) => {
         console.log(err.message)
       })
@@ -185,7 +189,7 @@ export class EmployeesendreportComponent implements OnInit {
 
 
 
-    if (this.Client.value == "ASK") {
+    if (this.client.value == "ASK") {
       this.mode.enable()
       this.parcels.enable()
     }
@@ -196,14 +200,14 @@ export class EmployeesendreportComponent implements OnInit {
       this.parcels.setValue(1)
     }
     // for county
-    if (this.Client.value == "TW") {
+    if (this.client.value == "TW") {
 
       this.county.enable()
 
     }
     else {
       this.county.setValue("ALL")
-      this.countyList = ["ALL"]
+      this.countyList=["ALL"]
       this.county.disable()
     }
   }
