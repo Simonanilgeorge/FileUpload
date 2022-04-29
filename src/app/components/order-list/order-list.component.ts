@@ -161,7 +161,7 @@ export class OrderListComponent implements OnInit {
   getDropDown() {
     this.empreportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      this.ClientList = this.dropDownList.client;
+      this.ClientList = this.dropDownList.Client;
       this.statusList = this.dropDownList.Status;
     }, (err) => {
       console.log(err.message)
