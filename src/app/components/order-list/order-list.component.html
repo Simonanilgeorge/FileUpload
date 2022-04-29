@@ -34,7 +34,7 @@
               <input style="width:9em;" type="text" name="orderNumber" formControlName="orderNumber" autocomplete="off">
             </th>
             <th>
-              <select name="client" formControlName="Client" (change)="changeClientOptions($event)">
+              <select name="client" formControlName="client" (change)="changeClientOptions($event)">
                 <option value="">All</option>
                 <option *ngFor="let client of ClientList" value="{{client}}">
                   {{client}}
@@ -42,7 +42,7 @@
               </select>
             </th>
             <th>
-              <select name="task" formControlName="Task" (change)="changeTaskOptions($event)">
+              <select name="task" formControlName="task" (change)="changeTaskOptions($event)">
                 <option value="">All</option>
                 <option *ngFor="let task of Tasklist" value="{{task}}">
                   {{task}}
@@ -50,7 +50,7 @@
               </select>
             </th>
             <th>
-              <select name="process" formControlName="Process">
+              <select name="process" formControlName="process">
                 <option value="">All</option>
                 <option *ngFor="let process of Processlist" value="{{process}}">
                   {{process}}

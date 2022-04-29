@@ -39,17 +39,17 @@ export class OrderListComponent implements OnInit {
   filterForm: FormGroup = this.fb.group({
     date: [""],
     orderNumber: [""],
-    Client: [""],
-    Task: [""],
-    Process: [""],
+    client: [""],
+    task: [""],
+    process: [""],
     status: [""],
   })
   headings = {
     "date": "Date",
     "order_number": "Order Number",
-    "Client": "Client",
-    "Task": "Task",
-    "Process": "Process",
+    "client": "Client",
+    "task": "Task",
+    "process": "Process",
     "state": "State",
     "county":"County",
     "mode":"Mode",
@@ -61,7 +61,7 @@ export class OrderListComponent implements OnInit {
     "status": "Status",
     "last_updated_time": "Last Updated Time",
     "comments":"Comments"
-    
+
   }
   constructor(private loginService: LoginService, private empreportService: EmpreportService, private fb: FormBuilder, private datePipe: DatePipe, private router: Router, private exportExcelService: ExportExcelService, private multiFilterPipe: MultifilterPipe) {
   }
@@ -86,14 +86,14 @@ export class OrderListComponent implements OnInit {
   get date() {
     return this.filterForm.get("date")
   }
-  get Task() {
-    return this.filterForm.get("Task")
+  get task() {
+    return this.filterForm.get("task")
   }
-  get Process() {
-    return this.filterForm.get("Process")
+  get process() {
+    return this.filterForm.get("process")
   }
-  get Client() {
-    return this.filterForm.get("Client")
+  get client() {
+    return this.filterForm.get("client")
   }
   getStatus() {
     if (this.user.status == "INVALID") {
@@ -161,7 +161,7 @@ export class OrderListComponent implements OnInit {
   getDropDown() {
     this.empreportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
-      this.ClientList = this.dropDownList.Client;
+      this.ClientList = this.dropDownList.client;
       this.statusList = this.dropDownList.Status;
     }, (err) => {
       console.log(err.message)
@@ -174,16 +174,16 @@ export class OrderListComponent implements OnInit {
     }, 100)
   }
   changeClientOptions(event) {
-    this.Task.setValue("");
-    this.Process.setValue("");
-    this.Tasklist = this.dropDownList[this.filterForm.value.Client];
+    this.task.setValue("");
+    this.process.setValue("");
+    this.Tasklist = this.dropDownList[this.filterForm.value.client];
     this.Processlist = null
   }
   changeTaskOptions(event) {
     this.final = null
-    this.Process.setValue("");
-    if (this.filterForm.value.Task != "") {
-      this.final = this.filterForm.value.Client + this.filterForm.value.Task
+    this.process.setValue("");
+    if (this.filterForm.value.task != "") {
+      this.final = this.filterForm.value.client + this.filterForm.value.task
     }
     this.Processlist = this.dropDownList[this.final]
   }
@@ -191,9 +191,9 @@ export class OrderListComponent implements OnInit {
     this.filterForm.reset({
       date: [""],
       orderNumber: [""],
-      Client: [""],
-      Task: [""],
-      Process: [""],
+      client: [""],
+      task: [""],
+      process: [""],
       status: [""],
     })
     this.Tasklist = null
@@ -220,7 +220,7 @@ export class OrderListComponent implements OnInit {
   }
   // export to excel file
   export() {
-    // 
+    //
     // / table id is passed over here /
     let element = document.querySelector(".table-excel");
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element, { dateNF: 'mm/dd/yyyy;@', cellDates: true, raw: true });
