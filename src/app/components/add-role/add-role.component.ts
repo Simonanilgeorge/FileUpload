@@ -25,7 +25,7 @@ export class AddRoleComponent implements OnInit {
   displayBoolean = false;
   titles = ["role", "resources"]
   data = []
-  resourceList = ["Production Reports", "Client Reports", "Admin","Order Entry", "My Production Data","Super Admin"]
+  resourceList = ["Production Reports", "Client Reports", "Admin","Order Entry", "My Production Data"]
   roleForm: FormGroup = this.fb.group({
     inputs: this.fb.group({
       id: [{ value: " ", disabled: true }],
@@ -161,6 +161,10 @@ export class AddRoleComponent implements OnInit {
 
   // on clicking edit icon
   edit(data) {
+    if(data.role=="Super Admin"){
+      this.showToastMessage("Super Admin role cannot be modified","warning")
+      return
+    }
     this.resetForm()
 
 
@@ -170,7 +174,7 @@ export class AddRoleComponent implements OnInit {
 
     this.role.disable();
 
-    // get all checkboxes 
+    // get all checkboxes
     let checkbox = this.elem.nativeElement.querySelectorAll('.clickoutside')
     checkbox.forEach((check) => {
       data.resources.forEach((resource) => {
@@ -206,6 +210,10 @@ export class AddRoleComponent implements OnInit {
 
   showModal(data) {
 
+    if(data.role=="Super Admin"){
+      this.showToastMessage("Super Admin role cannot be modified","warning")
+      return
+    }
 
     this.modalBoolean = true;
     this.inputs.patchValue(data)
@@ -225,9 +233,6 @@ export class AddRoleComponent implements OnInit {
 
   // write request to delete role
   deleteRole() {
-
-
-
 
     this.empReportService.deleteRole(this.roleForm.getRawValue()).subscribe((res) => {
 

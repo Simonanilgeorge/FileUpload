@@ -112,7 +112,7 @@ export class MonthlyReportComponent implements OnInit {
     this.flag = 2
     this.empReportService.getMonthlyReport(this.Date.value).subscribe((res) => {
       res = JSON.parse(res);
-      console.log(res)
+
       this.data = res.data;
       this.dates = res.dates;
 

@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    
+
   }
 
 
@@ -47,7 +47,7 @@ export class ResetPasswordComponent implements OnInit {
   submit(){
 
     this.empReportService.resetPassword(this.form.getRawValue()).subscribe((res)=>{
-      console.log(res)
+
       if(res.response=="Success"){
         this.showToastMessage("Password updated","success")
         this.form.reset()
@@ -63,7 +63,7 @@ export class ResetPasswordComponent implements OnInit {
     },(err)=>{
       console.log(err.message)
     })
-  
+
   }
   showToastMessage(message, status) {
     this.message = message;

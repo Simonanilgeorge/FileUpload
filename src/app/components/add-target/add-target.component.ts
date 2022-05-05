@@ -123,14 +123,20 @@ export class AddTargetComponent implements OnInit {
 
   submit() {
     // trim white spaces for text fields
+    this.Client.setValue(this.Client.value.replace(/,/g," "))
+    this.Task.setValue(this.Task.value.replace(/,/g," "))
+    this.Process.setValue(this.Process.value.replace(/,/g," "))
     this.Client.setValue(this.Client.value.trim())
     this.Task.setValue(this.Task.value.trim())
     this.Process.setValue(this.Process.value.trim())
+
 
     if (this.form.invalid) {
       this.showToastMessage("Please fill all fields", "warning")
       return;
     }
+
+
     this.empReportService.addTarget(this.form.value).subscribe((res)=>{
       if(res.response=="Success"){
         this.showToastMessage("New target added","success")
@@ -193,7 +199,7 @@ export class AddTargetComponent implements OnInit {
   }
   showModal() {
     // data.username = sessionStorage.getItem('user')
-    console.log("modal function")
+
     this.modalBoolean = true;
     this.dataToBeDeleted = this.id.value;
   }

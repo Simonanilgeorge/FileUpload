@@ -40,7 +40,7 @@ export class AddEmployeeComponent implements OnInit {
       task: [{ value: '', disabled: false }, Validators.required],
       process: [{ value: '', disabled: false }, Validators.required],
       state: [{ value: '', disabled: false }, Validators.required],
-      county: [{ value: 'ALL', disabled: false }, Validators.required],
+      county: [{ value: '', disabled: false }, Validators.required],
       client: [{ value: '', disabled: false }, Validators.required],
       search: [{ value: '', disabled: false }, Validators.required],
       id: [""],
@@ -59,7 +59,7 @@ export class AddEmployeeComponent implements OnInit {
   constructor(private fb: FormBuilder, private empReportService: EmpreportService, private router: Router, private loginService: LoginService, private route: ActivatedRoute, private datePipe: DatePipe, private elem: ElementRef, private location: Location) { }
   ngOnInit(): void {
     this.loginService.checkSessionStorage();
-    this.roles = CryptoJS.AES.decrypt(sessionStorage.getItem("role"),sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
+    this.roles = CryptoJS.AES.decrypt(sessionStorage.getItem("role"), sessionStorage.getItem("token")).toString(CryptoJS.enc.Utf8).split(",")
     this.loginService.navigateByRole("AddEmployeeComponent")
     this.getDropDown();
   }
@@ -156,25 +156,21 @@ export class AddEmployeeComponent implements OnInit {
     })
   }
 
+
   getState() {
 
     // reset all value of state list and county list so that previous values wont get populated
     // state needs to be reset everytime
     this.StateList = []
     this.state.setValue("")
-
+    this.county.setValue("")
+    this.countyList = []
     // note only if client is TW county list is set to null
     // warning previous values can exist in county list (but all is set in disable on client value function , if client is TW value gets overrided from previous function)
-    if (this.client.value == "TW") {
-      this.county.setValue("")
-      this.countyList = []
-    }
-
-
     if (this.client.valid && this.task.valid && this.process.valid) {
-      console.log("get state")
+
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
-        console.log(res)
+
         // assign to StateList and countyList
         this.StateList = res.state
         // this.countyList=res.county
@@ -189,14 +185,14 @@ export class AddEmployeeComponent implements OnInit {
   getCounty() {
 
     // for all other client values county should be disabled and value should be ALL (the value is set in disableOnClientValues() function)
-    if (this.client.value == "TW") {
-      this.county.setValue("")
-      this.countyList = []
-    }
+
+    this.county.setValue("")
+    this.countyList = []
+
     if (this.client.valid && this.task.valid && this.process.valid && this.state.valid) {
-      console.log("get county")
+
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
-        console.log(res)
+
         // assign to stateList and countyList
         this.countyList = res.county
       }, (err) => {
@@ -264,6 +260,15 @@ export class AddEmployeeComponent implements OnInit {
         let temp = res[0].client + res[0].task
         this.Processlist = this.dropDownList[temp]
         this.inputs.patchValue(res[0]);
+        // populate countylist and statelist values using patchvalue data
+        this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+
+          // assign to stateList and countyList
+          this.countyList = res.county
+          this.StateList = res.state
+        }, (err) => {
+          console.log(err.message)
+        })
       }
       catch {
         this.location.back()
@@ -281,6 +286,8 @@ export class AddEmployeeComponent implements OnInit {
     this.process.setValue("")
     this.Tasklist = this.dropDownList[this.inputs.value.client];
     this.Processlist = []
+    this.getState()
+
   }
   // function called when task value is changed
   changeTaskOptions() {
@@ -288,14 +295,15 @@ export class AddEmployeeComponent implements OnInit {
     this.process.setValue("");
     this.final = this.client.value + this.task.value
     this.Processlist = this.dropDownList[this.final]
+    this.getState()
   }
   // get dropdown array
   getDropDown() {
     this.empReportService.getDropDownList().subscribe((res) => {
       this.dropDownList = res;
 
-      this.StateList = this.dropDownList.States
-      this.countyList = this.dropDownList.County
+      // this.StateList = this.dropDownList.States
+      // this.countyList = this.dropDownList.County
       this.ClientList = this.dropDownList.Client;
       if (this.roles.includes('Super Admin')) {
         this.roleList = res.role

@@ -17,6 +17,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EmployeeReportComponent implements OnInit {
   // account_name
+
   searchedItems
   role;
   // Daily Production report
@@ -114,7 +115,7 @@ export class EmployeeReportComponent implements OnInit {
 // get daily production report(called initially with no date)
   getReport() {
     this.empreportService.getReport().subscribe((res) => {
-      console.log(res)
+
       this.onResponse(res);
     }, (err) => {
       console.log(err.message)

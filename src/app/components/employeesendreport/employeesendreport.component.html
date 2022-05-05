@@ -1,147 +1,142 @@
 <div class="container">
   <app-navbar></app-navbar>
-
   <app-toast [message]="message" [classBoolean]="toast" [toastStatus]="toastStatus"></app-toast>
-    <div class="modal" [class.display]="modalBoolean" #modalRef>
-      <div class="modal-content">
-          <div class="text">
-              <h2 style="color:red;">Confirm Delete</h2>
-          </div>
-          <div class="text">
-              <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
-                      {{dataToBeDeleted.inputs.orderNumber}}</span>?</p>
-
-          </div>
-
-          <div class="buttoncontainer">
-              <button class="openbtn" (click)="deleteStatus()">Yes</button>
-              <button class="openbtn" (click)="closeModal()">No</button>
-          </div>
+  <div class="modal" [class.display]="modalBoolean" #modalRef>
+    <div class="modal-content">
+      <div class="text">
+        <h2 style="color:red;">Confirm Delete</h2>
       </div>
-  </div>
-    <div class="cardcontainer">
-      <div class="card">
-        <form [formGroup]="userForm" >
-          <div class="inputgroup">
-            <h2 *ngIf="!update && !delete">Enter Production Data</h2>
-            <h2 *ngIf="update">Update Production Data</h2>
-            <h2 *ngIf="delete">Delete Production Data</h2>
-          </div>
-          <div class="formcontainer-primary" formGroupName="inputs">
-            <div class="inputgroup">
-              <label for="date">Date</label>
-              <input type="date" name="date" class="input-primary" formControlName="date">
-            </div>
-            <div class="inputgroup">
-              <label for="orderNumber">Order Number</label>
-              <input name="orderNumber" class="input-primary" formControlName="orderNumber" autocomplete="off">
-            </div>
-            <div class="inputgroup">
-              <label for="client">Client</label>
-              <select name="client" class="input-primary" formControlName="client" (change)="changeClientOptions()">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let client of ClientList" value="{{client}}">
-                  {{client}}
-                </option>
-              </select>
-            </div>
-            <div class="inputgroup">
-              <label for="task">Task</label>
-              <select name="task" class="input-primary" formControlName="task" (change)="changeTaskOptions()">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let task of Tasklist" value="{{task}}">
-                  {{task}}
-                </option>
-              </select>
-            </div>
-            <div class="inputgroup">
-              <label for="process">Process</label>
-              <select name="process" class="input-primary" (change)="getState()"
-              formControlName="process">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let process of Processlist" value="{{process}}">
-                  {{process}}
-                </option>
-              </select>
-            </div>
-
-            <div class="inputgroup">
-              <label for="state">State</label>
-              <select name="state" class="input-primary" (change)="getCounty()"formControlName="state">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let state of stateList" value="{{state}}">
-                  {{state}}
-                </option>
-              </select>
-            </div>
-
-            <div class="inputgroup">
-              <label for="county">County</label>
-              <select name="county" class="input-primary" formControlName="county">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let county of countyList" value="{{county}}">
-                  {{county}}
-                </option>
-              </select>
-            </div>
-            <div class="inputgroup">
-              <label for="mode">Mode</label>
-              <select name="mode" class="input-primary" formControlName="mode">
-                <option value="">--Select--</option>
-                <option *ngFor="let mode of modeList" value="{{mode}}">
-                  {{mode}}
-                </option>
-              </select>
-            </div>
-            <div class="inputgroup">
-              <label for="exception">Exception</label>
-              <select name="exception" class="input-primary" formControlName="exception">
-                <option value="" [disabled]="true">--Select--</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
-            </div>
-            <div class="inputgroup">
-              <label for="parcels">Parcels</label>
-              <input name="parcels" type="number" min="1" max="99" pattern="[0-9]" step="1" (input)="setParcelValue()" class="input-primary" formControlName="parcels" autocomplete="off">
-            </div>
-            <div class="inputgroup">
-              <label for="comments">Comments</label>
-              <input name="comments" class="input-primary" formControlName="comments" autocomplete="off">
-            </div>
-            <div class="inputgroup">
-              <label for="start_time">Start Time</label>
-              <input type="time" name="start_time" class="input-primary" formControlName="startTime" (change)="getTotalTime()">
-            </div>
-            <div class="inputgroup" style="position:relative;">
-              <label for="end_time">End Time</label>
-              <input type="time" name="end_time" class="input-primary" formControlName="endTime" (change)="getTotalTime()">
-              <!-- <small *ngIf="startTime.valid && endTime.valid" style="color: rgb(187, 184, 184);position: absolute; bottom: 0;left:7%;">(Total time taken {{getTotalTime()}} min)</small> -->
-            </div>
-            <div class="inputgroup">
-              <label for="status">Status</label>
-              <select name="status" class="input-primary" formControlName="status">
-                <option value="" [disabled]="true">--Select--</option>
-                <option *ngFor="let status of statusList">
-                  {{status}}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="minicontainer">
-
-            <div class="inputgroup"  *ngIf="delete||update">
-              <button class="button" type="submit" (click)="goBack()">Cancel</button>
-            </div>
-            <div class="inputgroup" *ngIf="!delete">
-              <button class="button" (click)="onSubmit()">Submit</button>
-            </div>
-            <div class="inputgroup"  *ngIf="delete">
-              <button class="button" (click)="showModal()">Delete</button>
-            </div>
-          </div>
-        </form>
+      <div class="text">
+        <p>Are you sure you want to delete <span *ngIf="dataToBeDeleted">
+            {{dataToBeDeleted.inputs.orderNumber}}</span>?</p>
+      </div>
+      <div class="buttoncontainer">
+        <button class="openbtn" (click)="deleteStatus()">Yes</button>
+        <button class="openbtn" (click)="closeModal()">No</button>
       </div>
     </div>
-
   </div>
+  <div class="cardcontainer">
+    <div class="card">
+      <form [formGroup]="userForm">
+        <div class="inputgroup">
+          <h2 *ngIf="!update && !delete">Enter Production Data</h2>
+          <h2 *ngIf="update">Update Production Data</h2>
+          <h2 *ngIf="delete">Delete Production Data</h2>
+        </div>
+        <div class="formcontainer-primary" formGroupName="inputs">
+          <div class="inputgroup">
+            <label for="date">Date</label>
+            <input type="date" name="date" class="input-primary" formControlName="date">
+          </div>
+          <div class="inputgroup">
+            <label for="orderNumber">Order Number</label>
+            <input name="orderNumber" class="input-primary" formControlName="orderNumber" autocomplete="off">
+          </div>
+          <div class="inputgroup">
+            <label for="client">Client</label>
+            <select name="client" class="input-primary" formControlName="client" (change)="changeClientOptions()">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let client of ClientList" value="{{client}}">
+                {{client}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="task">Task</label>
+            <select name="task" class="input-primary" formControlName="task" (change)="changeTaskOptions()">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let task of Tasklist" value="{{task}}">
+                {{task}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="process">Process</label>
+            <select name="process" class="input-primary" (change)="getState()" formControlName="process">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let process of Processlist" value="{{process}}">
+                {{process}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="state">State</label>
+            <select name="state" class="input-primary" (change)="getCounty()" formControlName="state">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let state of stateList" value="{{state}}">
+                {{state}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="county">County</label>
+            <select name="county" class="input-primary" formControlName="county">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let county of countyList" value="{{county}}">
+                {{county}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="mode">Mode</label>
+            <select name="mode" class="input-primary" formControlName="mode">
+              <option value="">--Select--</option>
+              <option *ngFor="let mode of modeList" value="{{mode}}">
+                {{mode}}
+              </option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="exception">Exception</label>
+            <select name="exception" class="input-primary" formControlName="exception">
+              <option value="" [disabled]="true">--Select--</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="inputgroup">
+            <label for="parcels">Parcels</label>
+            <input name="parcels" type="number" min="1" max="99" pattern="[0-9]" step="1" (input)="setParcelValue()"
+              class="input-primary" formControlName="parcels" autocomplete="off">
+          </div>
+          <div class="inputgroup">
+            <label for="comments">Comments</label>
+            <input name="comments" class="input-primary" formControlName="comments" autocomplete="off">
+          </div>
+          <div class="inputgroup">
+            <label for="start_time">Start Time</label>
+            <input type="time" name="start_time" class="input-primary" formControlName="startTime"
+              (change)="getTotalTime()">
+          </div>
+          <div class="inputgroup" style="position:relative;">
+            <label for="end_time">End Time</label>
+            <input type="time" name="end_time" class="input-primary" formControlName="endTime"
+              (change)="getTotalTime()">
+            <!-- <small *ngIf="startTime.valid && endTime.valid" style="color: rgb(187, 184, 184);position: absolute; bottom: 0;left:7%;">(Total time taken {{getTotalTime()}} min)</small> -->
+          </div>
+          <div class="inputgroup">
+            <label for="status">Status</label>
+            <select name="status" class="input-primary" formControlName="status">
+              <option value="" [disabled]="true">--Select--</option>
+              <option *ngFor="let status of statusList">
+                {{status}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="minicontainer">
+          <div class="inputgroup" *ngIf="delete||update">
+            <button class="button" type="submit" (click)="goBack()">Cancel</button>
+          </div>
+          <div class="inputgroup" *ngIf="!delete">
+            <button class="button" (click)="onSubmit()">Submit</button>
+          </div>
+          <div class="inputgroup" *ngIf="delete">
+            <button class="button" (click)="showModal()">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

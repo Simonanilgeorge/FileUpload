@@ -110,7 +110,6 @@ export class EmployeesendreportComponent implements OnInit {
     return this.inputs.get("process")
   }
   changeClientOptions() {
-
     this.task.setValue("");
     this.process.setValue("");
     this.mode.setValue("")
@@ -119,64 +118,49 @@ export class EmployeesendreportComponent implements OnInit {
     this.Processlist = null
     this.getState()
   }
-
-
   changeTaskOptions() {
     this.final = null
     this.process.setValue("");
     // test
-
     this.final = this.inputs.value.client + this.inputs.value.task
     this.Processlist = this.dropDownList[this.final]
     this.getState()
   }
-
   getState() {
-
     // reset all value of state list and county list so that previous values wont get populated
     // state needs to be reset everytime
-    this.stateList=[]
+    this.stateList = []
     this.state.setValue("")
-
     // note only if client is TW county list is set to null
     // warning previous values can exist in county list (but all is set in disable on client value function , if client is TW value gets overrided from previous function)
-    if(this.client.value=="TW"){
+    if (this.client.value == "TW") {
       this.county.setValue("")
-      this.countyList=[]
+      this.countyList = []
     }
-
-
     if (this.client.valid && this.task.valid && this.process.valid) {
-      console.log("get state")
+
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
         console.log(res)
         // assign to stateList and countyList
-        this.stateList=res.state
+        this.stateList = res.state
         // this.countyList=res.county
       }, (err) => {
         console.log(err.message)
       })
     }
-
-
   }
-
-  getCounty(){
-
-          // for all other client values county should be disabled and value should be ALL (the value is set in disableOnclientValues() function)
-          if(this.client.value=="TW"){
-            this.county.setValue("")
-            this.countyList=[]
-          }
+  getCounty() {
+    // for all other client values county should be disabled and value should be ALL (the value is set in disableOnclientValues() function)
+    if (this.client.value == "TW") {
+      this.county.setValue("")
+      this.countyList = []
+    }
     if (this.client.valid && this.task.valid && this.process.valid && this.state.valid) {
-      console.log("get county")
-
-
 
       this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
-        console.log(res)
+
         // assign to stateList and countyList
-        this.countyList=res.county
+        this.countyList = res.county
       }, (err) => {
         console.log(err.message)
       })
@@ -184,11 +168,7 @@ export class EmployeesendreportComponent implements OnInit {
   }
   // disable or enable fields based on client value
   disableOnClientValues() {
-
     // county will be set to all for any value of client
-
-
-
     if (this.client.value == "ASK") {
       this.mode.enable()
       this.parcels.enable()
@@ -201,17 +181,14 @@ export class EmployeesendreportComponent implements OnInit {
     }
     // for county
     if (this.client.value == "TW") {
-
       this.county.enable()
-
     }
     else {
       this.county.setValue("ALL")
-      this.countyList=["ALL"]
+      this.countyList = ["ALL"]
       this.county.disable()
     }
   }
-
   setParcelValue() {
     if (this.parcels.value > 99 || this.parcels.value < 0 || this.parcels.value == 0) {
       this.parcels.setValue(1)
@@ -221,7 +198,6 @@ export class EmployeesendreportComponent implements OnInit {
     }
   }
   onSubmit() {
-
     this.orderNumber.setValue(this.orderNumber.value.trim())
     // check if all compulsory fields are filled
     if (!this.userForm.valid) {
@@ -308,31 +284,9 @@ export class EmployeesendreportComponent implements OnInit {
             break;
           default: this.update = false;
             this.delete = false
-
-
-
         }
       });
 
-      // const id = sessionStorage.getItem('updateID');
-      // const deleteID = sessionStorage.getItem('deleteID')
-      // if (id) {
-      //   this.update = true;
-      //   this.orderNumber.disable()
-      //   // call singlestatus function to populate fields for update
-      //   this.getSingleStatus();
-      // }
-      // else if (deleteID) {
-      //   this.userForm.disable()
-      //   this.displayBoolean = false;
-      //   this.delete = true;
-      //   this.order_id = { id: deleteID }
-      //   this.getSingleStatus();
-      // }
-      // else {
-      //   this.update = false;
-      //   this.delete = false
-      // }
     }, (err) => {
       console.log(err.message)
     })
@@ -350,10 +304,20 @@ export class EmployeesendreportComponent implements OnInit {
     this.empReportService.getSingleReport(this.order_id).subscribe((res) => {
       try {
         res = JSON.parse(res);
-        this.Tasklist = this.dropDownList[res[0].Client];
-        let temp = res[0].Client + res[0].Task
+        this.Tasklist = this.dropDownList[res[0].client];
+        let temp = res[0].client + res[0].task
         this.Processlist = this.dropDownList[temp]
+        // get state and list with client,process,task values
+        // get countylist with state values
         this.inputs.patchValue(res[0]);
+        this.empReportService.getStateAndCounty(this.userForm.getRawValue()).subscribe((res) => {
+
+          // assign to stateList and countyList
+          this.countyList = res.county
+          this.stateList = res.state
+        }, (err) => {
+          console.log(err.message)
+        })
         if (this.update) {
           this.disableOnClientValues()
         }
@@ -361,14 +325,11 @@ export class EmployeesendreportComponent implements OnInit {
       catch {
         this.location.back()
       }
-
     }, (err) => {
-
       console.log(err.message);
     })
   }
   deleteStatus() {
-
     this.modalBoolean = false;
     this.empReportService.deleteEmployeeReport(this.userForm.getRawValue()).subscribe((res) => {
       this.showToastMessage(res.status, "success")

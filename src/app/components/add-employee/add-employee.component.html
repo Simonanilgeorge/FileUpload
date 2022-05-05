@@ -103,7 +103,8 @@
           <div class="inputgroup">
 
             <label for="State">State</label>
-            <select name="State" class="input-primary" formControlName="state">
+            <select name="State" class="input-primary" (change)="getCounty()"
+            formControlName="state">
               <option value="" [disabled]="true">--Select--</option>
 
               <option *ngFor="let state of StateList" value="{{state}}">
@@ -116,7 +117,7 @@
           <div class="inputgroup">
 
             <label for="county">County</label>
-            <select name="county" class="input-primary" (change)="getCounty()"
+            <select name="county" class="input-primary"
             formControlName="county">
               <option value="" [disabled]="true">--Select--</option>
 
